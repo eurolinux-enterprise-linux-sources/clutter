@@ -46,7 +46,9 @@
 #include "cally-text.h"
 #include "cally-actor-private.h"
 
+#include "clutter-color.h"
 #include "clutter-main.h"
+#include "clutter-text.h"
 
 static void cally_text_finalize   (GObject *obj);
 
@@ -172,17 +174,6 @@ static int                  _cally_misc_get_index_at_point (ClutterText *clutter
                                                             gint         y,
                                                             AtkCoordType coords);
 
-G_DEFINE_TYPE_WITH_CODE (CallyText,
-                         cally_text,
-                         CALLY_TYPE_ACTOR,
-                         G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT,
-                                                cally_text_text_interface_init)
-                         G_IMPLEMENT_INTERFACE (ATK_TYPE_EDITABLE_TEXT,
-                                                cally_text_editable_text_interface_init));
-
-#define CALLY_TEXT_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CALLY_TYPE_TEXT, CallyTextPrivate))
-
 struct _CallyTextPrivate
 {
   /* Cached ClutterText values*/
@@ -204,6 +195,15 @@ struct _CallyTextPrivate
   guint activate_action_id;
 };
 
+G_DEFINE_TYPE_WITH_CODE (CallyText,
+                         cally_text,
+                         CALLY_TYPE_ACTOR,
+                         G_ADD_PRIVATE (CallyText)
+                         G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT,
+                                                cally_text_text_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATK_TYPE_EDITABLE_TEXT,
+                                                cally_text_editable_text_interface_init));
+
 static void
 cally_text_class_init (CallyTextClass *klass)
 {
@@ -217,14 +217,12 @@ cally_text_class_init (CallyTextClass *klass)
   class->ref_state_set = cally_text_ref_state_set;
 
   cally_class->notify_clutter = cally_text_notify_clutter;
-
-  g_type_class_add_private (gobject_class, sizeof (CallyTextPrivate));
 }
 
 static void
 cally_text_init (CallyText *cally_text)
 {
-  CallyTextPrivate *priv = CALLY_TEXT_GET_PRIVATE (cally_text);
+  CallyTextPrivate *priv = cally_text_get_instance_private (cally_text);
 
   cally_text->priv = priv;
 
@@ -316,9 +314,9 @@ cally_text_real_initialize(AtkObject *obj,
   _check_activate_action (cally_text, clutter_text);
 
   if (clutter_text_get_password_char (clutter_text) != 0)
-    obj->role = ATK_ROLE_PASSWORD_TEXT;
+    atk_object_set_role (obj, ATK_ROLE_PASSWORD_TEXT);
   else
-    obj->role = ATK_ROLE_TEXT;
+    atk_object_set_role (obj, ATK_ROLE_TEXT);
 }
 
 static AtkStateSet*
@@ -1077,13 +1075,28 @@ cally_text_get_text (AtkText *text,
                      gint end_offset)
 {
   ClutterActor *actor = NULL;
+  PangoLayout *layout = NULL;
+  const gchar *string = NULL;
+  gint character_count = 0;
 
   actor = CALLY_GET_CLUTTER_ACTOR (text);
   if (actor == NULL) /* Object is defunct */
     return NULL;
 
-  return clutter_text_get_chars (CLUTTER_TEXT (actor),
-                                 start_offset, end_offset);
+  /* we use the pango layout instead of clutter_text_get_chars because
+     it take into account password-char */
+
+  layout = clutter_text_get_layout (CLUTTER_TEXT (actor));
+  string = pango_layout_get_text (layout);
+  character_count = pango_layout_get_character_count (layout);
+
+  if (end_offset == -1 || end_offset > character_count)
+    end_offset = character_count;
+
+  if (string[0] == 0)
+    return g_strdup("");
+  else
+    return g_utf8_substring (string, start_offset, end_offset);
 }
 
 static gunichar
@@ -1091,15 +1104,21 @@ cally_text_get_character_at_offset (AtkText *text,
                                     gint     offset)
 {
   ClutterActor *actor      = NULL;
-  gchar        *string     = NULL;
+  const gchar  *string     = NULL;
   gchar        *index      = NULL;
   gunichar      unichar;
+  PangoLayout  *layout = NULL;
 
   actor = CALLY_GET_CLUTTER_ACTOR (text);
   if (actor == NULL) /* State is defunct */
     return '\0';
 
-  string = clutter_text_get_chars (CLUTTER_TEXT (actor), 0, -1);
+  /* we use the pango layout instead of clutter_text_get_chars because
+     it take into account password-char */
+
+  layout = clutter_text_get_layout (CLUTTER_TEXT (actor));
+  string = pango_layout_get_text (layout);
+
   if (offset >= g_utf8_strlen (string, -1))
     {
       unichar = '\0';
@@ -1108,10 +1127,8 @@ cally_text_get_character_at_offset (AtkText *text,
     {
       index = g_utf8_offset_to_pointer (string, offset);
 
-      unichar = g_utf8_get_char(index);
+      unichar = g_utf8_get_char (index);
     }
-
-  g_free(string);
 
   return unichar;
 }
@@ -1218,6 +1235,7 @@ cally_text_get_n_selections (AtkText *text)
 {
   ClutterActor *actor           = NULL;
   gint          selection_bound = -1;
+  gint          cursor_position = -1;
 
   actor = CALLY_GET_CLUTTER_ACTOR (text);
   if (actor == NULL) /* State is defunct */
@@ -1227,11 +1245,12 @@ cally_text_get_n_selections (AtkText *text)
     return 0;
 
   selection_bound = clutter_text_get_selection_bound (CLUTTER_TEXT (actor));
+  cursor_position = clutter_text_get_cursor_position (CLUTTER_TEXT (actor));
 
-  if (selection_bound > 0)
-    return 1;
-  else
+  if (selection_bound == cursor_position)
     return 0;
+  else
+    return 1;
 }
 
 static gchar*

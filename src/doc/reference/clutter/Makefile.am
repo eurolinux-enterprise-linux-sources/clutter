@@ -16,7 +16,7 @@ SCAN_OPTIONS = --deprecated-guards="CLUTTER_DISABLE_DEPRECATED"
 
 # Extra options to supply to gtkdoc-mkdb.
 # e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
-MKDB_OPTIONS = --sgml-mode --output-format=xml --name-space=clutter
+MKDB_OPTIONS = --output-format=xml --name-space=clutter
 
 # Extra options to supply to gtkdoc-mktmpl
 # e.g. MKTMPL_OPTIONS=--only-section-tmpl
@@ -44,6 +44,7 @@ HFILE_GLOB = \
 	$(top_srcdir)/clutter/cex100/clutter-cex100.h \
 	$(top_srcdir)/clutter/win32/clutter-win32.h \
 	$(top_srcdir)/clutter/gdk/clutter-gdk.h \
+	$(top_srcdir)/clutter/wayland/clutter-wayland.h \
 	$(top_srcdir)/clutter/wayland/clutter-wayland-compositor.h \
 	$(top_srcdir)/clutter/wayland/clutter-wayland-surface.h
 
@@ -89,10 +90,12 @@ IGNORE_HFILES = \
 	clutter-private.h 		\
 	clutter-profile.h		\
 	clutter-script-private.h 	\
+	clutter-settings-private.h	\
 	clutter-stage-manager-private.h	\
 	clutter-stage-private.h		\
 	clutter-stage-window.h 		\
 	clutter-timeout-interval.h 	\
+	clutter-test-utils.h		\
 	cally				\
 	cex100				\
 	cogl 				\
@@ -113,6 +116,7 @@ EXTRA_HFILES = \
 	$(top_srcdir)/clutter/cex100/clutter-cex100.h \
 	$(top_srcdir)/clutter/win32/clutter-win32.h \
 	$(top_srcdir)/clutter/gdk/clutter-gdk.h \
+	$(top_srcdir)/clutter/wayland/clutter-wayland.h \
 	$(top_srcdir)/clutter/wayland/clutter-wayland-compositor.h \
 	$(top_srcdir)/clutter/wayland/clutter-wayland-surface.h
 
@@ -168,7 +172,13 @@ expand_content_files = \
 # e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
 # e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
 
-INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/clutter -I$(top_builddir) -I$(top_builddir)/clutter $(CLUTTER_CFLAGS) -DCLUTTER_DISABLE_DEPRECATION_WARNINGS
+AM_CPPFLAGS = \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/clutter \
+	-I$(top_builddir) \
+	-I$(top_builddir)/clutter \
+	-DCLUTTER_DISABLE_DEPRECATION_WARNINGS
+AM_CFLAGS = $(CLUTTER_CFLAGS)
 GTKDOC_LIBS = $(top_builddir)/clutter/libclutter-@CLUTTER_API_VERSION@.la $(CLUTTER_LIBS)
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.

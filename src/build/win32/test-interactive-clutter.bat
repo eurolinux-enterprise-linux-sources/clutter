@@ -47,5 +47,6 @@ test-interactive-clutter test-content
 test-interactive-clutter test-keyframe-transition
 test-interactive-clutter test-bind-constraint
 test-interactive-clutter test-touch-events
-test-interactive-clutter test-touch-events
+test-interactive-clutter test-rotate-zoom
+test-interactive-clutter test-rotate-zoom
 test-interactive-clutter test-image

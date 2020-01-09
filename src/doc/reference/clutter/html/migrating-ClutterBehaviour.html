@@ -2,22 +2,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Migrating from ClutterBehaviour</title>
+<title>Clutter Reference Manual: Migrating from ClutterBehaviour</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Clutter Reference Manual">
 <link rel="up" href="migration.html" title="Part VIII. Migrating from previous version of Clutter">
 <link rel="prev" href="using-cairo.html" title="Integration with Cairo">
 <link rel="next" href="migrating-ClutterAnimation.html" title="Migrating from ClutterAnimation">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.20.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
-<td><a accesskey="p" href="using-cairo.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="migration.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Clutter Reference Manual</th>
-<td><a accesskey="n" href="migrating-ClutterAnimation.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="migration.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="using-cairo.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="migrating-ClutterAnimation.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="chapter">
 <div class="titlepage"><div>
@@ -52,7 +52,7 @@
 6
 7</pre></td>
         <td class="listing_code"><pre class="programlisting"><span class="usertype">ClutterTimeline</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">timeline </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterTimeline.html#clutter-timeline-new">clutter_timeline_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="number">250</span><span class="symbol">);</span>
-<span class="usertype">ClutterAlpha</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">alpha </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterAlpha.html#clutter-alpha-new-full">clutter_alpha_new_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-LINEAR:CAPS">CLUTTER_LINEAR</a></span><span class="symbol">);</span>
+<span class="usertype">ClutterAlpha</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">alpha </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterAlpha.html#clutter-alpha-new-full">clutter_alpha_new_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">,</span><span class="normal"> CLUTTER_LINEAR</span><span class="symbol">);</span>
 <span class="usertype">ClutterBehaviour</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">behaviour </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterBehaviourOpacity.html#clutter-behaviour-opacity-new">clutter_behaviour_opacity_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">alpha</span><span class="symbol">,</span><span class="normal"> </span><span class="number">255</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
 
 <span class="function"><a href="ClutterBehaviour.html#clutter-behaviour-apply">clutter_behaviour_apply</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">behaviour</span><span class="symbol">,</span><span class="normal"> some_actor</span><span class="symbol">);</span>
@@ -63,8 +63,8 @@
   </table>
 </div>
 
-<p>The same effect can be achieved by using <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> and
-  the <a class="link" href="ClutterActor.html#ClutterActor--opacity" title='The "opacity" property'><span class="type">"opacity"</span></a> property:</p>
+<p>The same effect can be achieved by using <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> and
+  the <a class="link" href="ClutterActor.html#ClutterActor--opacity" title="The “opacity” property"><span class="type">“opacity”</span></a> property:</p>
 <div class="informalexample">
   <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
     <tbody>
@@ -74,7 +74,7 @@
 3
 4</pre></td>
         <td class="listing_code"><pre class="programlisting"><span class="function"><a href="ClutterActor.html#clutter-actor-set-opacity">clutter_actor_set_opacity</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> </span><span class="number">255</span><span class="symbol">);</span>
-<span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-LINEAR:CAPS">CLUTTER_LINEAR</a></span><span class="symbol">,</span><span class="normal"> </span><span class="number">250</span><span class="symbol">,</span>
+<span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> CLUTTER_LINEAR</span><span class="symbol">,</span><span class="normal"> </span><span class="number">250</span><span class="symbol">,</span>
 <span class="normal">                       </span><span class="string">"opacity"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
 <span class="normal">                       NULL</span><span class="symbol">);</span></pre></td>
       </tr>
@@ -124,19 +124,19 @@
 <span class="cbracket">{</span>
 <span class="normal">  </span><span class="usertype">ClutterTimelineDirection</span><span class="normal"> dir </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterTimeline.html#clutter-timeline-get-direction">clutter_timeline_get_direction</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">);</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dir </span><span class="symbol">==</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-TIMELINE-FORWARD:CAPS">CLUTTER_TIMELINE_FORWARD</a></span><span class="symbol">)</span>
-<span class="normal">    dir </span><span class="symbol">=</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-TIMELINE-BACKWARD:CAPS">CLUTTER_TIMELINE_BACKWARD</a></span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dir </span><span class="symbol">==</span><span class="normal"> CLUTTER_TIMELINE_FORWARD</span><span class="symbol">)</span>
+<span class="normal">    dir </span><span class="symbol">=</span><span class="normal"> CLUTTER_TIMELINE_BACKWARD</span><span class="symbol">;</span>
 <span class="normal">  </span><span class="keyword">else</span>
-<span class="normal">    dir </span><span class="symbol">=</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-TIMELINE-FORWARD:CAPS">CLUTTER_TIMELINE_FORWARD</a></span><span class="symbol">;</span>
+<span class="normal">    dir </span><span class="symbol">=</span><span class="normal"> CLUTTER_TIMELINE_FORWARD</span><span class="symbol">;</span>
 
 <span class="normal">  </span><span class="function"><a href="ClutterTimeline.html#clutter-timeline-set-direction">clutter_timeline_set_direction</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">,</span><span class="normal"> dir</span><span class="symbol">);</span>
 <span class="cbracket">}</span>
 
 <span class="normal">  </span><span class="usertype">ClutterTimeline</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">timeline </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterTimeline.html#clutter-timeline-new">clutter_timeline_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="number">500</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="usertype">ClutterAlpha</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">alpha </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterAlpha.html#clutter-alpha-new-full">clutter_alpha_new_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-LINEAR:CAPS">CLUTTER_LINEAR</a></span><span class="symbol">);</span>
+<span class="normal">  </span><span class="usertype">ClutterAlpha</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">alpha </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterAlpha.html#clutter-alpha-new-full">clutter_alpha_new_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeline</span><span class="symbol">,</span><span class="normal"> CLUTTER_LINEAR</span><span class="symbol">);</span>
 <span class="normal">  </span><span class="usertype">ClutterBehaviour</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">behaviour</span><span class="symbol">;</span>
 
-<span class="normal">  </span><span class="function">g_object_set</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"scale-gravity"</span><span class="symbol">,</span><span class="normal"> <a href="ClutterBehaviourScale.html#CLUTTER-GRAVITY-CENTER:CAPS">CLUTTER_GRAVITY_CENTER</a></span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">g_object_set</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"scale-gravity"</span><span class="symbol">,</span><span class="normal"> CLUTTER_GRAVITY_CENTER</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
 <span class="normal">  behaviour </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterBehaviourScale.html#clutter-behaviour-scale-new">clutter_behaviour_scale_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">alpha</span><span class="symbol">,</span>
 <span class="normal">                                           </span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">,</span>
 <span class="normal">                                           </span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">);</span>
@@ -169,10 +169,10 @@
 9
 10</pre></td>
         <td class="listing_code"><pre class="programlisting"><span class="usertype">ClutterAnimation</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">animation </span><span class="symbol">=</span>
-<span class="normal">  </span><span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-LINEAR:CAPS">CLUTTER_LINEAR</a></span><span class="symbol">,</span><span class="normal"> </span><span class="number">500</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">some_actor</span><span class="symbol">,</span><span class="normal"> CLUTTER_LINEAR</span><span class="symbol">,</span><span class="normal"> </span><span class="number">500</span><span class="symbol">,</span>
 <span class="normal">                         </span><span class="string">"scale-x"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">,</span>
 <span class="normal">                         </span><span class="string">"scale-y"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">,</span>
-<span class="normal">                         </span><span class="string">"fixed::scale-gravity"</span><span class="symbol">,</span><span class="normal"> <a href="ClutterBehaviourScale.html#CLUTTER-GRAVITY-CENTER:CAPS">CLUTTER_GRAVITY_CENTER</a></span><span class="symbol">,</span>
+<span class="normal">                         </span><span class="string">"fixed::scale-gravity"</span><span class="symbol">,</span><span class="normal"> CLUTTER_GRAVITY_CENTER</span><span class="symbol">,</span>
 <span class="normal">                         NULL</span><span class="symbol">);</span>
 
 <span class="usertype">ClutterTimeline</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">timeline </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="clutter-Implicit-Animations.html#clutter-animation-get-timeline">clutter_animation_get_timeline</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">animation</span><span class="symbol">);</span>
@@ -192,6 +192,6 @@
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.18.1</div>
+          Generated by GTK-Doc V1.20.1</div>
 </body>
 </html>

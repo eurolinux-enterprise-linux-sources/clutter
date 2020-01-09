@@ -2,22 +2,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Migrating from ClutterEffect</title>
+<title>Clutter Reference Manual: Migrating from ClutterEffect</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Clutter Reference Manual">
 <link rel="up" href="migration.html" title="Part VIII. Migrating from previous version of Clutter">
 <link rel="prev" href="pt09.html" title="Part I. ">
 <link rel="next" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.20.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
-<td><a accesskey="p" href="pt09.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="migration.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Clutter Reference Manual</th>
-<td><a accesskey="n" href="migrating-ClutterPath.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="migration.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="pt09.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="migrating-ClutterPath.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="chapter">
 <div class="titlepage"><div>
@@ -34,12 +34,12 @@
 </div></div>
 <div class="toc"><dl class="toc"><dt><span class="section"><a href="migrating-ClutterEffect.html#using-actor-animate">Using <code class="function">clutter_actor_animate()</code></a></span></dt></dl></div>
 <p>Since version 1.0, Clutter provides the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> API
-  and the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> family of functions as replacements
+  and the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> family of functions as replacements
   for the <span class="structname">ClutterEffectTemplate</span> and
   clutter_effect_* API for creating simple, one-off animations.</p>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="using-actor-animate"></a>Using <code class="function"><a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a></code>
+<a name="using-actor-animate"></a>Using <code class="function"><a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a></code>
 </h2></div></div></div>
 <p>Prior to Clutter 1.0, the way to create simple, one-off
     animations involving a single actor was the ClutterEffect API. The
@@ -47,7 +47,7 @@
     easing function of the animation the application developer had to
     create a <span class="structname">ClutterEffectTemplate</span> and keep it
     around for the duration of the application.</p>
-<p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function performs all of the
+<p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function performs all of the
     memory management that was delegated to the
     <span class="structname">ClutterEffectTemplate</span>, freeing the developer
     from having to deal with object bookkeeping.</p>
@@ -56,7 +56,7 @@
     movement, etc.), and new functions cannot be added outside of
     Clutter.</p>
 <div class="example">
-<a name="example-clutter-effect"></a><p class="title"><b>Example 12. Effect example</b></p>
+<a name="example-clutter-effect"></a><p class="title"><b>Example 1. Effect example</b></p>
 <div class="example-contents">
 <p>The following code shows a simple animation using
       the ClutterEffect API. It animates an actor linearly in 500
@@ -73,15 +73,15 @@
       </pre>
 </div>
 </div>
-<br class="example-break"><p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function will implicitely
+<br class="example-break"><p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function will implicitely
     create a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> with the passed duration and easing
     mode, and will bind all the passed properties. All readable and
     writable properties specified by a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> are animatable
-    through <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>.</p>
+    through <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>.</p>
 <div class="example">
-<a name="example-actor-animate"></a><p class="title"><b>Example 13. Animation example</b></p>
+<a name="example-actor-animate"></a><p class="title"><b>Example 2. Animation example</b></p>
 <div class="example-contents">
-<p>The following code shows the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> call
+<p>The following code shows the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> call
       equivalent to the previous ClutterEffect example.</p>
 <pre class="programlisting">
   clutter_actor_animate (actor, CLUTTER_LINEAR, 500,
@@ -93,11 +93,11 @@
 </div>
 </div>
 <br class="example-break"><p>The ClutterEffect API provided a way to be notified of the
-    effect completion. Since the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function creates
+    effect completion. Since the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function creates
     a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instance it's possible to use the
-    <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> signal for the same notification.</p>
+    <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title="The “completed” signal"><span class="type">“completed”</span></a> signal for the same notification.</p>
 <div class="example">
-<a name="example-clutter-effect-complete"></a><p class="title"><b>Example 14. Effect complete example</b></p>
+<a name="example-clutter-effect-complete"></a><p class="title"><b>Example 3. Effect complete example</b></p>
 <div class="example-contents">
 <p>The following code shows how to receive notification of the
       completion of the animation.</p>
@@ -118,10 +118,10 @@ on_fade_complete (ClutterActor *actor,
       </pre>
 </div>
 </div>
-<br class="example-break"><p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function also has a convenience
+<br class="example-break"><p>The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function also has a convenience
     wrapper that allows to inline the signal connection:</p>
 <div class="example">
-<a name="example-actor-animate-complete"></a><p class="title"><b>Example 15. Animation completed example</b></p>
+<a name="example-actor-animate-complete"></a><p class="title"><b>Example 4. Animation completed example</b></p>
 <div class="example-contents">
 <p>The following code shows how to get the same notification
       as the example above.</p>
@@ -149,6 +149,6 @@ on_fade_complete (ClutterActor *actor,
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.18.1</div>
+          Generated by GTK-Doc V1.20.1</div>
 </body>
 </html>

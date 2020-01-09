@@ -99,8 +99,8 @@
     <ClCompile Include="..\..\..\clutter\.\clutter-stage.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-stage-manager.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-stage-window.c"><Filter>Sources</Filter></ClCompile>
-    <ClCompile Include="..\..\..\clutter\.\clutter-table-layout.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-tap-action.c"><Filter>Sources</Filter></ClCompile>
+    <ClCompile Include="..\..\..\clutter\.\clutter-test-utils.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-text.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-text-buffer.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\clutter-transition-group.c"><Filter>Sources</Filter></ClCompile>
@@ -137,6 +137,7 @@
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-score.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-shader.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-state.c"><Filter>Sources</Filter></ClCompile>
+    <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-table-layout.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-texture.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-timeout-pool.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\.\deprecated\clutter-timeout-interval.c"><Filter>Sources</Filter></ClCompile>
@@ -148,6 +149,14 @@
     <ClCompile Include="..\..\..\clutter\gdk\clutter-event-gdk.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\gdk\clutter-stage-gdk.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\clutter\cogl\clutter-stage-cogl.c"><Filter>Sources</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\clutter\config.h.win32"><Filter>Resource Files</Filter></CustomBuild>
+    <CustomBuild Include="..\..\..\clutter\clutter-config.h.win32"><Filter>Resource Files</Filter></CustomBuild>
+    <CustomBuild Include="..\..\..\clutter\clutter-config.h.win32_GDK"><Filter>Resource Files</Filter></CustomBuild>
+    <CustomBuild Include="..\..\..\clutter\clutter-marshal.list"><Filter>Resource Files</Filter></CustomBuild>
+    <CustomBuild Include="..\..\..\clutter\clutter-enum-types.h.in"><Filter>Resource Files</Filter></CustomBuild>
+    <CustomBuild Include="..\..\..\clutter\clutter-enum-types.c.in"><Filter>Resource Files</Filter></CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\clutter\win32\resources.rc">

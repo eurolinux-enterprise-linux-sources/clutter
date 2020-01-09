@@ -1,8 +1,8 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>3. Binding the size of one actor to the size of another</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts-stacking.html" title="2. Stacking actors on top of each other"><link rel="next" href="layouts-box.html" title="4. Arranging actors in a single row or column"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Binding the size of one actor to the size of another</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts-stacking.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="layouts-box.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-bind-constraint"></a>3. Binding the size of one actor to the size of another</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239789163152"></a>3.1. Problem</h3></div></div></div><p>You want one actor (the "target") to automatically change
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>3. Binding the size of one actor to the size of another</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts-stacking.html" title="2. Stacking actors on top of each other"><link rel="next" href="layouts-box.html" title="4. Arranging actors in a single row or column"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Binding the size of one actor to the size of another</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts-stacking.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="layouts-box.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-bind-constraint"></a>3. Binding the size of one actor to the size of another</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911005936"></a>3.1. Problem</h3></div></div></div><p>You want one actor (the "target") to automatically change
       its width or height (or both) when the size of another
       actor (the "source") changes.</p><p>Example use cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Making an actor adjust itself to the size of the stage
           (particularly when the stage is resizable).</p></li><li class="listitem"><p>Putting one actor on top of another and keeping their
-          sizes in sync.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239789158912"></a>3.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterBindConstraint</span> bound to the
+          sizes in sync.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911001696"></a>3.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterBindConstraint</span> bound to the
       width and/or height of one actor (the "source"). Add that constraint
       to an actor (the "target") whose size should follow the
       size of the source.</p><p>This short example shows how to create and add a constraint;
@@ -82,7 +82,7 @@ main (int argc, char *argv[])
       leaving a border of visible stage around the texture; and the texture
       has a tiled image on it. The tiling changes as the texture changes
       size. Also note that two <span class="type">ClutterAlignConstraints</span> are
-      added to center the actor on the stage.</p><p>The result looks like this:</p><div class="screenshot"><div class="mediaobject"><img src="images/layouts-bind-constraint-stage.png" alt="A texture bound to the height and width of the stage using ClutterBindConstraint"></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239789141504"></a>3.3. Discussion</h3></div></div></div><p>Sizing constraints are a good solution in these cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Where you can't use a layout manager. For
+      added to center the actor on the stage.</p><p>The result looks like this:</p><div class="screenshot"><div class="mediaobject"><img src="images/layouts-bind-constraint-stage.png" alt="A texture bound to the height and width of the stage using ClutterBindConstraint"></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236910984288"></a>3.3. Discussion</h3></div></div></div><p>Sizing constraints are a good solution in these cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Where you can't use a layout manager. For
           example, you can't apply a layout manager to the stage
           directly; so if you want to control the size of an actor
           based on the size of the stage (as in
@@ -120,7 +120,7 @@ main (int argc, char *argv[])
         (actor B).</p><p>A <span class="type">ClutterBindConstraint</span> can also be used to
         constrain a target actor's position on the <code class="code">x</code> and
         <code class="code">y</code> axes to the position of a source actor. This is
-        covered in another recipe.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239789129104"></a>3.3.1. Another way to bind actors' sizes together</h4></div></div></div><p>There is another way to control the size of a target
+        covered in another recipe.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236910971888"></a>3.3.1. Another way to bind actors' sizes together</h4></div></div></div><p>There is another way to control the size of a target
         actor, based on the size of a source: you can create a handler
         for the <code class="code">allocation-changed</code> signal
         of the source, emitted when its size and/or position
@@ -139,7 +139,7 @@ main (int argc, char *argv[])
         this section</a> for an example where the size
         of one actor is dynamically set to 10% more than the
         size of another.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p><a class="link" href="actors-allocation-notify.html" title="3. Knowing when an actor's position or size changes">This recipe</a>
-          explains more about monitoring changes to an actor's size.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239789122336"></a>3.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-bind-constraint-example-2"></a><p class="title"><b>Example 7.4. Creating an automatically-resizing overlay for a
+          explains more about monitoring changes to an actor's size.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236910965120"></a>3.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-bind-constraint-example-2"></a><p class="title"><b>Example 7.4. Creating an automatically-resizing overlay for a
         texture using <span class="type">ClutterBindConstraint</span></b></p><div class="example-contents"><pre class="programlisting">#include &lt;stdlib.h&gt;
 #include &lt;clutter/clutter.h&gt;
 
@@ -215,7 +215,7 @@ main (int argc, char *argv[])
   ClutterAction *click;
   GError *error = NULL;
 
-  gchar *filename = TESTS_DATA_DIR "/redhand.png";
+  const gchar *filename = "redhand.png";
 
   if (argc &gt; 1)
     filename = argv[1];

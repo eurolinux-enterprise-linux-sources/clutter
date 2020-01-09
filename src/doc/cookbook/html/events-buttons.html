@@ -1,10 +1,10 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>5. Making an actor respond to button events</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="events.html" title="Chapter 3. Events"><link rel="prev" href="events-pointer-motion.html" title="4. Detecting pointer movements on an actor"><link rel="next" href="textures.html" title="Chapter 4. Textures"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. Making an actor respond to button events</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="events-pointer-motion.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Events</th><td width="20%" align="right"> <a accesskey="n" href="textures.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="events-buttons"></a>5. Making an actor respond to button events</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239787028672"></a>5.1. Problem</h3></div></div></div><p>You want an actor to respond to button events. These might
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>5. Making an actor respond to button events</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="events.html" title="Chapter 3. Events"><link rel="prev" href="events-pointer-motion.html" title="4. Detecting pointer movements on an actor"><link rel="next" href="textures.html" title="Chapter 4. Textures"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. Making an actor respond to button events</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="events-pointer-motion.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Events</th><td width="20%" align="right"> <a accesskey="n" href="textures.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="events-buttons"></a>5. Making an actor respond to button events</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911563920"></a>5.1. Problem</h3></div></div></div><p>You want an actor to respond to button events. These might
       be buttons on an input device like a mouse;
       or input events caused by other means, like touches on a screen.</p><p>Some examples of where this is useful:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>For implementing button widgets which respond to
           button clicks.</p></li><li class="listitem"><p>To make actor selections by mouse click (e.g.
           as part of a drawing application).</p></li><li class="listitem"><p>To recognise a button press followed by pointer
           motion and button release (e.g. to implement drag
-          and drop or kinetic animations).</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239787023392"></a>5.2. Solution</h3></div></div></div><p>Connect a handler to the <span class="emphasis"><em>button-press-event</em></span>
+          and drop or kinetic animations).</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911558640"></a>5.2. Solution</h3></div></div></div><p>Connect a handler to the <span class="emphasis"><em>button-press-event</em></span>
       and/or <span class="emphasis"><em>button-release-event</em></span> signals of an
       actor.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The <span class="emphasis"><em>button-press-event</em></span> is emitted
         when a button is pressed (not necessarily released) on a reactive
@@ -87,7 +87,7 @@ g_signal_connect (actor,
                   NULL);</pre></div><p>Pressing or releasing a button on the actor will now
       trigger a call to the <code class="function">button_event_cb()</code>
       function. See <a class="link" href="events-buttons.html#events-buttons-example-1" title="Example 3.6. Examining properties of a ClutterButtonEvent">the full
-      example</a> for more details.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239787006400"></a>5.3. Discussion</h3></div></div></div><p>Properties of the <span class="type">ClutterButtonEvent</span>
+      example</a> for more details.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911541552"></a>5.3. Discussion</h3></div></div></div><p>Properties of the <span class="type">ClutterButtonEvent</span>
       emitted by both signals should be examined using the
       <code class="function">clutter_event_*</code> functions (rather than struct
       members directly), as in the example above. While most of these
@@ -98,7 +98,7 @@ g_signal_connect (actor,
       <a class="link" href="events-buttons.html#events-buttons-clutterclickaction" title="5.3.3. ClutterClickAction">this section</a>
       for details.</p><p>Finally, a <a class="link" href="events-buttons.html#events-buttons-example-3" title="Example 3.8. Using button and pointer events for drawing">longer
       example</a> is included, showing how to make use of button press,
-      button release and pointer events in a simple drawing application.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239787000736"></a>5.3.1. Click count</h4></div></div></div><p>The click count records the number of times a press/release
+      button release and pointer events in a simple drawing application.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236911535888"></a>5.3.1. Click count</h4></div></div></div><p>The click count records the number of times a press/release
         pair occurred in sequence. You can retrieve it via the
         <code class="function">clutter_event_get_click_count()</code> function.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>A press/release pair is effectively a click, so this term
           will be used from now on throughout this section,
@@ -132,7 +132,7 @@ g_object_get (settings,
 g_object_set (settings,
               "double-click-distance", 50,
               "double-click-time", 1000,
-              NULL);</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239786989696"></a>5.3.2. Button numbering</h4></div></div></div><p><code class="function">clutter_event_get_button()</code> returns
+              NULL);</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236911524656"></a>5.3.2. Button numbering</h4></div></div></div><p><code class="function">clutter_event_get_button()</code> returns
         an integer representing the pressed or released button.</p><p>In the case of a standard scroll mouse, the numbers
         returned are reliable across different hardware models:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>1 = left mouse button in a right-handed configuration,
             or the right mouse button in a left-handed configuration</p></li><li class="listitem"><p>2 = scroll wheel button</p></li><li class="listitem"><p>3 = right mouse button in a right-handed configuration,
@@ -182,7 +182,7 @@ clicked_cb (ClutterClickAction *action,
                   G_CALLBACK (clicked_cb),
                   NULL);</pre></div><p>The <a class="link" href="events-buttons.html#events-buttons-example-2" title="Example 3.7. Using ClutterClickAction to capture button events on an actor">example
         code</a> gives a bit more detail about how to use click
-        actions.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239785566592"></a>5.4. Full examples</h3></div></div></div><div class="example"><a name="events-buttons-example-1"></a><p class="title"><b>Example 3.6. Examining properties of a <span class="type">ClutterButtonEvent</span></b></p><div class="example-contents"><pre class="programlisting">#include &lt;stdlib.h&gt;
+        actions.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236911390912"></a>5.4. Full examples</h3></div></div></div><div class="example"><a name="events-buttons-example-1"></a><p class="title"><b>Example 3.6. Examining properties of a <span class="type">ClutterButtonEvent</span></b></p><div class="example-contents"><pre class="programlisting">#include &lt;stdlib.h&gt;
 #include &lt;clutter/clutter.h&gt;
 
 static const ClutterColor stage_color = { 0x33, 0x33, 0x55, 0xff };

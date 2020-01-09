@@ -11,14 +11,6 @@ BUILT_SOURCES =
 
 lib_LTLIBRARIES =
 
-INCLUDES = \
-	-I$(top_srcdir) 				\
-	-I$(top_srcdir)/clutter				\
-	-I$(top_srcdir)/clutter/cally			\
-	-I$(top_builddir)				\
-	-I$(top_builddir)/clutter			\
-	$(NULL)
-
 AM_CPPFLAGS = \
 	-DCLUTTER_PREFIX=\""$(prefix)"\"	\
 	-DCLUTTER_LIBDIR=\""$(libdir)"\"	\
@@ -27,10 +19,17 @@ AM_CPPFLAGS = \
 	-DCLUTTER_SYSCONFDIR=\""$(sysconfdir)"\" \
 	-DCLUTTER_COMPILATION=1			\
 	-DCOGL_ENABLE_EXPERIMENTAL_API		\
+	-DCOGL_DISABLE_DEPRECATION_WARNINGS	\
 	-DG_LOG_DOMAIN=\"Clutter\" 		\
+	-I$(top_srcdir) 			\
+	-I$(top_srcdir)/clutter			\
+	-I$(top_srcdir)/clutter/cally		\
+	-I$(top_builddir)			\
+	-I$(top_builddir)/clutter		\
 	$(CLUTTER_DEPRECATED_CFLAGS)		\
 	$(CLUTTER_DEBUG_CFLAGS)			\
 	$(CLUTTER_PROFILE_CFLAGS)		\
+	$(CLUTTER_HIDDEN_VISIBILITY_CFLAGS)	\
 	$(NULL)
 
 AM_CFLAGS = $(CLUTTER_CFLAGS) $(MAINTAINER_CFLAGS)
@@ -117,8 +116,8 @@ source_h =					\
 	$(srcdir)/clutter-snap-constraint.h	\
 	$(srcdir)/clutter-stage.h 		\
 	$(srcdir)/clutter-stage-manager.h	\
-	$(srcdir)/clutter-table-layout.h	\
 	$(srcdir)/clutter-tap-action.h		\
+	$(srcdir)/clutter-test-utils.h		\
 	$(srcdir)/clutter-texture.h 		\
 	$(srcdir)/clutter-text.h		\
 	$(srcdir)/clutter-text-buffer.h		\
@@ -201,8 +200,8 @@ source_c = \
 	$(srcdir)/clutter-stage.c		\
 	$(srcdir)/clutter-stage-manager.c	\
 	$(srcdir)/clutter-stage-window.c	\
-	$(srcdir)/clutter-table-layout.c	\
 	$(srcdir)/clutter-tap-action.c		\
+	$(srcdir)/clutter-test-utils.c		\
 	$(srcdir)/clutter-text.c		\
 	$(srcdir)/clutter-text-buffer.c		\
 	$(srcdir)/clutter-transition-group.c	\
@@ -284,6 +283,7 @@ deprecated_h = \
 	$(srcdir)/deprecated/clutter-stage-manager.h		\
 	$(srcdir)/deprecated/clutter-stage.h			\
 	$(srcdir)/deprecated/clutter-state.h			\
+	$(srcdir)/deprecated/clutter-table-layout.h		\
 	$(srcdir)/deprecated/clutter-texture.h			\
 	$(srcdir)/deprecated/clutter-timeline.h 		\
 	$(srcdir)/deprecated/clutter-timeout-pool.h 		\
@@ -315,6 +315,7 @@ deprecated_c = \
 	$(srcdir)/deprecated/clutter-score.c 			\
 	$(srcdir)/deprecated/clutter-shader.c 			\
 	$(srcdir)/deprecated/clutter-state.c			\
+	$(srcdir)/deprecated/clutter-table-layout.c		\
 	$(srcdir)/deprecated/clutter-texture.c 			\
 	$(srcdir)/deprecated/clutter-timeout-pool.c		\
 	$(NULL)
@@ -644,8 +645,8 @@ egl_source_h = \
 	$(srcdir)/egl/clutter-egl.h		\
 	$(NULL)
 
-egl_source_h_priv = $(srcdir)/egl/clutter-backend-eglnative.h
-egl_source_c = $(srcdir)/egl/clutter-backend-eglnative.c
+egl_source_h_priv = $(srcdir)/egl/clutter-backend-eglnative.h $(srcdir)/egl/clutter-stage-eglnative.h
+egl_source_c = $(srcdir)/egl/clutter-backend-eglnative.c $(srcdir)/egl/clutter-stage-eglnative.c
 
 # Wayland backend rules
 if SUPPORT_WAYLAND
@@ -850,7 +851,6 @@ libclutter_@CLUTTER_API_VERSION@_la_LDFLAGS = \
 	$(CLUTTER_LINK_FLAGS) \
 	$(CLUTTER_LT_LDFLAGS) \
 	-export-dynamic \
-	-export-symbols-regex "^(clutter|cally).*" \
 	-rpath $(libdir) \
 	$(win32_resources_ldflag) \
 	$(NULL)
@@ -930,7 +930,6 @@ clutter.vsenums_c:
 EXTRA_DIST += \
 	clutter-config.h.win32	\
 	clutter-config.h.win32_GDK	\
-	clutter.symbols	\
 	$(NULL)
 
 # Let the VS9/VS10 Project files be cleared out before they are re-expanded...
@@ -970,7 +969,7 @@ Clutter_@CLUTTER_API_VERSION_AM@_gir_FILES = \
 	$(source_c) \
 	$(deprecated_c) \
 	$(built_source_c)
-Clutter_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(INCLUDES) $(CLUTTER_CFLAGS) $(AM_CPPFLAGS)
+Clutter_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(AM_CPPFLAGS) $(CLUTTER_CFLAGS)
 Clutter_@CLUTTER_API_VERSION_AM@_gir_INCLUDES = GL-1.0 GObject-2.0 cairo-1.0 Cogl-1.0 CoglPango-1.0 Atk-1.0 Json-1.0
 Clutter_@CLUTTER_API_VERSION_AM@_gir_SCANNERFLAGS = \
 	--warn-all \
@@ -985,7 +984,7 @@ Cally_@CLUTTER_API_VERSION_AM@_gir_NAMESPACE = Cally
 Cally_@CLUTTER_API_VERSION_AM@_gir_VERSION = @CLUTTER_API_VERSION@
 Cally_@CLUTTER_API_VERSION_AM@_gir_LIBS = libclutter-@CLUTTER_API_VERSION@.la
 Cally_@CLUTTER_API_VERSION_AM@_gir_FILES = $(cally_sources_h) $(cally_sources_c)
-Cally_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(INCLUDES) $(CLUTTER_CFLAGS) $(AM_CPPFLAGS)
+Cally_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(AM_CPPFLAGS) $(CLUTTER_CFLAGS)
 Cally_@CLUTTER_API_VERSION_AM@_gir_SCANNERFLAGS = \
 	--warn-all \
 	--identifier-prefix=Cally \
@@ -1009,7 +1008,7 @@ ClutterX11_@CLUTTER_API_VERSION_AM@_gir_SCANNERFLAGS = \
 ClutterX11_@CLUTTER_API_VERSION_AM@_gir_INCLUDES = xlib-2.0
 ClutterX11_@CLUTTER_API_VERSION_AM@_gir_LIBS = libclutter-@CLUTTER_API_VERSION@.la
 ClutterX11_@CLUTTER_API_VERSION_AM@_gir_FILES = $(x11_introspection)
-ClutterX11_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(INCLUDES) $(CLUTTER_CFLAGS) $(AM_CPPFLAGS)
+ClutterX11_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(AM_CPPFLAGS) $(CLUTTER_CFLAGS)
 
 INTROSPECTION_GIRS += ClutterX11-@CLUTTER_API_VERSION@.gir
 endif # SUPPORT_X11
@@ -1026,7 +1025,7 @@ ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_SCANNERFLAGS = \
 ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_INCLUDES = Gdk-3.0
 ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_LIBS = libclutter-@CLUTTER_API_VERSION@.la
 ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_FILES = $(gdk_introspection)
-ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(INCLUDES) $(CLUTTER_CFLAGS) $(AM_CPPFLAGS)
+ClutterGdk_@CLUTTER_API_VERSION_AM@_gir_CFLAGS = $(AM_CPPFLAGS) $(CLUTTER_CFLAGS)
 
 INTROSPECTION_GIRS += ClutterGdk-@CLUTTER_API_VERSION@.gir
 endif # SUPPORT_GDK
@@ -1041,21 +1040,3 @@ typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
 CLEANFILES += $(gir_DATA) $(typelib_DATA)
 endif # HAVE_INTROSPECTION
-
-# Test
-clutter_all_c_sources = \
-	$(backend_source_c) \
-	$(backend_source_c_priv) \
-	$(source_c) \
-	$(source_c_priv) \
-	$(deprecated_c) \
-	$(deprecated_c_priv) \
-	$(cally_sources_c) \
-	$(built_source_c)
-
-TESTS_ENVIRONMENT = srcdir="$(srcdir)" CLUTTER_BACKENDS="$(CLUTTER_BACKENDS)"
-if OS_LINUX
-TESTS = abicheck.sh
-endif
-
-EXTRA_DIST += abicheck.sh

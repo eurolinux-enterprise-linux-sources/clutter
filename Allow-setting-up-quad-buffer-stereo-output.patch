@@ -1,4 +1,4 @@
-From 55f30d3240ad636519e1fcc5a579b7d5cba0ed5f Mon Sep 17 00:00:00 2001
+From d1ee5c340237cb64b18cc4fdef91bc472eb415ef Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Thu, 8 May 2014 18:52:09 -0400
 Subject: [PATCH] Allow setting up quad-buffer stereo output
@@ -16,15 +16,14 @@ somethign specific to GLX.
 
 https://bugzilla.gnome.org/show_bug.cgi?id=732706
 ---
- clutter/x11/clutter-backend-x11.c | 170 +++++++++++++++++++++++++++++---------
+ clutter/x11/clutter-backend-x11.c | 168 +++++++++++++++++++++++++++++---------
  clutter/x11/clutter-x11.h         |   3 +
- 2 files changed, 133 insertions(+), 40 deletions(-)
+ 2 files changed, 131 insertions(+), 40 deletions(-)
 
-diff --git a/clutter/x11/clutter-backend-x11.c b/clutter/x11/clutter-backend-x11.c
-index b7cfcc4..bba21e7 100644
---- a/clutter/x11/clutter-backend-x11.c
-+++ b/clutter/x11/clutter-backend-x11.c
-@@ -96,6 +96,7 @@ static const gchar *atom_names[] = {
+diff -up clutter-1.20.0/clutter/x11/clutter-backend-x11.c.quadbuffer-stereo clutter-1.20.0/clutter/x11/clutter-backend-x11.c
+--- clutter-1.20.0/clutter/x11/clutter-backend-x11.c.quadbuffer-stereo	2014-09-22 06:01:08.000000000 -0400
++++ clutter-1.20.0/clutter/x11/clutter-backend-x11.c	2016-02-02 15:09:15.962579511 -0500
+@@ -93,6 +93,7 @@ static const gchar *atom_names[] = {
  static gboolean _no_xevent_retrieval = FALSE;
  static gboolean clutter_enable_xinput = TRUE;
  static gboolean clutter_enable_argb = FALSE;
@@ -32,7 +31,7 @@ index b7cfcc4..bba21e7 100644
  static Display  *_foreign_dpy = NULL;
  
  /* options */
-@@ -706,6 +707,59 @@ clutter_backend_x11_get_renderer (ClutterBackend  *backend,
+@@ -688,6 +689,59 @@ clutter_backend_x11_get_renderer (Clutte
    return renderer;
  }
  
@@ -92,19 +91,19 @@ index b7cfcc4..bba21e7 100644
  static CoglDisplay *
  clutter_backend_x11_get_display (ClutterBackend  *backend,
                                   CoglRenderer    *renderer,
-@@ -713,56 +767,38 @@ clutter_backend_x11_get_display (ClutterBackend  *backend,
+@@ -695,56 +749,38 @@ clutter_backend_x11_get_display (Clutter
                                   GError         **error)
  {
    CoglOnscreenTemplate *onscreen_template;
 -  GError *internal_error = NULL;
 -  CoglDisplay *display;
 -  gboolean res;
--
--  CLUTTER_NOTE (BACKEND, "Alpha on Cogl swap chain: %s",
--                clutter_enable_argb ? "enabled" : "disabled");
 +  CoglDisplay *display = NULL;
 +  gboolean res = FALSE;
  
+-  CLUTTER_NOTE (BACKEND, "Alpha on Cogl swap chain: %s",
+-                clutter_enable_argb ? "enabled" : "disabled");
+-
 -  cogl_swap_chain_set_has_alpha (swap_chain, clutter_enable_argb);
 +  CLUTTER_NOTE (BACKEND, "Creating CoglDisplay, alpha=%s, stereo=%s",
 +                clutter_enable_argb ? "enabled" : "disabled",
@@ -121,14 +120,15 @@ index b7cfcc4..bba21e7 100644
 -                    "Creation of a context with a ARGB visual failed: %s",
 -                    internal_error != NULL ? internal_error->message
 -                                           : "Unknown reason");
+-
+-      g_clear_error (&internal_error);
 +  /* It's possible that the current renderer doesn't support transparency
 +   * or doesn't support stereo, so we try the different combinations.
 +   */
 +  if (clutter_enable_argb && clutter_enable_stereo)
 +    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
 +                                  TRUE, TRUE, error);
- 
--      g_clear_error (&internal_error);
++
 +  /* Prioritize stereo over alpha */
 +  if (!res && clutter_enable_stereo)
 +    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
@@ -161,17 +161,17 @@ index b7cfcc4..bba21e7 100644
  
 -      g_error_free (internal_error);
 -      cogl_object_unref (onscreen_template);
+-
+-      return NULL;
+-    }
 +  if (res)
 +    display = cogl_display_new (renderer, onscreen_template);
  
--      return NULL;
--    }
--
 -  display = cogl_display_new (renderer, onscreen_template);
    cogl_object_unref (onscreen_template);
  
    return display;
-@@ -1309,6 +1345,60 @@ clutter_x11_get_use_argb_visual (void)
+@@ -1303,6 +1339,58 @@ clutter_x11_get_use_argb_visual (void)
    return clutter_enable_argb;
  }
  
@@ -195,7 +195,6 @@ index b7cfcc4..bba21e7 100644
 + * appear in 3D, it simply enables individual ClutterActors to paint
 + * different images for the left and and right eye.
 + *
-+ * Since: 1.20
 + */
 +void
 +clutter_x11_set_use_stereo_stage (gboolean use_stereo)
@@ -221,7 +220,6 @@ index b7cfcc4..bba21e7 100644
 + *
 + * Return value: %TRUE if stereo stages are used if possible
 + *
-+ * Since: 1.20
 + */
 +gboolean
 +clutter_x11_get_use_stereo_stage (void)
@@ -232,20 +230,18 @@ index b7cfcc4..bba21e7 100644
  XVisualInfo *
  _clutter_backend_x11_get_visual_info (ClutterBackendX11 *backend_x11)
  {
-diff --git a/clutter/x11/clutter-x11.h b/clutter/x11/clutter-x11.h
-index 6913280..efcd37e 100644
---- a/clutter/x11/clutter-x11.h
-+++ b/clutter/x11/clutter-x11.h
-@@ -137,6 +137,9 @@ gboolean clutter_x11_has_composite_extension (void);
- void     clutter_x11_set_use_argb_visual (gboolean use_argb);
+diff -up clutter-1.20.0/clutter/x11/clutter-x11.h.quadbuffer-stereo clutter-1.20.0/clutter/x11/clutter-x11.h
+--- clutter-1.20.0/clutter/x11/clutter-x11.h.quadbuffer-stereo	2014-09-22 06:01:08.000000000 -0400
++++ clutter-1.20.0/clutter/x11/clutter-x11.h	2016-02-02 15:09:59.630275599 -0500
+@@ -157,6 +157,11 @@ CLUTTER_AVAILABLE_IN_ALL
  gboolean clutter_x11_get_use_argb_visual (void);
  
+ CLUTTER_AVAILABLE_IN_ALL
 +void     clutter_x11_set_use_stereo_stage (gboolean use_stereo);
++CLUTTER_AVAILABLE_IN_ALL
 +gboolean clutter_x11_get_use_stereo_stage (void);
 +
++CLUTTER_AVAILABLE_IN_ALL
  Time clutter_x11_get_current_event_time (void);
  
- gint clutter_x11_event_get_key_group (const ClutterEvent *event);
--- 
-1.9.3
-
+ CLUTTER_AVAILABLE_IN_ALL

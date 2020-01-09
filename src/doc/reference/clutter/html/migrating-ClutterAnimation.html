@@ -2,22 +2,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Migrating from ClutterAnimation</title>
+<title>Clutter Reference Manual: Migrating from ClutterAnimation</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Clutter Reference Manual">
 <link rel="up" href="migration.html" title="Part VIII. Migrating from previous version of Clutter">
 <link rel="prev" href="migrating-ClutterBehaviour.html" title="Migrating from ClutterBehaviour">
 <link rel="next" href="deprecated.html" title="Part IX. Deprecated Classes">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.20.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
-<td><a accesskey="p" href="migrating-ClutterBehaviour.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="migration.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Clutter Reference Manual</th>
-<td><a accesskey="n" href="deprecated.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="migration.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="migrating-ClutterBehaviour.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="deprecated.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="chapter">
 <div class="titlepage"><div>
@@ -34,8 +34,8 @@
 </div></div>
 <div class="toc"><dl class="toc"><dt><span class="section"><a href="migrating-ClutterAnimation.html#id-1.9.6.12">Migrating <code class="function">clutter_actor_animate()</code></a></span></dt></dl></div>
 <p>The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> class, along with the <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> wrappers
-  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>, <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timeline" title="clutter_actor_animate_with_timeline ()"><code class="function">clutter_actor_animate_with_timeline()</code></a> and
-  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alpha" title="clutter_actor_animate_with_alpha ()"><code class="function">clutter_actor_animate_with_alpha()</code></a>, has been deprecated in Clutter 1.12,
+  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>, <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timeline" title="clutter_actor_animate_with_timeline ()"><code class="function">clutter_actor_animate_with_timeline()</code></a> and
+  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alpha" title="clutter_actor_animate_with_alpha ()"><code class="function">clutter_actor_animate_with_alpha()</code></a>, has been deprecated in Clutter 1.12,
   and should not be used in newly written code.</p>
 <p>The direct replacement for a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> is the
   <a class="link" href="ClutterPropertyTransition.html" title="ClutterPropertyTransition"><span class="type">ClutterPropertyTransition</span></a> class, which allows the transition of a
@@ -67,7 +67,7 @@
 15</pre></td>
         <td class="listing_code"><pre class="programlisting"><span class="usertype">ClutterAnimation</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">animation </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="clutter-Implicit-Animations.html#clutter-animation-new">clutter_animation_new</a></span><span class="normal"> </span><span class="symbol">();</span>
 
-<span class="function"><a href="clutter-Implicit-Animations.html#clutter-animation-set-mode">clutter_animation_set_mode</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">animation</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-EASE-OUT-CUBIC:CAPS">CLUTTER_EASE_OUT_CUBIC</a></span><span class="symbol">);</span>
+<span class="function"><a href="clutter-Implicit-Animations.html#clutter-animation-set-mode">clutter_animation_set_mode</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">animation</span><span class="symbol">,</span><span class="normal"> CLUTTER_EASE_OUT_CUBIC</span><span class="symbol">);</span>
 <span class="function"><a href="clutter-Implicit-Animations.html#clutter-animation-set-duration">clutter_animation_set_duration</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">animation</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2500</span><span class="symbol">);</span>
 
 <span class="comment">/* object_to_animate is set elsewhere */</span>
@@ -105,7 +105,7 @@
         <td class="listing_code"><pre class="programlisting"><span class="usertype">ClutterTransition</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">transition </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ClutterPropertyTransition.html#clutter-property-transition-new">clutter_property_transition_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">property_name</span><span class="symbol">);</span>
 
 <span class="function"><a href="ClutterTimeline.html#clutter-timeline-set-progress-mode">clutter_timeline_set_progress_mode</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">CLUTTER_TIMELINE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">transition</span><span class="symbol">),</span>
-<span class="normal">                                    <a href="ClutterTimeline.html#CLUTTER-EASE-OUT-CUBIC:CAPS">CLUTTER_EASE_OUT_CUBIC</a></span><span class="symbol">);</span>
+<span class="normal">                                    CLUTTER_EASE_OUT_CUBIC</span><span class="symbol">);</span>
 <span class="function"><a href="ClutterTimeline.html#clutter-timeline-set-duration">clutter_timeline_set_duration</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">CLUTTER_TIMELINE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">transition</span><span class="symbol">),</span><span class="normal"> </span><span class="number">2000</span><span class="symbol">);</span>
 
 <span class="function"><a href="ClutterTransition.html#clutter-transition-set-animatable">clutter_transition_set_animatable</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">transition</span><span class="symbol">,</span><span class="normal"> object_to_animate</span><span class="symbol">);</span>
@@ -126,13 +126,13 @@
   <a class="link" href="ClutterTransitionGroup.html" title="ClutterTransitionGroup"><span class="type">ClutterTransitionGroup</span></a> class to group the transitions together.</p>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="id-1.9.6.12"></a>Migrating <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>
+<a name="id-1.9.6.12"></a>Migrating <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>
 </h2></div></div></div>
 <p><a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> animatable properties can use implicit transitions
     through their setter functions. The duration and easing curve of the
-    animation is controlled by <a class="link" href="ClutterActor.html#clutter-actor-set-easing-duration" title="clutter_actor_set_easing_duration ()"><code class="function">clutter_actor_set_easing_duration()</code></a> and by
-    <a class="link" href="ClutterActor.html#clutter-actor-set-easing-mode" title="clutter_actor_set_easing_mode ()"><code class="function">clutter_actor_set_easing_mode()</code></a>, respectively; for instance, the
-    equivalent of the following <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> call:</p>
+    animation is controlled by <a class="link" href="ClutterActor.html#clutter-actor-set-easing-duration" title="clutter_actor_set_easing_duration ()"><code class="function">clutter_actor_set_easing_duration()</code></a> and by
+    <a class="link" href="ClutterActor.html#clutter-actor-set-easing-mode" title="clutter_actor_set_easing_mode ()"><code class="function">clutter_actor_set_easing_mode()</code></a>, respectively; for instance, the
+    equivalent of the following <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> call:</p>
 <div class="informalexample">
   <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
     <tbody>
@@ -142,7 +142,7 @@
 3
 4
 5</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-EASE-OUT-BOUNCE:CAPS">CLUTTER_EASE_OUT_BOUNCE</a></span><span class="symbol">,</span><span class="normal"> </span><span class="number">500</span><span class="symbol">,</span>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="clutter-Implicit-Animations.html#clutter-actor-animate">clutter_actor_animate</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> CLUTTER_EASE_OUT_BOUNCE</span><span class="symbol">,</span><span class="normal"> </span><span class="number">500</span><span class="symbol">,</span>
 <span class="normal">                       </span><span class="string">"x"</span><span class="symbol">,</span><span class="normal"> new_x_position</span><span class="symbol">,</span>
 <span class="normal">                       </span><span class="string">"y"</span><span class="symbol">,</span><span class="normal"> new_y_position</span><span class="symbol">,</span>
 <span class="normal">                       </span><span class="string">"opacity"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">255</span><span class="symbol">,</span>
@@ -161,7 +161,7 @@
 2
 3
 4</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="ClutterActor.html#clutter-actor-set-easing-mode">clutter_actor_set_easing_mode</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> <a href="ClutterTimeline.html#CLUTTER-EASE-OUT-BOUNCE:CAPS">CLUTTER_EASE_OUT_BOUNCE</a></span><span class="symbol">);</span>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="ClutterActor.html#clutter-actor-set-easing-mode">clutter_actor_set_easing_mode</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> CLUTTER_EASE_OUT_BOUNCE</span><span class="symbol">);</span>
 <span class="function"><a href="ClutterActor.html#clutter-actor-set-easing-duration">clutter_actor_set_easing_duration</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> </span><span class="number">500</span><span class="symbol">);</span>
 <span class="function"><a href="ClutterActor.html#clutter-actor-set-position">clutter_actor_set_position</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> new_x_position</span><span class="symbol">,</span><span class="normal"> new_y_position</span><span class="symbol">);</span>
 <span class="function"><a href="ClutterActor.html#clutter-actor-set-opacity">clutter_actor_set_opacity</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> </span><span class="number">255</span><span class="symbol">);</span></pre></td>
@@ -173,8 +173,8 @@
 <p>The default easing duration for the 1.0 API series is set to 0,
     which means no transition at all.</p>
 <p>It is possible to set the easing state of a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> to its
-    default values by using <a class="link" href="ClutterActor.html#clutter-actor-save-easing-state" title="clutter_actor_save_easing_state ()"><code class="function">clutter_actor_save_easing_state()</code></a>, and return
-    to the previous values by calling <a class="link" href="ClutterActor.html#clutter-actor-restore-easing-state" title="clutter_actor_restore_easing_state ()"><code class="function">clutter_actor_restore_easing_state()</code></a>
+    default values by using <a class="link" href="ClutterActor.html#clutter-actor-save-easing-state" title="clutter_actor_save_easing_state ()"><code class="function">clutter_actor_save_easing_state()</code></a>, and return
+    to the previous values by calling <a class="link" href="ClutterActor.html#clutter-actor-restore-easing-state" title="clutter_actor_restore_easing_state ()"><code class="function">clutter_actor_restore_easing_state()</code></a>
     instead. The easing state affects all the animatable properties that
     are modified after changing it; so, for instance:</p>
 <div class="informalexample">
@@ -218,6 +218,6 @@
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.18.1</div>
+          Generated by GTK-Doc V1.20.1</div>
 </body>
 </html>

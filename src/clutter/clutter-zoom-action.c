@@ -56,6 +56,7 @@
 
 #include "clutter-debug.h"
 #include "clutter-enum-types.h"
+#include "clutter-gesture-action-private.h"
 #include "clutter-marshal.h"
 #include "clutter-private.h"
 #include "clutter-stage-private.h"
@@ -115,7 +116,7 @@ enum
 
 static guint zoom_signals[LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE (ClutterZoomAction, clutter_zoom_action, CLUTTER_TYPE_GESTURE_ACTION);
+G_DEFINE_TYPE_WITH_PRIVATE (ClutterZoomAction, clutter_zoom_action, CLUTTER_TYPE_GESTURE_ACTION)
 
 static void
 capture_point_initial_position (ClutterGestureAction *action,
@@ -326,14 +327,22 @@ clutter_zoom_action_dispose (GObject *gobject)
 }
 
 static void
+clutter_zoom_action_constructed (GObject *gobject)
+{
+  ClutterGestureAction *gesture;
+
+  gesture = CLUTTER_GESTURE_ACTION (gobject);
+  clutter_gesture_action_set_threshold_trigger_edge (gesture, CLUTTER_GESTURE_TRIGGER_EDGE_NONE);
+}
+
+static void
 clutter_zoom_action_class_init (ClutterZoomActionClass *klass)
 {
   ClutterGestureActionClass *gesture_class =
     CLUTTER_GESTURE_ACTION_CLASS (klass);
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-  g_type_class_add_private (klass, sizeof (ClutterZoomActionPrivate));
-
+  gobject_class->constructed = clutter_zoom_action_constructed;
   gobject_class->set_property = clutter_zoom_action_set_property;
   gobject_class->get_property = clutter_zoom_action_get_property;
   gobject_class->dispose = clutter_zoom_action_dispose;
@@ -400,12 +409,13 @@ clutter_zoom_action_class_init (ClutterZoomActionClass *klass)
 static void
 clutter_zoom_action_init (ClutterZoomAction *self)
 {
-  self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, CLUTTER_TYPE_ZOOM_ACTION,
-                                            ClutterZoomActionPrivate);
+  ClutterGestureAction *gesture;
 
+  self->priv = clutter_zoom_action_get_instance_private (self);
   self->priv->zoom_axis = CLUTTER_ZOOM_BOTH;
 
-  clutter_gesture_action_set_n_touch_points (CLUTTER_GESTURE_ACTION (self), 2);
+  gesture = CLUTTER_GESTURE_ACTION (self);
+  clutter_gesture_action_set_n_touch_points (gesture, 2);
 }
 
 /**

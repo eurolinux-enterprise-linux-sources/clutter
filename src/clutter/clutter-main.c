@@ -23,70 +23,28 @@
 
 /**
  * SECTION:clutter-main
- * @short_description: Various 'global' clutter functions.
+ * @short_description: Various 'global' Clutter functions.
  *
  * Functions to retrieve various global Clutter resources and other utility
  * functions for mainloops, events and threads
  *
- * <refsect2 id="clutter-Threading-Model">
- *   <title>Threading Model</title>
- *   <para>Clutter is <emphasis>thread-aware</emphasis>: all operations
- *   performed by Clutter are assumed to be under the big Clutter lock,
- *   which is created when the threading is initialized through
- *   clutter_init().</para>
- *   <example id="example-Thread-Init">
- *     <title>Thread Initialization</title>
- *     <para>The code below shows how to correctly initialize Clutter
- *     in a multi-threaded environment. These operations are mandatory for
- *     applications that wish to use threads with Clutter.</para>
- *     <programlisting>
- * int
- * main (int argc, char *argv[])
- * {
- *   /&ast; initialize Clutter &ast;/
- *   clutter_init (&amp;argc, &amp;argv);
+ * ## The Clutter Threading Model
  *
- *   /&ast; program code &ast;/
+ * Clutter is *thread-aware*: all operations performed by Clutter are assumed
+ * to be under the Big Clutter Lock, which is created when the threading is
+ * initialized through clutter_init(), and entered when calling user-related
+ * code during event handling and actor drawing.
  *
- *   /&ast; acquire the main lock &ast;/
- *   clutter_threads_enter ();
+ * The only safe and portable way to use the Clutter API in a multi-threaded
+ * environment is to only access the Clutter API from a thread that did called
+ * clutter_init() and clutter_main().
  *
- *   /&ast; start the main loop &ast;/
- *   clutter_main ();
+ * The common pattern for using threads with Clutter is to use worker threads
+ * to perform blocking operations and then install idle or timeout sources with
+ * the result when the thread finishes, and update the UI from those callbacks.
  *
- *   /&ast; release the main lock &ast;/
- *   clutter_threads_leave ();
- *
- *   /&ast; clean up &ast;/
- *   return 0;
- * }
- *     </programlisting>
- *   </example>
- *   <para>This threading model has the caveat that it is only safe to call
- *   Clutter's API when the lock has been acquired &mdash; which happens
- *   between pairs of clutter_threads_enter() and clutter_threads_leave()
- *   calls.</para>
- *   <para>The only safe and portable way to use the Clutter API in a
- *   multi-threaded environment is to never access the API from a thread that
- *   did not call clutter_init() and clutter_main().</para>
- *   <para>The common pattern for using threads with Clutter is to use worker
- *   threads to perform blocking operations and then install idle or timeout
- *   sources with the result when the thread finished.</para>
- *   <para>Clutter provides thread-aware variants of g_idle_add() and
- *   g_timeout_add() that acquire the Clutter lock before invoking the provided
- *   callback: clutter_threads_add_idle() and
- *   clutter_threads_add_timeout().</para>
- *   <para>The example below shows how to use a worker thread to perform a
- *   blocking operation, and perform UI updates using the main loop.</para>
- *   <example id="worker-thread-example">
- *     <title>A worker thread example</title>
- *     <programlisting>
- * <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" parse="text" href="../../../../examples/threads.c">
- *   <xi:fallback>FIXME: MISSING XINCLUDE CONTENT</xi:fallback>
- * </xi:include>
- *     </programlisting>
- *   </example>
- * </refsect2>
+ * For a working example of how to use a worker thread to update the UI, see
+ * [threads.c](https://git.gnome.org/browse/clutter/tree/examples/threads.c?h=clutter-1.18)
  */
 
 #ifdef HAVE_CONFIG_H
@@ -556,12 +514,10 @@ clutter_redraw (ClutterStage *stage)
  * all #ClutterStage<!-- -->s managed by Clutter.
  *
  * If @enable is %FALSE the following events will not work:
- * <itemizedlist>
- *   <listitem><para>ClutterActor::motion-event, unless on the
- *     #ClutterStage</para></listitem>
- *   <listitem><para>ClutterActor::enter-event</para></listitem>
- *   <listitem><para>ClutterActor::leave-event</para></listitem>
- * </itemizedlist>
+ *
+ *  - ClutterActor::motion-event, except on the #ClutterStage
+ *  - ClutterActor::enter-event
+ *  - ClutterActor::leave-event
  *
  * Since: 0.6
  *
@@ -945,14 +901,6 @@ void
 clutter_main (void)
 {
   GMainLoop *loop;
-  CLUTTER_STATIC_TIMER (mainloop_timer,
-                        NULL, /* no parent */
-                        "Mainloop",
-                        "The time spent in the clutter mainloop",
-                        0 /* no application private data */);
-
-  if (clutter_main_loop_level == 0)
-    CLUTTER_TIMER_START (uprof_get_mainloop_context (), mainloop_timer);
 
   if (!_clutter_context_is_initialized ())
     {
@@ -986,9 +934,6 @@ clutter_main (void)
   g_main_loop_unref (loop);
 
   clutter_main_loop_level--;
-
-  if (clutter_main_loop_level == 0)
-    CLUTTER_TIMER_STOP (uprof_get_mainloop_context (), mainloop_timer);
 }
 
 /**
@@ -1110,13 +1055,13 @@ _clutter_threads_dispatch_free (gpointer data)
  *    SafeClosure *closure = data;
  *    gboolean res = FALSE;
  *
- *    /&ast; mark the critical section &ast;/
+ *    // mark the critical section //
  *
  *    clutter_threads_enter();
  *
- *    /&ast; the callback does not need to acquire the Clutter
- *     &ast; lock itself, as it is held by the this proxy handler
- *     &ast;/
+ *    // the callback does not need to acquire the Clutter
+ *     / lock itself, as it is held by the this proxy handler
+ *     //
  *    res = closure->callback (closure->data);
  *
  *    clutter_threads_leave();
@@ -1129,8 +1074,8 @@ _clutter_threads_dispatch_free (gpointer data)
  * {
  *   SafeClosure *closure = g_new0 (SafeClosure, 1);
  *
- *   closure-&gt;callback = callback;
- *   closure-&gt;data = data;
+ *   closure->callback = callback;
+ *   closure->data = data;
  *
  *   return g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
  *                           idle_safe_callback,
@@ -1151,24 +1096,24 @@ _clutter_threads_dispatch_free (gpointer data)
  * {
  *   SomeClosure *closure = data;
  *
- *   /&ast; it is safe to call Clutter API from this function because
- *    &ast; it is invoked from the same thread that started the main
- *    &ast; loop and under the Clutter thread lock
- *    &ast;/
- *   clutter_label_set_text (CLUTTER_LABEL (closure-&gt;label),
- *                           closure-&gt;text);
+ *   // it is safe to call Clutter API from this function because
+ *    / it is invoked from the same thread that started the main
+ *    / loop and under the Clutter thread lock
+ *    //
+ *   clutter_label_set_text (CLUTTER_LABEL (closure->label),
+ *                           closure->text);
  *
- *   g_object_unref (closure-&gt;label);
+ *   g_object_unref (closure->label);
  *   g_free (closure);
  *
  *   return FALSE;
  * }
  *
- *   /&ast; within another thread &ast;/
+ *   // within another thread //
  *   closure = g_new0 (SomeClosure, 1);
- *   /&ast; always take a reference on GObject instances &ast;/
- *   closure-&gt;label = g_object_ref (my_application-&gt;label);
- *   closure-&gt;text = g_strdup (processed_text_to_update_the_label);
+ *   // always take a reference on GObject instances //
+ *   closure->label = g_object_ref (my_application->label);
+ *   closure->text = g_strdup (processed_text_to_update_the_label);
  *
  *   clutter_threads_add_idle_full (G_PRIORITY_HIGH_IDLE,
  *                                  update_ui,
@@ -1390,53 +1335,6 @@ _clutter_context_is_initialized (void)
   return ClutterCntx->is_initialized;
 }
 
-static ClutterBackend *
-clutter_create_backend (void)
-{
-  const char *backend = g_getenv ("CLUTTER_BACKEND");
-  ClutterBackend *retval = NULL;
-
-  if (backend != NULL)
-    backend = g_intern_string (backend);
-
-#ifdef CLUTTER_WINDOWING_OSX
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_OSX))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_OSX, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_WIN32
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_WIN32))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_WIN32, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_X11
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_X11))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_X11, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_WAYLAND
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_WAYLAND))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_WAYLAND, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_EGL
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_EGL))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_EGL_NATIVE, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_GDK
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_GDK))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_GDK, NULL);
-  else
-#endif
-  if (backend == NULL)
-    g_error ("No default Clutter backend found.");
-  else
-    g_error ("Unsupported Clutter backend: '%s'", backend);
-
-  return retval;
-}
-
 static ClutterMainContext *
 clutter_context_get_default_unlocked (void)
 {
@@ -1449,7 +1347,7 @@ clutter_context_get_default_unlocked (void)
       ctx->is_initialized = FALSE;
 
       /* create the windowing system backend */
-      ctx->backend = clutter_create_backend ();
+      ctx->backend = _clutter_create_backend ();
 
       /* create the default settings object, and store a back pointer to
        * the backend singleton
@@ -1584,6 +1482,14 @@ clutter_init_real (GError **error)
   ClutterMainContext *ctx;
   ClutterBackend *backend;
 
+#ifdef CLUTTER_ENABLE_PROFILE
+  CLUTTER_STATIC_TIMER (mainloop_timer,
+                        NULL, /* no parent */
+                        "Mainloop",
+                        "The time spent in the clutter mainloop",
+                        0 /* no application private data */);
+#endif
+
   /* Note, creates backend if not already existing, though parse args will
    * have likely created it
    */
@@ -1644,6 +1550,8 @@ clutter_init_real (GError **error)
    */
   uprof_init (NULL, NULL);
   _clutter_uprof_init ();
+
+  CLUTTER_TIMER_START (uprof_get_mainloop_context (), mainloop_timer);
 
   if (clutter_profile_flags & CLUTTER_PROFILE_PICKING_ONLY)
     _clutter_profile_suspend ();
@@ -1856,13 +1764,13 @@ post_parse_hook (GOptionContext  *context,
  *
  * |[
  *   g_option_context_set_main_group (context, clutter_get_option_group ());
- *   res = g_option_context_parse (context, &amp;argc, &amp;argc, NULL);
+ *   res = g_option_context_parse (context, &argc, &argc, NULL);
  * ]|
  *
  * is functionally equivalent to:
  *
  * |[
- *   clutter_init (&amp;argc, &amp;argv);
+ *   clutter_init (&argc, &argv);
  * ]|
  *
  * After g_option_context_parse() on a #GOptionContext containing the
@@ -1912,7 +1820,7 @@ clutter_get_option_group (void)
  * the #GOptionGroup returned by this function requires a subsequent explicit
  * call to clutter_init(); use this function when needing to set foreign
  * display connection with clutter_x11_set_display(), or with
- * <function>gtk_clutter_init()</function>.
+ * `gtk_clutter_init()`.
  *
  * Return value: (transfer full): a #GOptionGroup for the commandline arguments
  *   recognized by Clutter
@@ -2097,12 +2005,12 @@ clutter_parse_args (int      *argc,
  *
  * It is safe to call this function multiple times.
  *
- * <note>This function will not abort in case of errors during
+ * This function will not abort in case of errors during
  * initialization; clutter_init() will print out the error message on
  * stderr, and will return an error code. It is up to the application
  * code to handle this case. If you need to display the error message
  * yourself, you can use clutter_init_with_args(), which takes a #GError
- * pointer.</note>
+ * pointer.
  *
  * If this function fails, and returns an error code, any subsequent
  * Clutter API will have undefined behaviour - including segmentation
@@ -2326,6 +2234,9 @@ emit_pointer_event (ClutterEvent       *event,
 {
   ClutterMainContext *context = _clutter_context_get_default ();
 
+  if (_clutter_event_process_filters (event))
+    return;
+
   if (context->pointer_grab_actor == NULL &&
       (device == NULL || device->pointer_grab_actor == NULL))
     {
@@ -2353,6 +2264,9 @@ emit_touch_event (ClutterEvent       *event,
 {
   ClutterActor *grab_actor = NULL;
 
+  if (_clutter_event_process_filters (event))
+    return;
+
   if (device->sequence_grab_actors != NULL)
     {
       grab_actor = g_hash_table_lookup (device->sequence_grab_actors,
@@ -2376,6 +2290,9 @@ emit_keyboard_event (ClutterEvent       *event,
                      ClutterInputDevice *device)
 {
   ClutterMainContext *context = _clutter_context_get_default ();
+
+  if (_clutter_event_process_filters (event))
+    return;
 
   if (context->keyboard_grab_actor == NULL &&
       (device == NULL || device->keyboard_grab_actor == NULL))
@@ -2448,7 +2365,7 @@ clutter_do_event (ClutterEvent *event)
    * because we've "looked ahead" and know all motion events that
    * will occur before drawing the frame.
    */
-  _clutter_stage_queue_event (event->any.stage, event);
+  _clutter_stage_queue_event (event->any.stage, event, TRUE);
 }
 
 static void
@@ -2540,6 +2457,10 @@ _clutter_process_event_details (ClutterActor        *stage,
       case CLUTTER_DESTROY_NOTIFY:
       case CLUTTER_DELETE:
         event->any.source = stage;
+
+        if (_clutter_event_process_filters (event))
+          break;
+
         /* the stage did not handle the event, so we just quit */
         clutter_stage_event (CLUTTER_STAGE (stage), event);
         break;
@@ -2551,6 +2472,9 @@ _clutter_process_event_details (ClutterActor        *stage,
           {
             /* Only stage gets motion events */
             event->any.source = stage;
+
+            if (_clutter_event_process_filters (event))
+              break;
 
             /* global grabs */
             if (context->pointer_grab_actor != NULL)
@@ -2679,6 +2603,9 @@ _clutter_process_event_details (ClutterActor        *stage,
             /* Only stage gets motion events */
             event->any.source = stage;
 
+            if (_clutter_event_process_filters (event))
+              break;
+
             /* global grabs */
             if (device->sequence_grab_actors != NULL)
               {
@@ -2782,7 +2709,8 @@ _clutter_process_event_details (ClutterActor        *stage,
       case CLUTTER_STAGE_STATE:
         /* fullscreen / focus - forward to stage */
         event->any.source = stage;
-        clutter_stage_event (CLUTTER_STAGE (stage), event);
+        if (!_clutter_event_process_filters (event))
+          clutter_stage_event (CLUTTER_STAGE (stage), event);
         break;
 
       case CLUTTER_CLIENT_MESSAGE:
@@ -2946,10 +2874,10 @@ on_grab_actor_destroy (ClutterActor       *actor,
  * the event delivery chain. The source set in the event will be the actor
  * that would have received the event if the pointer grab was not in effect.
  *
- * <note><para>Grabs completely override the entire event delivery chain
+ * Grabs completely override the entire event delivery chain
  * done by Clutter. Pointer grabs should only be used as a last resource;
  * using the #ClutterActor::captured-event signal should always be the
- * preferred way to intercept event delivery to reactive actors.</para></note>
+ * preferred way to intercept event delivery to reactive actors.
  *
  * This function should rarely be used.
  *
@@ -3905,20 +3833,20 @@ _clutter_context_get_motion_events_enabled (void)
  * windowing system; for instance:
  *
  * |[
- * &num;ifdef CLUTTER_WINDOWING_X11
+ * #ifdef CLUTTER_WINDOWING_X11
  *   if (clutter_check_windowing_backend (CLUTTER_WINDOWING_X11))
  *     {
- *       /&ast; it is safe to use the clutter_x11_* API &ast;/
+ *       // it is safe to use the clutter_x11_* API
  *     }
  *   else
- * &num;endif
- * &num;ifdef CLUTTER_WINDOWING_WIN32
+ * #endif
+ * #ifdef CLUTTER_WINDOWING_WIN32
  *   if (clutter_check_windowing_backend (CLUTTER_WINDOWING_WIN32))
  *     {
- *       /&ast; it is safe to use the clutter_win32_* API &ast;/
+ *       // it is safe to use the clutter_win32_* API
  *     }
  *   else
- * &num;endif
+ * #endif
  *     g_error ("Unknown Clutter backend.");
  * ]|
  *
@@ -3973,6 +3901,12 @@ clutter_check_windowing_backend (const char *backend_type)
   else
 #endif
   return FALSE;
+}
+
+void
+_clutter_set_sync_to_vblank (gboolean sync_to_vblank)
+{
+  clutter_sync_to_vblank = !!sync_to_vblank;
 }
 
 gboolean

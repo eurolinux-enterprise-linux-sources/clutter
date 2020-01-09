@@ -70,7 +70,6 @@ typedef struct _ClutterVertex4          ClutterVertex4;
 #define CLUTTER_ACTOR_IN_REPARENT(a)            ((CLUTTER_PRIVATE_FLAGS (a) & CLUTTER_IN_REPARENT) != FALSE)
 #define CLUTTER_ACTOR_IN_PAINT(a)               ((CLUTTER_PRIVATE_FLAGS (a) & CLUTTER_IN_PAINT) != FALSE)
 #define CLUTTER_ACTOR_IN_RELAYOUT(a)            ((CLUTTER_PRIVATE_FLAGS (a) & CLUTTER_IN_RELAYOUT) != FALSE)
-#define CLUTTER_STAGE_IN_RESIZE(a)              ((CLUTTER_PRIVATE_FLAGS (a) & CLUTTER_IN_RESIZE) != FALSE)
 
 #define CLUTTER_PARAM_READABLE  (G_PARAM_READABLE | G_PARAM_STATIC_STRINGS)
 #define CLUTTER_PARAM_WRITABLE  (G_PARAM_WRITABLE | G_PARAM_STATIC_STRINGS)
@@ -108,14 +107,8 @@ typedef enum {
   /* Used to avoid recursion */
   CLUTTER_IN_RELAYOUT    = 1 << 4,
 
-  /* Used by the stage if resizing is an asynchronous operation (like on
-   * X11) to delay queueing relayouts until we got a notification from the
-   * event handling
-   */
-  CLUTTER_IN_RESIZE      = 1 << 5,
-
-  /* a flag for internal children of Containers */
-  CLUTTER_INTERNAL_CHILD = 1 << 6
+  /* a flag for internal children of Containers (DEPRECATED) */
+  CLUTTER_INTERNAL_CHILD = 1 << 5
 } ClutterPrivateFlags;
 
 /*
@@ -136,6 +129,10 @@ struct _ClutterMainContext
 
   /* the main event queue */
   GQueue *events_queue;
+
+  /* the event filters added via clutter_event_add_filter. these are
+   * ordered from least recently added to most recently added */
+  GList *event_filters;
 
   ClutterPickMode  pick_mode;
 
@@ -227,6 +224,7 @@ void            _clutter_id_to_color            (guint         id,
 ClutterActor *  _clutter_get_actor_by_id        (ClutterStage *stage,
                                                  guint32       actor_id);
 
+void            _clutter_set_sync_to_vblank     (gboolean      sync_to_vblank);
 gboolean        _clutter_get_sync_to_vblank     (void);
 
 /* use this function as the accumulator if you have a signal with

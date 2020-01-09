@@ -50,6 +50,7 @@ const char *test_unit_names[] = {
   "test-keyframe-transition",
   "test-bind-constraint",
   "test-touch-events",
+  "test-rotate-zoom",
   "test-pixmap",
   "test-image",
 };

@@ -1,1 +1,0 @@
-test-conformance-clutter -p /conform/actor/opacity/opacity_paint

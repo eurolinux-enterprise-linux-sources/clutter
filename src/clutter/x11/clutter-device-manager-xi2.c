@@ -222,6 +222,21 @@ is_touch_device (XIAnyClassInfo         **classes,
   return FALSE;
 }
 
+static void
+update_client_pointer (ClutterDeviceManagerXI2 *manager_xi2)
+{
+  ClutterBackendX11 *backend_x11;
+  int device_id;
+
+  backend_x11 =
+    CLUTTER_BACKEND_X11 (_clutter_device_manager_get_backend (CLUTTER_DEVICE_MANAGER (manager_xi2)));
+
+  XIGetClientPointer (backend_x11->xdpy, None, &device_id);
+
+  manager_xi2->client_pointer = g_hash_table_lookup (manager_xi2->devices_by_id,
+                                                     GINT_TO_POINTER (device_id));
+}
+
 static ClutterInputDevice *
 create_device (ClutterDeviceManagerXI2 *manager_xi2,
                ClutterBackendX11       *backend_x11,
@@ -319,7 +334,7 @@ add_device (ClutterDeviceManagerXI2 *manager_xi2,
    */
   g_hash_table_replace (manager_xi2->devices_by_id,
                         GINT_TO_POINTER (info->deviceid),
-                        g_object_ref (device));
+                        device);
 
   if (info->use == XIMasterPointer ||
       info->use == XIMasterKeyboard)
@@ -401,17 +416,25 @@ translate_hierarchy_event (ClutterBackendX11       *backend_x11,
 
   for (i = 0; i < ev->num_info; i++)
     {
-      if (ev->info[i].flags & XIDeviceEnabled)
+      if (ev->info[i].flags & XIDeviceEnabled &&
+          !g_hash_table_lookup (manager_xi2->devices_by_id,
+                                GINT_TO_POINTER (ev->info[i].deviceid)))
         {
           XIDeviceInfo *info;
           int n_devices;
 
           CLUTTER_NOTE (EVENT, "Hierarchy event: device enabled");
 
+          clutter_x11_trap_x_errors ();
           info = XIQueryDevice (backend_x11->xdpy,
                                 ev->info[i].deviceid,
                                 &n_devices);
-          add_device (manager_xi2, backend_x11, &info[0], FALSE);
+          clutter_x11_untrap_x_errors ();
+          if (info != NULL)
+            {
+              add_device (manager_xi2, backend_x11, &info[0], FALSE);
+              XIFreeDeviceInfo (info);
+            }
         }
       else if (ev->info[i].flags & XIDeviceDisabled)
         {
@@ -448,16 +471,24 @@ translate_hierarchy_event (ClutterBackendX11       *backend_x11,
           /* and attach the slave to the new master if needed */
           if (ev->info[i].flags & XISlaveAttached)
             {
+              clutter_x11_trap_x_errors ();
               info = XIQueryDevice (backend_x11->xdpy,
                                     ev->info[i].deviceid,
                                     &n_devices);
-              master = g_hash_table_lookup (manager_xi2->devices_by_id,
-                                            GINT_TO_POINTER (info->attachment));
-              _clutter_input_device_set_associated_device (slave, master);
-              _clutter_input_device_add_slave (master, slave);
+              clutter_x11_untrap_x_errors ();
+              if (info != NULL)
+                {
+                  master = g_hash_table_lookup (manager_xi2->devices_by_id,
+                                                GINT_TO_POINTER (info->attachment));
+                  if (master != NULL)
+                    {
+                      _clutter_input_device_set_associated_device (slave, master);
+                      _clutter_input_device_add_slave (master, slave);
 
-              send_changed = TRUE;
-              XIFreeDeviceInfo (info);
+                      send_changed = TRUE;
+                    }
+                  XIFreeDeviceInfo (info);
+                }
             }
 
           if (send_changed)
@@ -588,7 +619,6 @@ static gdouble *
 translate_axes (ClutterInputDevice *device,
                 gdouble             x,
                 gdouble             y,
-                ClutterStageX11    *stage_x11,
                 XIValuatorState    *valuators)
 {
   guint n_axes = clutter_input_device_get_n_axes (device);
@@ -627,6 +657,24 @@ translate_axes (ClutterInputDevice *device,
     }
 
   return retval;
+}
+
+static void
+translate_coords (ClutterStageX11 *stage_x11,
+                  gdouble          event_x,
+                  gdouble          event_y,
+                  gfloat          *x_out,
+                  gfloat          *y_out)
+{
+  ClutterStageCogl *stage_cogl = CLUTTER_STAGE_COGL (stage_x11);
+  ClutterActor *stage = CLUTTER_ACTOR (stage_cogl->wrapper);
+  gfloat stage_width;
+  gfloat stage_height;
+
+  clutter_actor_get_size (stage, &stage_width, &stage_height);
+
+  *x_out = CLAMP (event_x, 0, stage_width)  / stage_x11->scale_factor;
+  *y_out = CLAMP (event_y, 0, stage_height) / stage_x11->scale_factor;
 }
 
 static gdouble
@@ -672,6 +720,49 @@ scroll_valuators_changed (ClutterInputDevice *device,
     }
 
   return retval;
+}
+
+static void
+clutter_device_manager_xi2_select_stage_events (ClutterDeviceManager *manager,
+                                                ClutterStage         *stage)
+{
+  ClutterBackendX11 *backend_x11;
+  ClutterStageX11 *stage_x11;
+  XIEventMask xi_event_mask;
+  unsigned char *mask;
+  int len;
+
+  backend_x11 = CLUTTER_BACKEND_X11 (clutter_get_default_backend ());
+  stage_x11 = CLUTTER_STAGE_X11 (_clutter_stage_get_window (stage));
+
+  len = XIMaskLen (XI_LASTEVENT);
+  mask = g_new0 (unsigned char, len);
+
+  XISetMask (mask, XI_Motion);
+  XISetMask (mask, XI_ButtonPress);
+  XISetMask (mask, XI_ButtonRelease);
+  XISetMask (mask, XI_KeyPress);
+  XISetMask (mask, XI_KeyRelease);
+  XISetMask (mask, XI_Enter);
+  XISetMask (mask, XI_Leave);
+
+#ifdef HAVE_XINPUT_2_2
+  /* enable touch event support if we're running on XInput 2.2 */
+  if (backend_x11->xi_minor >= 2)
+    {
+      XISetMask (mask, XI_TouchBegin);
+      XISetMask (mask, XI_TouchUpdate);
+      XISetMask (mask, XI_TouchEnd);
+    }
+#endif /* HAVE_XINPUT_2_2 */
+
+  xi_event_mask.deviceid = XIAllMasterDevices;
+  xi_event_mask.mask = mask;
+  xi_event_mask.mask_len = len;
+
+  XISelectEvents (backend_x11->xdpy, stage_x11->xwin, &xi_event_mask, 1);
+
+  g_free (mask);
 }
 
 static ClutterTranslateReturn
@@ -723,6 +814,7 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         XIHierarchyEvent *xev = (XIHierarchyEvent *) xi_event;
 
         translate_hierarchy_event (backend_x11, manager_xi2, xev);
+        update_client_pointer (manager_xi2);
       }
       retval = CLUTTER_TRANSLATE_REMOVE;
       break;
@@ -746,6 +838,8 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
         if (source_device)
           _clutter_input_device_reset_scroll_info (source_device);
+
+        update_client_pointer (manager_xi2);
       }
       retval = CLUTTER_TRANSLATE_REMOVE;
       break;
@@ -764,8 +858,7 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
         event->key.time = xev->time;
         event->key.stage = stage;
-        event->key.modifier_state =
-          _clutter_input_device_xi2_translate_state (&xev->mods, &xev->buttons, &xev->group);
+	_clutter_input_device_xi2_translate_state (event, &xev->mods, &xev->buttons, &xev->group);
         event->key.hardware_keycode = xev->detail;
 
           /* keyval is the key ignoring all modifiers ('1' vs. '!') */
@@ -871,12 +964,11 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->scroll.stage = stage;
 
             event->scroll.time = xev->time;
-            event->scroll.x = xev->event_x;
-            event->scroll.y = xev->event_y;
-            event->scroll.modifier_state =
-              _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                         &xev->buttons,
-                                                         &xev->group);
+            translate_coords (stage_x11, xev->event_x, xev->event_y, &event->scroll.x, &event->scroll.y);
+	    _clutter_input_device_xi2_translate_state (event,
+						       &xev->mods,
+						       &xev->buttons,
+						       &xev->group);
 
             clutter_event_set_source_device (event, source_device);
             clutter_event_set_device (event, device);
@@ -884,7 +976,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->scroll.axes = translate_axes (event->scroll.device,
                                                  event->scroll.x,
                                                  event->scroll.y,
-                                                 stage_x11,
                                                  &xev->valuators);
 
             CLUTTER_NOTE (EVENT,
@@ -919,13 +1010,12 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->button.stage = stage;
 
             event->button.time = xev->time;
-            event->button.x = xev->event_x;
-            event->button.y = xev->event_y;
+            translate_coords (stage_x11, xev->event_x, xev->event_y, &event->button.x, &event->button.y);
             event->button.button = xev->detail;
-            event->button.modifier_state =
-              _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                         &xev->buttons,
-                                                         &xev->group);
+	    _clutter_input_device_xi2_translate_state (event,
+						       &xev->mods,
+						       &xev->buttons,
+						       &xev->group);
 
             clutter_event_set_source_device (event, source_device);
             clutter_event_set_device (event, device);
@@ -933,7 +1023,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->button.axes = translate_axes (event->button.device,
                                                  event->button.x,
                                                  event->button.y,
-                                                 stage_x11,
                                                  &xev->valuators);
 
             CLUTTER_NOTE (EVENT,
@@ -1002,12 +1091,11 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
             event->scroll.stage = stage;
             event->scroll.time = xev->time;
-            event->scroll.x = xev->event_x;
-            event->scroll.y = xev->event_y;
-            event->scroll.modifier_state =
-              _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                         &xev->buttons,
-                                                         &xev->group);
+            translate_coords (stage_x11, xev->event_x, xev->event_y, &event->scroll.x, &event->scroll.y);
+	    _clutter_input_device_xi2_translate_state (event,
+						       &xev->mods,
+						       &xev->buttons,
+						       &xev->group);
 
             clutter_event_set_scroll_delta (event, delta_x, delta_y);
             clutter_event_set_source_device (event, source_device);
@@ -1031,12 +1119,11 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         event->motion.stage = stage;
 
         event->motion.time = xev->time;
-        event->motion.x = xev->event_x;
-        event->motion.y = xev->event_y;
-        event->motion.modifier_state =
-          _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                     &xev->buttons,
-                                                     &xev->group);
+        translate_coords (stage_x11, xev->event_x, xev->event_y, &event->motion.x, &event->motion.y);
+	_clutter_input_device_xi2_translate_state (event,
+						   &xev->mods,
+						   &xev->buttons,
+						   &xev->group);
 
         clutter_event_set_source_device (event, source_device);
         clutter_event_set_device (event, device);
@@ -1044,7 +1131,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         event->motion.axes = translate_axes (event->motion.device,
                                              event->motion.x,
                                              event->motion.y,
-                                             stage_x11,
                                              &xev->valuators);
 
         if (source_device != NULL && device->stage != NULL)
@@ -1069,6 +1155,14 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
 #ifdef HAVE_XINPUT_2_2
     case XI_TouchBegin:
+      {
+        XIDeviceEvent *xev = (XIDeviceEvent *) xi_event;
+        device = g_hash_table_lookup (manager_xi2->devices_by_id,
+                                      GINT_TO_POINTER (xev->deviceid));
+        if (!_clutter_input_device_get_stage (device))
+          _clutter_input_device_set_stage (device, stage);
+      }
+      /* Fall through */
     case XI_TouchEnd:
       {
         XIDeviceEvent *xev = (XIDeviceEvent *) xi_event;
@@ -1083,12 +1177,11 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
         event->touch.stage = stage;
         event->touch.time = xev->time;
-        event->touch.x = xev->event_x;
-        event->touch.y = xev->event_y;
-        event->touch.modifier_state =
-          _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                     &xev->buttons,
-                                                     &xev->group);
+        translate_coords (stage_x11, xev->event_x, xev->event_y, &event->touch.x, &event->touch.y);
+	_clutter_input_device_xi2_translate_state (event,
+						   &xev->mods,
+						   &xev->buttons,
+						   &xev->group);
 
         clutter_event_set_source_device (event, source_device);
 
@@ -1099,7 +1192,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         event->touch.axes = translate_axes (event->touch.device,
                                             event->motion.x,
                                             event->motion.y,
-                                            stage_x11,
                                             &xev->valuators);
 
         if (xi_event->evtype == XI_TouchBegin)
@@ -1139,8 +1231,7 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         event->touch.stage = stage;
         event->touch.time = xev->time;
         event->touch.sequence = GUINT_TO_POINTER (xev->detail);
-        event->touch.x = xev->event_x;
-        event->touch.y = xev->event_y;
+        translate_coords (stage_x11, xev->event_x, xev->event_y, &event->touch.x, &event->touch.y);
 
         clutter_event_set_source_device (event, source_device);
 
@@ -1151,13 +1242,12 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         event->touch.axes = translate_axes (event->touch.device,
                                             event->motion.x,
                                             event->motion.y,
-                                            stage_x11,
                                             &xev->valuators);
 
-        event->touch.modifier_state =
-          _clutter_input_device_xi2_translate_state (&xev->mods,
-                                                     &xev->buttons,
-                                                     &xev->group);
+	_clutter_input_device_xi2_translate_state (event,
+						   &xev->mods,
+						   &xev->buttons,
+						   &xev->group);
         event->touch.modifier_state |= CLUTTER_BUTTON1_MASK;
 
         if (xev->flags & XITouchEmulatingPointer)
@@ -1197,8 +1287,7 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->crossing.related = NULL;
 
             event->crossing.time = xev->time;
-            event->crossing.x = xev->event_x;
-            event->crossing.y = xev->event_y;
+            translate_coords (stage_x11, xev->event_x, xev->event_y, &event->crossing.x, &event->crossing.y);
 
             _clutter_input_device_set_stage (device, stage);
           }
@@ -1221,8 +1310,7 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
             event->crossing.related = NULL;
 
             event->crossing.time = xev->time;
-            event->crossing.x = xev->event_x;
-            event->crossing.y = xev->event_y;
+            translate_coords (stage_x11, xev->event_x, xev->event_y, &event->crossing.x, &event->crossing.y);
 
             _clutter_input_device_set_stage (device, NULL);
           }
@@ -1301,25 +1389,14 @@ clutter_device_manager_xi2_get_core_device (ClutterDeviceManager   *manager,
                                             ClutterInputDeviceType  device_type)
 {
   ClutterDeviceManagerXI2 *manager_xi2 = CLUTTER_DEVICE_MANAGER_XI2 (manager);
-  ClutterBackendX11 *backend_x11;
-  ClutterInputDevice *device;
-  int device_id;
-
-  backend_x11 =
-    CLUTTER_BACKEND_X11 (_clutter_device_manager_get_backend (manager));
-
-  XIGetClientPointer (backend_x11->xdpy, None, &device_id);
-
-  device = g_hash_table_lookup (manager_xi2->devices_by_id,
-                                GINT_TO_POINTER (device_id));
 
   switch (device_type)
     {
     case CLUTTER_POINTER_DEVICE:
-      return device;
+      return manager_xi2->client_pointer;
 
     case CLUTTER_KEYBOARD_DEVICE:
-      return clutter_input_device_get_associated_device (device);
+      return clutter_input_device_get_associated_device (manager_xi2->client_pointer);
 
     default:
       break;
@@ -1382,6 +1459,9 @@ clutter_device_manager_xi2_constructed (GObject *gobject)
     {
       XIDeviceInfo *xi_device = &info[i];
 
+      if (!xi_device->enabled)
+        continue;
+
       add_device (manager_xi2, backend_x11, xi_device, TRUE);
 
       if (xi_device->use == XIMasterPointer ||
@@ -1418,6 +1498,9 @@ clutter_device_manager_xi2_constructed (GObject *gobject)
   clutter_device_manager_xi2_select_events (manager,
                                             clutter_x11_get_root_window (),
                                             &event_mask);
+
+  XSync (backend_x11->xdpy, False);
+  update_client_pointer (manager_xi2);
 
   if (G_OBJECT_CLASS (clutter_device_manager_xi2_parent_class)->constructed)
     G_OBJECT_CLASS (clutter_device_manager_xi2_parent_class)->constructed (gobject);
@@ -1469,6 +1552,7 @@ clutter_device_manager_xi2_class_init (ClutterDeviceManagerXI2Class *klass)
   manager_class->get_devices = clutter_device_manager_xi2_get_devices;
   manager_class->get_core_device = clutter_device_manager_xi2_get_core_device;
   manager_class->get_device = clutter_device_manager_xi2_get_device;
+  manager_class->select_stage_events = clutter_device_manager_xi2_select_stage_events;
 }
 
 static void

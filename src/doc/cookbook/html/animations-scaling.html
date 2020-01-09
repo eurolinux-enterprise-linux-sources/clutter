@@ -1,8 +1,8 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>9. Animated scaling</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-looping.html" title="8. Looping an animation"><link rel="next" href="animations-path.html" title="10. Animating an actor along a curved path"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9. Animated scaling</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-looping.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-path.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-scaling"></a>9. Animated scaling</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239784260896"></a>9.1. Problem</h3></div></div></div><p>You want to animate scaling of an actor. Example use
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>9. Animated scaling</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-looping.html" title="8. Looping an animation"><link rel="next" href="animations-path.html" title="10. Animating an actor along a curved path"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9. Animated scaling</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-looping.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-path.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-scaling"></a>9. Animated scaling</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909642208"></a>9.1. Problem</h3></div></div></div><p>You want to animate scaling of an actor. Example use
       cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>To animate zooming in/out of a texture in an
           image viewer application.</p></li><li class="listitem"><p>To add an animated "bounce" effect (quick scale up
           followed by scale down) to a UI element
-          to indicate it has received focus.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239784257488"></a>9.2. Solution</h3></div></div></div><p>Animate the actor's <code class="varname">scale-x</code> and
+          to indicate it has received focus.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909638800"></a>9.2. Solution</h3></div></div></div><p>Animate the actor's <code class="varname">scale-x</code> and
       <code class="varname">scale-y</code> properties to change the scaling on
       the <code class="varname">x</code> and <code class="varname">y</code> axes
       respectively.</p><p>For example, to animate an actor to twice its current scale
@@ -19,7 +19,7 @@ clutter_actor_animate (actor, CLUTTER_LINEAR, 1000,
       <span class="type">ClutterState</span> can be used to animate an actor's scale
       properties. See <a class="link" href="animations-scaling.html#animations-scaling-example-1" title="Example 5.14. Animated scaling of an actor using each of the scale gravities. Press any key to start the animation.">this
       example</a> which uses <span class="type">ClutterState</span> to animate
-      scaling.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm239784250704"></a>9.3. Discussion</h3></div></div></div><p>Scaling an actor is done through its <code class="varname">scale-x</code>
+      scaling.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909632016"></a>9.3. Discussion</h3></div></div></div><p>Scaling an actor is done through its <code class="varname">scale-x</code>
       and <code class="varname">scale-y</code> properties, each of which takes
       a <code class="code">double</code> value. A value of less than
       <code class="code">1.0</code> for an axis scales an actor down on that axis,
@@ -50,7 +50,7 @@ clutter_actor_get_transformed_size (actor, &amp;transformed_width, &amp;transfor
       whether scaling has been applied to an actor: this function returns
       <code class="code">FALSE</code> if both <code class="varname">scale-x</code> and
       <code class="varname">scale-y</code> are <code class="code">1.0</code>; otherwise, it
-      returns <code class="code">TRUE</code>.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239784240256"></a>9.3.1. Scaling vs. resizing</h4></div></div></div><p>Scaling changes the <span class="emphasis"><em>apparent</em></span> size
+      returns <code class="code">TRUE</code>.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909621568"></a>9.3.1. Scaling vs. resizing</h4></div></div></div><p>Scaling changes the <span class="emphasis"><em>apparent</em></span> size
         of an actor, while leaving its real size unchanged. By contrast,
         resizing changes the <span class="emphasis"><em>real</em></span> size of the actor,
         by modifying its <code class="varname">width</code> and
@@ -73,7 +73,7 @@ clutter_actor_get_transformed_size (actor, &amp;transformed_width, &amp;transfor
                 wholly hidden.</p></li><li class="listitem"><p>The easy way would be to set the container's scale
                 to half its initial value: the actors
                 in the container would retain their original sizes, but would
-                appear at half size.</p></li></ol></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239784230512"></a>9.3.2. Scaling, layouts and containers</h4></div></div></div><p>It is possible to scale actors inside containers. For
+                appear at half size.</p></li></ol></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909611824"></a>9.3.2. Scaling, layouts and containers</h4></div></div></div><p>It is possible to scale actors inside containers. For
         example, if you were using a <span class="type">ClutterBox</span>
         which has a <span class="type">ClutterBoxLayout</span> layout manager,
         you could scale the children of that layout.</p><p>However, you should remain aware that layout managers
@@ -82,7 +82,7 @@ clutter_actor_get_transformed_size (actor, &amp;transformed_width, &amp;transfor
         it may overlap other actors in the layout: the size allocated
         by the layout manager doesn't increase as an actor's scale
         increases.</p><p>Similarly, scaling an actor down doesn't reduce the space
-        it will be allocated by a layout.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm239784227152"></a>9.3.3. Setting the scale center</h4></div></div></div><p>An actor's scale center is the point around which
+        it will be allocated by a layout.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909608464"></a>9.3.3. Setting the scale center</h4></div></div></div><p>An actor's scale center is the point around which
         scaling occurs: when you scale the actor, it will "shrink"
         into (if scale &lt; 1.0) or "expand" out of (if scale &gt; 1.0)
         its scale center.</p><p>You can change an actor's scale center using

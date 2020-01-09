@@ -4,7 +4,7 @@
 /* #undef CLUTTER_EGL_BACKEND_CEX100 */
 
 /* Use Generic EGL backend */
-/* #undef CLUTTER_EGL_BACKEND_GENERIC */
+/* #undef CLUTTER_EGL_BACKEND_GENERIC*/
 
 /* Can use Cogl 2.0 API internally */
 #define COGL_ENABLE_EXPERIMENTAL_2_0_API 1
@@ -15,6 +15,9 @@
 
 /* The prefix for our gettext translation domains. */
 #define GETTEXT_PACKAGE "clutter-1.0"
+
+/* Define to 1 if you have the `cairo_surface_set_device_scale' function. */
+/* #undef HAVE_CAIRO_SURFACE_SET_DEVICE_SCALE */
 
 /* Define to 1 if you have the <CE4100/libgdl.h> header file. */
 /* #undef HAVE_CE4100_LIBGDL_H */
@@ -65,7 +68,7 @@
 #define HAVE_ICONV 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#ifndef _MSC_VER
+#if !defined (_MSC_VER) || (_MSC_VER >= 1800)
 #define HAVE_INTTYPES_H 1
 #endif
 
@@ -76,11 +79,10 @@
 #define HAVE_MEMORY_H 1
 
 /* Supports PangoFt2 */
-/* This is mainly for X11 builds of Clutter, so we aren't enabling this here */
 /* #undef HAVE_PANGO_FT2 */
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#if (!defined(_MSC_VER) && (_MSC_VER >= 1600))
+#if !defined (_MSC_VER) || (_MSC_VER >= 1600)
 #define HAVE_STDINT_H 1
 #endif
 
@@ -121,14 +123,8 @@
 /* Define to 1 if we have the XEXT X extension */
 /* #undef HAVE_XEXT */
 
-/* Define to 1 if we have the XFIXES X extension */
-/* #undef HAVE_XFIXES */
-
 /* Define to 1 if X Generic Extensions is available */
 /* #undef HAVE_XGE */
-
-/* Define to 1 if XInput is available */
-/* #undef HAVE_XINPUT */
 
 /* Define to 1 if XI2 is available */
 /* #undef HAVE_XINPUT_2 */
@@ -144,7 +140,7 @@
 #define LT_OBJDIR ".libs/"
 
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
-#define NO_MINUS_C_MINUS_O 1
+/* #undef NO_MINUS_C_MINUS_O */
 
 /* Define to 1 if building for Linux */
 /* #undef OS_LINUX */
@@ -156,7 +152,7 @@
 #define PACKAGE_NAME "clutter"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "clutter 1.14.4"
+#define PACKAGE_STRING "clutter 1.20.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "clutter"
@@ -165,7 +161,14 @@
 #define PACKAGE_URL "http://www.clutter-project.org"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.14.4"
+#define PACKAGE_VERSION "1.20.0"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* defines how to decorate public symbols while building */
+#ifdef _MSC_VER
+#define _CLUTTER_EXTERN __declspec(dllexport) extern
+#else
+#define _CLUTTER_EXTERN __attribute__((visibility("default"))) __declspec(dllexport) extern
+#endif

@@ -89,21 +89,21 @@ G_BEGIN_DECLS
  *
  * The minor version of the Clutter library (2, if %CLUTTER_VERSION is 1.2.3)
  */
-#define CLUTTER_MINOR_VERSION   (14)
+#define CLUTTER_MINOR_VERSION   (20)
 
 /**
  * CLUTTER_MICRO_VERSION:
  *
  * The micro version of the Clutter library (3, if %CLUTTER_VERSION is 1.2.3)
  */
-#define CLUTTER_MICRO_VERSION   (4)
+#define CLUTTER_MICRO_VERSION   (0)
 
 /**
  * CLUTTER_VERSION:
  *
  * The full version of the Clutter library, like 1.2.3
  */
-#define CLUTTER_VERSION         1.14.4
+#define CLUTTER_VERSION         1.20.0
 
 /**
  * CLUTTER_VERSION_S:
@@ -111,7 +111,7 @@ G_BEGIN_DECLS
  * The full version of the Clutter library, in string form (suited for
  * string concatenation)
  */
-#define CLUTTER_VERSION_S       "1.14.4"
+#define CLUTTER_VERSION_S       "1.20.0"
 
 /**
  * CLUTTER_VERSION_HEX:
@@ -204,6 +204,36 @@ G_BEGIN_DECLS
  */
 #define CLUTTER_VERSION_1_14    (G_ENCODE_VERSION (1, 14))
 
+/**
+ * CLUTTER_VERSION_1_16:
+ *
+ * A macro that evaluates to the 1.16 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.16
+ */
+#define CLUTTER_VERSION_1_16    (G_ENCODE_VERSION (1, 16))
+
+/**
+ * CLUTTER_VERSION_1_18:
+ *
+ * A macro that evaluates to the 1.18 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.18
+ */
+#define CLUTTER_VERSION_1_18    (G_ENCODE_VERSION (1, 18))
+
+/**
+ * CLUTTER_VERSION_1_20:
+ *
+ * A macro that evaluates to the 1.18 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.20
+ */
+#define CLUTTER_VERSION_1_20    (G_ENCODE_VERSION (1, 20))
+
 /* evaluates to the current stable version; for development cycles,
  * this means the next stable target
  */
@@ -234,19 +264,22 @@ G_BEGIN_DECLS
          (CLUTTER_MAJOR_VERSION == (major) && CLUTTER_MINOR_VERSION > (minor)) || \
          (CLUTTER_MAJOR_VERSION == (major) && CLUTTER_MINOR_VERSION == (minor) && CLUTTER_MICRO_VERSION >= (micro)))
 
-/* annotation for exported variables
- *
- * XXX: this has to be defined here because clutter-macro.h imports this
- * header file.
- */
-#ifdef _MSC_VER
+#ifndef _CLUTTER_EXTERN
+#define _CLUTTER_EXTERN extern
+#endif
+
+#ifdef CLUTTER_WINDOWING_WIN32
 # ifdef CLUTTER_COMPILATION
-#  define CLUTTER_VAR __declspec(dllexport)
+#  ifdef DLL_EXPORT
+#   define CLUTTER_VAR __declspec(dllexport)
+#  else
+#   define CLUTTER_VAR extern
+#  endif
 # else
-#  define CLUTTER_VAR extern __declspec(dllimport)
+#  define CLUTTER_VAR __declspec(dllimport)
 # endif
 #else
-# define CLUTTER_VAR extern
+# define CLUTTER_VAR _CLUTTER_EXTERN
 #endif
 
 /**
@@ -290,12 +323,6 @@ CLUTTER_VAR const guint clutter_minor_version;
  * Since: 1.2
  */
 CLUTTER_VAR const guint clutter_micro_version;
-
-gboolean clutter_check_version (guint major,
-                                guint minor,
-                                guint micro);
-
-gboolean clutter_check_windowing_backend (const char *backend_type);
 
 G_END_DECLS
 

@@ -56,6 +56,7 @@
     <ClCompile Include="..\..\..\tests\interactive\test-keyframe-transition.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\tests\interactive\test-bind-constraint.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\tests\interactive\test-touch-events.c"><Filter>Sources</Filter></ClCompile>
+    <ClCompile Include="..\..\..\tests\interactive\test-rotate-zoom.c"><Filter>Sources</Filter></ClCompile>
     <ClCompile Include="..\..\..\tests\interactive\test-image.c"><Filter>Sources</Filter></ClCompile>
   </ItemGroup>
 </Project>

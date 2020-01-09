@@ -16,6 +16,9 @@
 /* The prefix for our gettext translation domains. */
 #undef GETTEXT_PACKAGE
 
+/* Define to 1 if you have the `cairo_surface_set_device_scale' function. */
+#undef HAVE_CAIRO_SURFACE_SET_DEVICE_SCALE
+
 /* Define to 1 if you have the <CE4100/libgdl.h> header file. */
 #undef HAVE_CE4100_LIBGDL_H
 
@@ -112,14 +115,8 @@
 /* Define to 1 if we have the XEXT X extension */
 #undef HAVE_XEXT
 
-/* Define to 1 if we have the XFIXES X extension */
-#undef HAVE_XFIXES
-
 /* Define to 1 if X Generic Extensions is available */
 #undef HAVE_XGE
-
-/* Define to 1 if XInput is available */
-#undef HAVE_XINPUT
 
 /* Define to 1 if XI2 is available */
 #undef HAVE_XINPUT_2
@@ -160,3 +157,6 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* defines how to decorate public symbols while building */
+#undef _CLUTTER_EXTERN

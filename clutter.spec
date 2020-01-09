@@ -1,62 +1,48 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
+%if 0%{?fedora}
+%global with_wayland 1
+%endif
+
+%global with_tests 1
+
 Name:          clutter
-Version:       1.14.4
-Release:       12%{?dist}.1
+Version:       1.20.0
+Release:       10%{?dist}
 Summary:       Open Source software library for creating rich graphical user interfaces
 
 Group:         Development/Libraries
 License:       LGPLv2+
 URL:           http://www.clutter-project.org/
-Source0:       http://download.gnome.org/sources/clutter/1.14/clutter-%{version}.tar.xz
-# https://bugzilla.gnome.org/show_bug.cgi?id=692706
-Patch0:        0001-cally-Use-a-weak-pointer-to-hold-the-key-focus-in-Ca.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=701974
-Patch1:        0001-x11-trap-errors-when-calling-XIQueryDevice.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1039137
-Patch2:        0001-clutter-text-prevent-reset-of-user-set-font-descript.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=703969
-Patch3:       xi2-device-manager-cleanups.patch
-
-# https://bugzilla.gnome.org/show_bug.cgi?id=719367
-Patch4:        Bind-constraints-Don-t-force-redraws-on-source-relay.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=719368
-Patch5:        Don-t-queue-redraws-when-reallocating-actor-that-hav.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=719901
-Patch6:        ClutterStageCogl-Ignore-a-clip-the-size-of-the-stage.patch
+Source0:       http://download.gnome.org/sources/clutter/1.20/clutter-%{version}.tar.xz
 # https://bugzilla.gnome.org/show_bug.cgi?id=732706
 Patch7:        Allow-setting-up-quad-buffer-stereo-output.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=975171
-Patch8:        0001-clutter-offscreen-effect-Allocate-the-cogl-texture-d.patch
 
-# CVE-2015-3213 - https://bugzilla.redhat.com/show_bug.cgi?id=1227103
-Patch9:        0001-gesture-action-fix-memory-corruption.patch
+Patch8:        add-driver-selection-api.patch
+Patch9:        video-memory-purge.patch
 
-%define cogl_version 1.14.0-6
+Patch10:       Enable-threaded-swap-wait.patch
 
 BuildRequires: glib2-devel mesa-libGL-devel pkgconfig pango-devel
 BuildRequires: cairo-gobject-devel gdk-pixbuf2-devel atk-devel
-BuildRequires: cogl-devel >= %{cogl_version}
+BuildRequires: cogl-devel >= 1.18.2-12
 BuildRequires: gobject-introspection-devel >= 0.9.6
 BuildRequires: gtk3-devel
 BuildRequires: json-glib-devel >= 0.12.0
 BuildRequires: libXcomposite-devel
 BuildRequires: libXdamage-devel
-BuildRequires: libXi-devel
-Requires:      gobject-introspection
-Requires:      cogl >= %{cogl_version}
+BuildRequires: libXi-devel >= 1.7.4
+BuildRequires: gettext-devel
+%if 0%{?with_wayland}
+BuildRequires: libgudev1-devel
+BuildRequires: libwayland-client-devel
+BuildRequires: libwayland-cursor-devel
+BuildRequires: libwayland-server-devel
+BuildRequires: libxkbcommon-devel
+BuildRequires: libinput-devel
+%endif
 
-# F18
-Obsoletes:     clutter-gtk010 < 0.11.4-9
-Obsoletes:     clutter-gtk010-devel < 0.11.4-9
-Obsoletes:     clutter-sharp < 0-0.17
-Obsoletes:     clutter-sharp-devel < 0-0.17
-Obsoletes:     pyclutter < 1.3.2-13
-Obsoletes:     pyclutter-devel < 1.3.2-13
-Obsoletes:     pyclutter-gst < 1.0.0-10
-Obsoletes:     pyclutter-gst-devel < 1.0.0-10
-Obsoletes:     pyclutter-gtk < 0.10.0-14
-Obsoletes:     pyclutter-gtk-devel < 0.10.0-14
+Requires:      gobject-introspection
 
 %description
 Clutter is an open source software library for creating fast,
@@ -67,10 +53,7 @@ We hope however it can be used for a lot more.
 %package devel
 Summary:       Clutter development environment
 Group:         Development/Libraries
-Requires:      %{name} = %{version}-%{release}
-Requires:      pkgconfig glib2-devel pango-devel fontconfig-devel
-Requires:      mesa-libGL-devel
-Requires:      gobject-introspection-devel
+Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and libraries for building a extension library for the
@@ -89,29 +72,36 @@ We hope however it can be used for a lot more.
 
 This package contains documentation for clutter.
 
+%if 0%{?with_tests}
+%package       tests
+Summary:       Tests for the clutter package
+Group:         Development/Libraries
+Requires:      %{name}%{?_isa} = %{version}-%{release}
+
+%description   tests
+The clutter-tests package contains tests that can be used to verify
+the functionality of the installed clutter package.
+%endif
+
 %prep
 %setup -q
-%patch0 -p1 -b .cally_crash
-%patch1 -p1 -b .xi2-crash
-%patch2 -p1 -b .font-switch
-%patch3 -p1 -b .xi2-device-manager-cleanups
-%patch4 -p1 -b .bind-contraints
-%patch5 -p1 -b .unmoved-actors
-%patch6 -p1 -b .stage-sized-clip
 %patch7 -p1 -b .quadbuffer-stereo
-%patch8 -p1 -b .allocate-offscreen-effect-texture
-%patch9 -p1 -b .CVE-2015-3213
+%patch8 -p1 -b .add-driver-selection-api
+%patch9 -p1 -b .video-memory-purge
+%patch10 -p1 -b .enable-threaded-swap-wait
 
 %build
-(autoreconf;
- %configure $CONFIGFLAGS \
-	--enable-xinput
- # clutter git ships with some magic to put the git log in shipped tarballs
- # which gets listed in files; don't blow up if it's missing
- if ! test -f ChangeLog; then
-   echo "Created from snapshot" > ChangeLog
- fi
-)
+autoreconf
+%configure \
+	--enable-xinput \
+        --enable-gdk-backend \
+	%{?with_tests:--enable-installed-tests} \
+%if 0%{?with_wayland}
+        --enable-egl-backend \
+        --enable-evdev-input \
+        --enable-wayland-backend \
+        --enable-wayland-compositor \
+%endif
 
 make %{?_smp_mflags} V=1
 
@@ -119,9 +109,12 @@ make %{?_smp_mflags} V=1
 make install DESTDIR=%{buildroot} INSTALL='install -p'
 
 #Remove libtool archives.
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -delete
 
 %find_lang clutter-1.0
+
+%check
+make check %{?_smp_mflags} V=1
 
 %post -p /sbin/ldconfig
 
@@ -134,7 +127,6 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/girepository-1.0/*.typelib
 
 %files devel
-%doc ChangeLog
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
@@ -144,50 +136,158 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/gtk-doc/html/clutter
 %{_datadir}/gtk-doc/html/cally
 
+%if 0%{?with_tests}
+%files tests
+%{_libexecdir}/installed-tests/clutter
+%{_datadir}/installed-tests
+%endif
+
 %changelog
-* Tue Jul 28 2015 Scientific Linux Auto Patch Process <SCIENTIFIC-LINUX-DEVEL@LISTSERV.FNAL.GOV>
-- Eliminated rpmbuild "bogus date" error due to inconsistent weekday,
-  by assuming the date is correct and changing the weekday.
-  Sun Mar 23 2007 --> Sun Mar 18 2007 or Fri Mar 23 2007 or Sun Mar 25 2007 or ....
-  Sun Mar 24 2007 --> Sun Mar 18 2007 or Sat Mar 24 2007 or Sun Mar 25 2007 or ....
-  Sun Mar 27 2007 --> Sun Mar 25 2007 or Tue Mar 27 2007 or Sun Apr 01 2007 or ....
-  Sun Mar 28 2007 --> Sun Mar 25 2007 or Wed Mar 28 2007 or Sun Apr 01 2007 or ....
-  Wed Feb 11 2010 --> Wed Feb 10 2010 or Thu Feb 11 2010 or Wed Feb 17 2010 or ....
-  Tue Mar 20 2010 --> Tue Mar 16 2010 or Sat Mar 20 2010 or Tue Mar 23 2010 or ....
+* Thu Aug 11 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-10
+- Add patches to make the backend driver selection explicit instead of
+  changing the default to gl3
+  Resolves: #1361251
 
-* Tue Jun 02 2015 Ray Strode <rstrode@redhat.com> 1.14.4-12.1
-- Fix crash when doing gestures at unlock screen
-  Resolves: rhbz#1227103
+* Mon Jul 18 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-9
+- Require a cogl version that provides all the new APIs
+  Related: rhbz#1330488
 
-* Mon Nov 03 2014 Florian Müllner <fmuellner@redhat.com> 1.14.4-12
-- Include upstream patch to prevent a crash when hitting hardware limits
-  Resolves: rhbz#1115162
+* Wed Jun 29 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-8
+- Add a patch that adds clutter_x11_enable_threaded_swap_wait(),
+  enabling proper waiting for frame completion on NVIDIA.
+- Add a patch to fix Cogl Glib source added multiple times.
+  See https://bugzilla.gnome.org/show_bug.cgi?id=768243
+  Resolves: #1306801
 
-* Tue Sep 30 2014 Owen Taylor <otaylor@redhat.com> 1.14.4-11
-- Fix a typo in the Requires
+* Fri Jun 17 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-7
+- Add patches to support NV_robustness_video_memory_purge
+  Related: rhbz#1330488
 
-* Thu Jul 17 2014 Owen Taylor <otaylor@redhat.com> 1.14.4-10
-- Add patch for quadbuffer stereo suppport
-  Resolves: rhbz#1108891
+* Tue May 10 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-6
+- Fix problem with stereo patch (missing export declarations) that resulted
+  in added symbols not being exported.
+  Resolves: #1306801
 
-* Tue Feb 11 2014 Owen Taylor <otaylor@redhat.com> - 1.14.4-9
-- Add upstream patches fixing problems that resulted in the entire
-  screen being redrawn too often with gnome shell.
-  Resolves: rhbz#1034941
+* Fri Mar 04 2016 Florian Müllner <fmuellner@redhat.com> - 1.20.0-5
+- Request a minimum libXi version
+  Related: #1290446
 
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.14.4-8
-- Mass rebuild 2014-01-24
+* Fri Jul 17 2015 Florian Müllner <fmuellner@redhat.com> - 1.20.0-4
+- Rebuild with update gobject-introspection
+  Resolves: #1236735
 
-* Sat Jan 11 2014 Florian Müllner <fmuellner@redhat.com> - 1.14.4-7
-- Backport device manager cleanups for pointer emulation for touch events
-  in mutter
-  Resolves: rhbz#1051029
+* Tue Oct 28 2014 Richard Hughes <rhughes@redhat.com> - 1.20.0-3
+- Fix compile when not using Wayland, harder.
 
-* Mon Jan  6 2014 Rui Matos <rmatos@redhat.com> - 1.14.4-5
-- Resolves: rhbz#1039137 - gnome-shell text labels switch font temporarily until they redraw again
+* Tue Oct 28 2014 Richard Hughes <rhughes@redhat.com> - 1.20.0-2
+- Fix compile when not using Wayland.
 
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.14.4-4
-- Mass rebuild 2013-12-27
+* Mon Sep 22 2014 Kalev Lember <kalevlember@gmail.com> - 1.20.0-1
+- Update to 1.20.0
+
+* Wed Sep 17 2014 Kalev Lember <kalevlember@gmail.com> - 1.19.10-1
+- Update to 1.19.10
+
+* Fri Sep 12 2014 Peter Hutterer <peter.hutterer@redhat.com> - 1.19.8-2
+- Rebuild for libinput soname bump
+
+* Thu Aug 21 2014 Kalev Lember <kalevlember@gmail.com> - 1.19.8-1
+- Update to 1.19.8
+
+* Wed Aug 20 2014 Kalev Lember <kalevlember@gmail.com> - 1.19.6-3
+- Backport an upstream patch for setting xkb layout index
+
+* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+* Thu Jul 24 2014 Kalev Lember <kalevlember@gmail.com> - 1.19.6-1
+- Update to 1.19.6
+
+* Tue Jul 22 2014 Kalev Lember <kalevlember@gmail.com> - 1.19.4-4
+- Rebuilt for gobject-introspection 1.41.4
+
+* Fri Jul 11 2014 Peter Robinson <pbrobinson@fedoraproject.org> 1.19.4-2
+- Enable make check
+- Build installed tests (thanks Vadim Rutkovsky) RHBZ 1117375
+- Drop old obsoletes
+
+* Wed Jun 25 2014 Richard Hughes <rhughes@redhat.com> - 1.19.4-1
+- Update to 1.19.4
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.19.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Thu May 29 2014 Florian Müllner <fmuellner@redhat.com> - 1.19.2-1
+- Update to 1.19.2
+
+* Tue Apr 15 2014 Kalev Lember <kalevlember@gmail.com> - 1.18.2-1
+- Update to 1.18.2
+
+* Wed Mar 19 2014 Florian Müllner <fmuellner@redhat.com> - 1.18.0-1
+- Update to 1.18.0
+
+* Tue Mar 04 2014 Richard Hughes <rhughes@redhat.com> - 1.17.6-1
+- Update to 1.17.6
+
+* Wed Feb 19 2014 Richard Hughes <rhughes@redhat.com> - 1.17.4-1
+- Update to 1.17.4
+
+* Sun Feb 09 2014 Peter Hutterer <peter.hutterer@redhat.com> - 1.17.2-2
+- Rebuild for libevdev soname bump
+
+* Wed Feb 05 2014 Richard Hughes <rhughes@redhat.com> - 1.17.2-1
+- Update to 1.17.2
+
+* Wed Jan 29 2014 Richard Hughes <rhughes@redhat.com> - 1.16.4-1
+- Update to 1.16.4
+
+* Thu Dec 26 2013 Adam Williamson <awilliam@redhat.com> - 1.16.2-4
+- backport upstream patch to stop using deprecated libevdev functions
+
+* Mon Dec  9 2013 Matthias Clasen <mclasen@redhat.com> - 1.16.2-3
+- A followup fix to the previous changes
+
+* Tue Nov 26 2013 Matthias Clasen <mclasen@redhat.com> - 1.16.2-2
+- Avoid excessive redraws when windows are moved in gnome-shell
+
+* Thu Nov 21 2013 Richard Hughes <rhughes@redhat.com> - 1.16.2-1
+- Update to 1.16.2
+
+* Mon Oct 07 2013 Adam Jackson <ajax@redhat.com> 1.16.0-2
+- Fix touchpads to not warp to bizarre places on initial touch.
+
+* Tue Sep 24 2013 Kalev Lember <kalevlember@gmail.com> - 1.16.0-1
+- Update to 1.16.0
+
+* Fri Sep 20 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.96-1
+- Update to 1.15.96
+
+* Fri Sep 20 2013 Matthias Clasen <mclasen@redhat.com> - 1.15.94-2
+- Fix a shell crash
+
+* Thu Sep 19 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.94-1
+- Update to 1.15.94
+
+* Thu Sep 12 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.92-3
+- Add missing build deps
+
+* Thu Sep 12 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.92-2
+- Add configure options that are needed to enable the gnome-shell
+  Wayland compositor
+
+* Tue Sep 03 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.92-1
+- Update to 1.15.92
+
+* Thu Aug 22 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.90-1
+- Update to 1.15.90
+
+* Fri Aug 09 2013 Kalev Lember <kalevlember@gmail.com> - 1.15.2-1
+- Update to 1.15.2
+- Dropped upstream patches
+- Backport patches for wayland / cogl 1.15.4 API changes
+
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.14.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
 * Sun Jun 23 2013 Matthias Clasen <mclasen@redhat.com> - 1.14.4-3
 - Backport another upstream patch for gnome-shell crashes (#954054)
@@ -478,8 +578,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 - Fix Mutter not seeing BufferSwapComplete events and freezing
 - Remove incorrect warning message about BufferSwapComplete events
 
-* Sat Mar 20 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.2.4-1
-  Tue Mar 20 2010 --> Tue Mar 16 2010 or Sat Mar 20 2010 or Tue Mar 23 2010 or ....
+* Tue Mar 20 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.2.4-1
 - Update to new upstream stable 1.2.4 release
 
 * Mon Mar 15 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.2.2-1
@@ -491,12 +590,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 * Sun Feb 28 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.14-1
 - Update to 1.1.14
 
-* Thu Feb 11 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.10-2
-  Wed Feb 11 2010 --> Wed Feb 10 2010 or Thu Feb 11 2010 or Wed Feb 17 2010 or ....
+* Wed Feb 11 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.10-2
 - Add patch to fix 64bit build 
 
-* Thu Feb 11 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.10-1
-  Wed Feb 11 2010 --> Wed Feb 10 2010 or Thu Feb 11 2010 or Wed Feb 17 2010 or ....
+* Wed Feb 11 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.10-1
 - Update to 1.1.10
 
 * Thu Feb  4 2010 Peter Robinson <pbrobinson@fedoraproject.org> 1.1.6-1
@@ -595,18 +692,14 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 * Thu Apr 12 2007 Allisson Azevedo <allisson@gmail.com> 0.2.3-1
 - Update to 0.2.3
 
-* Wed Mar 28 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-4
-  Sun Mar 28 2007 --> Sun Mar 25 2007 or Wed Mar 28 2007 or Sun Apr 01 2007 or ....
+* Sun Mar 28 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-4
 - Changed buildrequires and requires
 
-* Tue Mar 27 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-3
-  Sun Mar 27 2007 --> Sun Mar 25 2007 or Tue Mar 27 2007 or Sun Apr 01 2007 or ....
+* Sun Mar 27 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-3
 - Fix .spec
 
-* Sat Mar 24 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-2
-  Sun Mar 24 2007 --> Sun Mar 18 2007 or Sat Mar 24 2007 or Sun Mar 25 2007 or ....
+* Sun Mar 24 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-2
 - Fix .spec
 
-* Fri Mar 23 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-1
-  Sun Mar 23 2007 --> Sun Mar 18 2007 or Fri Mar 23 2007 or Sun Mar 25 2007 or ....
+* Sun Mar 23 2007 Allisson Azevedo <allisson@gmail.com> 0.2.2-1
 - Initial RPM release
