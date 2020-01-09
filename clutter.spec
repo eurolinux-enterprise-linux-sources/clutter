@@ -8,7 +8,7 @@
 
 Name:          clutter
 Version:       1.20.0
-Release:       10%{?dist}
+Release:       4%{?dist}
 Summary:       Open Source software library for creating rich graphical user interfaces
 
 Group:         Development/Libraries
@@ -18,20 +18,15 @@ Source0:       http://download.gnome.org/sources/clutter/1.20/clutter-%{version}
 # https://bugzilla.gnome.org/show_bug.cgi?id=732706
 Patch7:        Allow-setting-up-quad-buffer-stereo-output.patch
 
-Patch8:        add-driver-selection-api.patch
-Patch9:        video-memory-purge.patch
-
-Patch10:       Enable-threaded-swap-wait.patch
-
 BuildRequires: glib2-devel mesa-libGL-devel pkgconfig pango-devel
 BuildRequires: cairo-gobject-devel gdk-pixbuf2-devel atk-devel
-BuildRequires: cogl-devel >= 1.18.2-12
+BuildRequires: cogl-devel >= 1.15.1
 BuildRequires: gobject-introspection-devel >= 0.9.6
 BuildRequires: gtk3-devel
 BuildRequires: json-glib-devel >= 0.12.0
 BuildRequires: libXcomposite-devel
 BuildRequires: libXdamage-devel
-BuildRequires: libXi-devel >= 1.7.4
+BuildRequires: libXi-devel
 BuildRequires: gettext-devel
 %if 0%{?with_wayland}
 BuildRequires: libgudev1-devel
@@ -86,9 +81,6 @@ the functionality of the installed clutter package.
 %prep
 %setup -q
 %patch7 -p1 -b .quadbuffer-stereo
-%patch8 -p1 -b .add-driver-selection-api
-%patch9 -p1 -b .video-memory-purge
-%patch10 -p1 -b .enable-threaded-swap-wait
 
 %build
 autoreconf
@@ -143,36 +135,7 @@ make check %{?_smp_mflags} V=1
 %endif
 
 %changelog
-* Thu Aug 11 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-10
-- Add patches to make the backend driver selection explicit instead of
-  changing the default to gl3
-  Resolves: #1361251
-
-* Mon Jul 18 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-9
-- Require a cogl version that provides all the new APIs
-  Related: rhbz#1330488
-
-* Wed Jun 29 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-8
-- Add a patch that adds clutter_x11_enable_threaded_swap_wait(),
-  enabling proper waiting for frame completion on NVIDIA.
-- Add a patch to fix Cogl Glib source added multiple times.
-  See https://bugzilla.gnome.org/show_bug.cgi?id=768243
-  Resolves: #1306801
-
-* Fri Jun 17 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-7
-- Add patches to support NV_robustness_video_memory_purge
-  Related: rhbz#1330488
-
-* Tue May 10 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-6
-- Fix problem with stereo patch (missing export declarations) that resulted
-  in added symbols not being exported.
-  Resolves: #1306801
-
-* Fri Mar 04 2016 Florian Müllner <fmuellner@redhat.com> - 1.20.0-5
-- Request a minimum libXi version
-  Related: #1290446
-
-* Fri Jul 17 2015 Florian Müllner <fmuellner@redhat.com> - 1.20.0-4
+* Fri Jul 17 2015 Florian Müllner <fmuelner@redhat.com> - 1.20.0-4
 - Rebuild with update gobject-introspection
   Resolves: #1236735
 
