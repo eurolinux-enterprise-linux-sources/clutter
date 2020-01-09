@@ -1,0 +1,167 @@
+<!-- ##### SECTION Title ##### -->
+Vertex Buffers
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_new ##### -->
+<para>
+
+</para>
+
+@n_vertices: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_get_n_vertices ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_ref ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_unref ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_add ##### -->
+<para>
+
+</para>
+
+@handle: 
+@attribute_name: 
+@n_components: 
+@type: 
+@normalized: 
+@stride: 
+@pointer: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_delete ##### -->
+<para>
+
+</para>
+
+@handle: 
+@attribute_name: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_submit ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_disable ##### -->
+<para>
+
+</para>
+
+@handle: 
+@attribute_name: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_enable ##### -->
+<para>
+
+</para>
+
+@handle: 
+@attribute_name: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_draw ##### -->
+<para>
+
+</para>
+
+@handle: 
+@mode: 
+@first: 
+@count: 
+
+
+<!-- ##### FUNCTION cogl_is_vertex_buffer ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### ENUM CoglIndicesType ##### -->
+<para>
+
+</para>
+
+@COGL_INDICES_TYPE_UNSIGNED_BYTE: 
+@COGL_INDICES_TYPE_UNSIGNED_SHORT: 
+
+<!-- ##### FUNCTION cogl_vertex_buffer_indices_new ##### -->
+<para>
+
+</para>
+
+@indices_type: 
+@indices_array: 
+@indices_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_draw_elements ##### -->
+<para>
+
+</para>
+
+@handle: 
+@mode: 
+@indices: 
+@min_index: 
+@max_index: 
+@indices_offset: 
+@count: 
+
+
+<!-- ##### FUNCTION cogl_vertex_buffer_indices_get_for_quads ##### -->
+<para>
+
+</para>
+
+@n_indices: 
+@Returns: 
+
+

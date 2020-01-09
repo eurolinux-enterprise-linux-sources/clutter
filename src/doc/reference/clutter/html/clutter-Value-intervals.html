@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Value intervals</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch06.html" title="High Level API">
+<link rel="prev" href="ch06.html" title="High Level API">
+<link rel="next" href="clutter-Implicit-Animations.html" title="Implicit Animations">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch06.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutter-Implicit-Animations.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#clutter-Value-intervals.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#clutter-Value-intervals.description" class="shortcut">Description</a>
+                 | 
+                <a href="#clutter-Value-intervals.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#clutter-Value-intervals.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="clutter-Value-intervals"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="clutter-Value-intervals.top_of_page"></a>Value intervals</span></h2>
+<p>Value intervals — An object holding an interval of two values</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="clutter-Value-intervals.synopsis"></a><h2>Synopsis</h2>
+<a name="ClutterInterval"></a><pre class="synopsis">
+                    <a class="link" href="clutter-Value-intervals.html#ClutterInterval-struct" title="ClutterInterval">ClutterInterval</a>;
+                    <a class="link" href="clutter-Value-intervals.html#ClutterIntervalClass" title="ClutterIntervalClass">ClutterIntervalClass</a>;
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   <a class="link" href="clutter-Value-intervals.html#clutter-interval-new" title="clutter_interval_new ()">clutter_interval_new</a>                (GType gtype,
+                                                         ...);
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   <a class="link" href="clutter-Value-intervals.html#clutter-interval-new-with-values" title="clutter_interval_new_with_values ()">clutter_interval_new_with_values</a>    (GType gtype,
+                                                         const GValue *initial,
+                                                         const GValue *final);
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   <a class="link" href="clutter-Value-intervals.html#clutter-interval-clone" title="clutter_interval_clone ()">clutter_interval_clone</a>              (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+GType               <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-value-type" title="clutter_interval_get_value_type ()">clutter_interval_get_value_type</a>     (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-set-initial-value" title="clutter_interval_set_initial_value ()">clutter_interval_set_initial_value</a>  (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         const GValue *value);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-initial-value" title="clutter_interval_get_initial_value ()">clutter_interval_get_initial_value</a>  (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GValue *value);
+GValue *            <a class="link" href="clutter-Value-intervals.html#clutter-interval-peek-initial-value" title="clutter_interval_peek_initial_value ()">clutter_interval_peek_initial_value</a> (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-set-final-value" title="clutter_interval_set_final_value ()">clutter_interval_set_final_value</a>    (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         const GValue *value);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-final-value" title="clutter_interval_get_final_value ()">clutter_interval_get_final_value</a>    (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GValue *value);
+GValue *            <a class="link" href="clutter-Value-intervals.html#clutter-interval-peek-final-value" title="clutter_interval_peek_final_value ()">clutter_interval_peek_final_value</a>   (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-set-interval" title="clutter_interval_set_interval ()">clutter_interval_set_interval</a>       (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         ...);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-interval" title="clutter_interval_get_interval ()">clutter_interval_get_interval</a>       (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         ...);
+
+gboolean            <a class="link" href="clutter-Value-intervals.html#clutter-interval-compute-value" title="clutter_interval_compute_value ()">clutter_interval_compute_value</a>      (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         gdouble factor,
+                                                         GValue *value);
+gboolean            <a class="link" href="clutter-Value-intervals.html#clutter-interval-validate" title="clutter_interval_validate ()">clutter_interval_validate</a>           (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GParamSpec *pspec);
+
+gboolean            (<a class="link" href="clutter-Value-intervals.html#ClutterProgressFunc" title="ClutterProgressFunc ()">*ClutterProgressFunc</a>)              (const GValue *a,
+                                                         const GValue *b,
+                                                         gdouble progress,
+                                                         GValue *retval);
+void                <a class="link" href="clutter-Value-intervals.html#clutter-interval-register-progress-func" title="clutter_interval_register_progress_func ()">clutter_interval_register_progress_func</a>
+                                                        (GType value_type,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterProgressFunc" title="ClutterProgressFunc ()">ClutterProgressFunc</a> func);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Value-intervals.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----ClutterInterval
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Value-intervals.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="clutter-Value-intervals.html#ClutterInterval--value-type" title='The "value-type" property'>value-type</a>"               GType*                : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Value-intervals.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> is a simple object that can hold two values
+defining an interval. <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> can hold any value that
+can be enclosed inside a <span class="type">GValue</span>.
+</p>
+<p>
+Once a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> for a specific <span class="type">GType</span> has been instantiated
+the <a class="link" href="clutter-Value-intervals.html#ClutterInterval--value-type" title='The "value-type" property'><span class="type">"value-type"</span></a> property cannot be changed anymore.
+</p>
+<p>
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> starts with a floating reference; this means that
+any object taking a reference on a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> instance should
+also take ownership of the interval by using <code class="function">g_object_ref_sink()</code>.
+</p>
+<p>
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> is used by <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> to define the
+interval of values that an implicit animation should tween over.
+</p>
+<p>
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> can be subclassed to override the validation
+and value computation.
+</p>
+<p>
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> is available since Clutter 1.0</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Value-intervals.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterInterval-struct"></a><h3>ClutterInterval</h3>
+<pre class="programlisting">typedef struct _ClutterInterval ClutterInterval;</pre>
+<p>
+The <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> structure contains only private data and should
+be accessed using the provided functions.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterIntervalClass"></a><h3>ClutterIntervalClass</h3>
+<pre class="programlisting">typedef struct {
+  gboolean (* validate)      (ClutterInterval *interval,
+                              GParamSpec      *pspec);
+  gboolean (* compute_value) (ClutterInterval *interval,
+                              gdouble          factor,
+                              GValue          *value);
+} ClutterIntervalClass;
+</pre>
+<p>
+The <a class="link" href="clutter-Value-intervals.html#ClutterIntervalClass" title="ClutterIntervalClass"><span class="type">ClutterIntervalClass</span></a> contains only private data.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>validate</code></em> ()</span></p></td>
+<td> virtual function for validating an interval
+  using a <span class="type">GParamSpec</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>compute_value</code></em> ()</span></p></td>
+<td> virtual function for computing the value
+  inside an interval using an adimensional factor between 0 and 1
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-new"></a><h3>clutter_interval_new ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   clutter_interval_new                (GType gtype,
+                                                         ...);</pre>
+<p>
+Creates a new <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> holding values of type <em class="parameter"><code>gtype</code></em>.
+</p>
+<p>
+This function avoids using a <span class="type">GValue</span> for the initial and final values
+of the interval:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  interval = clutter_interval_new (G_TYPE_FLOAT, 0.0, 1.0);
+  interval = clutter_interval_new (G_TYPE_BOOLEAN, FALSE, TRUE);
+  interval = clutter_interval_new (G_TYPE_INT, 0, 360);
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gtype</code></em> :</span></p></td>
+<td> the type of the values in the interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> the initial value and the final value of the interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-new-with-values"></a><h3>clutter_interval_new_with_values ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   clutter_interval_new_with_values    (GType gtype,
+                                                         const GValue *initial,
+                                                         const GValue *final);</pre>
+<p>
+Creates a new <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> of type <em class="parameter"><code>gtype</code></em>, between <em class="parameter"><code>initial</code></em>
+and <em class="parameter"><code>final</code></em>.
+</p>
+<p>
+This function is useful for language bindings.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gtype</code></em> :</span></p></td>
+<td> the type of the values in the interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span> holding the initial value of the interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>final</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span> holding the final value of the interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-clone"></a><h3>clutter_interval_clone ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   clutter_interval_clone              (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Creates a copy of <em class="parameter"><code>interval</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-get-value-type"></a><h3>clutter_interval_get_value_type ()</h3>
+<pre class="programlisting">GType               clutter_interval_get_value_type     (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Retrieves the <span class="type">GType</span> of the values inside <em class="parameter"><code>interval</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the type of the value, or G_TYPE_INVALID
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-set-initial-value"></a><h3>clutter_interval_set_initial_value ()</h3>
+<pre class="programlisting">void                clutter_interval_set_initial_value  (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         const GValue *value);</pre>
+<p>
+Sets the initial value of <em class="parameter"><code>interval</code></em> to <em class="parameter"><code>value</code></em>. The value is copied
+inside the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-get-initial-value"></a><h3>clutter_interval_get_initial_value ()</h3>
+<pre class="programlisting">void                clutter_interval_get_initial_value  (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GValue *value);</pre>
+<p>
+Retrieves the initial value of <em class="parameter"><code>interval</code></em> and copies
+it into <em class="parameter"><code>value</code></em>.
+</p>
+<p>
+The passed <span class="type">GValue</span> must be initialized to the value held by
+the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-peek-initial-value"></a><h3>clutter_interval_peek_initial_value ()</h3>
+<pre class="programlisting">GValue *            clutter_interval_peek_initial_value (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Gets the pointer to the initial value of <em class="parameter"><code>interval</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-set-final-value"></a><h3>clutter_interval_set_final_value ()</h3>
+<pre class="programlisting">void                clutter_interval_set_final_value    (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         const GValue *value);</pre>
+<p>
+Sets the final value of <em class="parameter"><code>interval</code></em> to <em class="parameter"><code>value</code></em>. The value is
+copied inside the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-get-final-value"></a><h3>clutter_interval_get_final_value ()</h3>
+<pre class="programlisting">void                clutter_interval_get_final_value    (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GValue *value);</pre>
+<p>
+Retrieves the final value of <em class="parameter"><code>interval</code></em> and copies
+it into <em class="parameter"><code>value</code></em>.
+</p>
+<p>
+The passed <span class="type">GValue</span> must be initialized to the value held by
+the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-peek-final-value"></a><h3>clutter_interval_peek_final_value ()</h3>
+<pre class="programlisting">GValue *            clutter_interval_peek_final_value   (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Gets the pointer to the final value of <em class="parameter"><code>interval</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-set-interval"></a><h3>clutter_interval_set_interval ()</h3>
+<pre class="programlisting">void                clutter_interval_set_interval       (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         ...);</pre>
+<p>
+Variable arguments wrapper for <a class="link" href="clutter-Value-intervals.html#clutter-interval-set-initial-value" title="clutter_interval_set_initial_value ()"><code class="function">clutter_interval_set_initial_value()</code></a>
+and <a class="link" href="clutter-Value-intervals.html#clutter-interval-set-final-value" title="clutter_interval_set_final_value ()"><code class="function">clutter_interval_set_final_value()</code></a> that avoids using the
+<span class="type">GValue</span> arguments:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_interval_set_interval (interval, 0, 50);
+  clutter_interval_set_interval (interval, 1.0, 0.0);
+  clutter_interval_set_interval (interval, FALSE, TRUE);
+</pre></div>
+<p>
+</p>
+<p>
+This function is meant for the convenience of the C API; bindings
+should reimplement this function using the <span class="type">GValue-based</span> API.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> the initial and final values of the interval
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-get-interval"></a><h3>clutter_interval_get_interval ()</h3>
+<pre class="programlisting">void                clutter_interval_get_interval       (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         ...);</pre>
+<p>
+Variable arguments wrapper for <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-initial-value" title="clutter_interval_get_initial_value ()"><code class="function">clutter_interval_get_initial_value()</code></a>
+and <a class="link" href="clutter-Value-intervals.html#clutter-interval-get-final-value" title="clutter_interval_get_final_value ()"><code class="function">clutter_interval_get_final_value()</code></a> that avoids using the
+<span class="type">GValue</span> arguments:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  gint a = 0, b = 0;
+  clutter_interval_get_interval (interval, &amp;a, &amp;b);
+</pre></div>
+<p>
+</p>
+<p>
+This function is meant for the convenience of the C API; bindings
+should reimplement this function using the <span class="type">GValue-based</span> API.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> return locations for the initial and final values of
+  the interval
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-compute-value"></a><h3>clutter_interval_compute_value ()</h3>
+<pre class="programlisting">gboolean            clutter_interval_compute_value      (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         gdouble factor,
+                                                         GValue *value);</pre>
+<p>
+Computes the value between the <em class="parameter"><code>interval</code></em> boundaries given the
+progress <em class="parameter"><code>factor</code></em> and puts it into <em class="parameter"><code>value</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factor</code></em> :</span></p></td>
+<td> the progress factor, between 0 and 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> return location for an initialized <span class="type">GValue</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the operation was successful
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-validate"></a><h3>clutter_interval_validate ()</h3>
+<pre class="programlisting">gboolean            clutter_interval_validate           (<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval,
+                                                         GParamSpec *pspec);</pre>
+<p>
+Validates the initial and final values of <em class="parameter"><code>interval</code></em> against
+a <span class="type">GParamSpec</span>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pspec</code></em> :</span></p></td>
+<td> a <span class="type">GParamSpec</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> is valid, <code class="literal">FALSE</code> otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterProgressFunc"></a><h3>ClutterProgressFunc ()</h3>
+<pre class="programlisting">gboolean            (*ClutterProgressFunc)              (const GValue *a,
+                                                         const GValue *b,
+                                                         gdouble progress,
+                                                         GValue *retval);</pre>
+<p>
+Prototype of the progress function used to compute the value
+between the two ends <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> of an interval depending on
+the value of <em class="parameter"><code>progress</code></em>.
+</p>
+<p>
+The <span class="type">GValue</span> in <em class="parameter"><code>retval</code></em> is already initialized with the same
+type as <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em>.
+</p>
+<p>
+This function will be called by <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> if the
+type of the values of the interval was registered using
+<a class="link" href="clutter-Value-intervals.html#clutter-interval-register-progress-func" title="clutter_interval_register_progress_func ()"><code class="function">clutter_interval_register_progress_func()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> the initial value of an interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> the final value of an interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td> the progress factor, between 0 and 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>retval</code></em> :</span></p></td>
+<td> the value used to store the progress
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the function successfully computed
+  the value and stored it inside <em class="parameter"><code>retval</code></em>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-interval-register-progress-func"></a><h3>clutter_interval_register_progress_func ()</h3>
+<pre class="programlisting">void                clutter_interval_register_progress_func
+                                                        (GType value_type,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterProgressFunc" title="ClutterProgressFunc ()">ClutterProgressFunc</a> func);</pre>
+<p>
+Sets the progress function for a given <em class="parameter"><code>value_type</code></em>, like:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_interval_register_progress_func (MY_TYPE_FOO,
+                                           my_foo_progress);
+</pre></div>
+<p>
+</p>
+<p>
+Whenever a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> instance using the default
+<span class="type">"compute_value"</span> implementation is set as an
+interval between two <span class="type">GValue</span> of type <em class="parameter"><code>value_type</code></em>, it will call
+<em class="parameter"><code>func</code></em> to establish the value depending on the given progress,
+for instance:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  static gboolean
+  my_int_progress (const GValue *a,
+                   const GValue *b,
+                   gdouble       progress,
+                   GValue       *retval)
+  {
+    gint ia = g_value_get_int (a);
+    gint ib = g_value_get_int (b);
+    gint res = factor * (ib - ia) + ia;
+
+    g_value_set_int (retval, res);
+
+    return TRUE;
+  }
+
+  clutter_interval_register_progress_func (G_TYPE_INT, my_int_progress);
+</pre></div>
+<p>
+</p>
+<p>
+To unset a previously set progress function of a <span class="type">GType</span>, pass <code class="literal">NULL</code>
+for <em class="parameter"><code>func</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value_type</code></em> :</span></p></td>
+<td> a <span class="type">GType</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterProgressFunc" title="ClutterProgressFunc ()"><span class="type">ClutterProgressFunc</span></a>, or <code class="literal">NULL</code> to unset a previously
+  set progress function
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Value-intervals.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterInterval--value-type"></a><h3>The <code class="literal">"value-type"</code> property</h3>
+<pre class="programlisting">  "value-type"               GType*                : Read / Write / Construct Only</pre>
+<p>
+The type of the values in the interval.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

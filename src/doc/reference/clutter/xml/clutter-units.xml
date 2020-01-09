@@ -1,0 +1,513 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-Unit-conversion">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-Unit-conversion.top_of_page">Unit conversion</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Unit conversion</refname>
+<refpurpose>A logical distance unit</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-Unit-conversion.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+enum                <link linkend="ClutterUnitType">ClutterUnitType</link>;
+                    <link linkend="ClutterUnits">ClutterUnits</link>;
+<link linkend="void">void</link>                <link linkend="clutter-units-from-mm">clutter_units_from_mm</link>               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> mm);
+<link linkend="void">void</link>                <link linkend="clutter-units-from-pt">clutter_units_from_pt</link>               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> pt);
+<link linkend="void">void</link>                <link linkend="clutter-units-from-em">clutter_units_from_em</link>               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> em);
+<link linkend="void">void</link>                <link linkend="clutter-units-from-em-for-font">clutter_units_from_em_for_font</link>      (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         const <link linkend="gchar">gchar</link> *font_name,
+                                                         <link linkend="gfloat">gfloat</link> em);
+<link linkend="void">void</link>                <link linkend="clutter-units-from-pixels">clutter_units_from_pixels</link>           (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gint">gint</link> px);
+<link linkend="gfloat">gfloat</link>              <link linkend="clutter-units-to-pixels">clutter_units_to_pixels</link>             (<link linkend="ClutterUnits">ClutterUnits</link> *units);
+<link linkend="ClutterUnits">ClutterUnits</link> *      <link linkend="clutter-units-copy">clutter_units_copy</link>                  (const <link linkend="ClutterUnits">ClutterUnits</link> *units);
+<link linkend="void">void</link>                <link linkend="clutter-units-free">clutter_units_free</link>                  (<link linkend="ClutterUnits">ClutterUnits</link> *units);
+<link linkend="ClutterUnitType">ClutterUnitType</link>     <link linkend="clutter-units-get-unit-type">clutter_units_get_unit_type</link>         (const <link linkend="ClutterUnits">ClutterUnits</link> *units);
+<link linkend="gfloat">gfloat</link>              <link linkend="clutter-units-get-unit-value">clutter_units_get_unit_value</link>        (const <link linkend="ClutterUnits">ClutterUnits</link> *units);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-units-from-string">clutter_units_from_string</link>           (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         const <link linkend="gchar">gchar</link> *str);
+<link linkend="gchar">gchar</link> *             <link linkend="clutter-units-to-string">clutter_units_to_string</link>             (const <link linkend="ClutterUnits">ClutterUnits</link> *units);
+
+                    <link linkend="ClutterParamSpecUnits">ClutterParamSpecUnits</link>;
+<link linkend="GParamSpec">GParamSpec</link> *        <link linkend="clutter-param-spec-units">clutter_param_spec_units</link>            (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *nick,
+                                                         const <link linkend="gchar">gchar</link> *blurb,
+                                                         <link linkend="ClutterUnitType">ClutterUnitType</link> default_type,
+                                                         <link linkend="gfloat">gfloat</link> minimum,
+                                                         <link linkend="gfloat">gfloat</link> maximum,
+                                                         <link linkend="gfloat">gfloat</link> default_value,
+                                                         <link linkend="GParamFlags">GParamFlags</link> flags);
+#define             <link linkend="CLUTTER-VALUE-HOLDS-UNITS--CAPS">CLUTTER_VALUE_HOLDS_UNITS</link>           (x)
+<link linkend="void">void</link>                <link linkend="clutter-value-set-units">clutter_value_set_units</link>             (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="ClutterUnits">ClutterUnits</link> *units);
+const <link linkend="ClutterUnits">ClutterUnits</link> * <link linkend="clutter-value-get-units">clutter_value_get_units</link>            (const <link linkend="GValue">GValue</link> *value);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-Unit-conversion.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterUnits"><type>ClutterUnits</type></link> is a structure holding a logical distance value along with
+its type, expressed as a value of the <link linkend="ClutterUnitType"><type>ClutterUnitType</type></link> enumeration. It is
+possible to use <link linkend="ClutterUnits"><type>ClutterUnits</type></link> to store a position or a size in units
+different than pixels, and convert them whenever needed (for instance
+inside the <link linkend="ClutterActor-"><type>""</type></link><link linkend="allocate"><function>allocate()</function></link> virtual function, or inside the
+<link linkend="ClutterActor-"><type>""</type></link><link linkend="get-preferred-width"><function>get_preferred_width()</function></link> and <link linkend="ClutterActor-"><type>""</type></link><link linkend="get-preferred-height"><function>get_preferred_height()</function></link>
+virtual functions.
+</para>
+<para>
+In order to register a <link linkend="ClutterUnits"><type>ClutterUnits</type></link> property, the <link linkend="ClutterParamSpecUnits"><type>ClutterParamSpecUnits</type></link>
+<link linkend="GParamSpec"><type>GParamSpec</type></link> sub-class should be used:
+</para>
+<para>
+<informalexample><programlisting>
+  GParamSpec *pspec;
+
+  pspec = clutter_param_spec_units ("active-width",
+                                    "Width",
+                                    "Width of the active area, in millimeters",
+                                    CLUTTER_UNIT_MM,
+                                    0.0, 12.0,
+                                    12.0,
+                                    G_PARAM_READWRITE);
+  g_object_class_install_property (gobject_class, PROP_WIDTH, pspec);
+</programlisting></informalexample>
+</para>
+<para>
+A <link linkend="GValue"><type>GValue</type></link> holding units can be manipulated using <link linkend="clutter-value-set-units"><function>clutter_value_set_units()</function></link>
+and <link linkend="clutter-value-get-units"><function>clutter_value_get_units()</function></link>. <link linkend="GValue"><type>GValue</type></link><!-- -->s containing a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+value can also be transformed to <link linkend="GValue"><type>GValue</type></link><!-- -->s initialized with
+<link linkend="G-TYPE-INT--CAPS"><literal>G_TYPE_INT</literal></link>, <link linkend="G-TYPE-FLOAT--CAPS"><literal>G_TYPE_FLOAT</literal></link> and <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link> through implicit conversion
+and using <link linkend="g-value-transform"><function>g_value_transform()</function></link>.
+</para>
+<para>
+<link linkend="ClutterUnits"><type>ClutterUnits</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-Unit-conversion.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterUnitType" role="enum" condition="since:1.0">
+<title>enum ClutterUnitType</title>
+<indexterm zone="ClutterUnitType" role="1.0"><primary sortas="UnitType">ClutterUnitType</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_UNIT_PIXEL,
+  CLUTTER_UNIT_EM,
+  CLUTTER_UNIT_MM,
+  CLUTTER_UNIT_POINT
+} ClutterUnitType;
+</programlisting>
+<para>
+The type of unit in which a value is expressed
+</para>
+<para>
+This enumeration might be expanded at later date</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="CLUTTER-UNIT-PIXEL--CAPS" role="constant">
+<term><literal>CLUTTER_UNIT_PIXEL</literal></term>
+<listitem><simpara> Unit expressed in pixels (with subpixel precision)
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-UNIT-EM--CAPS" role="constant">
+<term><literal>CLUTTER_UNIT_EM</literal></term>
+<listitem><simpara> Unit expressed in em
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-UNIT-MM--CAPS" role="constant">
+<term><literal>CLUTTER_UNIT_MM</literal></term>
+<listitem><simpara> Unit expressed in millimeters
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-UNIT-POINT--CAPS" role="constant">
+<term><literal>CLUTTER_UNIT_POINT</literal></term>
+<listitem><simpara> Unit expressed in points
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterUnits" role="struct" condition="since:1.0">
+<title>ClutterUnits</title>
+<indexterm zone="ClutterUnits" role="1.0"><primary sortas="Units">ClutterUnits</primary></indexterm><programlisting>typedef struct {
+} ClutterUnits;
+</programlisting>
+<para>
+An opaque structure, to be used to store sizing and positioning
+values along with their unit.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-mm" role="function" condition="since:1.0">
+<title>clutter_units_from_mm ()</title>
+<indexterm zone="clutter-units-from-mm" role="1.0"><primary sortas="units_from_mm">clutter_units_from_mm</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_from_mm               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> mm);</programlisting>
+<para>
+Stores a value in millimiters inside <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mm</parameter>&#160;:</term>
+<listitem><simpara> millimeters
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-pt" role="function" condition="since:1.0">
+<title>clutter_units_from_pt ()</title>
+<indexterm zone="clutter-units-from-pt" role="1.0"><primary sortas="units_from_pt">clutter_units_from_pt</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_from_pt               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> pt);</programlisting>
+<para>
+Stores a value in typographic points inside <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pt</parameter>&#160;:</term>
+<listitem><simpara> typographic points
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-em" role="function" condition="since:1.0">
+<title>clutter_units_from_em ()</title>
+<indexterm zone="clutter-units-from-em" role="1.0"><primary sortas="units_from_em">clutter_units_from_em</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_from_em               (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gfloat">gfloat</link> em);</programlisting>
+<para>
+Stores a value in em inside <parameter>units</parameter>, using the default font
+name as returned by <link linkend="clutter-backend-get-font-name"><function>clutter_backend_get_font_name()</function></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>em</parameter>&#160;:</term>
+<listitem><simpara> em
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-em-for-font" role="function" condition="since:1.0">
+<title>clutter_units_from_em_for_font ()</title>
+<indexterm zone="clutter-units-from-em-for-font" role="1.0"><primary sortas="units_from_em_for_font">clutter_units_from_em_for_font</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_from_em_for_font      (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         const <link linkend="gchar">gchar</link> *font_name,
+                                                         <link linkend="gfloat">gfloat</link> em);</programlisting>
+<para>
+Stores a value in em inside <parameter>units</parameter> using <parameter>font_name</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>font_name</parameter>&#160;:</term>
+<listitem><simpara> the font name and size
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>em</parameter>&#160;:</term>
+<listitem><simpara> em
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-pixels" role="function" condition="since:1.0">
+<title>clutter_units_from_pixels ()</title>
+<indexterm zone="clutter-units-from-pixels" role="1.0"><primary sortas="units_from_pixels">clutter_units_from_pixels</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_from_pixels           (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         <link linkend="gint">gint</link> px);</programlisting>
+<para>
+Stores a value in pixels inside <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>px</parameter>&#160;:</term>
+<listitem><simpara> pixels
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-to-pixels" role="function" condition="since:1.0">
+<title>clutter_units_to_pixels ()</title>
+<indexterm zone="clutter-units-to-pixels" role="1.0"><primary sortas="units_to_pixels">clutter_units_to_pixels</primary></indexterm><programlisting><link linkend="gfloat">gfloat</link>              clutter_units_to_pixels             (<link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Converts a value in <link linkend="ClutterUnits"><type>ClutterUnits</type></link> to pixels</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> units to convert
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the value in pixels
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-copy" role="function" condition="since:1.0">
+<title>clutter_units_copy ()</title>
+<indexterm zone="clutter-units-copy" role="1.0"><primary sortas="units_copy">clutter_units_copy</primary></indexterm><programlisting><link linkend="ClutterUnits">ClutterUnits</link> *      clutter_units_copy                  (const <link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Copies <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterUnits"><type>ClutterUnits</type></link> to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created copy of a <link linkend="ClutterUnits"><type>ClutterUnits</type></link> structure.
+  Use <link linkend="clutter-units-free"><function>clutter_units_free()</function></link> to free the allocated resources
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-free" role="function" condition="since:1.0">
+<title>clutter_units_free ()</title>
+<indexterm zone="clutter-units-free" role="1.0"><primary sortas="units_free">clutter_units_free</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_units_free                  (<link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Frees the resources allocated by <parameter>units</parameter>
+</para>
+<para>
+You should only call this function on a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+created using <link linkend="clutter-units-copy"><function>clutter_units_copy()</function></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterUnits"><type>ClutterUnits</type></link> to free
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-get-unit-type" role="function" condition="since:1.0">
+<title>clutter_units_get_unit_type ()</title>
+<indexterm zone="clutter-units-get-unit-type" role="1.0"><primary sortas="units_get_unit_type">clutter_units_get_unit_type</primary></indexterm><programlisting><link linkend="ClutterUnitType">ClutterUnitType</link>     clutter_units_get_unit_type         (const <link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Retrieves the unit type of the value stored inside <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a unit type
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-get-unit-value" role="function" condition="since:1.0">
+<title>clutter_units_get_unit_value ()</title>
+<indexterm zone="clutter-units-get-unit-value" role="1.0"><primary sortas="units_get_unit_value">clutter_units_get_unit_value</primary></indexterm><programlisting><link linkend="gfloat">gfloat</link>              clutter_units_get_unit_value        (const <link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Retrieves the value stored inside <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the value stored inside a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-from-string" role="function" condition="since:1.0">
+<title>clutter_units_from_string ()</title>
+<indexterm zone="clutter-units-from-string" role="1.0"><primary sortas="units_from_string">clutter_units_from_string</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_units_from_string           (<link linkend="ClutterUnits">ClutterUnits</link> *units,
+                                                         const <link linkend="gchar">gchar</link> *str);</programlisting>
+<para>
+Parses a value and updates <parameter>units</parameter> with it
+</para>
+<para>
+A <link linkend="ClutterUnits"><type>ClutterUnits</type></link> expressed in string should match:
+</para>
+<para>
+<informalexample><programlisting>
+  number: [0-9]
+  unit_value: &lt;number&gt;+
+  unit_name: px|pt|mm|em
+  units: &lt;unit_value&gt; &lt;unit_name&gt;
+</programlisting></informalexample>
+</para>
+<para>
+For instance, these are valid strings:
+</para>
+<para>
+<informalexample><programlisting>
+  10 px
+  5.1 em
+  24 pt
+  12.6 mm
+</programlisting></informalexample>
+</para>
+<para>
+While these are not:
+</para>
+<para>
+<informalexample><programlisting>
+  42 cats
+  omg!1!ponies
+</programlisting></informalexample>
+</para>
+<para>
+<note>If no unit is specified, pixels are assumed.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara> the string to convert
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the string was successfully parsed,
+  and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-units-to-string" role="function" condition="since:1.0">
+<title>clutter_units_to_string ()</title>
+<indexterm zone="clutter-units-to-string" role="1.0"><primary sortas="units_to_string">clutter_units_to_string</primary></indexterm><programlisting><link linkend="gchar">gchar</link> *             clutter_units_to_string             (const <link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Converts <parameter>units</parameter> into a string
+</para>
+<para>
+See <link linkend="clutter-units-from-string"><function>clutter_units_from_string()</function></link> for the units syntax and for
+examples of output
+</para>
+<para>
+<note>Fractional values are truncated to the second decimal
+position for em and mm, and to the first decimal position for
+typographic points. Pixels are integers.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly allocated string containing the encoded
+  <link linkend="ClutterUnits"><type>ClutterUnits</type></link> value. Use <link linkend="g-free"><function>g_free()</function></link> to free the string
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterParamSpecUnits" role="struct" condition="since:1.0">
+<title>ClutterParamSpecUnits</title>
+<indexterm zone="ClutterParamSpecUnits" role="1.0"><primary sortas="ParamSpecUnits">ClutterParamSpecUnits</primary></indexterm><programlisting>typedef struct {
+  ClutterUnitType default_type;
+
+  gfloat default_value;
+  gfloat minimum;
+  gfloat maximum;
+} ClutterParamSpecUnits;
+</programlisting>
+<para>
+<link linkend="GParamSpec"><type>GParamSpec</type></link> subclass for unit based properties.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="ClutterUnitType">ClutterUnitType</link>&#160;<structfield>default_type</structfield>;</term>
+<listitem><simpara> default type
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>default_value</structfield>;</term>
+<listitem><simpara> default value
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>minimum</structfield>;</term>
+<listitem><simpara> lower boundary
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>maximum</structfield>;</term>
+<listitem><simpara> higher boundary
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-param-spec-units" role="function" condition="since:1.0">
+<title>clutter_param_spec_units ()</title>
+<indexterm zone="clutter-param-spec-units" role="1.0"><primary sortas="param_spec_units">clutter_param_spec_units</primary></indexterm><programlisting><link linkend="GParamSpec">GParamSpec</link> *        clutter_param_spec_units            (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *nick,
+                                                         const <link linkend="gchar">gchar</link> *blurb,
+                                                         <link linkend="ClutterUnitType">ClutterUnitType</link> default_type,
+                                                         <link linkend="gfloat">gfloat</link> minimum,
+                                                         <link linkend="gfloat">gfloat</link> maximum,
+                                                         <link linkend="gfloat">gfloat</link> default_value,
+                                                         <link linkend="GParamFlags">GParamFlags</link> flags);</programlisting>
+<para>
+Creates a <link linkend="GParamSpec"><type>GParamSpec</type></link> for properties using <link linkend="ClutterUnits"><type>ClutterUnits</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>nick</parameter>&#160;:</term>
+<listitem><simpara> short name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blurb</parameter>&#160;:</term>
+<listitem><simpara> description (can be translatable)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_type</parameter>&#160;:</term>
+<listitem><simpara> the default type for the <link linkend="ClutterUnits"><type>ClutterUnits</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minimum</parameter>&#160;:</term>
+<listitem><simpara> lower boundary
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>maximum</parameter>&#160;:</term>
+<listitem><simpara> higher boundary
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_value</parameter>&#160;:</term>
+<listitem><simpara> default value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> flags for the param spec
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="GParamSpec"><type>GParamSpec</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CLUTTER-VALUE-HOLDS-UNITS--CAPS" role="macro" condition="since:0.8">
+<title>CLUTTER_VALUE_HOLDS_UNITS()</title>
+<indexterm zone="CLUTTER-VALUE-HOLDS-UNITS--CAPS" role="0.8"><primary sortas="VALUE_HOLDS_UNITS">CLUTTER_VALUE_HOLDS_UNITS</primary></indexterm><programlisting>#define CLUTTER_VALUE_HOLDS_UNITS(x)    (G_VALUE_HOLDS ((x), CLUTTER_TYPE_UNITS))
+</programlisting>
+<para>
+Evaluates to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if <parameter>x</parameter> holds a <link linkend="ClutterUnits"><type>ClutterUnits</type></link> value</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-value-set-units" role="function" condition="since:0.8">
+<title>clutter_value_set_units ()</title>
+<indexterm zone="clutter-value-set-units" role="0.8"><primary sortas="value_set_units">clutter_value_set_units</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_value_set_units             (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="ClutterUnits">ClutterUnits</link> *units);</programlisting>
+<para>
+Sets <parameter>value</parameter> to <parameter>units</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> initialized to <link linkend="CLUTTER-TYPE-UNIT--CAPS"><type>CLUTTER_TYPE_UNIT</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>units</parameter>&#160;:</term>
+<listitem><simpara> the units to set
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-value-get-units" role="function" condition="since:0.8">
+<title>clutter_value_get_units ()</title>
+<indexterm zone="clutter-value-get-units" role="0.8"><primary sortas="value_get_units">clutter_value_get_units</primary></indexterm><programlisting>const <link linkend="ClutterUnits">ClutterUnits</link> * clutter_value_get_units            (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the <link linkend="ClutterUnit"><type>ClutterUnit</type></link><!-- -->s contained in <parameter>value</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> initialized to <link linkend="CLUTTER-TYPE-UNIT--CAPS"><type>CLUTTER_TYPE_UNIT</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the units inside the passed <link linkend="GValue"><type>GValue</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

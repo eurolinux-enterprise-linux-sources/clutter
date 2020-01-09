@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterAlpha">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterAlpha.top_of_page">ClutterAlpha</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterAlpha</refname>
+<refpurpose>A class for calculating an alpha value as a function
+of time.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterAlpha.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterAlpha-struct">ClutterAlpha</link>;
+                    <link linkend="ClutterAlphaClass">ClutterAlphaClass</link>;
+<link linkend="gdouble">gdouble</link>             (<link linkend="ClutterAlphaFunc">*ClutterAlphaFunc</link>)                 (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ClutterAlpha">ClutterAlpha</link> *      <link linkend="clutter-alpha-new">clutter_alpha_new</link>                   (void);
+<link linkend="ClutterAlpha">ClutterAlpha</link> *      <link linkend="clutter-alpha-new-full">clutter_alpha_new_full</link>              (<link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="gulong">gulong</link> mode);
+<link linkend="ClutterAlpha">ClutterAlpha</link> *      <link linkend="clutter-alpha-new-with-func">clutter_alpha_new_with_func</link>         (<link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);
+<link linkend="void">void</link>                <link linkend="clutter-alpha-set-timeline">clutter_alpha_set_timeline</link>          (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline);
+<link linkend="ClutterTimeline">ClutterTimeline</link> *   <link linkend="clutter-alpha-get-timeline">clutter_alpha_get_timeline</link>          (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);
+<link linkend="void">void</link>                <link linkend="clutter-alpha-set-mode">clutter_alpha_set_mode</link>              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gulong">gulong</link> mode);
+<link linkend="gulong">gulong</link>              <link linkend="clutter-alpha-get-mode">clutter_alpha_get_mode</link>              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);
+<link linkend="gdouble">gdouble</link>             <link linkend="clutter-alpha-get-alpha">clutter_alpha_get_alpha</link>             (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);
+
+<link linkend="void">void</link>                <link linkend="clutter-alpha-set-func">clutter_alpha_set_func</link>              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);
+<link linkend="void">void</link>                <link linkend="clutter-alpha-set-closure">clutter_alpha_set_closure</link>           (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="GClosure">GClosure</link> *closure);
+
+<link linkend="gulong">gulong</link>              <link linkend="clutter-alpha-register-closure">clutter_alpha_register_closure</link>      (<link linkend="GClosure">GClosure</link> *closure);
+<link linkend="gulong">gulong</link>              <link linkend="clutter-alpha-register-func">clutter_alpha_register_func</link>         (<link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterAlpha.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----ClutterAlpha
+</synopsis>
+</refsect1>
+
+
+
+
+
+<refsect1 id="ClutterAlpha.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterAlpha--alpha">alpha</link>&quot;                    <link linkend="gdouble">gdouble</link>               : Read
+  &quot;<link linkend="ClutterAlpha--mode">mode</link>&quot;                     <link linkend="gulong">gulong</link>                : Read / Write / Construct
+  &quot;<link linkend="ClutterAlpha--timeline">timeline</link>&quot;                 <link linkend="ClutterTimeline">ClutterTimeline</link>*      : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterAlpha.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> is a class for calculating an floating point value
+dependent only on the position of a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>.
+</para>
+<para>
+A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> binds a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> to a progress function which
+translates the time T into an adimensional factor alpha. The factor can
+then be used to drive a <link linkend="ClutterBehaviour"><type>ClutterBehaviour</type></link>, which will translate the
+alpha value into something meaningful for a <link linkend="ClutterActor"><type>ClutterActor</type></link>.
+</para>
+<para>
+You should provide a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> and bind it to the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+instance using <link linkend="clutter-alpha-set-timeline"><function>clutter_alpha_set_timeline()</function></link>. You should also set an
+"animation mode", either by using the <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> values that
+Clutter itself provides or by registering custom functions using
+<link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.
+</para>
+<para>
+Instead of a <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> you may provide a function returning
+the alpha value depending on the progress of the timeline, using
+<link linkend="clutter-alpha-set-func"><function>clutter_alpha_set_func()</function></link> or <link linkend="clutter-alpha-set-closure"><function>clutter_alpha_set_closure()</function></link>. The alpha
+function will be executed each time a new frame in the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+is reached.
+</para>
+<para>
+Since the alpha function is controlled by the timeline instance, you can
+pause, stop or resume the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> from calling the alpha function by
+using the appropriate functions of the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> object.
+</para>
+<para>
+<link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> is used to "drive" a <link linkend="ClutterBehaviour"><type>ClutterBehaviour</type></link> instance, and it
+is internally used by the <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> API.
+</para>
+<para>
+<figure id="easing-modes">
+  <title>Easing modes provided by Clutter</title>
+  <graphic fileref="easing-modes.png" format="PNG"/>
+</figure></para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterAlpha.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterAlpha-struct" role="struct">
+<title>ClutterAlpha</title>
+<indexterm zone="ClutterAlpha-struct" role="0.2"><primary sortas="Alpha">ClutterAlpha</primary></indexterm><programlisting>typedef struct _ClutterAlpha ClutterAlpha;</programlisting>
+<para>
+<link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> combines a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> and a function.
+The contents of the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> structure are private and should
+only be accessed using the provided API.</para>
+<para>
+</para><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="ClutterAlphaClass" role="struct" condition="since:0.2">
+<title>ClutterAlphaClass</title>
+<indexterm zone="ClutterAlphaClass" role="0.2"><primary sortas="AlphaClass">ClutterAlphaClass</primary></indexterm><programlisting>typedef struct {
+} ClutterAlphaClass;
+</programlisting>
+<para>
+Base class for <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link></para>
+<para>
+</para><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="ClutterAlphaFunc" role="function" condition="since:0.2">
+<title>ClutterAlphaFunc ()</title>
+<indexterm zone="ClutterAlphaFunc" role="0.2"><primary sortas="AlphaFunc">ClutterAlphaFunc</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>             (*ClutterAlphaFunc)                 (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+A function returning a value depending on the position of
+the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> bound to <parameter>alpha</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara> user data passed to the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a floating point value
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-new" role="function" condition="since:0.2">
+<title>clutter_alpha_new ()</title>
+<indexterm zone="clutter-alpha-new" role="0.2"><primary sortas="alpha_new">clutter_alpha_new</primary></indexterm><programlisting><link linkend="ClutterAlpha">ClutterAlpha</link> *      clutter_alpha_new                   (void);</programlisting>
+<para>
+Creates a new <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance.  You must set a function
+to compute the alpha value using <link linkend="clutter-alpha-set-func"><function>clutter_alpha_set_func()</function></link> and
+bind a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> object to the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance
+using <link linkend="clutter-alpha-set-timeline"><function>clutter_alpha_set_timeline()</function></link>.
+</para>
+<para>
+You should use the newly created <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance inside
+a <link linkend="ClutterBehaviour"><type>ClutterBehaviour</type></link> object.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created empty <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-new-full" role="function" condition="since:1.0">
+<title>clutter_alpha_new_full ()</title>
+<indexterm zone="clutter-alpha-new-full" role="1.0"><primary sortas="alpha_new_full">clutter_alpha_new_full</primary></indexterm><programlisting><link linkend="ClutterAlpha">ClutterAlpha</link> *      clutter_alpha_new_full              (<link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="gulong">gulong</link> mode);</programlisting>
+<para>
+Creates a new <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance and sets the timeline
+and animation mode.
+</para>
+<para>
+See also <link linkend="clutter-alpha-set-timeline"><function>clutter_alpha_set_timeline()</function></link> and <link linkend="clutter-alpha-set-mode"><function>clutter_alpha_set_mode()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> timeline
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> animation mode
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-alpha-new-with-func" role="function" condition="since:1.0">
+<title>clutter_alpha_new_with_func ()</title>
+<indexterm zone="clutter-alpha-new-with-func" role="1.0"><primary sortas="alpha_new_with_func">clutter_alpha_new_with_func</primary></indexterm><programlisting><link linkend="ClutterAlpha">ClutterAlpha</link> *      clutter_alpha_new_with_func         (<link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);</programlisting>
+<para>
+Creates a new <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instances and sets the timeline
+and the alpha function.
+</para>
+<para>
+This function will not register <parameter>func</parameter> as a global alpha function.
+</para>
+<para>
+See also <link linkend="clutter-alpha-set-timeline"><function>clutter_alpha_set_timeline()</function></link> and <link linkend="clutter-alpha-set-func"><function>clutter_alpha_set_func()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlphaFunc"><type>ClutterAlphaFunc</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> data to pass to the function, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&#160;:</term>
+<listitem><simpara> function to call when removing the alpha function, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-alpha-set-timeline" role="function" condition="since:0.2">
+<title>clutter_alpha_set_timeline ()</title>
+<indexterm zone="clutter-alpha-set-timeline" role="0.2"><primary sortas="alpha_set_timeline">clutter_alpha_set_timeline</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_alpha_set_timeline          (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline);</programlisting>
+<para>
+Binds <parameter>alpha</parameter> to <parameter>timeline</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-get-timeline" role="function" condition="since:0.2">
+<title>clutter_alpha_get_timeline ()</title>
+<indexterm zone="clutter-alpha-get-timeline" role="0.2"><primary sortas="alpha_get_timeline">clutter_alpha_get_timeline</primary></indexterm><programlisting><link linkend="ClutterTimeline">ClutterTimeline</link> *   clutter_alpha_get_timeline          (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);</programlisting>
+<para>
+Gets the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> bound to <parameter>alpha</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> instance. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-set-mode" role="function" condition="since:1.0">
+<title>clutter_alpha_set_mode ()</title>
+<indexterm zone="clutter-alpha-set-mode" role="1.0"><primary sortas="alpha_set_mode">clutter_alpha_set_mode</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_alpha_set_mode              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gulong">gulong</link> mode);</programlisting>
+<para>
+Sets the progress function of <parameter>alpha</parameter> using the symbolic value
+of <parameter>mode</parameter>, as taken by the <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> enumeration or
+using the value returned by <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-alpha-get-mode" role="function" condition="since:1.0">
+<title>clutter_alpha_get_mode ()</title>
+<indexterm zone="clutter-alpha-get-mode" role="1.0"><primary sortas="alpha_get_mode">clutter_alpha_get_mode</primary></indexterm><programlisting><link linkend="gulong">gulong</link>              clutter_alpha_get_mode              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> used by <parameter>alpha</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the animation mode
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-alpha-get-alpha" role="function" condition="since:0.2">
+<title>clutter_alpha_get_alpha ()</title>
+<indexterm zone="clutter-alpha-get-alpha" role="0.2"><primary sortas="alpha_get_alpha">clutter_alpha_get_alpha</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>             clutter_alpha_get_alpha             (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);</programlisting>
+<para>
+Query the current alpha value.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The current alpha value for the alpha
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-set-func" role="function" condition="since:0.2">
+<title>clutter_alpha_set_func ()</title>
+<indexterm zone="clutter-alpha-set-func" role="0.2"><primary sortas="alpha_set_func">clutter_alpha_set_func</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_alpha_set_func              (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);</programlisting>
+<para>
+Sets the <link linkend="ClutterAlphaFunc"><type>ClutterAlphaFunc</type></link> function used to compute
+the alpha value at each frame of the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+bound to <parameter>alpha</parameter>.
+</para>
+<para>
+This function will not register <parameter>func</parameter> as a global alpha function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlphaFunc"><type>ClutterAlphaFunc</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> user data to be passed to the alpha function, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&#160;:</term>
+<listitem><simpara> notify function used when disposing the alpha function
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-alpha-set-closure" role="function" condition="since:0.8">
+<title>clutter_alpha_set_closure ()</title>
+<indexterm zone="clutter-alpha-set-closure" role="0.8"><primary sortas="alpha_set_closure">clutter_alpha_set_closure</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_alpha_set_closure           (<link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="GClosure">GClosure</link> *closure);</programlisting>
+<para>
+Sets the <link linkend="GClosure"><type>GClosure</type></link> used to compute the alpha value at each
+frame of the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> bound to <parameter>alpha</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="GClosure"><type>GClosure</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-alpha-register-closure" role="function" condition="since:1.0">
+<title>clutter_alpha_register_closure ()</title>
+<indexterm zone="clutter-alpha-register-closure" role="1.0"><primary sortas="alpha_register_closure">clutter_alpha_register_closure</primary></indexterm><programlisting><link linkend="gulong">gulong</link>              clutter_alpha_register_closure      (<link linkend="GClosure">GClosure</link> *closure);</programlisting>
+<para>
+<link linkend="GClosure"><type>GClosure</type></link> variant of <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.
+</para>
+<para>
+Registers a global alpha function and returns its logical id
+to be used by <link linkend="clutter-alpha-set-mode"><function>clutter_alpha_set_mode()</function></link> or by <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>.
+</para>
+<para>
+The logical id is always greater than <link linkend="CLUTTER-ANIMATION-LAST--CAPS"><literal>CLUTTER_ANIMATION_LAST</literal></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GClosure"><type>GClosure</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the logical id of the alpha function
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-alpha-register-func" role="function" condition="since:1.0">
+<title>clutter_alpha_register_func ()</title>
+<indexterm zone="clutter-alpha-register-func" role="1.0"><primary sortas="alpha_register_func">clutter_alpha_register_func</primary></indexterm><programlisting><link linkend="gulong">gulong</link>              clutter_alpha_register_func         (<link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Registers a global alpha function and returns its logical id
+to be used by <link linkend="clutter-alpha-set-mode"><function>clutter_alpha_set_mode()</function></link> or by <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>.
+</para>
+<para>
+The logical id is always greater than <link linkend="CLUTTER-ANIMATION-LAST--CAPS"><literal>CLUTTER_ANIMATION_LAST</literal></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlphaFunc"><type>ClutterAlphaFunc</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> user data to pass to <parameter>func</parameter>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the logical id of the alpha function
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterAlpha.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterAlpha--alpha" role="property"><title>The <literal>&quot;alpha&quot;</literal> property</title>
+<indexterm zone="ClutterAlpha--alpha" role="0.2"><primary sortas="Alpha:alpha">ClutterAlpha:alpha</primary></indexterm><programlisting>  &quot;alpha&quot;                    <link linkend="gdouble">gdouble</link>               : Read</programlisting>
+<para>
+The alpha value as computed by the alpha function. The linear
+interval is 0.0 to 1.0, but the Alpha allows overshooting by
+one unit in each direction, so the valid interval is -1.0 to 2.0.</para>
+<para>
+</para><para>Allowed values: [-1,2]</para>
+<para>Default value: 0</para>
+<para>Since 0.2</para>
+</refsect2>
+<refsect2 id="ClutterAlpha--mode" role="property"><title>The <literal>&quot;mode&quot;</literal> property</title>
+<indexterm zone="ClutterAlpha--mode" role="1.0"><primary sortas="Alpha:mode">ClutterAlpha:mode</primary></indexterm><programlisting>  &quot;mode&quot;                     <link linkend="gulong">gulong</link>                : Read / Write / Construct</programlisting>
+<para>
+The progress function logical id - either a value from the
+<link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> enumeration or a value returned by
+<link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.
+</para>
+<para>
+If <link linkend="CLUTTER-CUSTOM-MODE--CAPS"><literal>CLUTTER_CUSTOM_MODE</literal></link> is used then the function set using
+<link linkend="clutter-alpha-set-closure"><function>clutter_alpha_set_closure()</function></link> or <link linkend="clutter-alpha-set-func"><function>clutter_alpha_set_func()</function></link>
+will be used.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterAlpha--timeline" role="property"><title>The <literal>&quot;timeline&quot;</literal> property</title>
+<indexterm zone="ClutterAlpha--timeline" role="0.2"><primary sortas="Alpha:timeline">ClutterAlpha:timeline</primary></indexterm><programlisting>  &quot;timeline&quot;                 <link linkend="ClutterTimeline">ClutterTimeline</link>*      : Read / Write</programlisting>
+<para>
+A <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> instance used to drive the alpha function.</para>
+<para>
+</para><para>Since 0.2</para>
+</refsect2>
+</refsect1>
+
+
+
+
+</refentry>

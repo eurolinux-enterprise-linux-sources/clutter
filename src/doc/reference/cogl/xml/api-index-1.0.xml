@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="CoglAngle"><link linkend="CoglAngle">CoglAngle</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-angle-cos"><link linkend="cogl-angle-cos">cogl_angle_cos</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-ANGLE-FROM-DEG--CAPS"><link linkend="COGL-ANGLE-FROM-DEG--CAPS">COGL_ANGLE_FROM_DEG</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-ANGLE-FROM-DEGX--CAPS"><link linkend="COGL-ANGLE-FROM-DEGX--CAPS">COGL_ANGLE_FROM_DEGX</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-angle-sin"><link linkend="cogl-angle-sin">cogl_angle_sin</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-angle-tan"><link linkend="cogl-angle-tan">cogl_angle_tan</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-ANGLE-TO-DEG--CAPS"><link linkend="COGL-ANGLE-TO-DEG--CAPS">COGL_ANGLE_TO_DEG</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-ANGLE-TO-DEGX--CAPS"><link linkend="COGL-ANGLE-TO-DEGX--CAPS">COGL_ANGLE_TO_DEGX</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglAttributeType"><link linkend="CoglAttributeType">CoglAttributeType</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="cogl-begin-gl"><link linkend="cogl-begin-gl">cogl_begin_gl</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-bitmap-get-size-from-file"><link linkend="cogl-bitmap-get-size-from-file">cogl_bitmap_get_size_from_file</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-bitmap-new-from-file"><link linkend="cogl-bitmap-new-from-file">cogl_bitmap_new_from_file</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglBufferBit"><link linkend="CoglBufferBit">CoglBufferBit</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="cogl-clip-ensure"><link linkend="cogl-clip-ensure">cogl_clip_ensure</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-clip-push-from-path"><link linkend="cogl-clip-push-from-path">cogl_clip_push_from_path</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-clip-push-from-path-preserve"><link linkend="cogl-clip-push-from-path-preserve">cogl_clip_push_from_path_preserve</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglColor"><link linkend="CoglColor">CoglColor</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-alpha"><link linkend="cogl-color-get-alpha">cogl_color_get_alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-alpha-byte"><link linkend="cogl-color-get-alpha-byte">cogl_color_get_alpha_byte</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-alpha-float"><link linkend="cogl-color-get-alpha-float">cogl_color_get_alpha_float</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-blue"><link linkend="cogl-color-get-blue">cogl_color_get_blue</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-blue-byte"><link linkend="cogl-color-get-blue-byte">cogl_color_get_blue_byte</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-blue-float"><link linkend="cogl-color-get-blue-float">cogl_color_get_blue_float</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-green"><link linkend="cogl-color-get-green">cogl_color_get_green</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-green-byte"><link linkend="cogl-color-get-green-byte">cogl_color_get_green_byte</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-green-float"><link linkend="cogl-color-get-green-float">cogl_color_get_green_float</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-red"><link linkend="cogl-color-get-red">cogl_color_get_red</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-red-byte"><link linkend="cogl-color-get-red-byte">cogl_color_get_red_byte</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-get-red-float"><link linkend="cogl-color-get-red-float">cogl_color_get_red_float</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-set-from-4f"><link linkend="cogl-color-set-from-4f">cogl_color_set_from_4f</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-color-set-from-4ub"><link linkend="cogl-color-set-from-4ub">cogl_color_set_from_4ub</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>E</title>
+<indexentry><primaryie linkends="cogl-end-gl"><link linkend="cogl-end-gl">cogl_end_gl</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="COGL-FIXED-0-5--CAPS"><link linkend="COGL-FIXED-0-5--CAPS">COGL_FIXED_0_5</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-1--CAPS"><link linkend="COGL-FIXED-1--CAPS">COGL_FIXED_1</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-120--CAPS"><link linkend="COGL-FIXED-120--CAPS">COGL_FIXED_120</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-180--CAPS"><link linkend="COGL-FIXED-180--CAPS">COGL_FIXED_180</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-240--CAPS"><link linkend="COGL-FIXED-240--CAPS">COGL_FIXED_240</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-255--CAPS"><link linkend="COGL-FIXED-255--CAPS">COGL_FIXED_255</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-270--CAPS"><link linkend="COGL-FIXED-270--CAPS">COGL_FIXED_270</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-2-PI--CAPS"><link linkend="COGL-FIXED-2-PI--CAPS">COGL_FIXED_2_PI</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-30--CAPS"><link linkend="COGL-FIXED-30--CAPS">COGL_FIXED_30</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-360--CAPS"><link linkend="COGL-FIXED-360--CAPS">COGL_FIXED_360</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-45--CAPS"><link linkend="COGL-FIXED-45--CAPS">COGL_FIXED_45</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-60--CAPS"><link linkend="COGL-FIXED-60--CAPS">COGL_FIXED_60</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-90--CAPS"><link linkend="COGL-FIXED-90--CAPS">COGL_FIXED_90</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-atan2"><link linkend="cogl-fixed-atan2">cogl_fixed_atan2</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-atani"><link linkend="cogl-fixed-atani">cogl_fixed_atani</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-BITS--CAPS"><link linkend="COGL-FIXED-BITS--CAPS">COGL_FIXED_BITS</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-CEIL--CAPS"><link linkend="COGL-FIXED-CEIL--CAPS">COGL_FIXED_CEIL</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-cos"><link linkend="cogl-fixed-cos">cogl_fixed_cos</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-DIV--CAPS"><link linkend="COGL-FIXED-DIV--CAPS">COGL_FIXED_DIV</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-EPSILON--CAPS"><link linkend="COGL-FIXED-EPSILON--CAPS">COGL_FIXED_EPSILON</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FAST-DIV--CAPS"><link linkend="COGL-FIXED-FAST-DIV--CAPS">COGL_FIXED_FAST_DIV</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FAST-MUL--CAPS"><link linkend="COGL-FIXED-FAST-MUL--CAPS">COGL_FIXED_FAST_MUL</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FLOOR--CAPS"><link linkend="COGL-FIXED-FLOOR--CAPS">COGL_FIXED_FLOOR</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FRACTION--CAPS"><link linkend="COGL-FIXED-FRACTION--CAPS">COGL_FIXED_FRACTION</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FROM-DOUBLE--CAPS"><link linkend="COGL-FIXED-FROM-DOUBLE--CAPS">COGL_FIXED_FROM_DOUBLE</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FROM-FLOAT--CAPS"><link linkend="COGL-FIXED-FROM-FLOAT--CAPS">COGL_FIXED_FROM_FLOAT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-FROM-INT--CAPS"><link linkend="COGL-FIXED-FROM-INT--CAPS">COGL_FIXED_FROM_INT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-log2"><link linkend="cogl-fixed-log2">cogl_fixed_log2</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-MAX--CAPS"><link linkend="COGL-FIXED-MAX--CAPS">COGL_FIXED_MAX</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-MIN--CAPS"><link linkend="COGL-FIXED-MIN--CAPS">COGL_FIXED_MIN</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-MUL--CAPS"><link linkend="COGL-FIXED-MUL--CAPS">COGL_FIXED_MUL</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-MUL-DIV--CAPS"><link linkend="COGL-FIXED-MUL-DIV--CAPS">COGL_FIXED_MUL_DIV</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-PI--CAPS"><link linkend="COGL-FIXED-PI--CAPS">COGL_FIXED_PI</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-PI-2--CAPS"><link linkend="COGL-FIXED-PI-2--CAPS">COGL_FIXED_PI_2</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-PI-4--CAPS"><link linkend="COGL-FIXED-PI-4--CAPS">COGL_FIXED_PI_4</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-pow"><link linkend="cogl-fixed-pow">cogl_fixed_pow</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-pow2"><link linkend="cogl-fixed-pow2">cogl_fixed_pow2</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-Q--CAPS"><link linkend="COGL-FIXED-Q--CAPS">COGL_FIXED_Q</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-sin"><link linkend="cogl-fixed-sin">cogl_fixed_sin</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-sqrt"><link linkend="cogl-fixed-sqrt">cogl_fixed_sqrt</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-fixed-tan"><link linkend="cogl-fixed-tan">cogl_fixed_tan</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-TO-FLOAT--CAPS"><link linkend="COGL-FIXED-TO-FLOAT--CAPS">COGL_FIXED_TO_FLOAT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FIXED-TO-INT--CAPS"><link linkend="COGL-FIXED-TO-INT--CAPS">COGL_FIXED_TO_INT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FLOAT-TO-INT--CAPS"><link linkend="COGL-FLOAT-TO-INT--CAPS">COGL_FLOAT_TO_INT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-FLOAT-TO-UINT--CAPS"><link linkend="COGL-FLOAT-TO-UINT--CAPS">COGL_FLOAT_TO_UINT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-flush"><link linkend="cogl-flush">cogl_flush</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglFogMode"><link linkend="CoglFogMode">CoglFogMode</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="cogl-get-option-group"><link linkend="cogl-get-option-group">cogl_get_option_group</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>I</title>
+<indexentry><primaryie linkends="cogl-is-vertex-buffer"><link linkend="cogl-is-vertex-buffer">cogl_is_vertex_buffer</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="CoglMaterialLayerType"><link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-material-get-n-layers"><link linkend="cogl-material-get-n-layers">cogl_material_get_n_layers</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-material-set-blend"><link linkend="cogl-material-set-blend">cogl_material_set_blend</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-material-set-blend-constant"><link linkend="cogl-material-set-blend-constant">cogl_material_set_blend_constant</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-material-set-layer-combine"><link linkend="cogl-material-set-layer-combine">cogl_material_set_layer_combine</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>O</title>
+<indexentry><primaryie linkends="cogl-ortho"><link linkend="cogl-ortho">cogl_ortho</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="cogl-path-fill-preserve"><link linkend="cogl-path-fill-preserve">cogl_path_fill_preserve</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-path-new"><link linkend="cogl-path-new">cogl_path_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-path-stroke-preserve"><link linkend="cogl-path-stroke-preserve">cogl_path_stroke_preserve</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="COGL-RADIANS-TO-DEGREES--CAPS"><link linkend="COGL-RADIANS-TO-DEGREES--CAPS">COGL_RADIANS_TO_DEGREES</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglReadPixelsFlags"><link linkend="CoglReadPixelsFlags">CoglReadPixelsFlags</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-rectangles"><link linkend="cogl-rectangles">cogl_rectangles</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="cogl-set-source-color"><link linkend="cogl-set-source-color">cogl_set_source_color</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-set-source-color4f"><link linkend="cogl-set-source-color4f">cogl_set_source_color4f</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-set-source-color4ub"><link linkend="cogl-set-source-color4ub">cogl_set_source_color4ub</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CoglShaderType"><link linkend="CoglShaderType">CoglShaderType</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-SQRTI-ARG-10-PERCENT--CAPS"><link linkend="COGL-SQRTI-ARG-10-PERCENT--CAPS">COGL_SQRTI_ARG_10_PERCENT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-SQRTI-ARG-5-PERCENT--CAPS"><link linkend="COGL-SQRTI-ARG-5-PERCENT--CAPS">COGL_SQRTI_ARG_5_PERCENT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="COGL-SQRTI-ARG-MAX--CAPS"><link linkend="COGL-SQRTI-ARG-MAX--CAPS">COGL_SQRTI_ARG_MAX</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="CoglTextureFlags"><link linkend="CoglTextureFlags">CoglTextureFlags</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-texture-new-from-bitmap"><link linkend="cogl-texture-new-from-bitmap">cogl_texture_new_from_bitmap</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

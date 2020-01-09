@@ -1,0 +1,421 @@
+<!-- ##### SECTION Title ##### -->
+ClutterStage
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterStage ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL ClutterStage::activate ##### -->
+<para>
+
+</para>
+
+@clutterstage: the object which received the signal.
+
+<!-- ##### SIGNAL ClutterStage::deactivate ##### -->
+<para>
+
+</para>
+
+@clutterstage: the object which received the signal.
+
+<!-- ##### SIGNAL ClutterStage::fullscreen ##### -->
+<para>
+
+</para>
+
+@clutterstage: the object which received the signal.
+
+<!-- ##### SIGNAL ClutterStage::unfullscreen ##### -->
+<para>
+
+</para>
+
+@clutterstage: the object which received the signal.
+
+<!-- ##### ARG ClutterStage:color ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:cursor-visible ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:fog ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:fullscreen-set ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:offscreen ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:perspective ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:title ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:use-fog ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterStage:user-resizable ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterStageClass ##### -->
+<para>
+
+</para>
+
+@fullscreen: 
+@unfullscreen: 
+@activate: 
+@deactivate: 
+
+<!-- ##### MACRO CLUTTER_STAGE_WIDTH ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CLUTTER_STAGE_HEIGHT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION clutter_stage_get_default ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_is_default ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_color ##### -->
+<para>
+
+</para>
+
+@stage: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_color ##### -->
+<para>
+
+</para>
+
+@stage: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_fullscreen ##### -->
+<para>
+
+</para>
+
+@stage: 
+@fullscreen: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_fullscreen ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_show_cursor ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### FUNCTION clutter_stage_hide_cursor ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### ENUM ClutterPickMode ##### -->
+<para>
+
+</para>
+
+@CLUTTER_PICK_NONE: 
+@CLUTTER_PICK_REACTIVE: 
+@CLUTTER_PICK_ALL: 
+
+<!-- ##### FUNCTION clutter_stage_get_actor_at_pos ##### -->
+<para>
+
+</para>
+
+@stage: 
+@pick_mode: 
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_ensure_current ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### FUNCTION clutter_stage_ensure_viewport ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### FUNCTION clutter_stage_ensure_redraw ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### FUNCTION clutter_stage_queue_redraw ##### -->
+<para>
+
+</para>
+
+@stage: 
+
+
+<!-- ##### FUNCTION clutter_stage_event ##### -->
+<para>
+
+</para>
+
+@stage: 
+@event: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_key_focus ##### -->
+<para>
+
+</para>
+
+@stage: 
+@actor: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_key_focus ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_read_pixels ##### -->
+<para>
+
+</para>
+
+@stage: 
+@x: 
+@y: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_throttle_motion_events ##### -->
+<para>
+
+</para>
+
+@stage: 
+@throttle: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_throttle_motion_events ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### STRUCT ClutterPerspective ##### -->
+<para>
+
+</para>
+
+@fovy: 
+@aspect: 
+@z_near: 
+@z_far: 
+
+<!-- ##### FUNCTION clutter_stage_set_perspective ##### -->
+<para>
+
+</para>
+
+@stage: 
+@perspective: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_perspective ##### -->
+<para>
+
+</para>
+
+@stage: 
+@perspective: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_title ##### -->
+<para>
+
+</para>
+
+@stage: 
+@title: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_title ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_user_resizable ##### -->
+<para>
+
+</para>
+
+@stage: 
+@resizable: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_user_resizable ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### STRUCT ClutterFog ##### -->
+<para>
+
+</para>
+
+@z_near: 
+@z_far: 
+
+<!-- ##### FUNCTION clutter_stage_set_use_fog ##### -->
+<para>
+
+</para>
+
+@stage: 
+@fog: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_use_fog ##### -->
+<para>
+
+</para>
+
+@stage: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_stage_set_fog ##### -->
+<para>
+
+</para>
+
+@stage: 
+@fog: 
+
+
+<!-- ##### FUNCTION clutter_stage_get_fog ##### -->
+<para>
+
+</para>
+
+@stage: 
+@fog: 
+
+

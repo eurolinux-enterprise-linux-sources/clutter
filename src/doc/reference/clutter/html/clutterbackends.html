@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Part VII. Clutter Backends</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="index.html" title="Clutter Reference Manual">
+<link rel="prev" href="ClutterListModel.html" title="ClutterListModel">
+<link rel="next" href="clutter-ClutterBackend.html" title="ClutterBackend">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="ClutterListModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td> </td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutter-ClutterBackend.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="part" lang="en">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="clutterbackends"></a>Part VII. Clutter Backends</h1></div></div></div>
+<div class="partintro" lang="en">
+<div></div>
+<p>Clutter is usually compiled against a specific drawing backend.
+      All backends have a common API for querying the underlying platform,
+      and some of them might have specific API exposed by Clutter.</p>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt>
+<span class="refentrytitle"><a href="clutter-ClutterBackend.html">ClutterBackend</a></span><span class="refpurpose"> — Backend abstraction</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="clutter-X11-Specific-Support.html">X11 Specific Support</a></span><span class="refpurpose"> — X11 specific API</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="clutter-GLX-Specific-Support.html">GLX Specific Support</a></span><span class="refpurpose"> — GLX specific API</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="clutter-Win32-Specific-Support.html">Win32 Specific Support</a></span><span class="refpurpose"> — Win32 specific API</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="clutter-EGL-Specific-Support.html">EGL Specific Support</a></span><span class="refpurpose"> — EGL specific API</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="clutter-EGLX-Specific-Support.html">EGLX Specific Support</a></span><span class="refpurpose"> — EGLX specific API</span>
+</dt>
+</dl>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

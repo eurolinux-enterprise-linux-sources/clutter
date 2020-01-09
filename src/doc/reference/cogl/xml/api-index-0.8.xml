@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="CoglBufferTarget"><link linkend="CoglBufferTarget">CoglBufferTarget</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="CoglFeatureFlags"><link linkend="CoglFeatureFlags">CoglFeatureFlags</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="cogl-get-features"><link linkend="cogl-get-features">cogl_get_features</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="CoglPixelFormat"><link linkend="CoglPixelFormat">CoglPixelFormat</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="cogl-texture-new-from-data"><link linkend="cogl-texture-new-from-data">cogl_texture_new_from_data</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-texture-new-from-file"><link linkend="cogl-texture-new-from-file">cogl_texture_new_from_file</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-texture-new-from-foreign"><link linkend="cogl-texture-new-from-foreign">cogl_texture_new_from_foreign</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-texture-new-with-size"><link linkend="cogl-texture-new-with-size">cogl_texture_new_with_size</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

@@ -1,0 +1,720 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Vertex Buffers</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="COGL Reference Manual">
+<link rel="up" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="prev" href="cogl-Primitives.html" title="Primitives">
+<link rel="next" href="cogl-Matrices.html" title="Matrices">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cogl-Primitives.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">COGL Reference Manual</th>
+<td><a accesskey="n" href="cogl-Matrices.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cogl-Vertex-Buffers.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#cogl-Vertex-Buffers.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="cogl-Vertex-Buffers"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cogl-Vertex-Buffers.top_of_page"></a>Vertex Buffers</span></h2>
+<p>Vertex Buffers — An API for submitting extensible arrays of vertex
+	       attributes to be mapped into the GPU for fast
+	       drawing.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cogl-Vertex-Buffers.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-new" title="cogl_vertex_buffer_new ()">cogl_vertex_buffer_new</a>              (guint n_vertices);
+guint               <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-get-n-vertices" title="cogl_vertex_buffer_get_n_vertices ()">cogl_vertex_buffer_get_n_vertices</a>   (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-ref" title="cogl_vertex_buffer_ref ()">cogl_vertex_buffer_ref</a>              (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-unref" title="cogl_vertex_buffer_unref ()">cogl_vertex_buffer_unref</a>            (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-add" title="cogl_vertex_buffer_add ()">cogl_vertex_buffer_add</a>              (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name,
+                                                         guint8 n_components,
+                                                         <a class="link" href="cogl-General-API.html#CoglAttributeType" title="enum CoglAttributeType">CoglAttributeType</a> type,
+                                                         gboolean normalized,
+                                                         guint16 stride,
+                                                         const void *pointer);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-delete" title="cogl_vertex_buffer_delete ()">cogl_vertex_buffer_delete</a>           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()">cogl_vertex_buffer_submit</a>           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-disable" title="cogl_vertex_buffer_disable ()">cogl_vertex_buffer_disable</a>          (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-enable" title="cogl_vertex_buffer_enable ()">cogl_vertex_buffer_enable</a>           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-draw" title="cogl_vertex_buffer_draw ()">cogl_vertex_buffer_draw</a>             (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         CoglVerticesMode mode,
+                                                         int first,
+                                                         int count);
+gboolean            <a class="link" href="cogl-Vertex-Buffers.html#cogl-is-vertex-buffer" title="cogl_is_vertex_buffer ()">cogl_is_vertex_buffer</a>               (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+
+enum                <a class="link" href="cogl-Vertex-Buffers.html#CoglIndicesType" title="enum CoglIndicesType">CoglIndicesType</a>;
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-indices-new" title="cogl_vertex_buffer_indices_new ()">cogl_vertex_buffer_indices_new</a>      (<a class="link" href="cogl-Vertex-Buffers.html#CoglIndicesType" title="enum CoglIndicesType">CoglIndicesType</a> indices_type,
+                                                         const void *indices_array,
+                                                         int indices_len);
+void                <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-draw-elements" title="cogl_vertex_buffer_draw_elements ()">cogl_vertex_buffer_draw_elements</a>    (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         CoglVerticesMode mode,
+                                                         <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> indices,
+                                                         int min_index,
+                                                         int max_index,
+                                                         int indices_offset,
+                                                         int count);
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-indices-get-for-quads" title="cogl_vertex_buffer_indices_get_for_quads ()">cogl_vertex_buffer_indices_get_for_quads</a>
+                                                        (guint n_indices);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Vertex-Buffers.description"></a><h2>Description</h2>
+<p>
+For example to describe a textured triangle, you could create a new cogl
+vertex buffer with 3 vertices, and then you might add 2 attributes for each
+vertex:
+</p>
+<div class="orderedlist"><ol type="1">
+<li>
+a "gl_Position" describing the (x,y,z) position for each vertex.
+</li>
+<li>
+a "gl_MultiTexCoord0" describing the (tx,ty) texture coordinates for each
+vertex.
+</li>
+</ol></div>
+<p>
+</p>
+<p>
+The Vertex Buffer API is designed to be a fairly raw mechanism for
+developers to be able to submit geometry to Cogl in a format that can be
+directly consumed by an OpenGL driver and mapped into your GPU for fast
+re-use. It is designed to avoid repeated validation of the attributes by the
+driver; to minimize transport costs (e.g. considering indirect GLX
+use-cases) and to potentially avoid repeated format conversions when
+attributes are supplied in a format that is not natively supported by the
+GPU.
+</p>
+<p>
+Although this API does allow you to modify attributes after they have been
+submitted to the GPU you should be aware that modification is not that
+cheap, since it implies validating the new data and potentially the
+OpenGL driver will need to reformat it for the GPU.
+</p>
+<p>
+If at all possible think of tricks that let you re-use static attributes,
+and if you do need to repeatedly update attributes (e.g. for some kind of
+morphing geometry) then only update and re-submit the specific attributes
+that have changed.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Vertex-Buffers.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-new"></a><h3>cogl_vertex_buffer_new ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_vertex_buffer_new              (guint n_vertices);</pre>
+<p>
+Creates a new vertex buffer that you can use to add attributes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_vertices</code></em> :</span></p></td>
+<td> The number of vertices that your attributes will correspond to.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle"><span class="type">CoglHandle</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-get-n-vertices"></a><h3>cogl_vertex_buffer_get_n_vertices ()</h3>
+<pre class="programlisting">guint               cogl_vertex_buffer_get_n_vertices   (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Retrieves the number of vertices that <em class="parameter"><code>handle</code></em> represents</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of vertices
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-ref"></a><h3>cogl_vertex_buffer_ref ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_vertex_buffer_ref              (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Increment the reference count for a vertex buffer</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> a <em class="parameter"><code>CoglHandle</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <em class="parameter"><code>handle</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-unref"></a><h3>cogl_vertex_buffer_unref ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_unref            (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Decrement the reference count for a vertex buffer</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> a <em class="parameter"><code>CoglHandle</code></em>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-add"></a><h3>cogl_vertex_buffer_add ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_add              (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name,
+                                                         guint8 n_components,
+                                                         <a class="link" href="cogl-General-API.html#CoglAttributeType" title="enum CoglAttributeType">CoglAttributeType</a> type,
+                                                         gboolean normalized,
+                                                         guint16 stride,
+                                                         const void *pointer);</pre>
+<p>
+This function lets you add an attribute to a buffer. You either use one
+of the built-in names such as "gl_Vertex", or "gl_MultiTexCoord0" to add
+standard attributes, like positions, colors and normals or you can add
+custom attributes for use in shaders.
+</p>
+<p>
+The number of vertices declared when calling <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-new" title="cogl_vertex_buffer_new ()"><code class="function">cogl_vertex_buffer_new()</code></a>
+determines how many attribute values will be read from the supplied pointer.
+</p>
+<p>
+The data for your attribute isn't copied anywhere until you call
+<a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a>, (or issue a draw call which automatically
+submits pending attribute changes) so the supplied pointer must remain
+valid until then. If you are updating an existing attribute (done by
+re-adding it) then you still need to re-call <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a> to
+commit the changes to the GPU. (Be carefull to minimize the number of calls
+to cogl_vertex_buffer_submit though.)
+</p>
+<p>
+Note: If you are interleving attributes it is assumed that each interleaved
+attribute starts no farther than +- stride bytes from the other attributes
+it is interleved with. I.e. this is ok:
+</p>
+<pre class="programlisting">
+|-0-0-0-0-0-0-0-0-0-0|
+</pre>
+<p>
+This is not ok:
+</p>
+<pre class="programlisting">
+|- - - - -0-0-0-0-0-0 0 0 0 0|
+</pre>
+<p>
+(Though you can have multiple groups of interleved attributes)</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attribute_name</code></em> :</span></p></td>
+<td> The name of your attribute. It should be a valid GLSL
+	    variable name and standard attribute types must use one
+	    of following built-in names: (Note: they correspond to the
+	    built-in names of GLSL)
+	    <div class="itemizedlist"><ul type="disc">
+<li>"gl_Color"</li>
+<li>"gl_Normal"</li>
+<li>"gl_MultiTexCoord0, gl_MultiTexCoord1, ..."</li>
+<li>"gl_Vertex"</li>
+</ul></div>
+	    To support adding multiple variations of the same attribute
+	    the name can have a detail component, E.g.
+	    "gl_Color::active" or "gl_Color::inactive"
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_components</code></em> :</span></p></td>
+<td> The number of components per attribute and must be 1,2,3 or 4
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-General-API.html#CoglAttributeType" title="enum CoglAttributeType"><span class="type">CoglAttributeType</span></a> specifying the data type of each component.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>normalized</code></em> :</span></p></td>
+<td> If GL_TRUE, this specifies that values stored in an integer
+	format should be mapped into the range [-1.0, 1.0] or [0.0, 1.0]
+	for unsigned values. If GL_FALSE they are converted to floats
+	directly.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stride</code></em> :</span></p></td>
+<td> This specifies the number of bytes from the start of one attribute
+    value to the start of the next value (for the same attribute). So
+    for example with a position interleved with color like this:
+    XYRGBAXYRGBAXYRGBA, then if each letter represents a byte, the
+    stride for both attributes is 6. The special value 0 means the
+    values are stored sequentially in memory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pointer</code></em> :</span></p></td>
+<td> This addresses the first attribute in the vertex array. (This
+     must remain valid until you either call
+     <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a> or issue a draw call.)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-delete"></a><h3>cogl_vertex_buffer_delete ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_delete           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);</pre>
+<p>
+This function deletes an attribute from a buffer. You will need to
+call <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a> or issue a draw call to commit this
+change to the GPU.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attribute_name</code></em> :</span></p></td>
+<td> The name of a previously added attribute
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-submit"></a><h3>cogl_vertex_buffer_submit ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_submit           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+This function submits all the user added attributes to the GPU; once
+submitted the attributes can be used for drawing.
+</p>
+<p>
+You should aim to minimize calls to this function since it implies
+validating your data; it potentially incurs a transport cost (especially if
+you are using GLX indirect rendering) and potentially a format conversion
+cost if the GPU doesn't natively support any of the given attribute formats.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-disable"></a><h3>cogl_vertex_buffer_disable ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_disable          (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);</pre>
+<p>
+This function disables a previosuly added attribute.
+</p>
+<p>
+Since it can be costly to add and remove new attributes to buffers; to make
+individual buffers more reuseable it is possible to enable and disable
+attributes before using a buffer for drawing.
+</p>
+<p>
+You don't need to call <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a> after using this function.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attribute_name</code></em> :</span></p></td>
+<td> The name of the attribute you want to disable
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-enable"></a><h3>cogl_vertex_buffer_enable ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_enable           (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         const char *attribute_name);</pre>
+<p>
+This function enables a previosuly disabled attribute.
+</p>
+<p>
+Since it can be costly to add and remove new attributes to buffers; to make
+individual buffers more reuseable it is possible to enable and disable
+attributes before using a buffer for drawing.
+</p>
+<p>
+You don't need to call <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-submit" title="cogl_vertex_buffer_submit ()"><code class="function">cogl_vertex_buffer_submit()</code></a> after using this function</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attribute_name</code></em> :</span></p></td>
+<td> The name of the attribute you want to enable
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-draw"></a><h3>cogl_vertex_buffer_draw ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_draw             (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         CoglVerticesMode mode,
+                                                         int first,
+                                                         int count);</pre>
+<p>
+This function lets you draw geometry using all or a subset of the
+vertices in a vertex buffer.
+</p>
+<p>
+Any un-submitted attribute changes are automatically submitted before
+drawing.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> A <span class="type">CoglVerticesMode</span> specifying how the vertices should be
+       interpreted.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first</code></em> :</span></p></td>
+<td> Specifies the index of the first vertex you want to draw with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>count</code></em> :</span></p></td>
+<td> Specifies the number of vertices you want to draw.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-is-vertex-buffer"></a><h3>cogl_is_vertex_buffer ()</h3>
+<pre class="programlisting">gboolean            cogl_is_vertex_buffer               (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Checks whether <em class="parameter"><code>handle</code></em> is a Vertex Buffer Object</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle"><span class="type">CoglHandle</span></a> for a vertex buffer object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the handle is a VBO, and <code class="literal">FALSE</code>
+  otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CoglIndicesType"></a><h3>enum CoglIndicesType</h3>
+<pre class="programlisting">typedef enum _CoglIndicesType
+{
+  COGL_INDICES_TYPE_UNSIGNED_BYTE,
+  COGL_INDICES_TYPE_UNSIGNED_SHORT,
+} CoglIndicesType;
+</pre>
+<p>
+You should aim to use the smallest data type that gives you enough
+range, since it reduces the size of your index array and can help
+reduce the demand on memory bandwidth.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="COGL-INDICES-TYPE-UNSIGNED-BYTE--CAPS"></a><span class="term"><code class="literal">COGL_INDICES_TYPE_UNSIGNED_BYTE</code></span></p></td>
+<td> Your indices are unsigned bytes
+</td>
+</tr>
+<tr>
+<td><p><a name="COGL-INDICES-TYPE-UNSIGNED-SHORT--CAPS"></a><span class="term"><code class="literal">COGL_INDICES_TYPE_UNSIGNED_SHORT</code></span></p></td>
+<td> Your indices are unsigned shorts
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-indices-new"></a><h3>cogl_vertex_buffer_indices_new ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_vertex_buffer_indices_new      (<a class="link" href="cogl-Vertex-Buffers.html#CoglIndicesType" title="enum CoglIndicesType">CoglIndicesType</a> indices_type,
+                                                         const void *indices_array,
+                                                         int indices_len);</pre>
+<p>
+Depending on how much geometry you are submitting it can be worthwhile
+optimizing the number of redundant vertices you submit. Using an index
+array allows you to reference vertices multiple times, for example
+during triangle strips.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indices_type</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Vertex-Buffers.html#CoglIndicesType" title="enum CoglIndicesType"><span class="type">CoglIndicesType</span></a> specifying the data type used for
+               the indices.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indices_array</code></em> :</span></p></td>
+<td> Specifies the address of your array of indices
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indices_len</code></em> :</span></p></td>
+<td> The number of indices in indices_array
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A CoglHandle for the indices which you can pass to
+         <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-draw-elements" title="cogl_vertex_buffer_draw_elements ()"><code class="function">cogl_vertex_buffer_draw_elements()</code></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-draw-elements"></a><h3>cogl_vertex_buffer_draw_elements ()</h3>
+<pre class="programlisting">void                cogl_vertex_buffer_draw_elements    (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle,
+                                                         CoglVerticesMode mode,
+                                                         <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> indices,
+                                                         int min_index,
+                                                         int max_index,
+                                                         int indices_offset,
+                                                         int count);</pre>
+<p>
+This function lets you use an array of indices to specify the vertices
+within your vertex buffer that you want to draw. The indices themselves
+are created by calling <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-indices-new" title="cogl_vertex_buffer_indices_new ()"><code class="function">cogl_vertex_buffer_indices_new()</code></a>
+</p>
+<p>
+Any un-submitted attribute changes are automatically submitted before
+drawing.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A vertex buffer handle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> A <span class="type">CoglVerticesMode</span> specifying how the vertices should be
+       interpreted.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indices</code></em> :</span></p></td>
+<td> A CoglHandle for a set of indices allocated via
+          <a class="link" href="cogl-Vertex-Buffers.html#cogl-vertex-buffer-indices-new" title="cogl_vertex_buffer_indices_new ()"><code class="function">cogl_vertex_buffer_indices_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_index</code></em> :</span></p></td>
+<td> Specifies the minimum vertex index contained in indices
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_index</code></em> :</span></p></td>
+<td> Specifies the maximum vertex index contained in indices
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indices_offset</code></em> :</span></p></td>
+<td> An offset into named indices. The offset marks the first
+                 index to use for drawing.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>count</code></em> :</span></p></td>
+<td> Specifies the number of vertices you want to draw.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-vertex-buffer-indices-get-for-quads"></a><h3>cogl_vertex_buffer_indices_get_for_quads ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_vertex_buffer_indices_get_for_quads
+                                                        (guint n_indices);</pre>
+<p>
+Creates a vertex buffer containing the indices needed to draw pairs
+of triangles from a list of vertices grouped as quads. There will
+be at least <em class="parameter"><code>n_indices</code></em> entries in the buffer (but there may be
+more).
+</p>
+<p>
+The indices will follow this pattern:
+</p>
+<p>
+0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7 ... etc
+</p>
+<p>
+For example, if you submit vertices for a quad like this:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+   0        3
+    ########
+    #      #
+    #      #
+    ########
+   1        2
+</pre></div>
+<p>
+</p>
+<p>
+Then you can request 6 indices to render two triangles like this:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+   0           0        3
+    ##          ########
+    # ##          ##   #
+    #   ##          ## #
+    ########          ##
+   1        2           2
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_indices</code></em> :</span></p></td>
+<td> the number of indices in the vertex buffer.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle"><code class="literal">CoglHandle</code></a> containing the indices. The handled is
+owned by Cogl and should not be modified or unref'd.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

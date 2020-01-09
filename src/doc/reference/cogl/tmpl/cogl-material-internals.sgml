@@ -1,0 +1,55 @@
+<!-- ##### SECTION Title ##### -->
+Material Internals
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION cogl_material_get_layers ##### -->
+<para>
+
+</para>
+
+@material: 
+@Returns: 
+
+
+<!-- ##### ENUM CoglMaterialLayerType ##### -->
+<para>
+
+</para>
+
+@COGL_MATERIAL_LAYER_TYPE_TEXTURE: 
+
+<!-- ##### FUNCTION cogl_material_layer_get_type ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_layer_get_texture ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+

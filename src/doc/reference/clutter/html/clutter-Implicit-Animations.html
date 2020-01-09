@@ -1,0 +1,1822 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Implicit Animations</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch06.html" title="High Level API">
+<link rel="prev" href="clutter-Value-intervals.html" title="Value intervals">
+<link rel="next" href="ClutterAnimatable.html" title="ClutterAnimatable">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="clutter-Value-intervals.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="ClutterAnimatable.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#clutter-Implicit-Animations.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#clutter-Implicit-Animations.description" class="shortcut">Description</a>
+                 | 
+                <a href="#clutter-Implicit-Animations.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#clutter-Implicit-Animations.properties" class="shortcut">Properties</a>
+                 | 
+                <a href="#clutter-Implicit-Animations.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="clutter-Implicit-Animations"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="clutter-Implicit-Animations.top_of_page"></a>Implicit Animations</span></h2>
+<p>Implicit Animations — Simple implicit animations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="clutter-Implicit-Animations.synopsis"></a><h2>Synopsis</h2>
+<a name="ClutterAnimation"></a><pre class="synopsis">
+                    <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-struct" title="ClutterAnimation">ClutterAnimation</a>;
+                    <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationClass" title="ClutterAnimationClass">ClutterAnimationClass</a>;
+enum                <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationMode" title="enum ClutterAnimationMode">ClutterAnimationMode</a>;
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-new" title="clutter_animation_new ()">clutter_animation_new</a>               (void);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-object" title="clutter_animation_set_object ()">clutter_animation_set_object</a>        (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         GObject *object);
+GObject *           <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-object" title="clutter_animation_get_object ()">clutter_animation_get_object</a>        (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-mode" title="clutter_animation_set_mode ()">clutter_animation_set_mode</a>          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gulong mode);
+gulong              <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-mode" title="clutter_animation_get_mode ()">clutter_animation_get_mode</a>          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-duration" title="clutter_animation_set_duration ()">clutter_animation_set_duration</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gint msecs);
+guint               <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-duration" title="clutter_animation_get_duration ()">clutter_animation_get_duration</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-loop" title="clutter_animation_set_loop ()">clutter_animation_set_loop</a>          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gboolean loop);
+gboolean            <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-loop" title="clutter_animation_get_loop ()">clutter_animation_get_loop</a>          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-timeline" title="clutter_animation_set_timeline ()">clutter_animation_set_timeline</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline);
+<a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *   <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-timeline" title="clutter_animation_get_timeline ()">clutter_animation_get_timeline</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-alpha" title="clutter_animation_set_alpha ()">clutter_animation_set_alpha</a>         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha);
+<a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *      <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-alpha" title="clutter_animation_get_alpha ()">clutter_animation_get_alpha</a>         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-completed" title="clutter_animation_completed ()">clutter_animation_completed</a>         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);
+
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-bind" title="clutter_animation_bind ()">clutter_animation_bind</a>              (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         const GValue *final);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-bind-interval" title="clutter_animation_bind_interval ()">clutter_animation_bind_interval</a>     (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-update-interval" title="clutter_animation_update_interval ()">clutter_animation_update_interval</a>   (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);
+gboolean            <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-has-property" title="clutter_animation_has_property ()">clutter_animation_has_property</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);
+void                <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-unbind-property" title="clutter_animation_unbind_property ()">clutter_animation_unbind_property</a>   (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);
+<a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-interval" title="clutter_animation_get_interval ()">clutter_animation_get_interval</a>      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);
+
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()">clutter_actor_animate</a>               (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         guint duration,
+                                                         const gchar *first_property_name,
+                                                         ...);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timeline" title="clutter_actor_animate_with_timeline ()">clutter_actor_animate_with_timeline</a> (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline,
+                                                         const gchar *first_property_name,
+                                                         ...);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alpha" title="clutter_actor_animate_with_alpha ()">clutter_actor_animate_with_alpha</a>    (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha,
+                                                         const gchar *first_property_name,
+                                                         ...);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animatev" title="clutter_actor_animatev ()">clutter_actor_animatev</a>              (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         guint duration,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timelinev" title="clutter_actor_animate_with_timelinev ()">clutter_actor_animate_with_timelinev</a>
+                                                        (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alphav" title="clutter_actor_animate_with_alphav ()">clutter_actor_animate_with_alphav</a>   (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-get-animation" title="clutter_actor_get_animation ()">clutter_actor_get_animation</a>         (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----ClutterAnimation
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--alpha" title='The "alpha" property'>alpha</a>"                    <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a>*         : Read / Write
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--duration" title='The "duration" property'>duration</a>"                 guint                 : Read / Write
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--loop" title='The "loop" property'>loop</a>"                     gboolean              : Read / Write
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--mode" title='The "mode" property'>mode</a>"                     gulong                : Read / Write
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--object" title='The "object" property'>object</a>"                   GObject*              : Read / Write
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--timeline" title='The "timeline" property'>timeline</a>"                 <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a>*      : Read / Write
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'>completed</a>"                                      : Run Last
+  "<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-started" title='The "started" signal'>started</a>"                                        : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> is an object providing simple, implicit animations
+for <span class="type">GObject</span>s.
+</p>
+<p>
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instances will bind one or more <span class="type">GObject</span> properties
+belonging to a <span class="type">GObject</span> to a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>, and will then use a
+<a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> to interpolate the property between the initial and final
+values of the interval.
+</p>
+<p>
+The duration of the animation is set using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-duration" title="clutter_animation_set_duration ()"><code class="function">clutter_animation_set_duration()</code></a>.
+The easing mode of the animation is set using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-mode" title="clutter_animation_set_mode ()"><code class="function">clutter_animation_set_mode()</code></a>.
+</p>
+<p>
+If you want to control the animation you should retrieve the
+<a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-get-timeline" title="clutter_animation_get_timeline ()"><code class="function">clutter_animation_get_timeline()</code></a> and then
+use <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> functions like <a class="link" href="ClutterTimeline.html#clutter-timeline-start" title="clutter_timeline_start ()"><code class="function">clutter_timeline_start()</code></a>,
+<a class="link" href="ClutterTimeline.html#clutter-timeline-pause" title="clutter_timeline_pause ()"><code class="function">clutter_timeline_pause()</code></a> or <a class="link" href="ClutterTimeline.html#clutter-timeline-stop" title="clutter_timeline_stop ()"><code class="function">clutter_timeline_stop()</code></a>.
+</p>
+<p>
+A <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will emit the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> signal
+when the <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> used by the animation is completed; unlike
+<a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>, though, the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> will not be
+emitted if <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--loop" title='The "loop" property'><span class="type">"loop"</span></a> is set to <code class="literal">TRUE</code> - that is, a looping
+animation never completes.
+</p>
+<p>
+If your animation depends on user control you can force its completion
+using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-completed" title="clutter_animation_completed ()"><code class="function">clutter_animation_completed()</code></a>.
+</p>
+<p>
+If the <span class="type">GObject</span> instance bound to a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> implements the
+<a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> interface it is possible for that instance to
+control the way the initial and final states are interpolated.
+</p>
+<p>
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>s are distinguished from <a class="link" href="ClutterBehaviour.html" title="ClutterBehaviour"><span class="type">ClutterBehaviour</span></a>s
+because the former can only control <span class="type">GObject</span> properties of a single
+<span class="type">GObject</span> instance, while the latter can control multiple properties
+using accessor functions inside the <span class="type">"alpha_notify"</span>
+virtual function, and can control multiple <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>s as well.
+</p>
+<p>
+For convenience, it is possible to use the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>
+function call which will take care of setting up and tearing down
+a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instance and animate an actor between its current
+state and the specified final state.
+</p>
+<p>
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> is available since Clutter 1.0</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation-struct"></a><h3>ClutterAnimation</h3>
+<pre class="programlisting">typedef struct _ClutterAnimation ClutterAnimation;</pre>
+<p>
+The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> structure contains only private data and should
+be accessed using the provided functions.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimationClass"></a><h3>ClutterAnimationClass</h3>
+<pre class="programlisting">typedef struct {
+  void (* started)   (ClutterAnimation *animation);
+  void (* completed) (ClutterAnimation *animation);
+} ClutterAnimationClass;
+</pre>
+<p>
+The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationClass" title="ClutterAnimationClass"><span class="type">ClutterAnimationClass</span></a> structure contains only private data and
+should be accessed using the provided functions.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>started</code></em> ()</span></p></td>
+<td> class handler for the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-started" title='The "started" signal'><span class="type">"started"</span></a> signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>completed</code></em> ()</span></p></td>
+<td> class handler for the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> signal
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimationMode"></a><h3>enum ClutterAnimationMode</h3>
+<pre class="programlisting">typedef enum {
+  CLUTTER_CUSTOM_MODE = 0,
+
+  /* linear */
+  CLUTTER_LINEAR,
+
+  /* quadratic */
+  CLUTTER_EASE_IN_QUAD,
+  CLUTTER_EASE_OUT_QUAD,
+  CLUTTER_EASE_IN_OUT_QUAD,
+
+  /* cubic */
+  CLUTTER_EASE_IN_CUBIC,
+  CLUTTER_EASE_OUT_CUBIC,
+  CLUTTER_EASE_IN_OUT_CUBIC,
+
+  /* quartic */
+  CLUTTER_EASE_IN_QUART,
+  CLUTTER_EASE_OUT_QUART,
+  CLUTTER_EASE_IN_OUT_QUART,
+
+  /* quintic */
+  CLUTTER_EASE_IN_QUINT,
+  CLUTTER_EASE_OUT_QUINT,
+  CLUTTER_EASE_IN_OUT_QUINT,
+
+  /* sinusoidal */
+  CLUTTER_EASE_IN_SINE,
+  CLUTTER_EASE_OUT_SINE,
+  CLUTTER_EASE_IN_OUT_SINE,
+
+  /* exponential */
+  CLUTTER_EASE_IN_EXPO,
+  CLUTTER_EASE_OUT_EXPO,
+  CLUTTER_EASE_IN_OUT_EXPO,
+
+  /* circular */
+  CLUTTER_EASE_IN_CIRC,
+  CLUTTER_EASE_OUT_CIRC,
+  CLUTTER_EASE_IN_OUT_CIRC,
+
+  /* elastic */
+  CLUTTER_EASE_IN_ELASTIC,
+  CLUTTER_EASE_OUT_ELASTIC,
+  CLUTTER_EASE_IN_OUT_ELASTIC,
+
+  /* overshooting cubic */
+  CLUTTER_EASE_IN_BACK,
+  CLUTTER_EASE_OUT_BACK,
+  CLUTTER_EASE_IN_OUT_BACK,
+
+  /* exponentially decaying parabolic */
+  CLUTTER_EASE_IN_BOUNCE,
+  CLUTTER_EASE_OUT_BOUNCE,
+  CLUTTER_EASE_IN_OUT_BOUNCE,
+
+  /* guard, before registered alpha functions */
+  CLUTTER_ANIMATION_LAST
+} ClutterAnimationMode;
+</pre>
+<p>
+The animation modes used by <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> and <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>. This
+enumeration can be expanded in later versions of Clutter. See the
+<a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> documentation for a graph of all the animation modes.
+</p>
+<p>
+Every global alpha function registered using <a class="link" href="ClutterAlpha.html#clutter-alpha-register-func" title="clutter_alpha_register_func ()"><code class="function">clutter_alpha_register_func()</code></a>
+or <a class="link" href="ClutterAlpha.html#clutter-alpha-register-closure" title="clutter_alpha_register_closure ()"><code class="function">clutter_alpha_register_closure()</code></a> will have a logical id greater than
+<a class="link" href="clutter-Implicit-Animations.html#CLUTTER-ANIMATION-LAST--CAPS"><code class="literal">CLUTTER_ANIMATION_LAST</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-CUSTOM-MODE--CAPS"></a><span class="term"><code class="literal">CLUTTER_CUSTOM_MODE</code></span></p></td>
+<td> custom progress function
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-LINEAR--CAPS"></a><span class="term"><code class="literal">CLUTTER_LINEAR</code></span></p></td>
+<td> linear tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-QUAD--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_QUAD</code></span></p></td>
+<td> quadratic tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-QUAD--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_QUAD</code></span></p></td>
+<td> quadratic tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUAD--CAPS"><code class="literal">CLUTTER_EASE_IN_QUAD</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-QUAD--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_QUAD</code></span></p></td>
+<td> quadratic tweening, combininig
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUAD--CAPS"><code class="literal">CLUTTER_EASE_IN_QUAD</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-QUAD--CAPS"><code class="literal">CLUTTER_EASE_OUT_QUAD</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-CUBIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_CUBIC</code></span></p></td>
+<td> cubic tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-CUBIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_CUBIC</code></span></p></td>
+<td> cubic tweening, invers of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-CUBIC--CAPS"><code class="literal">CLUTTER_EASE_IN_CUBIC</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-CUBIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_CUBIC</code></span></p></td>
+<td> cubic tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-CUBIC--CAPS"><code class="literal">CLUTTER_EASE_IN_CUBIC</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-CUBIC--CAPS"><code class="literal">CLUTTER_EASE_OUT_CUBIC</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-QUART--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_QUART</code></span></p></td>
+<td> quartic tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-QUART--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_QUART</code></span></p></td>
+<td> quartic tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUART--CAPS"><code class="literal">CLUTTER_EASE_IN_QUART</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-QUART--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_QUART</code></span></p></td>
+<td> quartic tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUART--CAPS"><code class="literal">CLUTTER_EASE_IN_QUART</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-QUART--CAPS"><code class="literal">CLUTTER_EASE_OUT_QUART</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-QUINT--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_QUINT</code></span></p></td>
+<td> quintic tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-QUINT--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_QUINT</code></span></p></td>
+<td> quintic tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUINT--CAPS"><code class="literal">CLUTTER_EASE_IN_QUINT</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-QUINT--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_QUINT</code></span></p></td>
+<td> fifth power tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-QUINT--CAPS"><code class="literal">CLUTTER_EASE_IN_QUINT</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-QUINT--CAPS"><code class="literal">CLUTTER_EASE_OUT_QUINT</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-SINE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_SINE</code></span></p></td>
+<td> sinusoidal tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-SINE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_SINE</code></span></p></td>
+<td> sinusoidal tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-SINE--CAPS"><code class="literal">CLUTTER_EASE_IN_SINE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-SINE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_SINE</code></span></p></td>
+<td> sine wave tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-SINE--CAPS"><code class="literal">CLUTTER_EASE_IN_SINE</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-SINE--CAPS"><code class="literal">CLUTTER_EASE_OUT_SINE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-EXPO--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_EXPO</code></span></p></td>
+<td> exponential tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-EXPO--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_EXPO</code></span></p></td>
+<td> exponential tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-EXPO--CAPS"><code class="literal">CLUTTER_EASE_IN_EXPO</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-EXPO--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_EXPO</code></span></p></td>
+<td> exponential tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-EXPO--CAPS"><code class="literal">CLUTTER_EASE_IN_EXPO</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-EXPO--CAPS"><code class="literal">CLUTTER_EASE_OUT_EXPO</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-CIRC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_CIRC</code></span></p></td>
+<td> circular tweening
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-CIRC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_CIRC</code></span></p></td>
+<td> circular tweening, inverse of
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-CIRC--CAPS"><code class="literal">CLUTTER_EASE_IN_CIRC</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-CIRC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_CIRC</code></span></p></td>
+<td> circular tweening, combining
+   <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-IN-CIRC--CAPS"><code class="literal">CLUTTER_EASE_IN_CIRC</code></a> and <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-EASE-OUT-CIRC--CAPS"><code class="literal">CLUTTER_EASE_OUT_CIRC</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-ELASTIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_ELASTIC</code></span></p></td>
+<td> elastic tweening, with offshoot on start
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-ELASTIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_ELASTIC</code></span></p></td>
+<td> elastic tweening, with offshoot on end
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-ELASTIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_ELASTIC</code></span></p></td>
+<td> elastic tweening with offshoot on both ends
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-BACK--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_BACK</code></span></p></td>
+<td> overshooting cubic tweening, with
+  backtracking on start
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-BACK--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_BACK</code></span></p></td>
+<td> overshooting cubic tweening, with
+  backtracking on end
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-BACK--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_BACK</code></span></p></td>
+<td> overshooting cubic tweening, with
+  backtracking on both ends
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-BOUNCE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_BOUNCE</code></span></p></td>
+<td> exponentially decaying parabolic (bounce)
+  tweening, with bounce on start
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-OUT-BOUNCE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_OUT_BOUNCE</code></span></p></td>
+<td> exponentially decaying parabolic (bounce)
+  tweening, with bounce on end
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EASE-IN-OUT-BOUNCE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EASE_IN_OUT_BOUNCE</code></span></p></td>
+<td> exponentially decaying parabolic (bounce)
+  tweening, with bounce on both ends
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-ANIMATION-LAST--CAPS"></a><span class="term"><code class="literal">CLUTTER_ANIMATION_LAST</code></span></p></td>
+<td> last animation mode, used as a guard for
+  registered global alpha functions
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-new"></a><h3>clutter_animation_new ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_animation_new               (void);</pre>
+<p>
+Creates a new <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instance. You should set the
+<span class="type">GObject</span> to be animated using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-object" title="clutter_animation_set_object ()"><code class="function">clutter_animation_set_object()</code></a>,
+set the duration with <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-duration" title="clutter_animation_set_duration ()"><code class="function">clutter_animation_set_duration()</code></a> and the
+easing mode using <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-mode" title="clutter_animation_set_mode ()"><code class="function">clutter_animation_set_mode()</code></a>.
+</p>
+<p>
+Use <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-bind" title="clutter_animation_bind ()"><code class="function">clutter_animation_bind()</code></a> or <a class="link" href="clutter-Implicit-Animations.html#clutter-animation-bind-interval" title="clutter_animation_bind_interval ()"><code class="function">clutter_animation_bind_interval()</code></a>
+to define the properties to be animated. The interval and the
+animated properties can be updated at runtime.
+</p>
+<p>
+The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> and relative family of functions provide
+an easy way to animate a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> and automatically manage the
+lifetime of a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instance, so you should consider using
+those functions instead of manually creating an animation.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>. Use <code class="function">g_object_unref()</code>
+  to release the associated resources
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-object"></a><h3>clutter_animation_set_object ()</h3>
+<pre class="programlisting">void                clutter_animation_set_object        (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         GObject *object);</pre>
+<p>
+Attaches <em class="parameter"><code>animation</code></em> to <em class="parameter"><code>object</code></em>. The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will take a
+reference on <em class="parameter"><code>object</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td> a <span class="type">GObject</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-object"></a><h3>clutter_animation_get_object ()</h3>
+<pre class="programlisting">GObject *           clutter_animation_get_object        (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves the <span class="type">GObject</span> attached to <em class="parameter"><code>animation</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <span class="type">GObject</span>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-mode"></a><h3>clutter_animation_set_mode ()</h3>
+<pre class="programlisting">void                clutter_animation_set_mode          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gulong mode);</pre>
+<p>
+Sets the animation <em class="parameter"><code>mode</code></em> of <em class="parameter"><code>animation</code></em>. The animation <em class="parameter"><code>mode</code></em> is
+a logical id, either coming from the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationMode" title="enum ClutterAnimationMode"><span class="type">ClutterAnimationMode</span></a> enumeration
+or the return value of <a class="link" href="ClutterAlpha.html#clutter-alpha-register-func" title="clutter_alpha_register_func ()"><code class="function">clutter_alpha_register_func()</code></a>.
+</p>
+<p>
+This function will also set <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--alpha" title='The "alpha" property'><span class="type">"alpha"</span></a> if needed.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> an animation mode logical id
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-mode"></a><h3>clutter_animation_get_mode ()</h3>
+<pre class="programlisting">gulong              clutter_animation_get_mode          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves the animation mode of <em class="parameter"><code>animation</code></em>, as set by
+<a class="link" href="clutter-Implicit-Animations.html#clutter-animation-set-mode" title="clutter_animation_set_mode ()"><code class="function">clutter_animation_set_mode()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the mode for the animation
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-duration"></a><h3>clutter_animation_set_duration ()</h3>
+<pre class="programlisting">void                clutter_animation_set_duration      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gint msecs);</pre>
+<p>
+Sets the duration of <em class="parameter"><code>animation</code></em> in milliseconds.
+</p>
+<p>
+This function will set <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--alpha" title='The "alpha" property'><span class="type">"alpha"</span></a> and
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--timeline" title='The "timeline" property'><span class="type">"timeline"</span></a> if needed.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>msecs</code></em> :</span></p></td>
+<td> the duration in milliseconds
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-duration"></a><h3>clutter_animation_get_duration ()</h3>
+<pre class="programlisting">guint               clutter_animation_get_duration      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves the duration of <em class="parameter"><code>animation</code></em>, in milliseconds.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the duration of the animation
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-loop"></a><h3>clutter_animation_set_loop ()</h3>
+<pre class="programlisting">void                clutter_animation_set_loop          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         gboolean loop);</pre>
+<p>
+Sets whether <em class="parameter"><code>animation</code></em> should loop over itself once finished.
+</p>
+<p>
+A looping <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will not emit the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a>
+signal when finished.
+</p>
+<p>
+This function will set <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--alpha" title='The "alpha" property'><span class="type">"alpha"</span></a> and
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation--timeline" title='The "timeline" property'><span class="type">"timeline"</span></a> if needed.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the animation should loop
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-loop"></a><h3>clutter_animation_get_loop ()</h3>
+<pre class="programlisting">gboolean            clutter_animation_get_loop          (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves whether <em class="parameter"><code>animation</code></em> is looping.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the animation is looping
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-timeline"></a><h3>clutter_animation_set_timeline ()</h3>
+<pre class="programlisting">void                clutter_animation_set_timeline      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline);</pre>
+<p>
+Sets the <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> used by <em class="parameter"><code>animation</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeline</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>, or <code class="literal">NULL</code> to unset the
+  current <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-timeline"></a><h3>clutter_animation_get_timeline ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *   clutter_animation_get_timeline      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves the <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> used by <em class="parameter"><code>animation</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the timeline used by the animation. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-set-alpha"></a><h3>clutter_animation_set_alpha ()</h3>
+<pre class="programlisting">void                clutter_animation_set_alpha         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha);</pre>
+<p>
+Sets <em class="parameter"><code>alpha</code></em> as the <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> used by <em class="parameter"><code>animation</code></em>.
+</p>
+<p>
+If <em class="parameter"><code>alpha</code></em> is not <code class="literal">NULL</code>, the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will take ownership
+of the <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> instance.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>, or <code class="literal">NULL</code> to unset the current <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-alpha"></a><h3>clutter_animation_get_alpha ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *      clutter_animation_get_alpha         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Retrieves the <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> used by <em class="parameter"><code>animation</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the alpha object used by the animation. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-completed"></a><h3>clutter_animation_completed ()</h3>
+<pre class="programlisting">void                clutter_animation_completed         (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation);</pre>
+<p>
+Emits the ::completed signal on <em class="parameter"><code>animation</code></em>
+</p>
+<p>
+When using this function with a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> created
+by the <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> family of functions, <em class="parameter"><code>animation</code></em>
+will be unreferenced and it will not be valid anymore,
+unless <code class="function">g_object_ref()</code> was called before calling this function
+or unless a reference was taken inside a handler for the
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> signal</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-bind"></a><h3>clutter_animation_bind ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_animation_bind              (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         const GValue *final);</pre>
+<p>
+Adds a single property with name <em class="parameter"><code>property_name</code></em> to the
+animation <em class="parameter"><code>animation</code></em>.  For more information about animations,
+see <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>.
+</p>
+<p>
+This method returns the animation primarily to make chained
+calls convenient in language bindings.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> the property to control
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>final</code></em> :</span></p></td>
+<td> The final value of the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The animation itself.. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-bind-interval"></a><h3>clutter_animation_bind_interval ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_animation_bind_interval     (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Binds <em class="parameter"><code>interval</code></em> to the <em class="parameter"><code>property_name</code></em> of the <span class="type">GObject</span>
+attached to <em class="parameter"><code>animation</code></em>. The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will take
+ownership of the passed <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.  For more information
+about animations, see <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>.
+</p>
+<p>
+If you need to update the interval instance use
+<code class="function">clutter_animation_update_property()</code> instead.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> the property to control
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> full. </td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The animation itself.. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-update-interval"></a><h3>clutter_animation_update_interval ()</h3>
+<pre class="programlisting">void                clutter_animation_update_interval   (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         <a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *interval);</pre>
+<p>
+Changes the <em class="parameter"><code>interval</code></em> for <em class="parameter"><code>property_name</code></em>. The <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+will take ownership of the passed <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> name of the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-has-property"></a><h3>clutter_animation_has_property ()</h3>
+<pre class="programlisting">gboolean            clutter_animation_has_property      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);</pre>
+<p>
+Checks whether <em class="parameter"><code>animation</code></em> is controlling <em class="parameter"><code>property_name</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> name of the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the property is animated by the
+  <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>, <code class="literal">FALSE</code> otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-unbind-property"></a><h3>clutter_animation_unbind_property ()</h3>
+<pre class="programlisting">void                clutter_animation_unbind_property   (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);</pre>
+<p>
+Removes <em class="parameter"><code>property_name</code></em> from the list of animated properties.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> name of the property
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animation-get-interval"></a><h3>clutter_animation_get_interval ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a> *   clutter_animation_get_interval      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name);</pre>
+<p>
+Retrieves the <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a> associated to <em class="parameter"><code>property_name</code></em>
+inside <em class="parameter"><code>animation</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> name of the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animate"></a><h3>clutter_actor_animate ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animate               (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         guint duration,
+                                                         const gchar *first_property_name,
+                                                         ...);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite duration and a speed given by the <em class="parameter"><code>mode</code></em>.
+</p>
+<p>
+For example, this:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_actor_animate (rectangle, CLUTTER_LINEAR, 250,
+                         "width", 100.0,
+                         "height", 100.0,
+                         NULL);
+</pre></div>
+<p>
+</p>
+<p>
+will make width and height properties of the <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> "rectangle"
+grow linearly between the current value and 100 pixels, in 250 milliseconds.
+</p>
+<p>
+The animation <em class="parameter"><code>mode</code></em> is a logical id, either from the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationMode" title="enum ClutterAnimationMode"><span class="type">ClutterAnimationMode</span></a>
+enumeration of from <a class="link" href="ClutterAlpha.html#clutter-alpha-register-func" title="clutter_alpha_register_func ()"><code class="function">clutter_alpha_register_func()</code></a>.
+</p>
+<p>
+All the properties specified will be animated between the current value
+and the final value. If a property should be set at the beginning of
+the animation but not updated during the animation, it should be prefixed
+by the "fixed::" string, for instance:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_SINE, 100,
+                         "rotation-angle-z", 360.0,
+                         "fixed::rotation-center-z", &amp;center,
+                         NULL);
+</pre></div>
+<p>
+</p>
+<p>
+Will animate the "rotation-angle-z" property between the current value
+and 360 degrees, and set the "rotation-center-z" property to the fixed
+value of the <a class="link" href="ClutterActor.html#ClutterVertex" title="ClutterVertex"><span class="type">ClutterVertex</span></a> "center".
+</p>
+<p>
+This function will implicitly create a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> object which
+will be assigned to the <em class="parameter"><code>actor</code></em> and will be returned to the developer
+to control the animation or to know when the animation has been
+completed.
+</p>
+<p>
+If a name argument starts with "signal::", "signal-after::" or
+"signal-swapped::" the two following arguments are used as callback
+function and data for a signal handler installed on the
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> object for the specified signal name, for
+instance:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+
+  static void
+  on_animation_completed (ClutterAnimation *animation,
+                          ClutterActor     *actor)
+  {
+    clutter_actor_hide (actor);
+  }
+
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 100,
+                         "opacity", 0,
+                         "signal::completed", on_animation_completed, actor,
+                         NULL);
+</pre></div>
+<p>
+</p>
+<p>
+The "signal::" modifier is the equivalent of using <code class="function">g_signal_connect()</code>;
+the "signal-after::" modifier is the equivalent of using
+<code class="function">g_signal_connect_after()</code>; the "signal-swapped::" modifier is the equivalent
+of using <code class="function">g_signal_connect_swapped()</code>. The <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> function
+will not keep track of multiple connections to the same signal, so it is
+your responsability to avoid them when calling <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>
+multiple times on the same actor.
+</p>
+<p>
+Calling this function on an actor that is already being animated
+will cause the current animation to change with the new final values,
+the new easing mode and the new duration - that is, this code:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_actor_animate (actor, CLUTTER_LINEAR, 250,
+                         "width", 100.0,
+                         "height", 100.0,
+                         NULL);
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 500,
+                         "x", 100.0,
+                         "y", 100.0,
+                         "width", 200.0,
+                         NULL);
+</pre></div>
+<p>
+</p>
+<p>
+is the equivalent of:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 500,
+                         "x", 100.0,
+                         "y", 100.0,
+                         "width", 200.0,
+                         "height", 100.0,
+                         NULL);
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>Unless the animation is looping, the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> created by
+<a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> will become invalid as soon as it is
+complete.</div>
+<p>
+</p>
+<p>
+Since the created <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> instance attached to <em class="parameter"><code>actor</code></em>
+is guaranteed to be valid throughout the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a>
+signal emission chain, you will not be able to create a new animation
+using <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> on the same <em class="parameter"><code>actor</code></em> from within the
+<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation-completed" title='The "completed" signal'><span class="type">"completed"</span></a> signal handler unless you use
+<code class="function">g_signal_connect_after()</code> to connect the callback function, for instance:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  static void
+  on_animation_completed (ClutterAnimation *animation,
+                          ClutterActor     *actor)
+  {
+    clutter_actor_animate (actor, CLUTTER_EASE_OUT_CUBIC, 250,
+                           "x", 500.0,
+                           "y", 500.0,
+                           NULL);
+  }
+
+    ...
+    animation = clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 250,
+                                       "x", 100.0,
+                                       "y", 100.0,
+                                       NULL);
+    g_signal_connect (animation, "completed",
+                      G_CALLBACK (on_animation_completed),
+                      actor);
+    ...
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> an animation mode logical id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>duration</code></em> :</span></p></td>
+<td> duration of the animation, in milliseconds
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td> the name of a property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> a <code class="literal">NULL</code> terminated list of property names and
+  property values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animate-with-timeline"></a><h3>clutter_actor_animate_with_timeline ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animate_with_timeline (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline,
+                                                         const gchar *first_property_name,
+                                                         ...);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite duration given by <em class="parameter"><code>timeline</code></em> and a speed given by the <em class="parameter"><code>mode</code></em>.
+</p>
+<p>
+See <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> for further details.
+</p>
+<p>
+This function is useful if you want to use an existing timeline
+to animate <em class="parameter"><code>actor</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> an animation mode logical id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeline</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td> the name of a property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> a <code class="literal">NULL</code> terminated list of property names and
+  property values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animate-with-alpha"></a><h3>clutter_actor_animate_with_alpha ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animate_with_alpha    (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha,
+                                                         const gchar *first_property_name,
+                                                         ...);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite behaviour given by the passed <em class="parameter"><code>alpha</code></em>.
+</p>
+<p>
+See <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> for further details.
+</p>
+<p>
+This function is useful if you want to use an existing <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>
+to animate <em class="parameter"><code>actor</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td> the name of a property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> a <code class="literal">NULL</code> terminated list of property names and
+  property values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animatev"></a><h3>clutter_actor_animatev ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animatev              (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         guint duration,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite duration and a speed given by the <em class="parameter"><code>mode</code></em>.
+</p>
+<p>
+This is the vector-based variant of <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>, useful
+for language bindings.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>Unlike <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>, this function will not
+allow you to specify "signal::" names and callbacks.</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> an animation mode logical id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>duration</code></em> :</span></p></td>
+<td> duration of the animation, in milliseconds
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_properties</code></em> :</span></p></td>
+<td> number of property names and values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>array length=n_properties) (element-type utf8. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properties. <acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array length=n_properies. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properies. </td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animate-with-timelinev"></a><h3>clutter_actor_animate_with_timelinev ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animate_with_timelinev
+                                                        (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         gulong mode,
+                                                         <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a> *timeline,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite duration given by <em class="parameter"><code>timeline</code></em> and a speed given by the <em class="parameter"><code>mode</code></em>.
+</p>
+<p>
+See <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> for further details.
+</p>
+<p>
+This function is useful if you want to use an existing timeline
+to animate <em class="parameter"><code>actor</code></em>.
+</p>
+<p>
+This is the vector-based variant of <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timeline" title="clutter_actor_animate_with_timeline ()"><code class="function">clutter_actor_animate_with_timeline()</code></a>,
+useful for language bindings.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>Unlike <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-timeline" title="clutter_actor_animate_with_timeline ()"><code class="function">clutter_actor_animate_with_timeline()</code></a>, this function
+will not allow you to specify "signal::" names and callbacks.</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> an animation mode logical id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeline</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_properties</code></em> :</span></p></td>
+<td> number of property names and values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>array length=n_properties) (element-type utf8. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properties. <acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array length=n_properies. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properies. </td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-animate-with-alphav"></a><h3>clutter_actor_animate_with_alphav ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_animate_with_alphav   (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor,
+                                                         <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a> *alpha,
+                                                         gint n_properties,
+                                                         const gchar * const properties[],
+                                                         const GValue *values);</pre>
+<p>
+Animates the given list of properties of <em class="parameter"><code>actor</code></em> between the current
+value for each property and a new final value. The animation has a
+definite behaviour given by the passed <em class="parameter"><code>alpha</code></em>.
+</p>
+<p>
+See <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a> for further details.
+</p>
+<p>
+This function is useful if you want to use an existing <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>
+to animate <em class="parameter"><code>actor</code></em>.
+</p>
+<p>
+This is the vector-based variant of <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alpha" title="clutter_actor_animate_with_alpha ()"><code class="function">clutter_actor_animate_with_alpha()</code></a>,
+useful for language bindings.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>Unlike <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate-with-alpha" title="clutter_actor_animate_with_alpha ()"><code class="function">clutter_actor_animate_with_alpha()</code></a>, this function will
+not allow you to specify "signal::" names and callbacks.</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_properties</code></em> :</span></p></td>
+<td> number of property names and values
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>array length=n_properties) (element-type utf8. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properties. <acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array length=n_properies. <acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properies. </td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-actor-get-animation"></a><h3>clutter_actor_get_animation ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *  clutter_actor_get_animation         (<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *actor);</pre>
+<p>
+Retrieves the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> used by <em class="parameter"><code>actor</code></em>, if <a class="link" href="clutter-Implicit-Animations.html#clutter-actor-animate" title="clutter_actor_animate ()"><code class="function">clutter_actor_animate()</code></a>
+has been called on <em class="parameter"><code>actor</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>, or <code class="literal">NULL</code>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--alpha"></a><h3>The <code class="literal">"alpha"</code> property</h3>
+<pre class="programlisting">  "alpha"                    <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a>*         : Read / Write</pre>
+<p>
+The <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a> used by the animation.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--duration"></a><h3>The <code class="literal">"duration"</code> property</h3>
+<pre class="programlisting">  "duration"                 guint                 : Read / Write</pre>
+<p>
+The duration of the animation, expressed in milliseconds.</p>
+<p>
+</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--loop"></a><h3>The <code class="literal">"loop"</code> property</h3>
+<pre class="programlisting">  "loop"                     gboolean              : Read / Write</pre>
+<p>
+Whether the animation should loop.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--mode"></a><h3>The <code class="literal">"mode"</code> property</h3>
+<pre class="programlisting">  "mode"                     gulong                : Read / Write</pre>
+<p>
+The animation mode, either a value from <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimationMode" title="enum ClutterAnimationMode"><span class="type">ClutterAnimationMode</span></a>
+or a value returned by <a class="link" href="ClutterAlpha.html#clutter-alpha-register-func" title="clutter_alpha_register_func ()"><code class="function">clutter_alpha_register_func()</code></a>. The
+default value is <a class="link" href="clutter-Implicit-Animations.html#CLUTTER-LINEAR--CAPS"><code class="literal">CLUTTER_LINEAR</code></a>.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--object"></a><h3>The <code class="literal">"object"</code> property</h3>
+<pre class="programlisting">  "object"                   GObject*              : Read / Write</pre>
+<p>Object to which the animation applies.</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation--timeline"></a><h3>The <code class="literal">"timeline"</code> property</h3>
+<pre class="programlisting">  "timeline"                 <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a>*      : Read / Write</pre>
+<p>
+The <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a> used by the animation.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation-completed"></a><h3>The <code class="literal">"completed"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                        gpointer          user_data)      : Run Last</pre>
+<p>
+The ::completed signal is emitted once the animation has
+been completed.
+</p>
+<p>
+The <em class="parameter"><code>animation</code></em> instance is guaranteed to be valid for the entire
+duration of the signal emission chain.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> the animation that emitted the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimation-started"></a><h3>The <code class="literal">"started"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                        gpointer          user_data)      : Run Last</pre>
+<p>
+The ::started signal is emitted once the animation has been
+started</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> the animation that emitted the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Implicit-Animations.see-also"></a><h2>See Also</h2>
+#ClutterAnimatable, <a class="link" href="clutter-Value-intervals.html#ClutterInterval"><span class="type">ClutterInterval</span></a>, <a class="link" href="ClutterAlpha.html" title="ClutterAlpha"><span class="type">ClutterAlpha</span></a>,
+  <a class="link" href="ClutterTimeline.html" title="ClutterTimeline"><span class="type">ClutterTimeline</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

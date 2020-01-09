@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-EGL-Specific-Support">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-EGL-Specific-Support.top_of_page">EGL Specific Support</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>EGL Specific Support</refname>
+<refpurpose>EGL specific API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-EGL-Specific-Support.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="EGLDisplay">EGLDisplay</link>          <link linkend="clutter-egl-display">clutter_egl_display</link>                 (void);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-EGL-Specific-Support.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The EGL backend for Clutter provides some specific API.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-EGL-Specific-Support.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="clutter-egl-display" role="function">
+<title>clutter_egl_display ()</title>
+<indexterm zone="clutter-egl-display"><primary sortas="egl_display">clutter_egl_display</primary></indexterm><programlisting><link linkend="EGLDisplay">EGLDisplay</link>          clutter_egl_display                 (void);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

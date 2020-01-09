@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="ClutterGroup-struct"><link linkend="ClutterGroup">ClutterGroup</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterGroupClass"><link linkend="ClutterGroupClass">ClutterGroupClass</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="ClutterRectangle-struct"><link linkend="ClutterRectangle">ClutterRectangle</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterRectangleClass"><link linkend="ClutterRectangleClass">ClutterRectangleClass</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="ClutterStage-struct"><link linkend="ClutterStage">ClutterStage</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStageClass"><link linkend="ClutterStageClass">ClutterStageClass</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="ClutterTexture-struct"><link linkend="ClutterTexture">ClutterTexture</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterTextureClass"><link linkend="ClutterTextureClass">ClutterTextureClass</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

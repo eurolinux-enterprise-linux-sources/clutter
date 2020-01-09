@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Bitmaps">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Bitmaps.top_of_page">Bitmaps</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Bitmaps</refname>
+<refpurpose>Fuctions for loading images but not directly
+                    into textures</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Bitmaps.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-bitmap-new-from-file">cogl_bitmap_new_from_file</link>           (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-bitmap-get-size-from-file">cogl_bitmap_get_size_from_file</link>      (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> *width,
+                                                         <link linkend="gint">gint</link> *height);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Bitmaps.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Cogl allows loading image data into memory as CoglBitmaps without
+loading them immediately into GPU textures.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Bitmaps.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cogl-bitmap-new-from-file" role="function" condition="since:1.0">
+<title>cogl_bitmap_new_from_file ()</title>
+<indexterm zone="cogl-bitmap-new-from-file" role="1.0"><primary sortas="bitmap_new_from_file">cogl_bitmap_new_from_file</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_bitmap_new_from_file           (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Loads an image file from disk. This function can be safely called from
+within a thread.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara> the file to load.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GError"><type>GError</type></link> or <link linkend="NULL--CAPS"><literal>NULL</literal></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the new loaded image data, or
+  <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> if loading the image failed.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-bitmap-get-size-from-file" role="function" condition="since:1.0">
+<title>cogl_bitmap_get_size_from_file ()</title>
+<indexterm zone="cogl-bitmap-get-size-from-file" role="1.0"><primary sortas="bitmap_get_size_from_file">cogl_bitmap_get_size_from_file</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_bitmap_get_size_from_file      (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> *width,
+                                                         <link linkend="gint">gint</link> *height);</programlisting>
+<para>
+Parses an image file enough to extract the width and height
+of the bitmap.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara> the file to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> return location for the bitmap width
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> return location for the bitmap height
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the image was successfully parsed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

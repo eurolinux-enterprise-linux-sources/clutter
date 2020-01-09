@@ -1,0 +1,1136 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Materials">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Materials.top_of_page">Materials</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Materials</refname>
+<refpurpose>Fuctions for creating and manipulating materials</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Materials.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-material-new">cogl_material_new</link>                   (void);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-material-ref">cogl_material_ref</link>                   (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-material-unref">cogl_material_unref</link>                 (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-is-material">cogl_is_material</link>                    (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-color">cogl_material_set_color</link>             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-color4ub">cogl_material_set_color4ub</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-color4f">cogl_material_set_color4f</link>           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);
+<link linkend="void">void</link>                <link linkend="cogl-material-get-color">cogl_material_get_color</link>             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-ambient">cogl_material_set_ambient</link>           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *ambient);
+<link linkend="void">void</link>                <link linkend="cogl-material-get-ambient">cogl_material_get_ambient</link>           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *ambient);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-diffuse">cogl_material_set_diffuse</link>           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *diffuse);
+<link linkend="void">void</link>                <link linkend="cogl-material-get-diffuse">cogl_material_get_diffuse</link>           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *diffuse);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-ambient-and-diffuse">cogl_material_set_ambient_and_diffuse</link>
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-emission">cogl_material_set_emission</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *emission);
+<link linkend="void">void</link>                <link linkend="cogl-material-get-emission">cogl_material_get_emission</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *emission);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-specular">cogl_material_set_specular</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *specular);
+<link linkend="void">void</link>                <link linkend="cogl-material-get-specular">cogl_material_get_specular</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *specular);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-shininess">cogl_material_set_shininess</link>         (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="float">float</link> shininess);
+<link linkend="float">float</link>               <link linkend="cogl-material-get-shininess">cogl_material_get_shininess</link>         (<link linkend="CoglHandle">CoglHandle</link> material);
+enum                <link linkend="CoglMaterialAlphaFunc">CoglMaterialAlphaFunc</link>;
+<link linkend="void">void</link>                <link linkend="cogl-material-set-alpha-test-function">cogl_material_set_alpha_test_function</link>
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglMaterialAlphaFunc">CoglMaterialAlphaFunc</link> alpha_func,
+                                                         <link linkend="float">float</link> alpha_reference);
+enum                <link linkend="CoglBlendStringError">CoglBlendStringError</link>;
+#define             <link linkend="COGL-BLEND-STRING-ERROR--CAPS">COGL_BLEND_STRING_ERROR</link>
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-material-set-blend">cogl_material_set_blend</link>             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="char">char</link> *blend_string,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-blend-constant">cogl_material_set_blend_constant</link>    (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *constant_color);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-layer">cogl_material_set_layer</link>             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglHandle">CoglHandle</link> texture);
+<link linkend="void">void</link>                <link linkend="cogl-material-remove-layer">cogl_material_remove_layer</link>          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="gint">gint</link> layer_index);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-material-set-layer-combine">cogl_material_set_layer_combine</link>     (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="gint">gint</link> layer_index,
+                                                         const <link linkend="char">char</link> *blend_string,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-layer-combine-constant">cogl_material_set_layer_combine_constant</link>
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglColor">CoglColor</link> *constant);
+<link linkend="void">void</link>                <link linkend="cogl-material-set-layer-matrix">cogl_material_set_layer_matrix</link>      (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+const <link linkend="GList">GList</link> *       <link linkend="cogl-material-get-layers">cogl_material_get_layers</link>            (<link linkend="CoglHandle">CoglHandle</link> material);
+<link linkend="int">int</link>                 <link linkend="cogl-material-get-n-layers">cogl_material_get_n_layers</link>          (<link linkend="CoglHandle">CoglHandle</link> material);
+enum                <link linkend="CoglMaterialFilter">CoglMaterialFilter</link>;
+<link linkend="void">void</link>                <link linkend="cogl-material-set-layer-filters">cogl_material_set_layer_filters</link>     (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="gint">gint</link> layer_index,
+                                                         <link linkend="CoglMaterialFilter">CoglMaterialFilter</link> min_filter,
+                                                         <link linkend="CoglMaterialFilter">CoglMaterialFilter</link> mag_filter);
+<link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link>  <link linkend="cogl-material-layer-get-type">cogl_material_layer_get_type</link>     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-material-layer-get-texture">cogl_material_layer_get_texture</link>     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+<link linkend="CoglMaterialFilter">CoglMaterialFilter</link>  <link linkend="cogl-material-layer-get-min-filter">cogl_material_layer_get_min_filter</link>  (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+<link linkend="CoglMaterialFilter">CoglMaterialFilter</link>  <link linkend="cogl-material-layer-get-mag-filter">cogl_material_layer_get_mag_filter</link>  (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Materials.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+COGL allows creating and manipulating materials used to fill in
+geometry. Materials may simply be lighting attributes (such as an
+ambient and diffuse colour) or might represent one or more textures
+blended together.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Materials.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cogl-material-new" role="function">
+<title>cogl_material_new ()</title>
+<indexterm zone="cogl-material-new"><primary sortas="material_new">cogl_material_new</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_material_new                   (void);</programlisting>
+<para>
+Allocates and initializes a blank white material</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a handle to the new material
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-ref" role="function">
+<title>cogl_material_ref ()</title>
+<indexterm zone="cogl-material-ref"><primary sortas="material_ref">cogl_material_ref</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_material_ref                   (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Increment the reference count for a cogl material.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <parameter>CoglHandle</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the <parameter>handle</parameter>.
+
+Since 1.0
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-unref" role="function">
+<title>cogl_material_unref ()</title>
+<indexterm zone="cogl-material-unref"><primary sortas="material_unref">cogl_material_unref</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_unref                 (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Decrement the reference count for a cogl material.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <parameter>CoglHandle</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-is-material" role="function">
+<title>cogl_is_material ()</title>
+<indexterm zone="cogl-is-material"><primary sortas="is_material">cogl_is_material</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_is_material                    (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Gets whether the given handle references an existing material object.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the handle references a <link linkend="CoglMaterial"><type>CoglMaterial</type></link>,
+  <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-color" role="function">
+<title>cogl_material_set_color ()</title>
+<indexterm zone="cogl-material-set-color"><primary sortas="material_set_color">cogl_material_set_color</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_color             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+This is the basic color of the material, used when no lighting is enabled.
+</para>
+<para>
+Note that if you don't add any layers to the material then the color
+will be blended unmodified with the destination; the default blend
+expects premultiplied colors: for example, use (0.5, 0.0, 0.0, 0.5) for
+semi-transparent red. See <link linkend="cogl-color-premultiply"><function>cogl_color_premultiply()</function></link>.
+</para>
+<para>
+The default value is (1.0, 1.0, 1.0, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> The components of the color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-color4ub" role="function">
+<title>cogl_material_set_color4ub ()</title>
+<indexterm zone="cogl-material-set-color4ub"><primary sortas="material_set_color4ub">cogl_material_set_color4ub</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_color4ub          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);</programlisting>
+<para>
+This is the basic color of the material, used when no lighting is enabled.
+</para>
+<para>
+The default value is (0xff, 0xff, 0xff, 0xff)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> The red component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> The green component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> The blue component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> The alpha component
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-color4f" role="function">
+<title>cogl_material_set_color4f ()</title>
+<indexterm zone="cogl-material-set-color4f"><primary sortas="material_set_color4f">cogl_material_set_color4f</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_color4f           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);</programlisting>
+<para>
+This is the basic color of the material, used when no lighting is enabled.
+</para>
+<para>
+The default value is (1.0, 1.0, 1.0, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> The red component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> The green component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> The blue component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> The alpha component
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-color" role="function">
+<title>cogl_material_get_color ()</title>
+<indexterm zone="cogl-material-get-color"><primary sortas="material_get_color">cogl_material_get_color</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_get_color             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+This retrieves the current material color.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> The location to store the color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-ambient" role="function">
+<title>cogl_material_set_ambient ()</title>
+<indexterm zone="cogl-material-set-ambient"><primary sortas="material_set_ambient">cogl_material_set_ambient</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_ambient           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *ambient);</programlisting>
+<para>
+Exposing the standard OpenGL lighting model; this function sets
+the material's ambient color. The ambient color affects the overall
+color of the object. Since the diffuse color will be intense when
+the light hits the surface directly, the ambient will most aparent
+where the light hits at a slant.
+</para>
+<para>
+The default value is (0.2, 0.2, 0.2, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ambient</parameter>&#160;:</term>
+<listitem><simpara> The components of the desired ambient color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-ambient" role="function">
+<title>cogl_material_get_ambient ()</title>
+<indexterm zone="cogl-material-get-ambient"><primary sortas="material_get_ambient">cogl_material_get_ambient</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_get_ambient           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *ambient);</programlisting>
+<para>
+This retrieves the materials current ambient color.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ambient</parameter>&#160;:</term>
+<listitem><simpara> The location to store the ambient color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-diffuse" role="function">
+<title>cogl_material_set_diffuse ()</title>
+<indexterm zone="cogl-material-set-diffuse"><primary sortas="material_set_diffuse">cogl_material_set_diffuse</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_diffuse           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *diffuse);</programlisting>
+<para>
+Exposing the standard OpenGL lighting model; this function sets
+the material's diffuse color. The diffuse color is most intense
+where the light hits the surface directly; perpendicular to the
+surface.
+</para>
+<para>
+The default value is (0.8, 0.8, 0.8, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>diffuse</parameter>&#160;:</term>
+<listitem><simpara> The components of the desired diffuse color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-diffuse" role="function">
+<title>cogl_material_get_diffuse ()</title>
+<indexterm zone="cogl-material-get-diffuse"><primary sortas="material_get_diffuse">cogl_material_get_diffuse</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_get_diffuse           (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *diffuse);</programlisting>
+<para>
+This retrieves the materials current diffuse color.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>diffuse</parameter>&#160;:</term>
+<listitem><simpara> The location to store the diffuse color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-ambient-and-diffuse" role="function">
+<title>cogl_material_set_ambient_and_diffuse ()</title>
+<indexterm zone="cogl-material-set-ambient-and-diffuse"><primary sortas="material_set_ambient_and_diffuse">cogl_material_set_ambient_and_diffuse</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_ambient_and_diffuse
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+This is a convenience for setting the diffuse and ambient color
+of the material at the same time.
+</para>
+<para>
+The default ambient color is (0.2, 0.2, 0.2, 1.0)
+The default diffuse color is (0.8, 0.8, 0.8, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> The components of the desired ambient and diffuse colors
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-emission" role="function">
+<title>cogl_material_set_emission ()</title>
+<indexterm zone="cogl-material-set-emission"><primary sortas="material_set_emission">cogl_material_set_emission</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_emission          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *emission);</programlisting>
+<para>
+Exposing the standard OpenGL lighting model; this function sets
+the material's emissive color. It will look like the surface is
+a light source emitting this color.
+</para>
+<para>
+The default value is (0.0, 0.0, 0.0, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>emission</parameter>&#160;:</term>
+<listitem><simpara> The components of the desired emissive color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-emission" role="function">
+<title>cogl_material_get_emission ()</title>
+<indexterm zone="cogl-material-get-emission"><primary sortas="material_get_emission">cogl_material_get_emission</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_get_emission          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *emission);</programlisting>
+<para>
+This retrieves the materials current emission color.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>emission</parameter>&#160;:</term>
+<listitem><simpara> The location to store the emission color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-specular" role="function">
+<title>cogl_material_set_specular ()</title>
+<indexterm zone="cogl-material-set-specular"><primary sortas="material_set_specular">cogl_material_set_specular</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_specular          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="CoglColor">CoglColor</link> *specular);</programlisting>
+<para>
+Exposing the standard OpenGL lighting model; this function sets
+the material's specular color. The intensity of the specular color
+depends on the viewport position, and is brightest along the lines
+of reflection.
+</para>
+<para>
+The default value is (0.0, 0.0, 0.0, 1.0)
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>specular</parameter>&#160;:</term>
+<listitem><simpara> The components of the desired specular color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-specular" role="function">
+<title>cogl_material_get_specular ()</title>
+<indexterm zone="cogl-material-get-specular"><primary sortas="material_get_specular">cogl_material_get_specular</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_get_specular          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *specular);</programlisting>
+<para>
+This retrieves the materials current specular color.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>specular</parameter>&#160;:</term>
+<listitem><simpara> The location to store the specular color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-shininess" role="function">
+<title>cogl_material_set_shininess ()</title>
+<indexterm zone="cogl-material-set-shininess"><primary sortas="material_set_shininess">cogl_material_set_shininess</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_shininess         (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="float">float</link> shininess);</programlisting>
+<para>
+This function sets the materials shininess which determines how
+specular highlights are calculated. A higher shininess will produce
+smaller brigher highlights.
+</para>
+<para>
+The default value is 0.0
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>shininess</parameter>&#160;:</term>
+<listitem><simpara> The desired shininess; range: [0.0, 1.0]
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-shininess" role="function">
+<title>cogl_material_get_shininess ()</title>
+<indexterm zone="cogl-material-get-shininess"><primary sortas="material_get_shininess">cogl_material_get_shininess</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_material_get_shininess         (<link linkend="CoglHandle">CoglHandle</link> material);</programlisting>
+<para>
+This retrieves the materials current emission color.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The materials current shininess value
+
+Since 1.0
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglMaterialAlphaFunc" role="enum">
+<title>enum CoglMaterialAlphaFunc</title>
+<indexterm zone="CoglMaterialAlphaFunc"><primary sortas="MaterialAlphaFunc">CoglMaterialAlphaFunc</primary></indexterm><programlisting>typedef enum _CoglMaterialAlphaFunc
+{
+  COGL_MATERIAL_ALPHA_FUNC_NEVER    = GL_NEVER,
+  COGL_MATERIAL_ALPHA_FUNC_LESS	    = GL_LESS,
+  COGL_MATERIAL_ALPHA_FUNC_EQUAL    = GL_EQUAL,
+  COGL_MATERIAL_ALPHA_FUNC_LEQUAL   = GL_LEQUAL,
+  COGL_MATERIAL_ALPHA_FUNC_GREATER  = GL_GREATER,
+  COGL_MATERIAL_ALPHA_FUNC_NOTEQUAL = GL_NOTEQUAL,
+  COGL_MATERIAL_ALPHA_FUNC_GEQUAL   = GL_GEQUAL,
+  COGL_MATERIAL_ALPHA_FUNC_ALWAYS   = GL_ALWAYS
+} CoglMaterialAlphaFunc;
+</programlisting>
+<para>
+Alpha testing happens before blending primitives with the framebuffer and
+gives an opportunity to discard fragments based on a comparison with the
+incoming alpha value and a reference alpha value. The <link linkend="CoglMaterialAlphaFunc"><type>CoglMaterialAlphaFunc</type></link>
+determines how the comparison is done.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-NEVER--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_NEVER</literal></term>
+<listitem><simpara> Never let the fragment through.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-LESS--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_LESS</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                alpha value is less than the reference alpha
+                                value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-EQUAL--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_EQUAL</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                 alpha value equals the reference alpha
+                                 value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-LEQUAL--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_LEQUAL</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                  alpha value is less than or equal to the
+                                  reference alpha value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-GREATER--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_GREATER</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                   alpha value is greater than the reference
+                                   alpha value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-NOTEQUAL--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_NOTEQUAL</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                    alpha value does not equal the reference
+                                    alpha value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-GEQUAL--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_GEQUAL</literal></term>
+<listitem><simpara> Let the fragment through if the incoming
+                                  alpha value is greater than or equal to the
+                                  reference alpha value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-ALPHA-FUNC-ALWAYS--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_ALPHA_FUNC_ALWAYS</literal></term>
+<listitem><simpara> Always let the fragment through.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-alpha-test-function" role="function">
+<title>cogl_material_set_alpha_test_function ()</title>
+<indexterm zone="cogl-material-set-alpha-test-function"><primary sortas="material_set_alpha_test_function">cogl_material_set_alpha_test_function</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_alpha_test_function
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglMaterialAlphaFunc">CoglMaterialAlphaFunc</link> alpha_func,
+                                                         <link linkend="float">float</link> alpha_reference);</programlisting>
+<para>
+Before a primitive is blended with the framebuffer, it goes through an
+alpha test stage which lets you discard fragments based on the current
+alpha value. This function lets you change the function used to evaluate
+the alpha channel, and thus determine which fragments are discarded
+and which continue on to the blending stage.
+</para>
+<para>
+The default is COGL_MATERIAL_ALPHA_FUNC_ALWAYS
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha_func</parameter>&#160;:</term>
+<listitem><simpara> A <parameter>CoglMaterialAlphaFunc</parameter> constant
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha_reference</parameter>&#160;:</term>
+<listitem><simpara> A reference point that the chosen alpha function uses
+                  to compare incoming fragments to.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglBlendStringError" role="enum">
+<title>enum CoglBlendStringError</title>
+<indexterm zone="CoglBlendStringError"><primary sortas="BlendStringError">CoglBlendStringError</primary></indexterm><programlisting>typedef enum { /*&lt; prefix=COGL_BLEND_STRING_ERROR &gt;*/
+  COGL_BLEND_STRING_ERROR_PARSE_ERROR,
+  COGL_BLEND_STRING_ERROR_ARGUMENT_PARSE_ERROR,
+  COGL_BLEND_STRING_ERROR_INVALID_ERROR,
+  COGL_BLEND_STRING_ERROR_GPU_UNSUPPORTED_ERROR
+} CoglBlendStringError;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-BLEND-STRING-ERROR--CAPS" role="macro">
+<title>COGL_BLEND_STRING_ERROR</title>
+<indexterm zone="COGL-BLEND-STRING-ERROR--CAPS"><primary sortas="BLEND_STRING_ERROR">COGL_BLEND_STRING_ERROR</primary></indexterm><programlisting>#define COGL_BLEND_STRING_ERROR (cogl_blend_string_error_quark ())
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-material-set-blend" role="function" condition="since:1.0">
+<title>cogl_material_set_blend ()</title>
+<indexterm zone="cogl-material-set-blend" role="1.0"><primary sortas="material_set_blend">cogl_material_set_blend</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_material_set_blend             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         const <link linkend="char">char</link> *blend_string,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+If not already familiar; please refer
+<link linkend="cogl-Blend-Strings">here</link> for an overview of what blend
+strings are and there syntax.
+</para>
+<para>
+Blending occurs after the alpha test function, and combines fragments with
+the framebuffer.
+</para>
+<para>
+Currently the only blend function Cogl exposes is <link linkend="ADD--CAPS"><function>ADD()</function></link>. So any valid
+blend statements will be of the form:
+</para>
+<para>
+<programlisting>
+&lt;channel-mask&gt;=ADD(SRC_COLOR*(&lt;factor&gt;), DST_COLOR*(&lt;factor&gt;))
+</programlisting>
+</para>
+<para>
+<warning>The brackets around blend factors are currently not optional!</warning>
+</para>
+<para>
+This is the list of source-names usable as blend factors:
+<itemizedlist>
+<listitem>SRC_COLOR: The color of the in comming fragment</listitem>
+<listitem>DST_COLOR: The color of the framebuffer</listitem>
+<listitem>
+CONSTANT: The constant set via <link linkend="cogl-material-set-blend-constant"><function>cogl_material_set_blend_constant()</function></link></listitem>
+</itemizedlist>
+The source names can be used according to the
+<link linkend="cogl-Blend-String-syntax">color-source and factor syntax</link>,
+so for example "(1-SRC_COLOR[A])" would be a valid factor, as would
+"(CONSTANT[RGB])"
+</para>
+<para>
+These can also be used as factors:
+<itemizedlist>
+<listitem>0: (0, 0, 0, 0)</listitem>
+<listitem>1: (1, 1, 1, 1)</listitem>
+<listitem>SRC_ALPHA_SATURATE_FACTOR: (f,f,f,1)
+where f=MIN(SRC_COLOR[A],1-DST_COLOR[A])</listitem>
+</itemizedlist>
+<para>
+Remember; all color components are normalized to the range [0, 1] before
+computing the result of blending.
+</para>
+<section>
+<title>Examples</title>
+Blend a non-premultiplied source over a destination with
+premultiplied alpha:
+<programlisting>
+"RGB = ADD(SRC_COLOR*(SRC_COLOR[A]), DST_COLOR*(1-SRC_COLOR[A]))"
+"A   = ADD(SRC_COLOR, DST_COLOR*(1-SRC_COLOR[A]))"
+</programlisting>
+Blend a premultiplied source over a destination with premultiplied alpha:
+<programlisting>
+"RGBA = ADD(SRC_COLOR, DST_COLOR*(1-SRC_COLOR[A]))"
+</programlisting>
+</section>
+</para>
+<para>
+The default blend string is:
+ "RGBA = ADD (SRC_COLOR, DST_COLOR*(1-SRC_COLOR[A]))"
+That gives normal alpha-blending when the calculated color for the material
+is in premultiplied form.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blend_string</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="cogl-Blend-Strings">Cogl blend string</link>
+               describing the desired blend function.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara> A GError that may report lack of driver support if you give
+        separate blend string statements for the alpha channel and RGB
+        channels since some drivers or backends such as GLES 1.1 dont
+        support this. May be <link linkend="NULL--CAPS"><literal>NULL</literal></link>, in which case a warning will be
+        printed out if an error is encountered.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the blend string was successfully parsed, and the described
+         blending is supported by the underlying driver/hardware. If there
+         was an error, it returns FALSE.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-material-set-blend-constant" role="function" condition="since:1.0">
+<title>cogl_material_set_blend_constant ()</title>
+<indexterm zone="cogl-material-set-blend-constant" role="1.0"><primary sortas="material_set_blend_constant">cogl_material_set_blend_constant</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_blend_constant    (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="CoglColor">CoglColor</link> *constant_color);</programlisting>
+<para>
+When blending is setup to reference a CONSTANT blend factor then
+blending will depend on the constant set with this function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>constant_color</parameter>&#160;:</term>
+<listitem><simpara> The constant color you want
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-material-set-layer" role="function">
+<title>cogl_material_set_layer ()</title>
+<indexterm zone="cogl-material-set-layer"><primary sortas="material_set_layer">cogl_material_set_layer</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_layer             (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglHandle">CoglHandle</link> texture);</programlisting>
+<para>
+In addition to the standard OpenGL lighting model a Cogl material may have
+one or more layers comprised of textures that can be blended together in
+order, with a number of different texture combine modes. This function
+defines a new texture layer.
+</para>
+<para>
+The index values of multiple layers do not have to be consecutive; it is
+only their relative order that is important.
+</para>
+<para>
+<note>In the future, we may define other types of material layers, such
+as purely GLSL based layers.</note>
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara> the index of the layer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for the layer object
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-remove-layer" role="function">
+<title>cogl_material_remove_layer ()</title>
+<indexterm zone="cogl-material-remove-layer"><primary sortas="material_remove_layer">cogl_material_remove_layer</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_remove_layer          (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="gint">gint</link> layer_index);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-layer-combine" role="function" condition="since:1.0">
+<title>cogl_material_set_layer_combine ()</title>
+<indexterm zone="cogl-material-set-layer-combine" role="1.0"><primary sortas="material_set_layer_combine">cogl_material_set_layer_combine</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_material_set_layer_combine     (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="gint">gint</link> layer_index,
+                                                         const <link linkend="char">char</link> *blend_string,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+If not already familiar; you can refer
+<link linkend="cogl-Blend-Strings">here</link> for an overview of what blend
+strings are and there syntax.
+</para>
+<para>
+These are all the functions available for texture combining:
+<itemizedlist>
+<listitem>REPLACE(arg0) = arg0</listitem>
+<listitem>MODULATE(arg0, arg1) = arg0 x arg1</listitem>
+<listitem>ADD(arg0, arg1) = arg0 + arg1</listitem>
+<listitem>ADD_SIGNED(arg0, arg1) = arg0 + arg1 - 0.5</listitem>
+<listitem>INTERPOLATE(arg0, arg1, arg2) =
+arg0 x arg2 + arg1 x (1 - arg2)</listitem>
+<listitem>SUBTRACT(arg0, arg1) = arg0 - arg1</listitem>
+<listitem>
+DOT3_RGB(arg0, arg1) =
+<programlisting>
+4 x ((arg0[R] - 0.5)) * (arg1[R] - 0.5) +
+     (arg0[G] - 0.5)) * (arg1[G] - 0.5) +
+     (arg0[B] - 0.5)) * (arg1[B] - 0.5))
+</programlisting>
+</listitem>
+<listitem>DOT3_RGBA(arg0, arg1) =
+<programlisting>
+4 x ((arg0[R] - 0.5)) * (arg1[R] - 0.5) +
+     (arg0[G] - 0.5)) * (arg1[G] - 0.5) +
+     (arg0[B] - 0.5)) * (arg1[B] - 0.5))
+</programlisting>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Refer to the
+<link linkend="cogl-Blend-String-syntax">color-source syntax</link> for
+describing the arguments. The valid source names for texture combining
+are:
+<itemizedlist>
+<listitem>
+TEXTURE: Use the color from the current texture layer
+</listitem>
+<listitem>
+TEXTURE_0, TEXTURE_1, etc: Use the color from the specified texture layer
+</listitem>
+<listitem>
+CONSTANT: Use the color from the constant given with
+<link linkend="cogl-material-set-layer-constant"><function>cogl_material_set_layer_constant()</function></link>
+</listitem>
+<listitem>
+PRIMARY: Use the color of the material as set with <link linkend="cogl-material-set-color"><function>cogl_material_set_color()</function></link>
+</listitem>
+<listitem>
+PREVIOUS: Either use the texture color from the previous layer, or if this
+is layer 0, use the color of the material as set with
+<link linkend="cogl-material-set-color"><function>cogl_material_set_color()</function></link>
+</listitem>
+</itemizedlist>
+<refsect2>
+<title>Example</title>
+This is effectively what the default blending is:
+<informalexample><programlisting>
+  RGBA = MODULATE (PREVIOUS, TEXTURE)
+</programlisting></informalexample>
+This could be used to cross-fade between two images, using the alpha
+component of a constant as the interpolator. The constant color
+is given by calling cogl_material_set_layer_constant.
+<informalexample><programlisting>
+  RGBA = INTERPOLATE (PREVIOUS, TEXTURE, CONSTANT[A])
+</programlisting></informalexample>
+</refsect2>
+</para>
+<para>
+<note>You can't give a multiplication factor for arguments as you can
+with blending.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara> Specifies the layer you want define a combine function for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blend_string</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="cogl-Blend-Strings">Cogl blend string</link>
+               describing the desired texture combine function.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="GError"><type>GError</type></link> that may report parse errors or lack of GPU/driver support.
+        May be <link linkend="NULL--CAPS"><literal>NULL</literal></link>, in which case a warning will be printed out if an
+        error is encountered.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the blend string was successfully parsed, and the
+  described texture combining is supported by the underlying driver and
+  or hardware. If there was an error, it returns FALSE.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-material-set-layer-combine-constant" role="function">
+<title>cogl_material_set_layer_combine_constant ()</title>
+<indexterm zone="cogl-material-set-layer-combine-constant"><primary sortas="material_set_layer_combine_constant">cogl_material_set_layer_combine_constant</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_layer_combine_constant
+                                                        (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglColor">CoglColor</link> *constant);</programlisting>
+<para>
+When you are using the 'CONSTANT' color source in a layer combine
+description then you can use this function to define its value.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara> Specifies the layer you want to specify a constant used
+              for texture combining
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>constant</parameter>&#160;:</term>
+<listitem><simpara> The constant color you want
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-layer-matrix" role="function">
+<title>cogl_material_set_layer_matrix ()</title>
+<indexterm zone="cogl-material-set-layer-matrix"><primary sortas="material_set_layer_matrix">cogl_material_set_layer_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_layer_matrix      (<link linkend="CoglHandle">CoglHandle</link> material,
+                                                         <link linkend="int">int</link> layer_index,
+                                                         <link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+This function lets you set a matrix that can be used to e.g. translate
+and rotate a single layer of a material used to fill your geometry.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara> the index for the layer inside <parameter>material</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> the transformation matrix for the layer
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-layers" role="function">
+<title>cogl_material_get_layers ()</title>
+<indexterm zone="cogl-material-get-layers"><primary sortas="material_get_layers">cogl_material_get_layers</primary></indexterm><programlisting>const <link linkend="GList">GList</link> *       cogl_material_get_layers            (<link linkend="CoglHandle">CoglHandle</link> material);</programlisting>
+<para>
+This function lets you access a materials internal list of layers
+for iteration.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>element-type Handle) (transfer none. <acronym>element-type</acronym> Handle. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-get-n-layers" role="function" condition="since:1.0">
+<title>cogl_material_get_n_layers ()</title>
+<indexterm zone="cogl-material-get-n-layers" role="1.0"><primary sortas="material_get_n_layers">cogl_material_get_n_layers</primary></indexterm><programlisting><link linkend="int">int</link>                 cogl_material_get_n_layers          (<link linkend="CoglHandle">CoglHandle</link> material);</programlisting>
+<para>
+Retrieves the number of layers defined for the given <parameter>material</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the number of layers
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CoglMaterialFilter" role="enum">
+<title>enum CoglMaterialFilter</title>
+<indexterm zone="CoglMaterialFilter"><primary sortas="MaterialFilter">CoglMaterialFilter</primary></indexterm><programlisting>typedef enum _CoglMaterialFilter
+{
+  COGL_MATERIAL_FILTER_NEAREST = GL_NEAREST,
+  COGL_MATERIAL_FILTER_LINEAR = GL_LINEAR,
+  COGL_MATERIAL_FILTER_NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
+  COGL_MATERIAL_FILTER_LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
+  COGL_MATERIAL_FILTER_NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
+  COGL_MATERIAL_FILTER_LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR
+} CoglMaterialFilter;
+</programlisting>
+<para>
+Texture filtering is used whenever the current pixel maps either to more
+than one texture element (texel) or less than one. These filter enums
+correspond to different strategies used to come up with a pixel color, by
+possibly referring to multiple neighbouring texels and taking a weighted
+average or simply using the nearest texel.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-MATERIAL-FILTER-NEAREST--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_NEAREST</literal></term>
+<listitem><simpara> Measuring in manhatten distance from the,
+                              current pixel center, use the nearest texture
+                              texel.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-FILTER-LINEAR--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_LINEAR</literal></term>
+<listitem><simpara> Use the weighted average of the 4 texels
+                             nearest the current pixel center.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-FILTER-NEAREST-MIPMAP-NEAREST--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_NEAREST_MIPMAP_NEAREST</literal></term>
+<listitem><simpara> Select the mimap level whose
+                                             texel size most closely matches
+                                             the current pixel, and use the
+                                             COGL_MATERIAL_FILTER_NEAREST
+                                             criterion.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-FILTER-LINEAR-MIPMAP-NEAREST--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_LINEAR_MIPMAP_NEAREST</literal></term>
+<listitem><simpara> Select the mimap level whose
+                                            texel size most closely matches
+                                            the current pixel, and use the
+                                            COGL_MATERIAL_FILTER_LINEAR
+                                            criterion.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-FILTER-NEAREST-MIPMAP-LINEAR--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_NEAREST_MIPMAP_LINEAR</literal></term>
+<listitem><simpara> Select the two mimap levels
+                                            whose texel size most closely
+                                            matches the current pixel, use
+                                            the COGL_MATERIAL_FILTER_NEAREST
+                                            criterion on each one and take
+                                            their weighted average.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-MATERIAL-FILTER-LINEAR-MIPMAP-LINEAR--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_FILTER_LINEAR_MIPMAP_LINEAR</literal></term>
+<listitem><simpara> Select the two mimap levels
+                                           whose texel size most closely
+                                           matches the current pixel, use
+                                           the COGL_MATERIAL_FILTER_LINEAR
+                                           criterion on each one and take
+                                           their weighted average.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-set-layer-filters" role="function">
+<title>cogl_material_set_layer_filters ()</title>
+<indexterm zone="cogl-material-set-layer-filters"><primary sortas="material_set_layer_filters">cogl_material_set_layer_filters</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_material_set_layer_filters     (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="gint">gint</link> layer_index,
+                                                         <link linkend="CoglMaterialFilter">CoglMaterialFilter</link> min_filter,
+                                                         <link linkend="CoglMaterialFilter">CoglMaterialFilter</link> mag_filter);</programlisting>
+<para>
+Changes the decimation and interpolation filters used when a texture is
+drawn at other scales than 100%.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to a material.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layer_index</parameter>&#160;:</term>
+<listitem><simpara> the layer number to change.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>min_filter</parameter>&#160;:</term>
+<listitem><simpara> the filter used when scaling a texture down.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mag_filter</parameter>&#160;:</term>
+<listitem><simpara> the filter used when magnifying a texture.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-layer-get-type" role="function">
+<title>cogl_material_layer_get_type ()</title>
+<indexterm zone="cogl-material-layer-get-type"><primary sortas="material_layer_get_type">cogl_material_layer_get_type</primary></indexterm><programlisting><link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link>  cogl_material_layer_get_type     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+Retrieves the type of the layer
+</para>
+<para>
+Currently there is only one type of layer defined:
+<link linkend="COGL-MATERIAL-LAYER-TYPE-TEXTURE--CAPS"><literal>COGL_MATERIAL_LAYER_TYPE_TEXTURE</literal></link>, but considering we may add purely GLSL
+based layers in the future, you should write code that checks the type
+first.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material layer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the type of the layer
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-layer-get-texture" role="function">
+<title>cogl_material_layer_get_texture ()</title>
+<indexterm zone="cogl-material-layer-get-texture"><primary sortas="material_layer_get_texture">cogl_material_layer_get_texture</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_material_layer_get_texture     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+This lets you extract a CoglTexture handle for a specific layer.
+</para>
+<para>
+<note>In the future, we may support purely GLSL based layers which will
+likely return <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> if you try to get the texture.
+Considering this, you can call cogl_material_layer_get_type first,
+to check it is of type <link linkend="COGL-MATERIAL-LAYER-TYPE-TEXTURE--CAPS"><literal>COGL_MATERIAL_LAYER_TYPE_TEXTURE</literal></link>.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material layer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for the texture inside <parameter>layer_handle</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-layer-get-min-filter" role="function">
+<title>cogl_material_layer_get_min_filter ()</title>
+<indexterm zone="cogl-material-layer-get-min-filter"><primary sortas="material_layer_get_min_filter">cogl_material_layer_get_min_filter</primary></indexterm><programlisting><link linkend="CoglMaterialFilter">CoglMaterialFilter</link>  cogl_material_layer_get_min_filter  (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+Query the currently set downscaling filter for a cogl material layer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material layer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the current downscaling filter for a cogl material layer.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-layer-get-mag-filter" role="function">
+<title>cogl_material_layer_get_mag_filter ()</title>
+<indexterm zone="cogl-material-layer-get-mag-filter"><primary sortas="material_layer_get_mag_filter">cogl_material_layer_get_mag_filter</primary></indexterm><programlisting><link linkend="CoglMaterialFilter">CoglMaterialFilter</link>  cogl_material_layer_get_mag_filter  (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+Query the currently set downscaling filter for a cogl material layer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a material layer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the current downscaling filter for a cogl material layer.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

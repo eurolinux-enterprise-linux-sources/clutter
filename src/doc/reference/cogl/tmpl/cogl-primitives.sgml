@@ -1,0 +1,276 @@
+<!-- ##### SECTION Title ##### -->
+Primitives
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION cogl_rectangle ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+
+
+<!-- ##### FUNCTION cogl_rectangles ##### -->
+<para>
+
+</para>
+
+@verts: 
+@n_rects: 
+
+
+<!-- ##### FUNCTION cogl_rectangle_with_texture_coords ##### -->
+<para>
+
+</para>
+
+@x1: 
+@y1: 
+@x2: 
+@y2: 
+@tx1: 
+@ty1: 
+@tx2: 
+@ty2: 
+
+
+<!-- ##### FUNCTION cogl_rectangles_with_texture_coords ##### -->
+<para>
+
+</para>
+
+@verts: 
+@n_rects: 
+
+
+<!-- ##### FUNCTION cogl_rectangle_with_multitexture_coords ##### -->
+<para>
+
+</para>
+
+@x1: 
+@y1: 
+@x2: 
+@y2: 
+@tex_coords: 
+@tex_coords_len: 
+
+
+<!-- ##### FUNCTION cogl_polygon ##### -->
+<para>
+
+</para>
+
+@vertices: 
+@n_vertices: 
+@use_color: 
+
+
+<!-- ##### FUNCTION cogl_path_new ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_path_move_to ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cogl_path_close ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_path_line_to ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cogl_path_curve_to ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+@x_3: 
+@y_3: 
+
+
+<!-- ##### FUNCTION cogl_path_arc ##### -->
+<para>
+
+</para>
+
+@center_x: 
+@center_y: 
+@radius_x: 
+@radius_y: 
+@angle_1: 
+@angle_2: 
+
+
+<!-- ##### FUNCTION cogl_path_rel_move_to ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cogl_path_rel_line_to ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cogl_path_rel_curve_to ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+@x_3: 
+@y_3: 
+
+
+<!-- ##### FUNCTION cogl_path_line ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+
+
+<!-- ##### FUNCTION cogl_path_polyline ##### -->
+<para>
+
+</para>
+
+@coords: 
+@num_points: 
+
+
+<!-- ##### FUNCTION cogl_path_polygon ##### -->
+<para>
+
+</para>
+
+@coords: 
+@num_points: 
+
+
+<!-- ##### FUNCTION cogl_path_rectangle ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+
+
+<!-- ##### FUNCTION cogl_path_round_rectangle ##### -->
+<para>
+
+</para>
+
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+@radius: 
+@arc_step: 
+
+
+<!-- ##### FUNCTION cogl_path_ellipse ##### -->
+<para>
+
+</para>
+
+@center_x: 
+@center_y: 
+@radius_x: 
+@radius_y: 
+
+
+<!-- ##### FUNCTION cogl_path_fill ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_path_fill_preserve ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_path_stroke ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_path_stroke_preserve ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO cogl_color ##### -->
+<para>
+
+</para>
+
+
+

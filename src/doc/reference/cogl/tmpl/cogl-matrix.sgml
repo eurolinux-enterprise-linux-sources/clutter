@@ -1,0 +1,149 @@
+<!-- ##### SECTION Title ##### -->
+Matrices
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT CoglMatrix ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cogl_matrix_init_identity ##### -->
+<para>
+
+</para>
+
+@matrix: 
+
+
+<!-- ##### FUNCTION cogl_matrix_frustum ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@left: 
+@right: 
+@bottom: 
+@top: 
+@z_near: 
+@z_far: 
+
+
+<!-- ##### FUNCTION cogl_matrix_ortho ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@left: 
+@right: 
+@bottom: 
+@top: 
+@z_near: 
+@z_far: 
+
+
+<!-- ##### FUNCTION cogl_matrix_perspective ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@fov_y: 
+@aspect: 
+@z_near: 
+@z_far: 
+
+
+<!-- ##### FUNCTION cogl_matrix_transform_point ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@x: 
+@y: 
+@z: 
+@w: 
+
+
+<!-- ##### FUNCTION cogl_matrix_multiply ##### -->
+<para>
+
+</para>
+
+@result: 
+@a: 
+@b: 
+
+
+<!-- ##### FUNCTION cogl_matrix_rotate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@angle: 
+@x: 
+@y: 
+@z: 
+
+
+<!-- ##### FUNCTION cogl_matrix_translate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@x: 
+@y: 
+@z: 
+
+
+<!-- ##### FUNCTION cogl_matrix_scale ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@sx: 
+@sy: 
+@sz: 
+
+
+<!-- ##### FUNCTION cogl_matrix_init_from_array ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@array: 
+
+
+<!-- ##### FUNCTION cogl_matrix_get_array ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@Returns: 
+
+

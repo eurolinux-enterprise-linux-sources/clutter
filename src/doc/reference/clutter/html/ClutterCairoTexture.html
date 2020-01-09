@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterCairoTexture</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch02.html" title="Base actors">
+<link rel="prev" href="ClutterText.html" title="ClutterText">
+<link rel="next" href="ch03.html" title="Container actors">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ClutterText.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ClutterCairoTexture.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#ClutterCairoTexture.description" class="shortcut">Description</a>
+                 | 
+                <a href="#ClutterCairoTexture.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#ClutterCairoTexture.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                 | 
+                <a href="#ClutterCairoTexture.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ClutterCairoTexture"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ClutterCairoTexture.top_of_page"></a>ClutterCairoTexture</span></h2>
+<p>ClutterCairoTexture — Texture with Cairo integration</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ClutterCairoTexture.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="ClutterCairoTexture.html#ClutterCairoTexture-struct" title="ClutterCairoTexture">ClutterCairoTexture</a>;
+                    <a class="link" href="ClutterCairoTexture.html#ClutterCairoTextureClass" title="ClutterCairoTextureClass">ClutterCairoTextureClass</a>;
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-new" title="clutter_cairo_texture_new ()">clutter_cairo_texture_new</a>           (guint width,
+                                                         guint height);
+void                <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-set-surface-size" title="clutter_cairo_texture_set_surface_size ()">clutter_cairo_texture_set_surface_size</a>
+                                                        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         guint width,
+                                                         guint height);
+void                <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-get-surface-size" title="clutter_cairo_texture_get_surface_size ()">clutter_cairo_texture_get_surface_size</a>
+                                                        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         guint *width,
+                                                         guint *height);
+
+cairo_t *           <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create" title="clutter_cairo_texture_create ()">clutter_cairo_texture_create</a>        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self);
+cairo_t *           <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create-region" title="clutter_cairo_texture_create_region ()">clutter_cairo_texture_create_region</a> (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         gint x_offset,
+                                                         gint y_offset,
+                                                         gint width,
+                                                         gint height);
+void                <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-clear" title="clutter_cairo_texture_clear ()">clutter_cairo_texture_clear</a>         (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self);
+
+void                <a class="link" href="ClutterCairoTexture.html#clutter-cairo-set-source-color" title="clutter_cairo_set_source_color ()">clutter_cairo_set_source_color</a>      (cairo_t *cr,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a>
+               +----<a class="link" href="ClutterTexture.html" title="ClutterTexture">ClutterTexture</a>
+                     +----ClutterCairoTexture
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ClutterCairoTexture implements
+ <a class="link" href="ClutterScriptable.html" title="ClutterScriptable">ClutterScriptable</a>.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterCairoTexture.html#ClutterCairoTexture--surface-height" title='The "surface-height" property'>surface-height</a>"           guint                 : Read / Write
+  "<a class="link" href="ClutterCairoTexture.html#ClutterCairoTexture--surface-width" title='The "surface-width" property'>surface-width</a>"            guint                 : Read / Write
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> is a <a class="link" href="ClutterTexture.html" title="ClutterTexture"><span class="type">ClutterTexture</span></a> that displays the contents
+of a Cairo context. The <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> actor will create a
+Cairo image surface which will then be uploaded to a GL texture when
+needed.
+</p>
+<p>
+<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> will provide a <span class="type">cairo_t</span> context by using the
+<a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create" title="clutter_cairo_texture_create ()"><code class="function">clutter_cairo_texture_create()</code></a> and <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create-region" title="clutter_cairo_texture_create_region ()"><code class="function">clutter_cairo_texture_create_region()</code></a>
+functions; you can use the Cairo API to draw on the context and then
+call <code class="function">cairo_destroy()</code> when done.
+</p>
+<p>
+As soon as the context is destroyed with <code class="function">cairo_destroy()</code>, the contents
+of the surface will be uploaded into the <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> actor:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  cairo_t *cr;
+
+  cr = clutter_cairo_texture_create (CLUTTER_CAIRO_TEXTURE (texture));
+
+  /* draw on the context */
+
+  cairo_destroy (cr);
+</pre></div>
+<p>
+</p>
+<p>
+Although a new <span class="type">cairo_t</span> is created each time you call
+<a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create" title="clutter_cairo_texture_create ()"><code class="function">clutter_cairo_texture_create()</code></a> or
+<a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create-region" title="clutter_cairo_texture_create_region ()"><code class="function">clutter_cairo_texture_create_region()</code></a>, it uses the same
+<span class="type">cairo_surface_t</span> each time. You can call
+<a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-clear" title="clutter_cairo_texture_clear ()"><code class="function">clutter_cairo_texture_clear()</code></a> to erase the contents between calls.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p>Note that you should never use the code above inside the
+<a class="link" href="ClutterActor.html#ClutterActor-paint" title='The "paint" signal'><span class="type">"paint"</span></a> or <a class="link" href="ClutterActor.html#ClutterActor-pick" title='The "pick" signal'><span class="type">"pick"</span></a> virtual functions or
+signal handlers because it will lead to performance
+degradation.</p>
+</div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>Since <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> uses a Cairo image surface
+internally all the drawing operations will be performed in
+software and not using hardware acceleration. This can lead to
+performance degradation if the contents of the texture change
+frequently.</p>
+</div>
+<p>
+</p>
+<p>
+<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> is available since Clutter 1.0.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterCairoTexture-struct"></a><h3>ClutterCairoTexture</h3>
+<pre class="programlisting">typedef struct _ClutterCairoTexture ClutterCairoTexture;</pre>
+<p>
+The <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> struct contains only private data.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterCairoTextureClass"></a><h3>ClutterCairoTextureClass</h3>
+<pre class="programlisting">typedef struct {
+} ClutterCairoTextureClass;
+</pre>
+<p>
+The <a class="link" href="ClutterCairoTexture.html#ClutterCairoTextureClass" title="ClutterCairoTextureClass"><span class="type">ClutterCairoTextureClass</span></a> struct contains only private data.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-new"></a><h3>clutter_cairo_texture_new ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_cairo_texture_new           (guint width,
+                                                         guint height);</pre>
+<p>
+Creates a new <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> actor, with a surface of <em class="parameter"><code>width</code></em> by
+<em class="parameter"><code>height</code></em> pixels.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td> the width of the surface
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td> the height of the surface
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a> actor
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-set-surface-size"></a><h3>clutter_cairo_texture_set_surface_size ()</h3>
+<pre class="programlisting">void                clutter_cairo_texture_set_surface_size
+                                                        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         guint width,
+                                                         guint height);</pre>
+<p>
+Resizes the Cairo surface used by <em class="parameter"><code>self</code></em> to <em class="parameter"><code>width</code></em> and <em class="parameter"><code>height</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td> the new width of the surface
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td> the new height of the surface
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-get-surface-size"></a><h3>clutter_cairo_texture_get_surface_size ()</h3>
+<pre class="programlisting">void                clutter_cairo_texture_get_surface_size
+                                                        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         guint *width,
+                                                         guint *height);</pre>
+<p>
+Retrieves the surface width and height for <em class="parameter"><code>self</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td> return location for the surface width, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td> return location for the surface height, or <code class="literal">NULL</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-create"></a><h3>clutter_cairo_texture_create ()</h3>
+<pre class="programlisting">cairo_t *           clutter_cairo_texture_create        (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self);</pre>
+<p>
+Creates a new Cairo context for the <em class="parameter"><code>cairo</code></em> texture. It is
+similar to using <a class="link" href="ClutterCairoTexture.html#clutter-cairo-texture-create-region" title="clutter_cairo_texture_create_region ()"><code class="function">clutter_cairo_texture_create_region()</code></a> with <em class="parameter"><code>x_offset</code></em>
+and <em class="parameter"><code>y_offset</code></em> of 0, <em class="parameter"><code>width</code></em> equal to the <em class="parameter"><code>cairo</code></em> texture surface width
+and <em class="parameter"><code>height</code></em> equal to the <em class="parameter"><code>cairo</code></em> texture surface height.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p>Do not call this function within the paint virtual
+function or from a callback to the <a class="link" href="ClutterActor.html#ClutterActor-paint" title='The "paint" signal'><span class="type">"paint"</span></a>
+signal.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created Cairo context. Use <code class="function">cairo_destroy()</code>
+  to upload the contents of the context when done drawing
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-create-region"></a><h3>clutter_cairo_texture_create_region ()</h3>
+<pre class="programlisting">cairo_t *           clutter_cairo_texture_create_region (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self,
+                                                         gint x_offset,
+                                                         gint y_offset,
+                                                         gint width,
+                                                         gint height);</pre>
+<p>
+Creates a new Cairo context that will updat the region defined
+by <em class="parameter"><code>x_offset</code></em>, <em class="parameter"><code>y_offset</code></em>, <em class="parameter"><code>width</code></em> and <em class="parameter"><code>height</code></em>.
+</p>
+<p>
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p>Do not call this function within the paint virtual
+function or from a callback to the <a class="link" href="ClutterActor.html#ClutterActor-paint" title='The "paint" signal'><span class="type">"paint"</span></a>
+signal.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x_offset</code></em> :</span></p></td>
+<td> offset of the region on the X axis
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y_offset</code></em> :</span></p></td>
+<td> offset of the region on the Y axis
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td> width of the region, or -1 for the full surface width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td> height of the region, or -1 for the full surface height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created Cairo context. Use <code class="function">cairo_destroy()</code>
+  to upload the contents of the context when done drawing
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-texture-clear"></a><h3>clutter_cairo_texture_clear ()</h3>
+<pre class="programlisting">void                clutter_cairo_texture_clear         (<a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a> *self);</pre>
+<p>
+Clears <em class="parameter"><code>self</code></em>'s internal drawing surface, so that the next upload
+will replace the previous contents of the <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+rather than adding to it.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-cairo-set-source-color"></a><h3>clutter_cairo_set_source_color ()</h3>
+<pre class="programlisting">void                clutter_cairo_set_source_color      (cairo_t *cr,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Utility function for setting the source color of <em class="parameter"><code>cr</code></em> using
+a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cr</code></em> :</span></p></td>
+<td> a Cairo context
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterCairoTexture.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterCairoTexture--surface-height"></a><h3>The <code class="literal">"surface-height"</code> property</h3>
+<pre class="programlisting">  "surface-height"           guint                 : Read / Write</pre>
+<p>
+The height of the Cairo surface used by the <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+actor, in pixels.</p>
+<p>
+</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterCairoTexture--surface-width"></a><h3>The <code class="literal">"surface-width"</code> property</h3>
+<pre class="programlisting">  "surface-width"            guint                 : Read / Write</pre>
+<p>
+The width of the Cairo surface used by the <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture"><span class="type">ClutterCairoTexture</span></a>
+actor, in pixels.</p>
+<p>
+</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

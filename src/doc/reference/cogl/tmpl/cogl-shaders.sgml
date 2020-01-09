@@ -1,0 +1,229 @@
+<!-- ##### SECTION Title ##### -->
+Shaders and Programmable Pipeline
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM CoglShaderType ##### -->
+<para>
+
+</para>
+
+@COGL_SHADER_TYPE_VERTEX: 
+@COGL_SHADER_TYPE_FRAGMENT: 
+
+<!-- ##### FUNCTION cogl_create_shader ##### -->
+<para>
+
+</para>
+
+@shader_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_shader_ref ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_shader_unref ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_is_shader ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_shader_source ##### -->
+<para>
+
+</para>
+
+@shader: 
+@source: 
+
+
+<!-- ##### FUNCTION cogl_shader_compile ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_shader_get_info_log ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_shader_get_type ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_shader_is_compiled ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_create_program ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_program_ref ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_program_unref ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_is_program ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_program_attach_shader ##### -->
+<para>
+
+</para>
+
+@program_handle: 
+@shader_handle: 
+
+
+<!-- ##### FUNCTION cogl_program_link ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_program_use ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_program_get_uniform_location ##### -->
+<para>
+
+</para>
+
+@handle: 
+@uniform_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_program_uniform_1f ##### -->
+<para>
+
+</para>
+
+@uniform_no: 
+@value: 
+
+
+<!-- ##### FUNCTION cogl_program_uniform_1i ##### -->
+<para>
+
+</para>
+
+@uniform_no: 
+@value: 
+
+
+<!-- ##### FUNCTION cogl_program_uniform_float ##### -->
+<para>
+
+</para>
+
+@uniform_no: 
+@size: 
+@count: 
+@value: 
+
+
+<!-- ##### FUNCTION cogl_program_uniform_int ##### -->
+<para>
+
+</para>
+
+@uniform_no: 
+@size: 
+@count: 
+@value: 
+
+
+<!-- ##### FUNCTION cogl_program_uniform_matrix ##### -->
+<para>
+
+</para>
+
+@uniform_no: 
+@size: 
+@count: 
+@transpose: 
+@value: 
+
+

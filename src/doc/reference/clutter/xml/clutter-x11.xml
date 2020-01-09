@@ -1,0 +1,604 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-X11-Specific-Support">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-X11-Specific-Support.top_of_page">X11 Specific Support</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>X11 Specific Support</refname>
+<refpurpose>X11 specific API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-X11-Specific-Support.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="void">void</link>                <link linkend="clutter-x11-set-display">clutter_x11_set_display</link>             (<link linkend="Display">Display</link> *xdpy);
+<link linkend="void">void</link>                <link linkend="clutter-x11-disable-event-retrieval">clutter_x11_disable_event_retrieval</link> (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-x11-has-event-retrieval">clutter_x11_has_event_retrieval</link>     (void);
+<link linkend="ClutterStage">ClutterStage</link> *      <link linkend="clutter-x11-get-stage-from-window">clutter_x11_get_stage_from_window</link>   (<link linkend="Window">Window</link> win);
+<link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link>  <link linkend="clutter-x11-handle-event">clutter_x11_handle_event</link>        (<link linkend="XEvent">XEvent</link> *xevent);
+<link linkend="Display">Display</link> *           <link linkend="clutter-x11-get-default-display">clutter_x11_get_default_display</link>     (void);
+<link linkend="int">int</link>                 <link linkend="clutter-x11-get-default-screen">clutter_x11_get_default_screen</link>      (void);
+<link linkend="Window">Window</link>              <link linkend="clutter-x11-get-root-window">clutter_x11_get_root_window</link>         (void);
+<link linkend="XVisualInfo">XVisualInfo</link> *       <link linkend="clutter-x11-get-stage-visual">clutter_x11_get_stage_visual</link>        (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="Window">Window</link>              <link linkend="clutter-x11-get-stage-window">clutter_x11_get_stage_window</link>        (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-x11-set-stage-foreign">clutter_x11_set_stage_foreign</link>       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="Window">Window</link> xwindow);
+<link linkend="void">void</link>                <link linkend="clutter-x11-trap-x-errors">clutter_x11_trap_x_errors</link>           (void);
+<link linkend="gint">gint</link>                <link linkend="clutter-x11-untrap-x-errors">clutter_x11_untrap_x_errors</link>         (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-x11-has-composite-extension">clutter_x11_has_composite_extension</link> (void);
+<link linkend="Time">Time</link>                <link linkend="clutter-x11-get-current-event-time">clutter_x11_get_current_event_time</link>  (void);
+
+<link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link>  (<link linkend="ClutterX11FilterFunc">*ClutterX11FilterFunc</link>)         (<link linkend="XEvent">XEvent</link> *xev,
+                                                         <link linkend="ClutterEvent">ClutterEvent</link> *cev,
+                                                         <link linkend="gpointer">gpointer</link> data);
+enum                <link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link>;
+<link linkend="void">void</link>                <link linkend="clutter-x11-add-filter">clutter_x11_add_filter</link>              (<link linkend="ClutterX11FilterFunc">ClutterX11FilterFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);
+<link linkend="void">void</link>                <link linkend="clutter-x11-remove-filter">clutter_x11_remove_filter</link>           (<link linkend="ClutterX11FilterFunc">ClutterX11FilterFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);
+
+                    <link linkend="ClutterX11XInputDevice">ClutterX11XInputDevice</link>;
+enum                <link linkend="ClutterX11XInputEventTypes">ClutterX11XInputEventTypes</link>;
+const <link linkend="GSList">GSList</link>*       <link linkend="clutter-x11-get-input-devices">clutter_x11_get_input_devices</link>       (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-x11-has-xinput">clutter_x11_has_xinput</link>              (void);
+<link linkend="void">void</link>                <link linkend="clutter-x11-enable-xinput">clutter_x11_enable_xinput</link>           (void);
+
+                    <link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link>;
+                    <link linkend="ClutterX11TexturePixmapClass">ClutterX11TexturePixmapClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-x11-texture-pixmap-new">clutter_x11_texture_pixmap_new</link>      (void);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-x11-texture-pixmap-new-with-pixmap">clutter_x11_texture_pixmap_new_with_pixmap</link>
+                                                        (<link linkend="Pixmap">Pixmap</link> pixmap);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-x11-texture-pixmap-new-with-window">clutter_x11_texture_pixmap_new_with_window</link>
+                                                        (<link linkend="Window">Window</link> window);
+<link linkend="void">void</link>                <link linkend="clutter-x11-texture-pixmap-set-pixmap">clutter_x11_texture_pixmap_set_pixmap</link>
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="Pixmap">Pixmap</link> pixmap);
+<link linkend="void">void</link>                <link linkend="clutter-x11-texture-pixmap-set-window">clutter_x11_texture_pixmap_set_window</link>
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="Window">Window</link> window,
+                                                         <link linkend="gboolean">gboolean</link> automatic);
+<link linkend="void">void</link>                <link linkend="clutter-x11-texture-pixmap-sync-window">clutter_x11_texture_pixmap_sync_window</link>
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture);
+<link linkend="void">void</link>                <link linkend="clutter-x11-texture-pixmap-update-area">clutter_x11_texture_pixmap_update_area</link>
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);
+<link linkend="void">void</link>                <link linkend="clutter-x11-texture-pixmap-set-automatic">clutter_x11_texture_pixmap_set_automatic</link>
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="gboolean">gboolean</link> setting);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-X11-Specific-Support.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The X11 backend for Clutter provides some specific API, allowing
+integration with the Xlibs API for embedding and manipulating the
+stage window, or for trapping X errors.
+</para>
+<para>
+The ClutterX11 API is available since Clutter 0.6</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-X11-Specific-Support.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="clutter-x11-set-display" role="function" condition="since:0.8">
+<title>clutter_x11_set_display ()</title>
+<indexterm zone="clutter-x11-set-display" role="0.8"><primary sortas="x11_set_display">clutter_x11_set_display</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_set_display             (<link linkend="Display">Display</link> *xdpy);</programlisting>
+<para>
+Sets the display connection Clutter should use; must be called
+before <link linkend="clutter-init"><function>clutter_init()</function></link>, <link linkend="clutter-init-with-args"><function>clutter_init_with_args()</function></link> or other functions
+pertaining Clutter's initialization process.
+</para>
+<para>
+If you are parsing the command line arguments by retrieving Clutter's
+<link linkend="GOptionGroup"><type>GOptionGroup</type></link> with <link linkend="clutter-get-option-group"><function>clutter_get_option_group()</function></link> and calling
+<link linkend="g-option-context-parse"><function>g_option_context_parse()</function></link> yourself, you should also call
+<link linkend="clutter-x11-set-display"><function>clutter_x11_set_display()</function></link> before <link linkend="g-option-context-parse"><function>g_option_context_parse()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>xdpy</parameter>&#160;:</term>
+<listitem><simpara> pointer to a X display connection.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-disable-event-retrieval" role="function" condition="since:0.8">
+<title>clutter_x11_disable_event_retrieval ()</title>
+<indexterm zone="clutter-x11-disable-event-retrieval" role="0.8"><primary sortas="x11_disable_event_retrieval">clutter_x11_disable_event_retrieval</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_disable_event_retrieval (void);</programlisting>
+<para>
+Disables retrieval of X events in the main loop. Use to create event-less
+canvas or in conjunction with clutter_x11_handle_event.
+</para>
+<para>
+This function can only be called before calling <link linkend="clutter-init"><function>clutter_init()</function></link>.</para>
+<para>
+</para><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-has-event-retrieval" role="function" condition="since:0.8">
+<title>clutter_x11_has_event_retrieval ()</title>
+<indexterm zone="clutter-x11-has-event-retrieval" role="0.8"><primary sortas="x11_has_event_retrieval">clutter_x11_has_event_retrieval</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_x11_has_event_retrieval     (void);</programlisting>
+<para>
+Queries the X11 backend to check if event collection has been disabled.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if event retrival has been disabled. FALSE otherwise.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-get-stage-from-window" role="function" condition="since:0.8">
+<title>clutter_x11_get_stage_from_window ()</title>
+<indexterm zone="clutter-x11-get-stage-from-window" role="0.8"><primary sortas="x11_get_stage_from_window">clutter_x11_get_stage_from_window</primary></indexterm><programlisting><link linkend="ClutterStage">ClutterStage</link> *      clutter_x11_get_stage_from_window   (<link linkend="Window">Window</link> win);</programlisting>
+<para>
+Gets the stage for a particular X window.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>win</parameter>&#160;:</term>
+<listitem><simpara> an X Window ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The stage or NULL if a stage does not exist for the window.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-handle-event" role="function" condition="since:0.8">
+<title>clutter_x11_handle_event ()</title>
+<indexterm zone="clutter-x11-handle-event" role="0.8"><primary sortas="x11_handle_event">clutter_x11_handle_event</primary></indexterm><programlisting><link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link>  clutter_x11_handle_event        (<link linkend="XEvent">XEvent</link> *xevent);</programlisting>
+<para>
+This function processes a single X event; it can be used to hook
+into external X event retrieval (for example that done by GDK).</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>xevent</parameter>&#160;:</term>
+<listitem><simpara> pointer to XEvent structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="ClutterX11FilterReturn"><type>ClutterX11FilterReturn</type></link>. <link linkend="CLUTTER-X11-FILTER-REMOVE--CAPS"><literal>CLUTTER_X11_FILTER_REMOVE</literal></link>
+ indicates that Clutter has internally handled the event and the
+ caller should do no further processing. <link linkend="CLUTTER-X11-FILTER-CONTINUE--CAPS"><literal>CLUTTER_X11_FILTER_CONTINUE</literal></link>
+ indicates that Clutter is either not interested in the event,
+ or has used the event to update internal state without taking
+ any exclusive action. <link linkend="CLUTTER-X11-FILTER-TRANSLATE--CAPS"><literal>CLUTTER_X11_FILTER_TRANSLATE</literal></link> will not
+ occur.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-get-default-display" role="function" condition="since:0.6">
+<title>clutter_x11_get_default_display ()</title>
+<indexterm zone="clutter-x11-get-default-display" role="0.6"><primary sortas="x11_get_default_display">clutter_x11_get_default_display</primary></indexterm><programlisting><link linkend="Display">Display</link> *           clutter_x11_get_default_display     (void);</programlisting>
+<para>
+Retrieves the pointer to the default display.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the default display
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-get-default-screen" role="function" condition="since:0.6">
+<title>clutter_x11_get_default_screen ()</title>
+<indexterm zone="clutter-x11-get-default-screen" role="0.6"><primary sortas="x11_get_default_screen">clutter_x11_get_default_screen</primary></indexterm><programlisting><link linkend="int">int</link>                 clutter_x11_get_default_screen      (void);</programlisting>
+<para>
+Gets the number of the default X Screen object.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the number of the default screen
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-get-root-window" role="function" condition="since:0.6">
+<title>clutter_x11_get_root_window ()</title>
+<indexterm zone="clutter-x11-get-root-window" role="0.6"><primary sortas="x11_get_root_window">clutter_x11_get_root_window</primary></indexterm><programlisting><link linkend="Window">Window</link>              clutter_x11_get_root_window         (void);</programlisting>
+<para>
+Retrieves the root window.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the id of the root window
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-get-stage-visual" role="function" condition="since:0.4">
+<title>clutter_x11_get_stage_visual ()</title>
+<indexterm zone="clutter-x11-get-stage-visual" role="0.4"><primary sortas="x11_get_stage_visual">clutter_x11_get_stage_visual</primary></indexterm><programlisting><link linkend="XVisualInfo">XVisualInfo</link> *       clutter_x11_get_stage_visual        (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Returns the stage XVisualInfo</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The XVisualInfo for the stage.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-x11-get-stage-window" role="function" condition="since:0.4">
+<title>clutter_x11_get_stage_window ()</title>
+<indexterm zone="clutter-x11-get-stage-window" role="0.4"><primary sortas="x11_get_stage_window">clutter_x11_get_stage_window</primary></indexterm><programlisting><link linkend="Window">Window</link>              clutter_x11_get_stage_window        (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Gets the stages X Window.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An XID for the stage window.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-x11-set-stage-foreign" role="function" condition="since:0.4">
+<title>clutter_x11_set_stage_foreign ()</title>
+<indexterm zone="clutter-x11-set-stage-foreign" role="0.4"><primary sortas="x11_set_stage_foreign">clutter_x11_set_stage_foreign</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_x11_set_stage_foreign       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="Window">Window</link> xwindow);</programlisting>
+<para>
+Target the <link linkend="ClutterStage"><type>ClutterStage</type></link> to use an existing external X Window</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>xwindow</parameter>&#160;:</term>
+<listitem><simpara> an existing X Window id
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if foreign window is valid
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-x11-trap-x-errors" role="function" condition="since:0.6">
+<title>clutter_x11_trap_x_errors ()</title>
+<indexterm zone="clutter-x11-trap-x-errors" role="0.6"><primary sortas="x11_trap_x_errors">clutter_x11_trap_x_errors</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_trap_x_errors           (void);</programlisting>
+<para>
+Traps every X error until <link linkend="clutter-x11-untrap-x-errors"><function>clutter_x11_untrap_x_errors()</function></link> is called.</para>
+<para>
+</para><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-untrap-x-errors" role="function" condition="since:0.4">
+<title>clutter_x11_untrap_x_errors ()</title>
+<indexterm zone="clutter-x11-untrap-x-errors" role="0.4"><primary sortas="x11_untrap_x_errors">clutter_x11_untrap_x_errors</primary></indexterm><programlisting><link linkend="gint">gint</link>                clutter_x11_untrap_x_errors         (void);</programlisting>
+<para>
+Removes the X error trap and returns the current status.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the trapped error code, or 0 for success
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-x11-has-composite-extension" role="function">
+<title>clutter_x11_has_composite_extension ()</title>
+<indexterm zone="clutter-x11-has-composite-extension"><primary sortas="x11_has_composite_extension">clutter_x11_has_composite_extension</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_x11_has_composite_extension (void);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-x11-get-current-event-time" role="function" condition="since:1.0">
+<title>clutter_x11_get_current_event_time ()</title>
+<indexterm zone="clutter-x11-get-current-event-time" role="1.0"><primary sortas="x11_get_current_event_time">clutter_x11_get_current_event_time</primary></indexterm><programlisting><link linkend="Time">Time</link>                clutter_x11_get_current_event_time  (void);</programlisting>
+<para>
+Retrieves the timestamp of the last X11 event processed by
+Clutter. This might be different from the timestamp returned
+by <link linkend="clutter-get-current-event-time"><function>clutter_get_current_event_time()</function></link>, as Clutter may synthesize
+or throttle events.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a timestamp, in milliseconds
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterX11FilterFunc" role="function" condition="since:0.6">
+<title>ClutterX11FilterFunc ()</title>
+<indexterm zone="ClutterX11FilterFunc" role="0.6"><primary sortas="X11FilterFunc">ClutterX11FilterFunc</primary></indexterm><programlisting><link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link>  (*ClutterX11FilterFunc)         (<link linkend="XEvent">XEvent</link> *xev,
+                                                         <link linkend="ClutterEvent">ClutterEvent</link> *cev,
+                                                         <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Filter function for X11 native events.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>xev</parameter>&#160;:</term>
+<listitem><simpara> Native X11 event structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cev</parameter>&#160;:</term>
+<listitem><simpara> Clutter event structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> user data passed to the filter function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the result of the filtering
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="ClutterX11FilterReturn" role="enum" condition="since:0.6">
+<title>enum ClutterX11FilterReturn</title>
+<indexterm zone="ClutterX11FilterReturn" role="0.6"><primary sortas="X11FilterReturn">ClutterX11FilterReturn</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_X11_FILTER_CONTINUE,
+  CLUTTER_X11_FILTER_TRANSLATE,
+  CLUTTER_X11_FILTER_REMOVE
+} ClutterX11FilterReturn;
+</programlisting>
+<para>
+Return values for the <link linkend="ClutterX11FilterFunc"><type>ClutterX11FilterFunc</type></link> function.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="CLUTTER-X11-FILTER-CONTINUE--CAPS" role="constant">
+<term><literal>CLUTTER_X11_FILTER_CONTINUE</literal></term>
+<listitem><simpara> The event was not handled, continues the
+  processing
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-X11-FILTER-TRANSLATE--CAPS" role="constant">
+<term><literal>CLUTTER_X11_FILTER_TRANSLATE</literal></term>
+<listitem><simpara> Native event translated into a Clutter
+  event, stops the processing
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-X11-FILTER-REMOVE--CAPS" role="constant">
+<term><literal>CLUTTER_X11_FILTER_REMOVE</literal></term>
+<listitem><simpara> Remove the event, stops the processing
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-add-filter" role="function" condition="since:0.6">
+<title>clutter_x11_add_filter ()</title>
+<indexterm zone="clutter-x11-add-filter" role="0.6"><primary sortas="x11_add_filter">clutter_x11_add_filter</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_add_filter              (<link linkend="ClutterX11FilterFunc">ClutterX11FilterFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Adds an event filter function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> a filter function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> user data to be passed to the filter function, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-x11-remove-filter" role="function" condition="since:0.6">
+<title>clutter_x11_remove_filter ()</title>
+<indexterm zone="clutter-x11-remove-filter" role="0.6"><primary sortas="x11_remove_filter">clutter_x11_remove_filter</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_remove_filter           (<link linkend="ClutterX11FilterFunc">ClutterX11FilterFunc</link> func,
+                                                         <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Removes the given filter function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> a filter function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> user data to be passed to the filter function, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="ClutterX11XInputDevice" role="struct">
+<title>ClutterX11XInputDevice</title>
+<indexterm zone="ClutterX11XInputDevice"><primary sortas="X11XInputDevice">ClutterX11XInputDevice</primary></indexterm><programlisting>typedef struct _ClutterX11XInputDevice ClutterX11XInputDevice;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ClutterX11XInputEventTypes" role="enum">
+<title>enum ClutterX11XInputEventTypes</title>
+<indexterm zone="ClutterX11XInputEventTypes"><primary sortas="X11XInputEventTypes">ClutterX11XInputEventTypes</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_X11_XINPUT_KEY_PRESS_EVENT = 0,
+  CLUTTER_X11_XINPUT_KEY_RELEASE_EVENT,
+  CLUTTER_X11_XINPUT_BUTTON_PRESS_EVENT,
+  CLUTTER_X11_XINPUT_BUTTON_RELEASE_EVENT,
+  CLUTTER_X11_XINPUT_MOTION_NOTIFY_EVENT,
+  CLUTTER_X11_XINPUT_LAST_EVENT
+} ClutterX11XInputEventTypes;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="clutter-x11-get-input-devices" role="function">
+<title>clutter_x11_get_input_devices ()</title>
+<indexterm zone="clutter-x11-get-input-devices"><primary sortas="x11_get_input_devices">clutter_x11_get_input_devices</primary></indexterm><programlisting>const <link linkend="GSList">GSList</link>*       clutter_x11_get_input_devices       (void);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-x11-has-xinput" role="function" condition="since:0.8">
+<title>clutter_x11_has_xinput ()</title>
+<indexterm zone="clutter-x11-has-xinput" role="0.8"><primary sortas="x11_has_xinput">clutter_x11_has_xinput</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_x11_has_xinput              (void);</programlisting>
+<para>
+Gets whether Clutter has XInput support.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if Clutter was compiled with XInput support
+  and XInput support is available at run time.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-enable-xinput" role="function" condition="since:0.8">
+<title>clutter_x11_enable_xinput ()</title>
+<indexterm zone="clutter-x11-enable-xinput" role="0.8"><primary sortas="x11_enable_xinput">clutter_x11_enable_xinput</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_enable_xinput           (void);</programlisting>
+<para>
+Enables the use of the XInput extension if present on connected
+XServer and support built into Clutter.  XInput allows for multiple
+pointing devices to be used. This must be called before
+<link linkend="clutter-init"><function>clutter_init()</function></link>.
+</para>
+<para>
+You should use <link linkend="clutter-x11-has-xinput"><type>clutter_x11_has_xinput</type></link> to see if support was enabled.</para>
+<para>
+</para><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="ClutterX11TexturePixmap" role="struct">
+<title>ClutterX11TexturePixmap</title>
+<indexterm zone="ClutterX11TexturePixmap"><primary sortas="X11TexturePixmap">ClutterX11TexturePixmap</primary></indexterm><programlisting>typedef struct {
+  ClutterTexture                  parent;
+
+  ClutterX11TexturePixmapPrivate *priv;
+} ClutterX11TexturePixmap;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ClutterX11TexturePixmapClass" role="struct">
+<title>ClutterX11TexturePixmapClass</title>
+<indexterm zone="ClutterX11TexturePixmapClass"><primary sortas="X11TexturePixmapClass">ClutterX11TexturePixmapClass</primary></indexterm><programlisting>typedef struct {
+  ClutterTextureClass    parent_class;
+
+  void                  (*update_area)    (ClutterX11TexturePixmap *texture,
+                                           gint                     x,
+                                           gint                     y,
+                                           gint                     width,
+                                           gint                     height);
+} ClutterX11TexturePixmapClass;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-new" role="function" condition="since:0.8">
+<title>clutter_x11_texture_pixmap_new ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-new" role="0.8"><primary sortas="x11_texture_pixmap_new">clutter_x11_texture_pixmap_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_x11_texture_pixmap_new      (void);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterX11TexturePixmap"><type>ClutterX11TexturePixmap</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-new-with-pixmap" role="function">
+<title>clutter_x11_texture_pixmap_new_with_pixmap ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-new-with-pixmap"><primary sortas="x11_texture_pixmap_new_with_pixmap">clutter_x11_texture_pixmap_new_with_pixmap</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_x11_texture_pixmap_new_with_pixmap
+                                                        (<link linkend="Pixmap">Pixmap</link> pixmap);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pixmap</parameter>&#160;:</term>
+<listitem><simpara> the X Pixmap to which this texture should be bound
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterX11TexturePixmap"><type>ClutterX11TexturePixmap</type></link> bound to the given X Pixmap
+
+Since 0.8
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-new-with-window" role="function">
+<title>clutter_x11_texture_pixmap_new_with_window ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-new-with-window"><primary sortas="x11_texture_pixmap_new_with_window">clutter_x11_texture_pixmap_new_with_window</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_x11_texture_pixmap_new_with_window
+                                                        (<link linkend="Window">Window</link> window);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&#160;:</term>
+<listitem><simpara> the X window to which this texture should be bound
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterX11TexturePixmap"><type>ClutterX11TexturePixmap</type></link> bound to the given X window.
+
+Since 0.8
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-set-pixmap" role="function" condition="since:0.8">
+<title>clutter_x11_texture_pixmap_set_pixmap ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-set-pixmap" role="0.8"><primary sortas="x11_texture_pixmap_set_pixmap">clutter_x11_texture_pixmap_set_pixmap</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_texture_pixmap_set_pixmap
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="Pixmap">Pixmap</link> pixmap);</programlisting>
+<para>
+Sets the X Pixmap to which the texture should be bound.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> the texture to bind
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixmap</parameter>&#160;:</term>
+<listitem><simpara> the X Pixmap to which the texture should be bound
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-set-window" role="function" condition="since:0.8">
+<title>clutter_x11_texture_pixmap_set_window ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-set-window" role="0.8"><primary sortas="x11_texture_pixmap_set_window">clutter_x11_texture_pixmap_set_window</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_texture_pixmap_set_window
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="Window">Window</link> window,
+                                                         <link linkend="gboolean">gboolean</link> automatic);</programlisting>
+<para>
+Sets up a suitable pixmap for the window, using the composite and damage
+extensions if possible, and then calls
+<link linkend="clutter-x11-texture-pixmap-set-pixmap"><function>clutter_x11_texture_pixmap_set_pixmap()</function></link>. If you want a window in a texture,
+you probably want this function, or its older sister,
+<link linkend="clutter-glx-texture-pixmap-set-window"><function>clutter_glx_texture_pixmap_set_window()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> the texture to bind
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>window</parameter>&#160;:</term>
+<listitem><simpara> the X window to which the texture should be bound
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>automatic</parameter>&#160;:</term>
+<listitem><simpara> TRUE is automatic window updates, FALSE for manual.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-sync-window" role="function" condition="since:0.8">
+<title>clutter_x11_texture_pixmap_sync_window ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-sync-window" role="0.8"><primary sortas="x11_texture_pixmap_sync_window">clutter_x11_texture_pixmap_sync_window</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_texture_pixmap_sync_window
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture);</programlisting>
+<para>
+Resets the texture's pixmap from its window, perhaps in response to the
+pixmap's invalidation as the window changed size.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> the texture to bind
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-update-area" role="function" condition="since:0.8">
+<title>clutter_x11_texture_pixmap_update_area ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-update-area" role="0.8"><primary sortas="x11_texture_pixmap_update_area">clutter_x11_texture_pixmap_update_area</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_texture_pixmap_update_area
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);</programlisting>
+<para>
+Performs the actual binding of texture to the current content of
+the pixmap. Can be called to update the texture if the pixmap
+content has changed.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> The texture whose content shall be updated.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> the X coordinate of the area to update
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> the Y coordinate of the area to update
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> the width of the area to update
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> the height of the area to update
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-x11-texture-pixmap-set-automatic" role="function">
+<title>clutter_x11_texture_pixmap_set_automatic ()</title>
+<indexterm zone="clutter-x11-texture-pixmap-set-automatic"><primary sortas="x11_texture_pixmap_set_automatic">clutter_x11_texture_pixmap_set_automatic</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_x11_texture_pixmap_set_automatic
+                                                        (<link linkend="ClutterX11TexturePixmap">ClutterX11TexturePixmap</link> *texture,
+                                                         <link linkend="gboolean">gboolean</link> setting);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>setting</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

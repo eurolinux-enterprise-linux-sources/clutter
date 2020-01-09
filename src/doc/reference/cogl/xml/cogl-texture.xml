@@ -1,0 +1,586 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Textures">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Textures.top_of_page">Textures</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Textures</refname>
+<refpurpose>Fuctions for creating and manipulating textures</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Textures.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="CoglTextureVertex">CoglTextureVertex</link>;
+enum                <link linkend="CoglTextureFlags">CoglTextureFlags</link>;
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-new-with-size">cogl_texture_new_with_size</link>          (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-new-from-file">cogl_texture_new_from_file</link>          (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-new-from-data">cogl_texture_new_from_data</link>          (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         const <link linkend="guchar">guchar</link> *data);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-new-from-foreign">cogl_texture_new_from_foreign</link>       (<link linkend="GLuint">GLuint</link> gl_handle,
+                                                         <link linkend="GLenum">GLenum</link> gl_target,
+                                                         <link linkend="GLuint">GLuint</link> width,
+                                                         <link linkend="GLuint">GLuint</link> height,
+                                                         <link linkend="GLuint">GLuint</link> x_pot_waste,
+                                                         <link linkend="GLuint">GLuint</link> y_pot_waste,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-new-from-bitmap">cogl_texture_new_from_bitmap</link>        (<link linkend="CoglHandle">CoglHandle</link> bmp_handle,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-is-texture">cogl_is_texture</link>                     (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-texture-ref">cogl_texture_ref</link>                    (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-texture-unref">cogl_texture_unref</link>                  (<link linkend="CoglHandle">CoglHandle</link> handle);
+
+<link linkend="guint">guint</link>               <link linkend="cogl-texture-get-width">cogl_texture_get_width</link>              (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="guint">guint</link>               <link linkend="cogl-texture-get-height">cogl_texture_get_height</link>             (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="CoglPixelFormat">CoglPixelFormat</link>     <link linkend="cogl-texture-get-format">cogl_texture_get_format</link>             (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="guint">guint</link>               <link linkend="cogl-texture-get-rowstride">cogl_texture_get_rowstride</link>          (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="gint">gint</link>                <link linkend="cogl-texture-get-max-waste">cogl_texture_get_max_waste</link>          (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-texture-is-sliced">cogl_texture_is_sliced</link>              (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-texture-get-gl-texture">cogl_texture_get_gl_texture</link>         (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="GLuint">GLuint</link> *out_gl_handle,
+                                                         <link linkend="GLenum">GLenum</link> *out_gl_target);
+<link linkend="gint">gint</link>                <link linkend="cogl-texture-get-data">cogl_texture_get_data</link>               (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         <link linkend="guchar">guchar</link> *data);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-texture-set-region">cogl_texture_set_region</link>             (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="gint">gint</link> src_x,
+                                                         <link linkend="gint">gint</link> src_y,
+                                                         <link linkend="gint">gint</link> dst_x,
+                                                         <link linkend="gint">gint</link> dst_y,
+                                                         <link linkend="guint">guint</link> dst_width,
+                                                         <link linkend="guint">guint</link> dst_height,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         const <link linkend="guchar">guchar</link> *data);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Textures.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+COGL allows creating and manipulating GL textures using a uniform
+API that tries to hide all the various complexities of creating,
+loading and manipulating textures.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Textures.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CoglTextureVertex" role="struct">
+<title>CoglTextureVertex</title>
+<indexterm zone="CoglTextureVertex"><primary sortas="TextureVertex">CoglTextureVertex</primary></indexterm><programlisting>typedef struct {
+  float x, y, z;
+  float tx, ty;
+
+  CoglColor color;
+} CoglTextureVertex;
+</programlisting>
+<para>
+Used to specify vertex information when calling <link linkend="cogl-polygon"><function>cogl_polygon()</function></link></para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="float">float</link>&#160;<structfield>x</structfield>;</term>
+<listitem><simpara> Model x-coordinate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="float">float</link>&#160;<structfield>y</structfield>;</term>
+<listitem><simpara> Model y-coordinate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="float">float</link>&#160;<structfield>z</structfield>;</term>
+<listitem><simpara> Model z-coordinate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="float">float</link>&#160;<structfield>tx</structfield>;</term>
+<listitem><simpara> Texture x-coordinate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="float">float</link>&#160;<structfield>ty</structfield>;</term>
+<listitem><simpara> Texture y-coordinate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="CoglColor">CoglColor</link>&#160;<structfield>color</structfield>;</term>
+<listitem><simpara> The color to use at this vertex. This is ignored if
+  use_color is <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> when calling <link linkend="cogl-polygon"><function>cogl_polygon()</function></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglTextureFlags" role="enum" condition="since:1.0">
+<title>enum CoglTextureFlags</title>
+<indexterm zone="CoglTextureFlags" role="1.0"><primary sortas="TextureFlags">CoglTextureFlags</primary></indexterm><programlisting>typedef enum {
+  COGL_TEXTURE_NONE           = 0,
+  COGL_TEXTURE_NO_AUTO_MIPMAP = 1 &lt;&lt; 0,
+  COGL_TEXTURE_NO_SLICING     = 1 &lt;&lt; 1
+} CoglTextureFlags;
+</programlisting>
+<para>
+Flags to pass to the cogl_texture_new_* family of functions.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-TEXTURE-NONE--CAPS" role="constant">
+<term><literal>COGL_TEXTURE_NONE</literal></term>
+<listitem><simpara> No flags specified
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-TEXTURE-NO-AUTO-MIPMAP--CAPS" role="constant">
+<term><literal>COGL_TEXTURE_NO_AUTO_MIPMAP</literal></term>
+<listitem><simpara> Disables the automatic generation of
+  the mipmap pyramid from the base level image whenever it is
+  updated. The mipmaps are only generated when the texture is
+  rendered with a mipmap filter so it should be free to leave out
+  this flag when using other filtering modes.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-TEXTURE-NO-SLICING--CAPS" role="constant">
+<term><literal>COGL_TEXTURE_NO_SLICING</literal></term>
+<listitem><simpara> Disables the slicing of the texture
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-texture-new-with-size" role="function" condition="since:0.8">
+<title>cogl_texture_new_with_size ()</title>
+<indexterm zone="cogl-texture-new-with-size" role="0.8"><primary sortas="texture_new_with_size">cogl_texture_new_with_size</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_new_with_size          (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format);</programlisting>
+<para>
+Creates a new COGL texture with the specified dimensions and pixel format.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> width of texture in pixels.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> height of texture in pixels.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> Optional flags for the texture, or <link linkend="COGL-TEXTURE-NONE--CAPS"><literal>COGL_TEXTURE_NONE</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>internal_format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> to use for the GPU storage of the
+   texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the newly created texture or
+  <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> on failure
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-texture-new-from-file" role="function" condition="since:0.8">
+<title>cogl_texture_new_from_file ()</title>
+<indexterm zone="cogl-texture-new-from-file" role="0.8"><primary sortas="texture_new_from_file">cogl_texture_new_from_file</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_new_from_file          (const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Creates a COGL texture from an image file.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara> the file to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> Optional flags for the texture, or <link linkend="COGL-TEXTURE-NONE--CAPS"><literal>COGL_TEXTURE_NONE</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>internal_format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> to use for the GPU storage of the
+   texture. If COGL_PIXEL_FORMAT_ANY is given then a premultiplied
+   format similar to the format of the source data will be used. The
+   default blending equations of Cogl expect premultiplied color data;
+   the main use of passing a non-premultiplied format here is if you
+   have non-premultiplied source data and are going to adjust the blend
+   mode (see <link linkend="cogl-material-set-blend"><function>cogl_material_set_blend()</function></link>) or use the data for something
+   other than straight blending.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="GError"><type>GError</type></link> or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the newly created texture or
+   <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> on failure
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-texture-new-from-data" role="function" condition="since:0.8">
+<title>cogl_texture_new_from_data ()</title>
+<indexterm zone="cogl-texture-new-from-data" role="0.8"><primary sortas="texture_new_from_data">cogl_texture_new_from_data</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_new_from_data          (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         const <link linkend="guchar">guchar</link> *data);</programlisting>
+<para>
+Creates a new COGL texture based on data residing in memory.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> width of texture in pixels
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> height of texture in pixels
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> Optional flags for the texture, or <link linkend="COGL-TEXTURE-NONE--CAPS"><literal>COGL_TEXTURE_NONE</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> the buffer is stored in in RAM
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>internal_format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> that will be used for storing
+   the buffer on the GPU. If COGL_PIXEL_FORMAT_ANY is given then a
+   premultiplied format similar to the format of the source data will
+   be used. The default blending equations of Cogl expect premultiplied
+   color data; the main use of passing a non-premultiplied format here
+   is if you have non-premultiplied source data and are going to adjust
+   the blend mode (see <link linkend="cogl-material-set-blend"><function>cogl_material_set_blend()</function></link>) or use the data for
+   something other than straight blending.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rowstride</parameter>&#160;:</term>
+<listitem><simpara> the memory offset in bytes between the starts of
+   scanlines in <parameter>data</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> pointer the memory region where the source buffer resides
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the newly created texture or
+  <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> on failure
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-texture-new-from-foreign" role="function" condition="since:0.8">
+<title>cogl_texture_new_from_foreign ()</title>
+<indexterm zone="cogl-texture-new-from-foreign" role="0.8"><primary sortas="texture_new_from_foreign">cogl_texture_new_from_foreign</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_new_from_foreign       (<link linkend="GLuint">GLuint</link> gl_handle,
+                                                         <link linkend="GLenum">GLenum</link> gl_target,
+                                                         <link linkend="GLuint">GLuint</link> width,
+                                                         <link linkend="GLuint">GLuint</link> height,
+                                                         <link linkend="GLuint">GLuint</link> x_pot_waste,
+                                                         <link linkend="GLuint">GLuint</link> y_pot_waste,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format);</programlisting>
+<para>
+Creates a COGL texture based on an existing OpenGL texture; the
+width, height and format are passed along since it is not possible
+to query this from a handle with GLES 1.0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>gl_handle</parameter>&#160;:</term>
+<listitem><simpara> opengl target type of foreign texture
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>gl_target</parameter>&#160;:</term>
+<listitem><simpara> opengl handle of foreign texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> width of foreign texture
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> height of foreign texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_pot_waste</parameter>&#160;:</term>
+<listitem><simpara> maximum horizontal waste.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_pot_waste</parameter>&#160;:</term>
+<listitem><simpara> maximum vertical waste.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara> format of the foreign texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the newly created texture or
+  <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> on failure
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-texture-new-from-bitmap" role="function" condition="since:1.0">
+<title>cogl_texture_new_from_bitmap ()</title>
+<indexterm zone="cogl-texture-new-from-bitmap" role="1.0"><primary sortas="texture_new_from_bitmap">cogl_texture_new_from_bitmap</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_new_from_bitmap        (<link linkend="CoglHandle">CoglHandle</link> bmp_handle,
+                                                         <link linkend="CoglTextureFlags">CoglTextureFlags</link> flags,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> internal_format);</programlisting>
+<para>
+Creates a COGL texture from a CoglBitmap.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>bmp_handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglBitmap handle
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> Optional flags for the texture, or <link linkend="COGL-TEXTURE-NONE--CAPS"><literal>COGL_TEXTURE_NONE</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>internal_format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> to use for the GPU storage of the
+texture
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> to the newly created texture or
+  <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> on failure
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-is-texture" role="function">
+<title>cogl_is_texture ()</title>
+<indexterm zone="cogl-is-texture"><primary sortas="is_texture">cogl_is_texture</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_is_texture                     (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Gets whether the given handle references an existing texture object.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the handle references a texture,
+  <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-ref" role="function">
+<title>cogl_texture_ref ()</title>
+<indexterm zone="cogl-texture-ref"><primary sortas="texture_ref">cogl_texture_ref</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_texture_ref                    (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Increment the reference count for a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <parameter>CoglHandle</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the <parameter>handle</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-unref" role="function">
+<title>cogl_texture_unref ()</title>
+<indexterm zone="cogl-texture-unref"><primary sortas="texture_unref">cogl_texture_unref</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_texture_unref                  (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Deccrement the reference count for a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <parameter>CoglHandle</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-width" role="function">
+<title>cogl_texture_get_width ()</title>
+<indexterm zone="cogl-texture-get-width"><primary sortas="texture_get_width">cogl_texture_get_width</primary></indexterm><programlisting><link linkend="guint">guint</link>               cogl_texture_get_width              (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query the width of a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the width of the GPU side texture in pixels:
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-height" role="function">
+<title>cogl_texture_get_height ()</title>
+<indexterm zone="cogl-texture-get-height"><primary sortas="texture_get_height">cogl_texture_get_height</primary></indexterm><programlisting><link linkend="guint">guint</link>               cogl_texture_get_height             (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query the height of a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the height of the GPU side texture in pixels:
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-format" role="function">
+<title>cogl_texture_get_format ()</title>
+<indexterm zone="cogl-texture-get-format"><primary sortas="texture_get_format">cogl_texture_get_format</primary></indexterm><programlisting><link linkend="CoglPixelFormat">CoglPixelFormat</link>     cogl_texture_get_format             (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> of a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> of the GPU side texture.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-rowstride" role="function">
+<title>cogl_texture_get_rowstride ()</title>
+<indexterm zone="cogl-texture-get-rowstride"><primary sortas="texture_get_rowstride">cogl_texture_get_rowstride</primary></indexterm><programlisting><link linkend="guint">guint</link>               cogl_texture_get_rowstride          (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query the rowstride of a cogl texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the offset in bytes between each consequetive row of pixels.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-max-waste" role="function">
+<title>cogl_texture_get_max_waste ()</title>
+<indexterm zone="cogl-texture-get-max-waste"><primary sortas="texture_get_max_waste">cogl_texture_get_max_waste</primary></indexterm><programlisting><link linkend="gint">gint</link>                cogl_texture_get_max_waste          (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query the maximum wasted (unused) pixels in one dimension of a GPU side
+texture.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the maximum waste.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-is-sliced" role="function">
+<title>cogl_texture_is_sliced ()</title>
+<indexterm zone="cogl-texture-is-sliced"><primary sortas="texture_is_sliced">cogl_texture_is_sliced</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_texture_is_sliced              (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Query if a texture is sliced (stored as multiple GPU side tecture
+objects).</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the texture is sliced, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> if the texture
+is stored as a single GPU texture.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-gl-texture" role="function">
+<title>cogl_texture_get_gl_texture ()</title>
+<indexterm zone="cogl-texture-get-gl-texture"><primary sortas="texture_get_gl_texture">cogl_texture_get_gl_texture</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_texture_get_gl_texture         (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="GLuint">GLuint</link> *out_gl_handle,
+                                                         <link linkend="GLenum">GLenum</link> *out_gl_target);</programlisting>
+<para>
+Query the GL handles for a GPU side texture through it's <link linkend="CoglHandle"><type>CoglHandle</type></link>,
+if the texture is spliced the data for the first sub texture will be
+queried.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>out_gl_handle</parameter>&#160;:</term>
+<listitem><simpara>out) (allow-none. <acronym>out</acronym>. <acronym>allow-none</acronym>. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>out_gl_target</parameter>&#160;:</term>
+<listitem><simpara>out) (allow-none. <acronym>out</acronym>. <acronym>allow-none</acronym>. </simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the handle was successfully retrieved <link linkend="FALSE--CAPS"><literal>FALSE</literal></link>
+if the handle was invalid.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-get-data" role="function">
+<title>cogl_texture_get_data ()</title>
+<indexterm zone="cogl-texture-get-data"><primary sortas="texture_get_data">cogl_texture_get_data</primary></indexterm><programlisting><link linkend="gint">gint</link>                cogl_texture_get_data               (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         <link linkend="guchar">guchar</link> *data);</programlisting>
+<para>
+Copy the pixel data from a cogl texture to system memory.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for a texture.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> to store the texture as.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rowstride</parameter>&#160;:</term>
+<listitem><simpara> the rowstride of <parameter>data</parameter> or retrieved from texture if none is
+specified.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> memory location to write contents of buffer, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if we're
+only querying the data size through the return value.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the size of the texture data in bytes (or 0 if the texture
+is not valid.)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-texture-set-region" role="function">
+<title>cogl_texture_set_region ()</title>
+<indexterm zone="cogl-texture-set-region"><primary sortas="texture_set_region">cogl_texture_set_region</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_texture_set_region             (<link linkend="CoglHandle">CoglHandle</link> handle,
+                                                         <link linkend="gint">gint</link> src_x,
+                                                         <link linkend="gint">gint</link> src_y,
+                                                         <link linkend="gint">gint</link> dst_x,
+                                                         <link linkend="gint">gint</link> dst_y,
+                                                         <link linkend="guint">guint</link> dst_width,
+                                                         <link linkend="guint">guint</link> dst_height,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint">guint</link> rowstride,
+                                                         const <link linkend="guchar">guchar</link> *data);</programlisting>
+<para>
+Sets the pixels in a rectangular subregion of <parameter>handle</parameter> from an in-memory
+buffer containing pixel data.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src_x</parameter>&#160;:</term>
+<listitem><simpara> upper left coordinate to use from source data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src_y</parameter>&#160;:</term>
+<listitem><simpara> upper left coordinate to use from source data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_x</parameter>&#160;:</term>
+<listitem><simpara> upper left destination horizontal coordinate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_y</parameter>&#160;:</term>
+<listitem><simpara> upper left destination vertical coordinate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_width</parameter>&#160;:</term>
+<listitem><simpara> width of destination region to write.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_height</parameter>&#160;:</term>
+<listitem><simpara> height of destination region to write.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> width of source data buffer.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> height of source data buffer.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="CoglPixelFormat"><type>CoglPixelFormat</type></link> used in the source buffer.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rowstride</parameter>&#160;:</term>
+<listitem><simpara> rowstride of source buffer (computed from width if none
+specified)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> the actual pixel data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the subregion upload was successful, otherwise <link linkend="FALSE--CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,49 @@
+<!-- ##### SECTION Title ##### -->
+ClutterAnimatable
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterAnimatable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT ClutterAnimatableIface ##### -->
+<para>
+
+</para>
+
+@animate_property: 
+
+<!-- ##### FUNCTION clutter_animatable_animate_property ##### -->
+<para>
+
+</para>
+
+@animatable: 
+@animation: 
+@property_name: 
+@initial_value: 
+@final_value: 
+@progress: 
+@value: 
+@Returns: 
+
+

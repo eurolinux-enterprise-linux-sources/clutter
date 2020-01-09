@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterBackend</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="prev" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="next" href="clutter-X11-Specific-Support.html" title="X11 Specific Support">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="clutterbackends.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="clutterbackends.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutter-X11-Specific-Support.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#clutter-ClutterBackend.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#clutter-ClutterBackend.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="clutter-ClutterBackend"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="clutter-ClutterBackend.top_of_page"></a>ClutterBackend</span></h2>
+<p>ClutterBackend — Backend abstraction</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="clutter-ClutterBackend.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+ClutterBackend *    <a class="link" href="clutter-ClutterBackend.html#clutter-get-default-backend" title="clutter_get_default_backend ()">clutter_get_default_backend</a>         (void);
+void                <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-resolution" title="clutter_backend_set_resolution ()">clutter_backend_set_resolution</a>      (ClutterBackend *backend,
+                                                         gdouble dpi);
+gdouble             <a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-resolution" title="clutter_backend_get_resolution ()">clutter_backend_get_resolution</a>      (ClutterBackend *backend);
+void                <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-double-click-time" title="clutter_backend_set_double_click_time ()">clutter_backend_set_double_click_time</a>
+                                                        (ClutterBackend *backend,
+                                                         guint msec);
+guint               <a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-double-click-time" title="clutter_backend_get_double_click_time ()">clutter_backend_get_double_click_time</a>
+                                                        (ClutterBackend *backend);
+void                <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-double-click-distance" title="clutter_backend_set_double_click_distance ()">clutter_backend_set_double_click_distance</a>
+                                                        (ClutterBackend *backend,
+                                                         guint distance);
+guint               <a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-double-click-distance" title="clutter_backend_get_double_click_distance ()">clutter_backend_get_double_click_distance</a>
+                                                        (ClutterBackend *backend);
+void                <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-font-options" title="clutter_backend_set_font_options ()">clutter_backend_set_font_options</a>    (ClutterBackend *backend,
+                                                         const cairo_font_options_t *options);
+const cairo_font_options_t * <a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-font-options" title="clutter_backend_get_font_options ()">clutter_backend_get_font_options</a>
+                                                        (ClutterBackend *backend);
+void                <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-font-name" title="clutter_backend_set_font_name ()">clutter_backend_set_font_name</a>       (ClutterBackend *backend,
+                                                         const gchar *font_name);
+const gchar *       <a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-font-name" title="clutter_backend_get_font_name ()">clutter_backend_get_font_name</a>       (ClutterBackend *backend);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-ClutterBackend.description"></a><h2>Description</h2>
+<p>
+Clutter can be compiled against different backends. Each backend
+has to implement a set of functions, in order to be used by Clutter.
+</p>
+<p>
+<span class="type">ClutterBackend</span> is the base class abstracting the various implementation;
+it provides a basic API to query the backend for generic information
+and settings.
+</p>
+<p>
+<span class="type">ClutterBackend</span> is available since Clutter 0.4</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-ClutterBackend.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="clutter-get-default-backend"></a><h3>clutter_get_default_backend ()</h3>
+<pre class="programlisting">ClutterBackend *    clutter_get_default_backend         (void);</pre>
+<p>
+Retrieves the default <span class="type">ClutterBackend</span> used by Clutter. The
+<span class="type">ClutterBackend</span> holds backend-specific configuration options.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-set-resolution"></a><h3>clutter_backend_set_resolution ()</h3>
+<pre class="programlisting">void                clutter_backend_set_resolution      (ClutterBackend *backend,
+                                                         gdouble dpi);</pre>
+<p>
+Sets the resolution for font handling on the screen. This is a
+scale factor between points specified in a <span class="type">PangoFontDescription</span>
+and cairo units. The default value is 96, meaning that a 10 point
+font will be 13 units high. (10 * 96. / 72. = 13.3).
+</p>
+<p>
+Applications should never need to call this function.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dpi</code></em> :</span></p></td>
+<td> the resolution in "dots per inch" (Physical inches aren't
+  actually involved; the terminology is conventional).
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-get-resolution"></a><h3>clutter_backend_get_resolution ()</h3>
+<pre class="programlisting">gdouble             clutter_backend_get_resolution      (ClutterBackend *backend);</pre>
+<p>
+Gets the resolution for font handling on the screen; see
+<a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-resolution" title="clutter_backend_set_resolution ()"><code class="function">clutter_backend_set_resolution()</code></a> for full details.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the current resolution, or -1 if no resolution
+  has been set.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-set-double-click-time"></a><h3>clutter_backend_set_double_click_time ()</h3>
+<pre class="programlisting">void                clutter_backend_set_double_click_time
+                                                        (ClutterBackend *backend,
+                                                         guint msec);</pre>
+<p>
+Sets the maximum time between two button press events, used to
+verify whether it's a double click event or not.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>msec</code></em> :</span></p></td>
+<td> milliseconds between two button press events
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-get-double-click-time"></a><h3>clutter_backend_get_double_click_time ()</h3>
+<pre class="programlisting">guint               clutter_backend_get_double_click_time
+                                                        (ClutterBackend *backend);</pre>
+<p>
+Gets the maximum time between two button press events, as set
+by <a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-double-click-time" title="clutter_backend_set_double_click_time ()"><code class="function">clutter_backend_set_double_click_time()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a time in milliseconds
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-set-double-click-distance"></a><h3>clutter_backend_set_double_click_distance ()</h3>
+<pre class="programlisting">void                clutter_backend_set_double_click_distance
+                                                        (ClutterBackend *backend,
+                                                         guint distance);</pre>
+<p>
+Sets the maximum distance used to verify a double click event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>distance</code></em> :</span></p></td>
+<td> a distance, in pixels
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-get-double-click-distance"></a><h3>clutter_backend_get_double_click_distance ()</h3>
+<pre class="programlisting">guint               clutter_backend_get_double_click_distance
+                                                        (ClutterBackend *backend);</pre>
+<p>
+Retrieves the distance used to verify a double click event</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a distance, in pixels.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-set-font-options"></a><h3>clutter_backend_set_font_options ()</h3>
+<pre class="programlisting">void                clutter_backend_set_font_options    (ClutterBackend *backend,
+                                                         const cairo_font_options_t *options);</pre>
+<p>
+Sets the new font options for <em class="parameter"><code>backend</code></em>. The <span class="type">ClutterBackend</span> will
+copy the <span class="type">cairo_font_options_t</span>.
+</p>
+<p>
+If <em class="parameter"><code>options</code></em> is <code class="literal">NULL</code>, the first following call to
+<a class="link" href="clutter-ClutterBackend.html#clutter-backend-get-font-options" title="clutter_backend_get_font_options ()"><code class="function">clutter_backend_get_font_options()</code></a> will return the default font
+options for <em class="parameter"><code>backend</code></em>.
+</p>
+<p>
+This function is intended for actors creating a Pango layout
+using the PangoCairo API.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>options</code></em> :</span></p></td>
+<td> Cairo font options for the backend, or <code class="literal">NULL</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-get-font-options"></a><h3>clutter_backend_get_font_options ()</h3>
+<pre class="programlisting">const cairo_font_options_t * clutter_backend_get_font_options
+                                                        (ClutterBackend *backend);</pre>
+<p>
+Retrieves the font options for <em class="parameter"><code>backend</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-set-font-name"></a><h3>clutter_backend_set_font_name ()</h3>
+<pre class="programlisting">void                clutter_backend_set_font_name       (ClutterBackend *backend,
+                                                         const gchar *font_name);</pre>
+<p>
+Sets the default font to be used by Clutter. The <em class="parameter"><code>font_name</code></em> string
+must either be <code class="literal">NULL</code>, which means that the font name from the
+default <span class="type">ClutterBackend</span> will be used; or be something that can
+be parsed by the <code class="function">pango_font_description_from_string()</code> function.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_name</code></em> :</span></p></td>
+<td> the name of the font
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-backend-get-font-name"></a><h3>clutter_backend_get_font_name ()</h3>
+<pre class="programlisting">const gchar *       clutter_backend_get_font_name       (ClutterBackend *backend);</pre>
+<p>
+Retrieves the default font name as set by
+<a class="link" href="clutter-ClutterBackend.html#clutter-backend-set-font-name" title="clutter_backend_set_font_name ()"><code class="function">clutter_backend_set_font_name()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td> a <span class="type">ClutterBackend</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the font name for the backend. The returned string is
+  owned by the <span class="type">ClutterBackend</span> and should never be modified or freed
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

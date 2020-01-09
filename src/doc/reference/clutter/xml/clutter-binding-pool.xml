@@ -1,0 +1,577 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-Key-Bindings">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-Key-Bindings.top_of_page">Key Bindings</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Key Bindings</refname>
+<refpurpose>Pool for key bindings</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-Key-Bindings.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+<anchor id="ClutterBindingPool"/>
+<synopsis>
+                    <link linkend="ClutterBindingPool-struct">ClutterBindingPool</link>;
+<link linkend="gboolean">gboolean</link>            (<link linkend="ClutterBindingActionFunc">*ClutterBindingActionFunc</link>)         (<link linkend="GObject">GObject</link> *gobject,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);
+
+<link linkend="ClutterBindingPool">ClutterBindingPool</link> * <link linkend="clutter-binding-pool-new">clutter_binding_pool_new</link>           (const <link linkend="gchar">gchar</link> *name);
+<link linkend="ClutterBindingPool">ClutterBindingPool</link> * <link linkend="clutter-binding-pool-get-for-class">clutter_binding_pool_get_for_class</link> (<link linkend="gpointer">gpointer</link> klass);
+<link linkend="ClutterBindingPool">ClutterBindingPool</link> * <link linkend="clutter-binding-pool-find">clutter_binding_pool_find</link>          (const <link linkend="gchar">gchar</link> *name);
+
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-install-action">clutter_binding_pool_install_action</link> (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GCallback">GCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> notify);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-install-closure">clutter_binding_pool_install_closure</link>
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GClosure">GClosure</link> *closure);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-override-action">clutter_binding_pool_override_action</link>
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GCallback">GCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> notify);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-override-closure">clutter_binding_pool_override_closure</link>
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GClosure">GClosure</link> *closure);
+const <link linkend="gchar">gchar</link> *       <link linkend="clutter-binding-pool-find-action">clutter_binding_pool_find_action</link>    (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-remove-action">clutter_binding_pool_remove_action</link>  (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-block-action">clutter_binding_pool_block_action</link>   (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name);
+<link linkend="void">void</link>                <link linkend="clutter-binding-pool-unblock-action">clutter_binding_pool_unblock_action</link> (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name);
+
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-binding-pool-activate">clutter_binding_pool_activate</link>       (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GObject">GObject</link> *gobject);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="clutter-Key-Bindings.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ClutterBindingPool
+</synopsis>
+</refsect1>
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-Key-Bindings.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> is a data structure holding a set of key bindings.
+Each key binding associates a key symbol (eventually with modifiers)
+to an action. A callback function is associated to each action.
+</para>
+<para>
+For a given key symbol and modifier mask combination there can be only one
+action; for each action there can be only one callback. There can be
+multiple actions with the same name, and the same callback can be used
+to handle multiple key bindings.
+</para>
+<para>
+Actors requiring key bindings should create a new <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+inside their class initialization function and then install actions
+like this:
+</para>
+<para>
+<informalexample><programlisting>
+static void
+foo_class_init (FooClass *klass)
+{
+  ClutterBindingPool *binding_pool;
+
+  binding_pool = clutter_binding_pool_get_for_class (klass);
+
+  clutter_binding_pool_install_action (binding_pool, "move-up",
+                                       CLUTTER_Up, 0,
+                                       G_CALLBACK (foo_action_move_up),
+                                       NULL, NULL);
+  clutter_binding_pool_install_action (binding_pool, "move-up",
+                                       CLUTTER_KP_Up, 0,
+                                       G_CALLBACK (foo_action_move_up),
+                                       NULL, NULL);
+}
+</programlisting></informalexample>
+</para>
+<para>
+The callback has a signature of:
+</para>
+<para>
+<informalexample><programlisting>
+   gboolean (* callback) (GObject             *instance,
+                          const gchar         *action_name,
+                          guint                key_val,
+                          ClutterModifierType  modifiers,
+                          gpointer             user_data);
+</programlisting></informalexample>
+</para>
+<para>
+The actor should then override the <link linkend="ClutterActor-key-press-event"><type>"key-press-event"</type></link> and
+use <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link> to match a <link linkend="ClutterKeyEvent"><type>ClutterKeyEvent</type></link> structure
+to one of the actions:
+</para>
+<para>
+<informalexample><programlisting>
+  ClutterBindingPool *pool;
+
+  /&ast; retrieve the binding pool for the type of the actor &ast;/
+  pool = clutter_binding_pool_find (G_OBJECT_TYPE_NAME (actor));
+
+  /&ast; activate any callback matching the key symbol and modifiers
+   &ast; mask of the key event. the returned value can be directly
+   &ast; used to signal that the actor has handled the event.
+   &ast;/
+  return clutter_binding_pool_activate (pool, G_OBJECT (actor),
+                                        key_event-&gt;keyval,
+                                        key_event-&gt;modifier_state);
+</programlisting></informalexample>
+</para>
+<para>
+The <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link> function will return <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> if
+no action for the given key binding was found, if the action was
+blocked (using <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>) or if the
+key binding handler returned <link linkend="FALSE--CAPS"><literal>FALSE</literal></link>.
+</para>
+<para>
+<link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-Key-Bindings.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterBindingPool-struct" role="struct">
+<title>ClutterBindingPool</title>
+<indexterm zone="ClutterBindingPool-struct" role="1.0"><primary sortas="BindingPool">ClutterBindingPool</primary></indexterm><programlisting>typedef struct _ClutterBindingPool ClutterBindingPool;</programlisting>
+<para>
+Container of key bindings. The <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> struct is
+private.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterBindingActionFunc" role="function" condition="since:1.0">
+<title>ClutterBindingActionFunc ()</title>
+<indexterm zone="ClutterBindingActionFunc" role="1.0"><primary sortas="BindingActionFunc">ClutterBindingActionFunc</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            (*ClutterBindingActionFunc)         (<link linkend="GObject">GObject</link> *gobject,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);</programlisting>
+<para>
+The prototype for the callback function registered with
+<link linkend="clutter-binding-pool-install-action"><function>clutter_binding_pool_install_action()</function></link> and invoked by
+<link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>gobject</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GObject"><type>GObject</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>action_name</parameter>&#160;:</term>
+<listitem><simpara> the name of the action
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> the key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask of the modifier flags
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the function should return <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the key
+  binding has been handled, and return <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-new" role="function" condition="since:1.0">
+<title>clutter_binding_pool_new ()</title>
+<indexterm zone="clutter-binding-pool-new" role="1.0"><primary sortas="binding_pool_new">clutter_binding_pool_new</primary></indexterm><programlisting><link linkend="ClutterBindingPool">ClutterBindingPool</link> * clutter_binding_pool_new           (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Creates a new <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> that can be used to store
+key bindings for an actor. The <parameter>name</parameter> must be a unique identifier
+for the binding pool, so that <link linkend="clutter-binding-pool-find"><function>clutter_binding_pool_find()</function></link> will
+be able to return the correct binding pool.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> the name of the binding pool
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created binding pool with the given
+  name. Use <link linkend="g-object-unref"><function>g_object_unref()</function></link> when done.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-get-for-class" role="function" condition="since:1.0">
+<title>clutter_binding_pool_get_for_class ()</title>
+<indexterm zone="clutter-binding-pool-get-for-class" role="1.0"><primary sortas="binding_pool_get_for_class">clutter_binding_pool_get_for_class</primary></indexterm><programlisting><link linkend="ClutterBindingPool">ClutterBindingPool</link> * clutter_binding_pool_get_for_class (<link linkend="gpointer">gpointer</link> klass);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> for the given <link linkend="GObject"><type>GObject</type></link> class
+and, eventually, creates it. This function is a wrapper around
+<link linkend="clutter-binding-pool-new"><function>clutter_binding_pool_new()</function></link> and uses the class type name as the
+unique name for the binding pool.
+</para>
+<para>
+Calling this function multiple times will return the same
+<link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>.
+</para>
+<para>
+A binding pool for a class can also be retrieved using
+<link linkend="clutter-binding-pool-find"><function>clutter_binding_pool_find()</function></link> with the class type name:
+</para>
+<para>
+<informalexample><programlisting>
+  pool = clutter_binding_pool_find (G_OBJECT_TYPE_NAME (instance));
+</programlisting></informalexample></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>klass</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GObjectClass"><type>GObjectClass</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-find" role="function" condition="since:1.0">
+<title>clutter_binding_pool_find ()</title>
+<indexterm zone="clutter-binding-pool-find" role="1.0"><primary sortas="binding_pool_find">clutter_binding_pool_find</primary></indexterm><programlisting><link linkend="ClutterBindingPool">ClutterBindingPool</link> * clutter_binding_pool_find          (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Finds the <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link> with <parameter>name</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> the name of the binding pool to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a pointer to the <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-install-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_install_action ()</title>
+<indexterm zone="clutter-binding-pool-install-action" role="1.0"><primary sortas="binding_pool_install_action">clutter_binding_pool_install_action</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_install_action (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GCallback">GCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> notify);</programlisting>
+<para>
+Installs a new action inside a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>. The action
+is bound to <parameter>key_val</parameter> and <parameter>modifiers</parameter>.
+</para>
+<para>
+The same action name can be used for multiple <parameter>key_val</parameter>, <parameter>modifiers</parameter>
+pairs.
+</para>
+<para>
+When an action has been activated using <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link>
+the passed <parameter>callback</parameter> will be invoked (with <parameter>data</parameter>).
+</para>
+<para>
+Actions can be blocked with <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>
+and then unblocked using <link linkend="clutter-binding-pool-unblock-action"><function>clutter_binding_pool_unblock_action()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>action_name</parameter>&#160;:</term>
+<listitem><simpara> the name of the action
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask of modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara> function to be called when the action is activated
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> data to be passed to <parameter>callback</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>notify</parameter>&#160;:</term>
+<listitem><simpara> function to be called when the action is removed
+  from the pool
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-install-closure" role="function" condition="since:1.0">
+<title>clutter_binding_pool_install_closure ()</title>
+<indexterm zone="clutter-binding-pool-install-closure" role="1.0"><primary sortas="binding_pool_install_closure">clutter_binding_pool_install_closure</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_install_closure
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GClosure">GClosure</link> *closure);</programlisting>
+<para>
+A <link linkend="GClosure"><type>GClosure</type></link> variant of <link linkend="clutter-binding-pool-install-action"><function>clutter_binding_pool_install_action()</function></link>.
+</para>
+<para>
+Installs a new action inside a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>. The action
+is bound to <parameter>key_val</parameter> and <parameter>modifiers</parameter>.
+</para>
+<para>
+The same action name can be used for multiple <parameter>key_val</parameter>, <parameter>modifiers</parameter>
+pairs.
+</para>
+<para>
+When an action has been activated using <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link>
+the passed <parameter>closure</parameter> will be invoked.
+</para>
+<para>
+Actions can be blocked with <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>
+and then unblocked using <link linkend="clutter-binding-pool-unblock-action"><function>clutter_binding_pool_unblock_action()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>action_name</parameter>&#160;:</term>
+<listitem><simpara> the name of the action
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask of modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GClosure"><type>GClosure</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-override-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_override_action ()</title>
+<indexterm zone="clutter-binding-pool-override-action" role="1.0"><primary sortas="binding_pool_override_action">clutter_binding_pool_override_action</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_override_action
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GCallback">GCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> data,
+                                                         <link linkend="GDestroyNotify">GDestroyNotify</link> notify);</programlisting>
+<para>
+Allows overriding the action for <parameter>key_val</parameter> and <parameter>modifiers</parameter> inside a
+<link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>. See <link linkend="clutter-binding-pool-install-action"><function>clutter_binding_pool_install_action()</function></link>.
+</para>
+<para>
+When an action has been activated using <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link>
+the passed <parameter>callback</parameter> will be invoked (with <parameter>data</parameter>).
+</para>
+<para>
+Actions can be blocked with <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>
+and then unblocked using <link linkend="clutter-binding-pool-unblock-action"><function>clutter_binding_pool_unblock_action()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask of modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara> function to be called when the action is activated
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> data to be passed to <parameter>callback</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>notify</parameter>&#160;:</term>
+<listitem><simpara> function to be called when the action is removed
+  from the pool
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-override-closure" role="function" condition="since:1.0">
+<title>clutter_binding_pool_override_closure ()</title>
+<indexterm zone="clutter-binding-pool-override-closure" role="1.0"><primary sortas="binding_pool_override_closure">clutter_binding_pool_override_closure</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_override_closure
+                                                        (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GClosure">GClosure</link> *closure);</programlisting>
+<para>
+A <link linkend="GClosure"><type>GClosure</type></link> variant of <link linkend="clutter-binding-pool-override-action"><function>clutter_binding_pool_override_action()</function></link>.
+</para>
+<para>
+Allows overriding the action for <parameter>key_val</parameter> and <parameter>modifiers</parameter> inside a
+<link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>. See <link linkend="clutter-binding-pool-install-closure"><function>clutter_binding_pool_install_closure()</function></link>.
+</para>
+<para>
+When an action has been activated using <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link>
+the passed <parameter>callback</parameter> will be invoked (with <parameter>data</parameter>).
+</para>
+<para>
+Actions can be blocked with <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>
+and then unblocked using <link linkend="clutter-binding-pool-unblock-action"><function>clutter_binding_pool_unblock_action()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask of modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GClosure"><type>GClosure</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-find-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_find_action ()</title>
+<indexterm zone="clutter-binding-pool-find-action" role="1.0"><primary sortas="binding_pool_find_action">clutter_binding_pool_find_action</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link> *       clutter_binding_pool_find_action    (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);</programlisting>
+<para>
+Retrieves the name of the action matching the given key symbol
+and modifiers bitmask.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> a key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> a bitmask for the modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the name of the action, if found, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>. The
+  returned string is owned by the binding pool and should never
+  be modified or freed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-remove-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_remove_action ()</title>
+<indexterm zone="clutter-binding-pool-remove-action" role="1.0"><primary sortas="binding_pool_remove_action">clutter_binding_pool_remove_action</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_remove_action  (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers);</programlisting>
+<para>
+Removes the action matching the given <parameter>key_val</parameter>, <parameter>modifiers</parameter> pair,
+if any exists.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> a key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> a bitmask for the modifiers
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-block-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_block_action ()</title>
+<indexterm zone="clutter-binding-pool-block-action" role="1.0"><primary sortas="binding_pool_block_action">clutter_binding_pool_block_action</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_block_action   (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name);</programlisting>
+<para>
+Blocks all the actions with name <parameter>action_name</parameter> inside <parameter>pool</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>action_name</parameter>&#160;:</term>
+<listitem><simpara> an action name
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-unblock-action" role="function" condition="since:1.0">
+<title>clutter_binding_pool_unblock_action ()</title>
+<indexterm zone="clutter-binding-pool-unblock-action" role="1.0"><primary sortas="binding_pool_unblock_action">clutter_binding_pool_unblock_action</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_binding_pool_unblock_action (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         const <link linkend="gchar">gchar</link> *action_name);</programlisting>
+<para>
+Unblockes all the actions with name <parameter>action_name</parameter> inside <parameter>pool</parameter>.
+</para>
+<para>
+Unblocking an action does not cause the callback bound to it to
+be invoked in case <link linkend="clutter-binding-pool-activate"><function>clutter_binding_pool_activate()</function></link> was called on
+an action previously blocked with <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>action_name</parameter>&#160;:</term>
+<listitem><simpara> an action name
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-binding-pool-activate" role="function" condition="since:1.0">
+<title>clutter_binding_pool_activate ()</title>
+<indexterm zone="clutter-binding-pool-activate" role="1.0"><primary sortas="binding_pool_activate">clutter_binding_pool_activate</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_binding_pool_activate       (<link linkend="ClutterBindingPool">ClutterBindingPool</link> *pool,
+                                                         <link linkend="guint">guint</link> key_val,
+                                                         <link linkend="ClutterModifierType">ClutterModifierType</link> modifiers,
+                                                         <link linkend="GObject">GObject</link> *gobject);</programlisting>
+<para>
+Activates the callback associated to the action that is
+bound to the <parameter>key_val</parameter> and <parameter>modifiers</parameter> pair.
+</para>
+<para>
+The callback has the following signature:
+</para>
+<para>
+<informalexample><programlisting>
+  void (* callback) (GObject             *gobject,
+                     const gchar         *action_name,
+                     guint                key_val,
+                     ClutterModifierType  modifiers,
+                     gpointer             user_data);
+</programlisting></informalexample>
+</para>
+<para>
+Where the <link linkend="GObject"><type>GObject</type></link> instance is <parameter>gobject</parameter> and the user data
+is the one passed when installing the action with
+<link linkend="clutter-binding-pool-install-action"><function>clutter_binding_pool_install_action()</function></link>.
+</para>
+<para>
+If the action bound to the <parameter>key_val</parameter>, <parameter>modifiers</parameter> pair has been
+blocked using <link linkend="clutter-binding-pool-block-action"><function>clutter_binding_pool_block_action()</function></link>, the callback
+will not be invoked, and this function will return <link linkend="FALSE--CAPS"><literal>FALSE</literal></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterBindingPool"><type>ClutterBindingPool</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_val</parameter>&#160;:</term>
+<listitem><simpara> the key symbol
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifiers</parameter>&#160;:</term>
+<listitem><simpara> bitmask for the modifiers
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>gobject</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GObject"><type>GObject</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if an action was found and was activated
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

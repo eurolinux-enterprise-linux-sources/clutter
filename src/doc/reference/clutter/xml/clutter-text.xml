@@ -1,0 +1,1626 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterText">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterText.top_of_page">ClutterText</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterText</refname>
+<refpurpose>An actor for displaying and editing text</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterText.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterText-struct">ClutterText</link>;
+                    <link linkend="ClutterTextClass">ClutterTextClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-text-new">clutter_text_new</link>                    (void);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-text-new-full">clutter_text_new_full</link>               (const <link linkend="gchar">gchar</link> *font_name,
+                                                         const <link linkend="gchar">gchar</link> *text,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-text-new-with-text">clutter_text_new_with_text</link>          (const <link linkend="gchar">gchar</link> *font_name,
+                                                         const <link linkend="gchar">gchar</link> *text);
+
+<link linkend="void">void</link>                <link linkend="clutter-text-set-text">clutter_text_set_text</link>               (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *text);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-markup">clutter_text_set_markup</link>             (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *markup);
+const <link linkend="gchar">gchar</link> *       <link linkend="clutter-text-get-text">clutter_text_get_text</link>               (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-activatable">clutter_text_set_activatable</link>        (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> activatable);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-activatable">clutter_text_get_activatable</link>        (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-attributes">clutter_text_set_attributes</link>         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoAttrList">PangoAttrList</link> *attrs);
+<link linkend="PangoAttrList">PangoAttrList</link> *     <link linkend="clutter-text-get-attributes">clutter_text_get_attributes</link>         (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-color">clutter_text_set_color</link>              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-get-color">clutter_text_get_color</link>              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-ellipsize">clutter_text_set_ellipsize</link>          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link> mode);
+<link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link>  <link linkend="clutter-text-get-ellipsize">clutter_text_get_ellipsize</link>          (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-font-name">clutter_text_set_font_name</link>          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *font_name);
+const <link linkend="gchar">gchar</link> *       <link linkend="clutter-text-get-font-name">clutter_text_get_font_name</link>          (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-password-char">clutter_text_set_password_char</link>      (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gunichar">gunichar</link> wc);
+<link linkend="gunichar">gunichar</link>            <link linkend="clutter-text-get-password-char">clutter_text_get_password_char</link>      (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-justify">clutter_text_set_justify</link>            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> justify);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-justify">clutter_text_get_justify</link>            (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="PangoLayout">PangoLayout</link> *       <link linkend="clutter-text-get-layout">clutter_text_get_layout</link>             (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-line-alignment">clutter_text_set_line_alignment</link>     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoAlignment">PangoAlignment</link> alignment);
+<link linkend="PangoAlignment">PangoAlignment</link>      <link linkend="clutter-text-get-line-alignment">clutter_text_get_line_alignment</link>     (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-line-wrap">clutter_text_set_line_wrap</link>          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> line_wrap);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-line-wrap">clutter_text_get_line_wrap</link>          (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-line-wrap-mode">clutter_text_set_line_wrap_mode</link>     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoWrapMode">PangoWrapMode</link> wrap_mode);
+<link linkend="PangoWrapMode">PangoWrapMode</link>       <link linkend="clutter-text-get-line-wrap-mode">clutter_text_get_line_wrap_mode</link>     (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-max-length">clutter_text_set_max_length</link>         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> max);
+<link linkend="gint">gint</link>                <link linkend="clutter-text-get-max-length">clutter_text_get_max_length</link>         (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-selectable">clutter_text_set_selectable</link>         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> selectable);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-selectable">clutter_text_get_selectable</link>         (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-selection">clutter_text_set_selection</link>          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);
+<link linkend="gchar">gchar</link> *             <link linkend="clutter-text-get-selection">clutter_text_get_selection</link>          (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-selection-bound">clutter_text_set_selection_bound</link>    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> selection_bound);
+<link linkend="gint">gint</link>                <link linkend="clutter-text-get-selection-bound">clutter_text_get_selection_bound</link>    (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-single-line-mode">clutter_text_set_single_line_mode</link>   (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> single_line);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-single-line-mode">clutter_text_get_single_line_mode</link>   (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-use-markup">clutter_text_set_use_markup</link>         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> setting);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-use-markup">clutter_text_get_use_markup</link>         (<link linkend="ClutterText">ClutterText</link> *self);
+
+<link linkend="void">void</link>                <link linkend="clutter-text-set-editable">clutter_text_set_editable</link>           (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> editable);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-editable">clutter_text_get_editable</link>           (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-insert-text">clutter_text_insert_text</link>            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *text,
+                                                         <link linkend="gssize">gssize</link> position);
+<link linkend="void">void</link>                <link linkend="clutter-text-insert-unichar">clutter_text_insert_unichar</link>         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gunichar">gunichar</link> wc);
+<link linkend="void">void</link>                <link linkend="clutter-text-delete-chars">clutter_text_delete_chars</link>           (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="guint">guint</link> n_chars);
+<link linkend="void">void</link>                <link linkend="clutter-text-delete-text">clutter_text_delete_text</link>            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-delete-selection">clutter_text_delete_selection</link>       (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="gchar">gchar</link> *             <link linkend="clutter-text-get-chars">clutter_text_get_chars</link>              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-cursor-color">clutter_text_set_cursor_color</link>       (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-get-cursor-color">clutter_text_get_cursor_color</link>       (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-selection-color">clutter_text_set_selection_color</link>    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-get-selection-color">clutter_text_get_selection_color</link>    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-cursor-position">clutter_text_set_cursor_position</link>    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> position);
+<link linkend="gint">gint</link>                <link linkend="clutter-text-get-cursor-position">clutter_text_get_cursor_position</link>    (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-cursor-visible">clutter_text_set_cursor_visible</link>     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> cursor_visible);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-get-cursor-visible">clutter_text_get_cursor_visible</link>     (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="void">void</link>                <link linkend="clutter-text-set-cursor-size">clutter_text_set_cursor_size</link>        (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> size);
+<link linkend="guint">guint</link>               <link linkend="clutter-text-get-cursor-size">clutter_text_get_cursor_size</link>        (<link linkend="ClutterText">ClutterText</link> *self);
+
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-activate">clutter_text_activate</link>               (<link linkend="ClutterText">ClutterText</link> *self);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-text-position-to-coords">clutter_text_position_to_coords</link>     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gfloat">gfloat</link> *x,
+                                                         <link linkend="gfloat">gfloat</link> *y,
+                                                         <link linkend="gfloat">gfloat</link> *line_height);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterText.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="ClutterActor">ClutterActor</link>
+               +----ClutterText
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterText.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ClutterText implements
+ <link linkend="ClutterScriptable">ClutterScriptable</link>.</para>
+</refsect1>
+
+
+<refsect1 id="ClutterText.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterText--activatable">activatable</link>&quot;              <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--attributes">attributes</link>&quot;               <link linkend="PangoAttrList">PangoAttrList</link>*        : Read / Write
+  &quot;<link linkend="ClutterText--color">color</link>&quot;                    <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write
+  &quot;<link linkend="ClutterText--cursor-color">cursor-color</link>&quot;             <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write
+  &quot;<link linkend="ClutterText--cursor-color-set">cursor-color-set</link>&quot;         <link linkend="gboolean">gboolean</link>              : Read
+  &quot;<link linkend="ClutterText--cursor-size">cursor-size</link>&quot;              <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ClutterText--cursor-visible">cursor-visible</link>&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--editable">editable</link>&quot;                 <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--ellipsize">ellipsize</link>&quot;                <link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link>    : Read / Write
+  &quot;<link linkend="ClutterText--font-name">font-name</link>&quot;                <link linkend="gchar">gchar</link>*                : Read / Write
+  &quot;<link linkend="ClutterText--justify">justify</link>&quot;                  <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--line-alignment">line-alignment</link>&quot;           <link linkend="PangoAlignment">PangoAlignment</link>        : Read / Write
+  &quot;<link linkend="ClutterText--line-wrap">line-wrap</link>&quot;                <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--line-wrap-mode">line-wrap-mode</link>&quot;           <link linkend="PangoWrapMode">PangoWrapMode</link>         : Read / Write
+  &quot;<link linkend="ClutterText--max-length">max-length</link>&quot;               <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ClutterText--password-char">password-char</link>&quot;            <link linkend="guint">guint</link>                 : Read / Write
+  &quot;<link linkend="ClutterText--position">position</link>&quot;                 <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ClutterText--selectable">selectable</link>&quot;               <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--selection-bound">selection-bound</link>&quot;          <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ClutterText--selection-color">selection-color</link>&quot;          <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write
+  &quot;<link linkend="ClutterText--selection-color-set">selection-color-set</link>&quot;      <link linkend="gboolean">gboolean</link>              : Read
+  &quot;<link linkend="ClutterText--single-line-mode">single-line-mode</link>&quot;         <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterText--text">text</link>&quot;                     <link linkend="gchar">gchar</link>*                : Read / Write
+  &quot;<link linkend="ClutterText--use-markup">use-markup</link>&quot;               <link linkend="gboolean">gboolean</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1 id="ClutterText.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ClutterText-activate">activate</link>&quot;                                       : Run Last
+  &quot;<link linkend="ClutterText-cursor-event">cursor-event</link>&quot;                                   : Run Last
+  &quot;<link linkend="ClutterText-text-changed">text-changed</link>&quot;                                   : Run Last
+</synopsis>
+</refsect1>
+
+
+<refsect1 id="ClutterText.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterText"><type>ClutterText</type></link> is an actor that displays custom text using Pango
+as the text rendering engine.
+</para>
+<para>
+<link linkend="ClutterText"><type>ClutterText</type></link> also allows inline editing of the text if the
+actor is set editable using <link linkend="clutter-text-set-editable"><function>clutter_text_set_editable()</function></link>.
+</para>
+<para>
+Selection using keyboard or pointers can be enabled using
+<link linkend="clutter-text-set-selectable"><function>clutter_text_set_selectable()</function></link>.
+</para>
+<para>
+<link linkend="ClutterText"><type>ClutterText</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterText.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterText-struct" role="struct">
+<title>ClutterText</title>
+<indexterm zone="ClutterText-struct" role="1.0"><primary sortas="Text">ClutterText</primary></indexterm><programlisting>typedef struct _ClutterText ClutterText;</programlisting>
+<para>
+The <link linkend="ClutterText"><type>ClutterText</type></link> struct contains only private data.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterTextClass" role="struct" condition="since:1.0">
+<title>ClutterTextClass</title>
+<indexterm zone="ClutterTextClass" role="1.0"><primary sortas="TextClass">ClutterTextClass</primary></indexterm><programlisting>typedef struct {
+  /* signals, not vfuncs */
+  void (* text_changed) (ClutterText           *self);
+  void (* activate)     (ClutterText           *self);
+  void (* cursor_event) (ClutterText           *self,
+                         const ClutterGeometry *geometry);
+} ClutterTextClass;
+</programlisting>
+<para>
+The <link linkend="ClutterTextClass"><type>ClutterTextClass</type></link> struct contains only private data.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><structfield>text_changed</structfield>&#160;()</term>
+<listitem><simpara> class handler for the <link linkend="ClutterText-text-changed"><type>"text-changed"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>activate</structfield>&#160;()</term>
+<listitem><simpara> class handler for the <link linkend="ClutterText-activate"><type>"activate"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>cursor_event</structfield>&#160;()</term>
+<listitem><simpara> class handler for the <link linkend="ClutterText-cursor-event"><type>"cursor_event"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-new" role="function" condition="since:1.0">
+<title>clutter_text_new ()</title>
+<indexterm zone="clutter-text-new" role="1.0"><primary sortas="text_new">clutter_text_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_text_new                    (void);</programlisting>
+<para>
+Creates a new <link linkend="ClutterText"><type>ClutterText</type></link> actor. This actor can be used to
+display and edit text.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterText"><type>ClutterText</type></link> actor
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-new-full" role="function" condition="since:1.0">
+<title>clutter_text_new_full ()</title>
+<indexterm zone="clutter-text-new-full" role="1.0"><primary sortas="text_new_full">clutter_text_new_full</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_text_new_full               (const <link linkend="gchar">gchar</link> *font_name,
+                                                         const <link linkend="gchar">gchar</link> *text,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Creates a new <link linkend="ClutterText"><type>ClutterText</type></link> actor, using <parameter>font_name</parameter> as the font
+description; <parameter>text</parameter> will be used to set the contents of the actor;
+and <parameter>color</parameter> will be used as the color to render <parameter>text</parameter>.
+</para>
+<para>
+This function is equivalent to calling <link linkend="clutter-text-new"><function>clutter_text_new()</function></link>,
+<link linkend="clutter-text-set-font-name"><function>clutter_text_set_font_name()</function></link>, <link linkend="clutter-text-set-text"><function>clutter_text_set_text()</function></link> and
+<link linkend="clutter-text-set-color"><function>clutter_text_set_color()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>font_name</parameter>&#160;:</term>
+<listitem><simpara> a string with a font description
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&#160;:</term>
+<listitem><simpara> the contents of the actor
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> the color to be used to render <parameter>text</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterText"><type>ClutterText</type></link> actor
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-new-with-text" role="function" condition="since:1.0">
+<title>clutter_text_new_with_text ()</title>
+<indexterm zone="clutter-text-new-with-text" role="1.0"><primary sortas="text_new_with_text">clutter_text_new_with_text</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_text_new_with_text          (const <link linkend="gchar">gchar</link> *font_name,
+                                                         const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+Creates a new <link linkend="ClutterText"><type>ClutterText</type></link> actor, using <parameter>font_name</parameter> as the font
+description; <parameter>text</parameter> will be used to set the contents of the actor.
+</para>
+<para>
+This function is equivalent to calling <link linkend="clutter-text-new"><function>clutter_text_new()</function></link>,
+<link linkend="clutter-text-set-font-name"><function>clutter_text_set_font_name()</function></link>, and <link linkend="clutter-text-set-text"><function>clutter_text_set_text()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>font_name</parameter>&#160;:</term>
+<listitem><simpara> a string with a font description
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&#160;:</term>
+<listitem><simpara> the contents of the actor
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterText"><type>ClutterText</type></link> actor
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-text" role="function" condition="since:1.0">
+<title>clutter_text_set_text ()</title>
+<indexterm zone="clutter-text-set-text" role="1.0"><primary sortas="text_set_text">clutter_text_set_text</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_text               (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+Sets the contents of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&#160;:</term>
+<listitem><simpara> the text to set. Passing <link linkend="NULL--CAPS"><literal>NULL</literal></link> is the same as passing "" (the
+   empty string)
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-markup" role="function" condition="since:1.0">
+<title>clutter_text_set_markup ()</title>
+<indexterm zone="clutter-text-set-markup" role="1.0"><primary sortas="text_set_markup">clutter_text_set_markup</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_markup             (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *markup);</programlisting>
+<para>
+Sets <parameter>markup</parameter> as the contents of a <link linkend="ClutterText"><type>ClutterText</type></link>.
+</para>
+<para>
+This is a convenience function for setting a string containing
+Pango markup, and it is logically equivalent to:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_text_set_use_markup (CLUTTER_TEXT (actor), TRUE);
+  clutter_text_set_text (CLUTTER_TEXT (actor), markup);
+</programlisting></informalexample></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>markup</parameter>&#160;:</term>
+<listitem><simpara> a string containing Pango markup. Passing <link linkend="NULL--CAPS"><literal>NULL</literal></link> is the same
+   as passing "" (the empty string)
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-text" role="function" condition="since:1.0">
+<title>clutter_text_get_text ()</title>
+<indexterm zone="clutter-text-get-text" role="1.0"><primary sortas="text_get_text">clutter_text_get_text</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link> *       clutter_text_get_text               (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves a pointer to the current contents of a <link linkend="ClutterText"><type>ClutterText</type></link>
+actor.
+</para>
+<para>
+If you need a copy of the contents for manipulating, either
+use <link linkend="g-strdup"><function>g_strdup()</function></link> on the returned string, or use:
+</para>
+<para>
+<informalexample><programlisting>
+   copy = clutter_text_get_chars (text, 0, -1);
+</programlisting></informalexample>
+</para>
+<para>
+Which will return a newly allocated string.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the contents of the actor. The returned string
+  is owned by the <link linkend="ClutterText"><type>ClutterText</type></link> actor and should never be
+  modified or freed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-activatable" role="function" condition="since:1.0">
+<title>clutter_text_set_activatable ()</title>
+<indexterm zone="clutter-text-set-activatable" role="1.0"><primary sortas="text_set_activatable">clutter_text_set_activatable</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_activatable        (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> activatable);</programlisting>
+<para>
+Sets whether a <link linkend="ClutterText"><type>ClutterText</type></link> actor should be activatable.
+</para>
+<para>
+An activatable <link linkend="ClutterText"><type>ClutterText</type></link> actor will emit the <link linkend="ClutterText-activate"><type>"activate"</type></link>
+signal whenever the 'Enter' (or 'Return') key is pressed; if it is not
+activatable, a new line will be appended to the current content.
+</para>
+<para>
+An activatable <link linkend="ClutterText"><type>ClutterText</type></link> must also be set as editable using
+<link linkend="clutter-text-set-editable"><function>clutter_text_set_editable()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>activatable</parameter>&#160;:</term>
+<listitem><simpara> whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be activatable
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-activatable" role="function" condition="since:1.0">
+<title>clutter_text_get_activatable ()</title>
+<indexterm zone="clutter-text-get-activatable" role="1.0"><primary sortas="text_get_activatable">clutter_text_get_activatable</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_activatable        (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether a <link linkend="ClutterText"><type>ClutterText</type></link> is activatable or not.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the actor is activatable
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-attributes" role="function" condition="since:1.0">
+<title>clutter_text_set_attributes ()</title>
+<indexterm zone="clutter-text-set-attributes" role="1.0"><primary sortas="text_set_attributes">clutter_text_set_attributes</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_attributes         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoAttrList">PangoAttrList</link> *attrs);</programlisting>
+<para>
+Sets the attributes list that are going to be applied to the
+<link linkend="ClutterText"><type>ClutterText</type></link> contents.
+</para>
+<para>
+The <link linkend="ClutterText"><type>ClutterText</type></link> actor will take a reference on the <link linkend="PangoAttrList"><type>PangoAttrList</type></link>
+passed to this function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attrs</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="PangoAttrList"><type>PangoAttrList</type></link> or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset the attributes
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-attributes" role="function" condition="since:1.0">
+<title>clutter_text_get_attributes ()</title>
+<indexterm zone="clutter-text-get-attributes" role="1.0"><primary sortas="text_get_attributes">clutter_text_get_attributes</primary></indexterm><programlisting><link linkend="PangoAttrList">PangoAttrList</link> *     clutter_text_get_attributes         (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Gets the attribute list that was set on the <link linkend="ClutterText"><type>ClutterText</type></link> actor
+<link linkend="clutter-text-set-attributes"><function>clutter_text_set_attributes()</function></link>, if any.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-color" role="function" condition="since:1.0">
+<title>clutter_text_set_color ()</title>
+<indexterm zone="clutter-text-set-color" role="1.0"><primary sortas="text_set_color">clutter_text_set_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_color              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Sets the color of the contents of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.
+</para>
+<para>
+The overall opacity of the <link linkend="ClutterText"><type>ClutterText</type></link> actor will be the
+result of the alpha value of <parameter>color</parameter> and the composited
+opacity of the actor itself on the scenegraph, as returned
+by <link linkend="clutter-actor-get-paint-opacity"><function>clutter_actor_get_paint_opacity()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-color" role="function" condition="since:1.0">
+<title>clutter_text_get_color ()</title>
+<indexterm zone="clutter-text-get-color" role="1.0"><primary sortas="text_get_color">clutter_text_get_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_get_color              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Retrieves the text color as set by <link linkend="clutter-text-set-color"><function>clutter_text_set_color()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-ellipsize" role="function" condition="since:1.0">
+<title>clutter_text_set_ellipsize ()</title>
+<indexterm zone="clutter-text-set-ellipsize" role="1.0"><primary sortas="text_set_ellipsize">clutter_text_set_ellipsize</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_ellipsize          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link> mode);</programlisting>
+<para>
+Sets the mode used to ellipsize (add an ellipsis: "...") to the
+text if there is not enough space to render the entire contents
+of a <link linkend="ClutterText"><type>ClutterText</type></link> actor</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="PangoEllipsizeMode"><type>PangoEllipsizeMode</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-ellipsize" role="function" condition="since:1.0">
+<title>clutter_text_get_ellipsize ()</title>
+<indexterm zone="clutter-text-get-ellipsize" role="1.0"><primary sortas="text_get_ellipsize">clutter_text_get_ellipsize</primary></indexterm><programlisting><link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link>  clutter_text_get_ellipsize          (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Returns the ellipsizing position of a <link linkend="ClutterText"><type>ClutterText</type></link> actor, as
+set by <link linkend="clutter-text-set-ellipsize"><function>clutter_text_set_ellipsize()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="PangoEllipsizeMode"><type>PangoEllipsizeMode</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-font-name" role="function" condition="since:1.0">
+<title>clutter_text_set_font_name ()</title>
+<indexterm zone="clutter-text-set-font-name" role="1.0"><primary sortas="text_set_font_name">clutter_text_set_font_name</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_font_name          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *font_name);</programlisting>
+<para>
+Sets the font used by a <link linkend="ClutterText"><type>ClutterText</type></link>. The <parameter>font_name</parameter> string
+must either be <link linkend="NULL--CAPS"><literal>NULL</literal></link>, which means that the font name from the
+default <link linkend="ClutterBackend"><type>ClutterBackend</type></link> will be used; or be something that can
+be parsed by the <link linkend="pango-font-description-from-string"><function>pango_font_description_from_string()</function></link> function,
+like:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_text_set_font_name (text, "Sans 10pt");
+  clutter_text_set_font_name (text, "Serif 16px");
+  clutter_text_set_font_name (text, "Helvetica 10");
+</programlisting></informalexample></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>font_name</parameter>&#160;:</term>
+<listitem><simpara> a font name, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to set the default font name
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-font-name" role="function" condition="since:1.0">
+<title>clutter_text_get_font_name ()</title>
+<indexterm zone="clutter-text-get-font-name" role="1.0"><primary sortas="text_get_font_name">clutter_text_get_font_name</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link> *       clutter_text_get_font_name          (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the font name as set by <link linkend="clutter-text-set-font-name"><function>clutter_text_set_font_name()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a string containing the font name. The returned
+  string is owned by the <link linkend="ClutterText"><type>ClutterText</type></link> actor and should not be
+  modified or freed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-password-char" role="function" condition="since:1.0">
+<title>clutter_text_set_password_char ()</title>
+<indexterm zone="clutter-text-set-password-char" role="1.0"><primary sortas="text_set_password_char">clutter_text_set_password_char</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_password_char      (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gunichar">gunichar</link> wc);</programlisting>
+<para>
+Sets the character to use in place of the actual text in a
+password text actor.
+</para>
+<para>
+If <parameter>wc</parameter> is 0 the text will be displayed as it is entered in the
+<link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>wc</parameter>&#160;:</term>
+<listitem><simpara> a Unicode character, or 0 to unset the password character
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-password-char" role="function" condition="since:1.0">
+<title>clutter_text_get_password_char ()</title>
+<indexterm zone="clutter-text-get-password-char" role="1.0"><primary sortas="text_get_password_char">clutter_text_get_password_char</primary></indexterm><programlisting><link linkend="gunichar">gunichar</link>            clutter_text_get_password_char      (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the character to use in place of the actual text
+as set by <link linkend="clutter-text-set-password-char"><function>clutter_text_set_password_char()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a Unicode character or 0 if the password
+  character is not set
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-justify" role="function" condition="since:1.0">
+<title>clutter_text_set_justify ()</title>
+<indexterm zone="clutter-text-set-justify" role="1.0"><primary sortas="text_set_justify">clutter_text_set_justify</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_justify            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> justify);</programlisting>
+<para>
+Sets whether the text of the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be justified
+on both margins. This setting is ignored if Clutter is compiled
+against Pango &lt; 1.18.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>justify</parameter>&#160;:</term>
+<listitem><simpara> whether the text should be justified
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-justify" role="function" condition="since:0.6">
+<title>clutter_text_get_justify ()</title>
+<indexterm zone="clutter-text-get-justify" role="0.6"><primary sortas="text_get_justify">clutter_text_get_justify</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_justify            (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor should justify its contents
+on both margins.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the text should be justified
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-text-get-layout" role="function" condition="since:1.0">
+<title>clutter_text_get_layout ()</title>
+<indexterm zone="clutter-text-get-layout" role="1.0"><primary sortas="text_get_layout">clutter_text_get_layout</primary></indexterm><programlisting><link linkend="PangoLayout">PangoLayout</link> *       clutter_text_get_layout             (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the current <link linkend="PangoLayout"><type>PangoLayout</type></link> used by a <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-line-alignment" role="function" condition="since:1.0">
+<title>clutter_text_set_line_alignment ()</title>
+<indexterm zone="clutter-text-set-line-alignment" role="1.0"><primary sortas="text_set_line_alignment">clutter_text_set_line_alignment</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_line_alignment     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoAlignment">PangoAlignment</link> alignment);</programlisting>
+<para>
+Sets the way that the lines of a wrapped label are aligned with
+respect to each other. This does not affect the overall alignment
+of the label within its allocated or specified width.
+</para>
+<para>
+To align a <link linkend="ClutterText"><type>ClutterText</type></link> actor you should add it to a container
+that supports alignment, or use the anchor point.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alignment</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="PangoAlignment"><type>PangoAlignment</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-line-alignment" role="function">
+<title>clutter_text_get_line_alignment ()</title>
+<indexterm zone="clutter-text-get-line-alignment"><primary sortas="text_get_line_alignment">clutter_text_get_line_alignment</primary></indexterm><programlisting><link linkend="PangoAlignment">PangoAlignment</link>      clutter_text_get_line_alignment     (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the alignment of a <link linkend="ClutterText"><type>ClutterText</type></link>, as set by
+<link linkend="clutter-text-set-line-alignment"><function>clutter_text_set_line_alignment()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="PangoAlignment"><type>PangoAlignment</type></link>
+
+Since 1.0
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-text-set-line-wrap" role="function" condition="since:1.0">
+<title>clutter_text_set_line_wrap ()</title>
+<indexterm zone="clutter-text-set-line-wrap" role="1.0"><primary sortas="text_set_line_wrap">clutter_text_set_line_wrap</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_line_wrap          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> line_wrap);</programlisting>
+<para>
+Sets whether the contents of a <link linkend="ClutterText"><type>ClutterText</type></link> actor should wrap,
+if they don't fit the size assigned to the actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_wrap</parameter>&#160;:</term>
+<listitem><simpara> whether the contents should wrap
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-line-wrap" role="function" condition="since:1.0">
+<title>clutter_text_get_line_wrap ()</title>
+<indexterm zone="clutter-text-get-line-wrap" role="1.0"><primary sortas="text_get_line_wrap">clutter_text_get_line_wrap</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_line_wrap          (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the value set using <link linkend="clutter-text-set-line-wrap"><function>clutter_text_set_line_wrap()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the <link linkend="ClutterText"><type>ClutterText</type></link> actor should wrap
+  its contents
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-line-wrap-mode" role="function" condition="since:1.0">
+<title>clutter_text_set_line_wrap_mode ()</title>
+<indexterm zone="clutter-text-set-line-wrap-mode" role="1.0"><primary sortas="text_set_line_wrap_mode">clutter_text_set_line_wrap_mode</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_line_wrap_mode     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="PangoWrapMode">PangoWrapMode</link> wrap_mode);</programlisting>
+<para>
+If line wrapping is enabled (see <link linkend="clutter-text-set-line-wrap"><function>clutter_text_set_line_wrap()</function></link>) this
+function controls how the line wrapping is performed. The default is
+<link linkend="PANGO-WRAP-WORD--CAPS"><literal>PANGO_WRAP_WORD</literal></link> which means wrap on word boundaries.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>wrap_mode</parameter>&#160;:</term>
+<listitem><simpara> the line wrapping mode
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-line-wrap-mode" role="function" condition="since:1.0">
+<title>clutter_text_get_line_wrap_mode ()</title>
+<indexterm zone="clutter-text-get-line-wrap-mode" role="1.0"><primary sortas="text_get_line_wrap_mode">clutter_text_get_line_wrap_mode</primary></indexterm><programlisting><link linkend="PangoWrapMode">PangoWrapMode</link>       clutter_text_get_line_wrap_mode     (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the line wrap mode used by the <link linkend="ClutterText"><type>ClutterText</type></link> actor.
+</para>
+<para>
+See <link linkend="clutter-text-set-line-wrap-mode"><function>clutter_text_set_line_wrap_mode()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the wrap mode used by the <link linkend="ClutterText"><type>ClutterText</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-max-length" role="function" condition="since:1.0">
+<title>clutter_text_set_max_length ()</title>
+<indexterm zone="clutter-text-set-max-length" role="1.0"><primary sortas="text_set_max_length">clutter_text_set_max_length</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_max_length         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> max);</programlisting>
+<para>
+Sets the maximum allowed length of the contents of the actor. If the
+current contents are longer than the given length, then they will be
+truncated to fit.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max</parameter>&#160;:</term>
+<listitem><simpara> the maximum number of characters allowed in the text actor; 0
+  to disable or -1 to set the length of the current string
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-max-length" role="function" condition="since:1.0">
+<title>clutter_text_get_max_length ()</title>
+<indexterm zone="clutter-text-get-max-length" role="1.0"><primary sortas="text_get_max_length">clutter_text_get_max_length</primary></indexterm><programlisting><link linkend="gint">gint</link>                clutter_text_get_max_length         (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Gets the maximum length of text that can be set into a text actor.
+</para>
+<para>
+See <link linkend="clutter-text-set-max-length"><function>clutter_text_set_max_length()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the maximum number of characters.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-selectable" role="function" condition="since:1.0">
+<title>clutter_text_set_selectable ()</title>
+<indexterm zone="clutter-text-set-selectable" role="1.0"><primary sortas="text_set_selectable">clutter_text_set_selectable</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_selectable         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> selectable);</programlisting>
+<para>
+Sets whether a <link linkend="ClutterText"><type>ClutterText</type></link> actor should be selectable.
+</para>
+<para>
+A selectable <link linkend="ClutterText"><type>ClutterText</type></link> will allow selecting its contents using
+the pointer or the keyboard.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>selectable</parameter>&#160;:</term>
+<listitem><simpara> whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be selectable
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-selectable" role="function" condition="since:1.0">
+<title>clutter_text_get_selectable ()</title>
+<indexterm zone="clutter-text-get-selectable" role="1.0"><primary sortas="text_get_selectable">clutter_text_get_selectable</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_selectable         (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether a <link linkend="ClutterText"><type>ClutterText</type></link> is selectable or not.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the actor is selectable
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-selection" role="function" condition="since:1.0">
+<title>clutter_text_set_selection ()</title>
+<indexterm zone="clutter-text-set-selection" role="1.0"><primary sortas="text_set_selection">clutter_text_set_selection</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_selection          (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);</programlisting>
+<para>
+Selects the region of text between <parameter>start_pos</parameter> and <parameter>end_pos</parameter>.
+</para>
+<para>
+This function changes the position of the cursor to match
+<parameter>start_pos</parameter> and the selection bound to match <parameter>end_pos</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start_pos</parameter>&#160;:</term>
+<listitem><simpara> start of the selection, in characters
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end_pos</parameter>&#160;:</term>
+<listitem><simpara> end of the selection, in characters
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-selection" role="function" condition="since:1.0">
+<title>clutter_text_get_selection ()</title>
+<indexterm zone="clutter-text-get-selection" role="1.0"><primary sortas="text_get_selection">clutter_text_get_selection</primary></indexterm><programlisting><link linkend="gchar">gchar</link> *             clutter_text_get_selection          (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the currently selected text.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly allocated string containing the currently
+  selected text, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>. Use <link linkend="g-free"><function>g_free()</function></link> to free the returned
+  string.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-selection-bound" role="function" condition="since:1.0">
+<title>clutter_text_set_selection_bound ()</title>
+<indexterm zone="clutter-text-set-selection-bound" role="1.0"><primary sortas="text_set_selection_bound">clutter_text_set_selection_bound</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_selection_bound    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> selection_bound);</programlisting>
+<para>
+Sets the other end of the selection, starting from the current
+cursor position.
+</para>
+<para>
+If <parameter>selection_bound</parameter> is -1, the selection unset.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>selection_bound</parameter>&#160;:</term>
+<listitem><simpara> the position of the end of the selection, in characters
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-selection-bound" role="function" condition="since:1.0">
+<title>clutter_text_get_selection_bound ()</title>
+<indexterm zone="clutter-text-get-selection-bound" role="1.0"><primary sortas="text_get_selection_bound">clutter_text_get_selection_bound</primary></indexterm><programlisting><link linkend="gint">gint</link>                clutter_text_get_selection_bound    (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the other end of the selection of a <link linkend="ClutterText"><type>ClutterText</type></link> actor,
+in characters from the current cursor position.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the position of the other end of the selection
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-single-line-mode" role="function" condition="since:1.0">
+<title>clutter_text_set_single_line_mode ()</title>
+<indexterm zone="clutter-text-set-single-line-mode" role="1.0"><primary sortas="text_set_single_line_mode">clutter_text_set_single_line_mode</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_single_line_mode   (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> single_line);</programlisting>
+<para>
+Sets whether a <link linkend="ClutterText"><type>ClutterText</type></link> actor should be in single line mode
+or not.
+</para>
+<para>
+A text actor in single line mode will not wrap text and will clip
+the the visible area to the predefined size. The contents of the
+text actor will scroll to display the end of the text if its length
+is bigger than the allocated width.
+</para>
+<para>
+When setting the single line mode the <link linkend="ClutterText--activatable"><type>"activatable"</type></link>
+property is also set as a side effect. Instead of entering a new
+line character, the text actor will emit the <link linkend="ClutterText-activate"><type>"activate"</type></link>
+signal.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>single_line</parameter>&#160;:</term>
+<listitem><simpara> whether to enable single line mode
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-single-line-mode" role="function" condition="since:1.0">
+<title>clutter_text_get_single_line_mode ()</title>
+<indexterm zone="clutter-text-get-single-line-mode" role="1.0"><primary sortas="text_get_single_line_mode">clutter_text_get_single_line_mode</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_single_line_mode   (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor is in single line mode.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the <link linkend="ClutterText"><type>ClutterText</type></link> actor is in single line mode
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-use-markup" role="function" condition="since:1.0">
+<title>clutter_text_set_use_markup ()</title>
+<indexterm zone="clutter-text-set-use-markup" role="1.0"><primary sortas="text_set_use_markup">clutter_text_set_use_markup</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_use_markup         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> setting);</programlisting>
+<para>
+Sets whether the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor contains markup
+in <link linkend="PangoMarkupFormat">Pango's text markup language</link>.
+</para>
+<para>
+Setting <link linkend="ClutterText--use-markup"><type>"use-markup"</type></link> on an editable <link linkend="ClutterText"><type>ClutterText</type></link> will
+make the actor discard any markup.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>setting</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the text should be parsed for markup.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-use-markup" role="function" condition="since:1.0">
+<title>clutter_text_get_use_markup ()</title>
+<indexterm zone="clutter-text-get-use-markup" role="1.0"><primary sortas="text_get_use_markup">clutter_text_get_use_markup</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_use_markup         (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be
+parsed for the Pango text markup.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the contents will be parsed for markup
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-editable" role="function" condition="since:1.0">
+<title>clutter_text_set_editable ()</title>
+<indexterm zone="clutter-text-set-editable" role="1.0"><primary sortas="text_set_editable">clutter_text_set_editable</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_editable           (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> editable);</programlisting>
+<para>
+Sets whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be editable.
+</para>
+<para>
+An editable <link linkend="ClutterText"><type>ClutterText</type></link> with key focus set using
+<link linkend="clutter-actor-grab-key-focus"><function>clutter_actor_grab_key_focus()</function></link> or <link linkend="clutter-stage-take-key-focus"><function>clutter_stage_take_key_focus()</function></link>
+will receive key events and will update its contents accordingly.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>editable</parameter>&#160;:</term>
+<listitem><simpara> whether the <link linkend="ClutterText"><type>ClutterText</type></link> should be editable
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-editable" role="function" condition="since:1.0">
+<title>clutter_text_get_editable ()</title>
+<indexterm zone="clutter-text-get-editable" role="1.0"><primary sortas="text_get_editable">clutter_text_get_editable</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_editable           (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether a <link linkend="ClutterText"><type>ClutterText</type></link> is editable or not.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the actor is editable
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-insert-text" role="function" condition="since:1.0">
+<title>clutter_text_insert_text ()</title>
+<indexterm zone="clutter-text-insert-text" role="1.0"><primary sortas="text_insert_text">clutter_text_insert_text</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_insert_text            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="gchar">gchar</link> *text,
+                                                         <link linkend="gssize">gssize</link> position);</programlisting>
+<para>
+Inserts <parameter>text</parameter> into a <link linkend="ClutterActor"><type>ClutterActor</type></link> at the given position.
+</para>
+<para>
+If <parameter>position</parameter> is a negative number, the text will be appended
+at the end of the current contents of the <link linkend="ClutterText"><type>ClutterText</type></link>.
+</para>
+<para>
+The position is expressed in characters, not in bytes.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&#160;:</term>
+<listitem><simpara> the text to be inserted
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&#160;:</term>
+<listitem><simpara> the position of the insertion, or -1
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-insert-unichar" role="function" condition="since:1.0">
+<title>clutter_text_insert_unichar ()</title>
+<indexterm zone="clutter-text-insert-unichar" role="1.0"><primary sortas="text_insert_unichar">clutter_text_insert_unichar</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_insert_unichar         (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gunichar">gunichar</link> wc);</programlisting>
+<para>
+Inserts <parameter>wc</parameter> at the current cursor position of a
+<link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>wc</parameter>&#160;:</term>
+<listitem><simpara> a Unicode character
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-delete-chars" role="function" condition="since:1.0">
+<title>clutter_text_delete_chars ()</title>
+<indexterm zone="clutter-text-delete-chars" role="1.0"><primary sortas="text_delete_chars">clutter_text_delete_chars</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_delete_chars           (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="guint">guint</link> n_chars);</programlisting>
+<para>
+Deletes <parameter>n_chars</parameter> inside a <link linkend="ClutterText"><type>ClutterText</type></link> actor, starting from the
+current cursor position.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_chars</parameter>&#160;:</term>
+<listitem><simpara> the number of characters to delete
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-delete-text" role="function" condition="since:1.0">
+<title>clutter_text_delete_text ()</title>
+<indexterm zone="clutter-text-delete-text" role="1.0"><primary sortas="text_delete_text">clutter_text_delete_text</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_delete_text            (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);</programlisting>
+<para>
+Deletes the text inside a <link linkend="ClutterText"><type>ClutterText</type></link> actor between <parameter>start_pos</parameter>
+and <parameter>end_pos</parameter>.
+</para>
+<para>
+The starting and ending positions are expressed in characters,
+not in bytes.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start_pos</parameter>&#160;:</term>
+<listitem><simpara> starting position
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end_pos</parameter>&#160;:</term>
+<listitem><simpara> ending position
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-delete-selection" role="function" condition="since:1.0">
+<title>clutter_text_delete_selection ()</title>
+<indexterm zone="clutter-text-delete-selection" role="1.0"><primary sortas="text_delete_selection">clutter_text_delete_selection</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_delete_selection       (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Deletes the currently selected text
+</para>
+<para>
+This function is only useful in subclasses of <link linkend="ClutterText"><type>ClutterText</type></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if text was deleted or if the text actor
+  is empty, and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-chars" role="function" condition="since:1.0">
+<title>clutter_text_get_chars ()</title>
+<indexterm zone="clutter-text-get-chars" role="1.0"><primary sortas="text_get_chars">clutter_text_get_chars</primary></indexterm><programlisting><link linkend="gchar">gchar</link> *             clutter_text_get_chars              (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gssize">gssize</link> start_pos,
+                                                         <link linkend="gssize">gssize</link> end_pos);</programlisting>
+<para>
+Retrieves the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor between
+<parameter>start_pos</parameter> and <parameter>end_pos</parameter>.
+</para>
+<para>
+The positions are specified in characters, not in bytes.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start_pos</parameter>&#160;:</term>
+<listitem><simpara> start of text, in characters
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end_pos</parameter>&#160;:</term>
+<listitem><simpara> end of text, in characters
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly allocated string with the contents of
+  the text actor between the specified positions. Use <link linkend="g-free"><function>g_free()</function></link>
+  to free the resources when done
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-cursor-color" role="function" condition="since:1.0">
+<title>clutter_text_set_cursor_color ()</title>
+<indexterm zone="clutter-text-set-cursor-color" role="1.0"><primary sortas="text_set_cursor_color">clutter_text_set_cursor_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_cursor_color       (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Sets the color of the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.
+</para>
+<para>
+If <parameter>color</parameter> is <link linkend="NULL--CAPS"><literal>NULL</literal></link>, the cursor color will be the same as the
+text color.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> the color of the cursor, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset it
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-cursor-color" role="function" condition="since:1.0">
+<title>clutter_text_get_cursor_color ()</title>
+<indexterm zone="clutter-text-get-cursor-color" role="1.0"><primary sortas="text_get_cursor_color">clutter_text_get_cursor_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_get_cursor_color       (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Retrieves the color of the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-selection-color" role="function" condition="since:1.0">
+<title>clutter_text_set_selection_color ()</title>
+<indexterm zone="clutter-text-set-selection-color" role="1.0"><primary sortas="text_set_selection_color">clutter_text_set_selection_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_selection_color    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Sets the color of the selection of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.
+</para>
+<para>
+If <parameter>color</parameter> is <link linkend="NULL--CAPS"><literal>NULL</literal></link>, the selection color will be the same as the
+cursor color, or if no cursor color is set either then it will be
+the same as the text color.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> the color of the selection, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset it
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-selection-color" role="function" condition="since:1.0">
+<title>clutter_text_get_selection_color ()</title>
+<indexterm zone="clutter-text-get-selection-color" role="1.0"><primary sortas="text_get_selection_color">clutter_text_get_selection_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_get_selection_color    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Retrieves the color of the selection of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-cursor-position" role="function" condition="since:1.0">
+<title>clutter_text_set_cursor_position ()</title>
+<indexterm zone="clutter-text-set-cursor-position" role="1.0"><primary sortas="text_set_cursor_position">clutter_text_set_cursor_position</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_cursor_position    (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> position);</programlisting>
+<para>
+Sets the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor at <parameter>position</parameter>.
+</para>
+<para>
+The position is expressed in characters, not in bytes.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&#160;:</term>
+<listitem><simpara> the new cursor position, in characters
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-cursor-position" role="function" condition="since:1.0">
+<title>clutter_text_get_cursor_position ()</title>
+<indexterm zone="clutter-text-get-cursor-position" role="1.0"><primary sortas="text_get_cursor_position">clutter_text_get_cursor_position</primary></indexterm><programlisting><link linkend="gint">gint</link>                clutter_text_get_cursor_position    (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the cursor position.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the cursor position, in characters
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-cursor-visible" role="function" condition="since:1.0">
+<title>clutter_text_set_cursor_visible ()</title>
+<indexterm zone="clutter-text-set-cursor-visible" role="1.0"><primary sortas="text_set_cursor_visible">clutter_text_set_cursor_visible</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_cursor_visible     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gboolean">gboolean</link> cursor_visible);</programlisting>
+<para>
+Sets whether the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor should be
+visible or not.
+</para>
+<para>
+The color of the cursor will be the same as the text color
+unless <link linkend="clutter-text-set-cursor-color"><function>clutter_text_set_cursor_color()</function></link> has been called.
+</para>
+<para>
+The size of the cursor can be set using <link linkend="clutter-text-set-cursor-size"><function>clutter_text_set_cursor_size()</function></link>.
+</para>
+<para>
+The position of the cursor can be changed programmatically using
+<link linkend="clutter-text-set-cursor-position"><function>clutter_text_set_cursor_position()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cursor_visible</parameter>&#160;:</term>
+<listitem><simpara> whether the cursor should be visible
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-cursor-visible" role="function" condition="since:1.0">
+<title>clutter_text_get_cursor_visible ()</title>
+<indexterm zone="clutter-text-get-cursor-visible" role="1.0"><primary sortas="text_get_cursor_visible">clutter_text_get_cursor_visible</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_get_cursor_visible     (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves whether the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor is visible.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the cursor is visible
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-set-cursor-size" role="function" condition="since:1.0">
+<title>clutter_text_set_cursor_size ()</title>
+<indexterm zone="clutter-text-set-cursor-size" role="1.0"><primary sortas="text_set_cursor_size">clutter_text_set_cursor_size</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_text_set_cursor_size        (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> size);</programlisting>
+<para>
+Sets the size of the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link>. The cursor
+will only be visible if the <link linkend="ClutterText--cursor-visible"><type>"cursor-visible"</type></link> property
+is set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&#160;:</term>
+<listitem><simpara> the size of the cursor, in pixels, or -1 to use the
+  default value
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-get-cursor-size" role="function" condition="since:1.0">
+<title>clutter_text_get_cursor_size ()</title>
+<indexterm zone="clutter-text-get-cursor-size" role="1.0"><primary sortas="text_get_cursor_size">clutter_text_get_cursor_size</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_text_get_cursor_size        (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Retrieves the size of the cursor of a <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the size of the cursor, in pixels
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-activate" role="function" condition="since:1.0">
+<title>clutter_text_activate ()</title>
+<indexterm zone="clutter-text-activate" role="1.0"><primary sortas="text_activate">clutter_text_activate</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_activate               (<link linkend="ClutterText">ClutterText</link> *self);</programlisting>
+<para>
+Emits the <link linkend="ClutterText-activate"><type>"activate"</type></link> signal, if <parameter>self</parameter> has been set
+as activatable using <link linkend="clutter-text-set-activatable"><function>clutter_text_set_activatable()</function></link>.
+</para>
+<para>
+This function can be used to emit the ::activate signal inside
+a <link linkend="ClutterActor-captured-event"><type>"captured-event"</type></link> or <link linkend="ClutterActor-key-press-event"><type>"key-press-event"</type></link>
+signal handlers before the default signal handler for the
+<link linkend="ClutterText"><type>ClutterText</type></link> is invoked.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the ::activate signal has been emitted,
+  and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-text-position-to-coords" role="function" condition="since:1.0">
+<title>clutter_text_position_to_coords ()</title>
+<indexterm zone="clutter-text-position-to-coords" role="1.0"><primary sortas="text_position_to_coords">clutter_text_position_to_coords</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_text_position_to_coords     (<link linkend="ClutterText">ClutterText</link> *self,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gfloat">gfloat</link> *x,
+                                                         <link linkend="gfloat">gfloat</link> *y,
+                                                         <link linkend="gfloat">gfloat</link> *line_height);</programlisting>
+<para>
+Retrieves the coordinates of the given <parameter>position</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterText"><type>ClutterText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&#160;:</term>
+<listitem><simpara> position in characters
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> return location for the X coordinate, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> return location for the Y coordinate, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_height</parameter>&#160;:</term>
+<listitem><simpara> return location for the line height, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the conversion was successful
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterText.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterText--activatable" role="property"><title>The <literal>&quot;activatable&quot;</literal> property</title>
+<indexterm zone="ClutterText--activatable" role="1.0"><primary sortas="Text:activatable">ClutterText:activatable</primary></indexterm><programlisting>  &quot;activatable&quot;              <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Toggles whether return invokes the activate signal or not.</para>
+<para>
+</para><para>Default value: TRUE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--attributes" role="property"><title>The <literal>&quot;attributes&quot;</literal> property</title>
+<indexterm zone="ClutterText--attributes" role="1.0"><primary sortas="Text:attributes">ClutterText:attributes</primary></indexterm><programlisting>  &quot;attributes&quot;               <link linkend="PangoAttrList">PangoAttrList</link>*        : Read / Write</programlisting>
+<para>
+A list of <link linkend="PangoStyleAttribute"><type>PangoStyleAttribute</type></link><!-- -->s to be applied to the
+contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--color" role="property"><title>The <literal>&quot;color&quot;</literal> property</title>
+<indexterm zone="ClutterText--color" role="1.0"><primary sortas="Text:color">ClutterText:color</primary></indexterm><programlisting>  &quot;color&quot;                    <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write</programlisting>
+<para>
+The color used to render the text.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--cursor-color" role="property"><title>The <literal>&quot;cursor-color&quot;</literal> property</title>
+<indexterm zone="ClutterText--cursor-color" role="1.0"><primary sortas="Text:cursor-color">ClutterText:cursor-color</primary></indexterm><programlisting>  &quot;cursor-color&quot;             <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write</programlisting>
+<para>
+The color of the cursor.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--cursor-color-set" role="property"><title>The <literal>&quot;cursor-color-set&quot;</literal> property</title>
+<indexterm zone="ClutterText--cursor-color-set" role="1.0"><primary sortas="Text:cursor-color-set">ClutterText:cursor-color-set</primary></indexterm><programlisting>  &quot;cursor-color-set&quot;         <link linkend="gboolean">gboolean</link>              : Read</programlisting>
+<para>
+Will be set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if <link linkend="ClutterText--cursor-color"><type>"cursor-color"</type></link> has been set.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--cursor-size" role="property"><title>The <literal>&quot;cursor-size&quot;</literal> property</title>
+<indexterm zone="ClutterText--cursor-size" role="1.0"><primary sortas="Text:cursor-size">ClutterText:cursor-size</primary></indexterm><programlisting>  &quot;cursor-size&quot;              <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The size of the cursor, in pixels. If set to -1 the size used will
+be the default cursor size of 2 pixels.</para>
+<para>
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: 2</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--cursor-visible" role="property"><title>The <literal>&quot;cursor-visible&quot;</literal> property</title>
+<indexterm zone="ClutterText--cursor-visible" role="1.0"><primary sortas="Text:cursor-visible">ClutterText:cursor-visible</primary></indexterm><programlisting>  &quot;cursor-visible&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the input cursor is visible or not, it will only be visible
+if both <link linkend="ClutterText--cursor-visible"><type>"cursor-visible"</type></link> and <link linkend="ClutterText--editable"><type>"editable"</type></link> are
+set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link>.</para>
+<para>
+</para><para>Default value: TRUE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--editable" role="property"><title>The <literal>&quot;editable&quot;</literal> property</title>
+<indexterm zone="ClutterText--editable" role="1.0"><primary sortas="Text:editable">ClutterText:editable</primary></indexterm><programlisting>  &quot;editable&quot;                 <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether key events delivered to the actor causes editing.</para>
+<para>
+</para><para>Default value: TRUE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--ellipsize" role="property"><title>The <literal>&quot;ellipsize&quot;</literal> property</title>
+<indexterm zone="ClutterText--ellipsize" role="1.0"><primary sortas="Text:ellipsize">ClutterText:ellipsize</primary></indexterm><programlisting>  &quot;ellipsize&quot;                <link linkend="PangoEllipsizeMode">PangoEllipsizeMode</link>    : Read / Write</programlisting>
+<para>
+The preferred place to ellipsize the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor</para>
+<para>
+</para><para>Default value: PANGO_ELLIPSIZE_NONE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--font-name" role="property"><title>The <literal>&quot;font-name&quot;</literal> property</title>
+<indexterm zone="ClutterText--font-name" role="1.0"><primary sortas="Text:font-name">ClutterText:font-name</primary></indexterm><programlisting>  &quot;font-name&quot;                <link linkend="gchar">gchar</link>*                : Read / Write</programlisting>
+<para>
+The font to be used by the <link linkend="ClutterText"><type>ClutterText</type></link>, as a string
+that can be parsed by <link linkend="pango-font-description-from-string"><function>pango_font_description_from_string()</function></link>.</para>
+<para>
+</para><para>Default value: NULL</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--justify" role="property"><title>The <literal>&quot;justify&quot;</literal> property</title>
+<indexterm zone="ClutterText--justify" role="1.0"><primary sortas="Text:justify">ClutterText:justify</primary></indexterm><programlisting>  &quot;justify&quot;                  <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> should be justified
+on both margins.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--line-alignment" role="property"><title>The <literal>&quot;line-alignment&quot;</literal> property</title>
+<indexterm zone="ClutterText--line-alignment" role="1.0"><primary sortas="Text:line-alignment">ClutterText:line-alignment</primary></indexterm><programlisting>  &quot;line-alignment&quot;           <link linkend="PangoAlignment">PangoAlignment</link>        : Read / Write</programlisting>
+<para>
+The preferred alignment for the text. This property controls
+the alignment of multi-line paragraphs.</para>
+<para>
+</para><para>Default value: PANGO_ALIGN_LEFT</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--line-wrap" role="property"><title>The <literal>&quot;line-wrap&quot;</literal> property</title>
+<indexterm zone="ClutterText--line-wrap" role="1.0"><primary sortas="Text:line-wrap">ClutterText:line-wrap</primary></indexterm><programlisting>  &quot;line-wrap&quot;                <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether to wrap the lines of <link linkend="ClutterText--text"><type>"text"</type></link> if the contents
+exceed the available allocation. The wrapping strategy is
+controlled by the <link linkend="ClutterText--line-wrap-mode"><type>"line-wrap-mode"</type></link> property.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--line-wrap-mode" role="property"><title>The <literal>&quot;line-wrap-mode&quot;</literal> property</title>
+<indexterm zone="ClutterText--line-wrap-mode" role="1.0"><primary sortas="Text:line-wrap-mode">ClutterText:line-wrap-mode</primary></indexterm><programlisting>  &quot;line-wrap-mode&quot;           <link linkend="PangoWrapMode">PangoWrapMode</link>         : Read / Write</programlisting>
+<para>
+If <link linkend="ClutterText--line-wrap"><type>"line-wrap"</type></link> is set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link>, this property will
+control how the text is wrapped.</para>
+<para>
+</para><para>Default value: PANGO_WRAP_WORD</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--max-length" role="property"><title>The <literal>&quot;max-length&quot;</literal> property</title>
+<indexterm zone="ClutterText--max-length" role="1.0"><primary sortas="Text:max-length">ClutterText:max-length</primary></indexterm><programlisting>  &quot;max-length&quot;               <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The maximum length of the contents of the <link linkend="ClutterText"><type>ClutterText</type></link> actor.</para>
+<para>
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: 0</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--password-char" role="property"><title>The <literal>&quot;password-char&quot;</literal> property</title>
+<indexterm zone="ClutterText--password-char" role="1.0"><primary sortas="Text:password-char">ClutterText:password-char</primary></indexterm><programlisting>  &quot;password-char&quot;            <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>
+If non-zero, the character that should be used in place of
+the actual text in a password text actor.</para>
+<para>
+</para><para>Default value: 0</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--position" role="property"><title>The <literal>&quot;position&quot;</literal> property</title>
+<indexterm zone="ClutterText--position" role="1.0"><primary sortas="Text:position">ClutterText:position</primary></indexterm><programlisting>  &quot;position&quot;                 <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The current input cursor position. -1 is taken to be the end of the text</para>
+<para>
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--selectable" role="property"><title>The <literal>&quot;selectable&quot;</literal> property</title>
+<indexterm zone="ClutterText--selectable" role="1.0"><primary sortas="Text:selectable">ClutterText:selectable</primary></indexterm><programlisting>  &quot;selectable&quot;               <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether it is possible to select text, either using the pointer
+or the keyboard.</para>
+<para>
+</para><para>Default value: TRUE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--selection-bound" role="property"><title>The <literal>&quot;selection-bound&quot;</literal> property</title>
+<indexterm zone="ClutterText--selection-bound" role="1.0"><primary sortas="Text:selection-bound">ClutterText:selection-bound</primary></indexterm><programlisting>  &quot;selection-bound&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The current input cursor position. -1 is taken to be the end of the text</para>
+<para>
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--selection-color" role="property"><title>The <literal>&quot;selection-color&quot;</literal> property</title>
+<indexterm zone="ClutterText--selection-color" role="1.0"><primary sortas="Text:selection-color">ClutterText:selection-color</primary></indexterm><programlisting>  &quot;selection-color&quot;          <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write</programlisting>
+<para>
+The color of the selection.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--selection-color-set" role="property"><title>The <literal>&quot;selection-color-set&quot;</literal> property</title>
+<indexterm zone="ClutterText--selection-color-set" role="1.0"><primary sortas="Text:selection-color-set">ClutterText:selection-color-set</primary></indexterm><programlisting>  &quot;selection-color-set&quot;      <link linkend="gboolean">gboolean</link>              : Read</programlisting>
+<para>
+Will be set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if <link linkend="ClutterText--selection-color"><type>"selection-color"</type></link> has been set.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--single-line-mode" role="property"><title>The <literal>&quot;single-line-mode&quot;</literal> property</title>
+<indexterm zone="ClutterText--single-line-mode" role="1.0"><primary sortas="Text:single-line-mode">ClutterText:single-line-mode</primary></indexterm><programlisting>  &quot;single-line-mode&quot;         <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the <link linkend="ClutterText"><type>ClutterText</type></link> actor should be in single line mode
+or not. A single line <link linkend="ClutterText"><type>ClutterText</type></link> actor will only contain a
+single line of text, scrolling it in case its length is bigger
+than the allocated size.
+</para>
+<para>
+Setting this property will also set the <link linkend="ClutterText--activatable"><type>"activatable"</type></link>
+property as a side-effect.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--text" role="property"><title>The <literal>&quot;text&quot;</literal> property</title>
+<indexterm zone="ClutterText--text" role="1.0"><primary sortas="Text:text">ClutterText:text</primary></indexterm><programlisting>  &quot;text&quot;                     <link linkend="gchar">gchar</link>*                : Read / Write</programlisting>
+<para>
+The text to render inside the actor.</para>
+<para>
+</para><para>Default value: ""</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterText--use-markup" role="property"><title>The <literal>&quot;use-markup&quot;</literal> property</title>
+<indexterm zone="ClutterText--use-markup" role="1.0"><primary sortas="Text:use-markup">ClutterText:use-markup</primary></indexterm><programlisting>  &quot;use-markup&quot;               <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the text includes Pango markup. See <link linkend="pango-layout-set-markup"><function>pango_layout_set_markup()</function></link>
+in the Pango documentation.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+</refsect1>
+
+<refsect1 id="ClutterText.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ClutterText-activate" role="signal"><title>The <literal>&quot;activate&quot;</literal> signal</title>
+<indexterm zone="ClutterText-activate" role="1.0"><primary sortas="Text::activate">ClutterText::activate</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterText">ClutterText</link> *self,
+                                                        <link linkend="gpointer">gpointer</link>     user_data)      : Run Last</programlisting>
+<para>
+The ::activate signal is emitted each time the actor is 'activated'
+by the user, normally by pressing the 'Enter' key. The signal is
+emitted only if <link linkend="ClutterText--activatable"><type>"activatable"</type></link> is set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterText"><type>ClutterText</type></link> that emitted the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 1.0</para></refsect2><refsect2 id="ClutterText-cursor-event" role="signal"><title>The <literal>&quot;cursor-event&quot;</literal> signal</title>
+<indexterm zone="ClutterText-cursor-event" role="1.0"><primary sortas="Text::cursor-event">ClutterText::cursor-event</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterText">ClutterText</link>     *self,
+                                                        <link linkend="ClutterGeometry">ClutterGeometry</link> *geometry,
+                                                        <link linkend="gpointer">gpointer</link>         user_data)      : Run Last</programlisting>
+<para>
+The ::cursor-event signal is emitted whenever the cursor position
+changes inside a <link linkend="ClutterText"><type>ClutterText</type></link> actor. Inside <parameter>geometry</parameter> it is stored
+the current position and size of the cursor, relative to the actor
+itself.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterText"><type>ClutterText</type></link> that emitted the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>geometry</parameter>&#160;:</term>
+<listitem><simpara> the coordinates of the cursor
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 1.0</para></refsect2><refsect2 id="ClutterText-text-changed" role="signal"><title>The <literal>&quot;text-changed&quot;</literal> signal</title>
+<indexterm zone="ClutterText-text-changed" role="1.0"><primary sortas="Text::text-changed">ClutterText::text-changed</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterText">ClutterText</link> *self,
+                                                        <link linkend="gpointer">gpointer</link>     user_data)      : Run Last</programlisting>
+<para>
+The ::text-changed signal is emitted after <parameter>actor</parameter>'s text changes</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterText"><type>ClutterText</type></link> that emitted the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 1.0</para></refsect2>
+</refsect1>
+
+
+
+</refentry>

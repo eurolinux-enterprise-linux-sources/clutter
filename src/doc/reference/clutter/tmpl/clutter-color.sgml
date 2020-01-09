@@ -1,0 +1,232 @@
+<!-- ##### SECTION Title ##### -->
+Colors
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterColor ##### -->
+<para>
+
+</para>
+
+@red: 
+@green: 
+@blue: 
+@alpha: 
+
+<!-- ##### FUNCTION clutter_color_new ##### -->
+<para>
+
+</para>
+
+@red: 
+@green: 
+@blue: 
+@alpha: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_copy ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_free ##### -->
+<para>
+
+</para>
+
+@color: 
+
+
+<!-- ##### FUNCTION clutter_color_equal ##### -->
+<para>
+
+</para>
+
+@v1: 
+@v2: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_hash ##### -->
+<para>
+
+</para>
+
+@v: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_from_string ##### -->
+<para>
+
+</para>
+
+@color: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_to_string ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_from_hls ##### -->
+<para>
+
+</para>
+
+@color: 
+@hue: 
+@luminance: 
+@saturation: 
+
+
+<!-- ##### FUNCTION clutter_color_to_hls ##### -->
+<para>
+
+</para>
+
+@color: 
+@hue: 
+@luminance: 
+@saturation: 
+
+
+<!-- ##### FUNCTION clutter_color_from_pixel ##### -->
+<para>
+
+</para>
+
+@color: 
+@pixel: 
+
+
+<!-- ##### FUNCTION clutter_color_to_pixel ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_color_add ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@result: 
+
+
+<!-- ##### FUNCTION clutter_color_subtract ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@result: 
+
+
+<!-- ##### FUNCTION clutter_color_lighten ##### -->
+<para>
+
+</para>
+
+@color: 
+@result: 
+
+
+<!-- ##### FUNCTION clutter_color_darken ##### -->
+<para>
+
+</para>
+
+@color: 
+@result: 
+
+
+<!-- ##### FUNCTION clutter_color_shade ##### -->
+<para>
+
+</para>
+
+@color: 
+@factor: 
+@result: 
+
+
+<!-- ##### STRUCT ClutterParamSpecColor ##### -->
+<para>
+
+</para>
+
+@default_value: 
+
+<!-- ##### FUNCTION clutter_param_spec_color ##### -->
+<para>
+
+</para>
+
+@name: 
+@nick: 
+@blurb: 
+@default_value: 
+@flags: 
+@Returns: 
+
+
+<!-- ##### MACRO CLUTTER_VALUE_HOLDS_COLOR ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### FUNCTION clutter_value_set_color ##### -->
+<para>
+
+</para>
+
+@value: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_value_get_color ##### -->
+<para>
+
+</para>
+
+@value: 
+@Returns: 
+
+

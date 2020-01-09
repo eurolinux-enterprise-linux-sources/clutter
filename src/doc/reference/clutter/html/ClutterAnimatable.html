@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterAnimatable</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch06.html" title="High Level API">
+<link rel="prev" href="clutter-Implicit-Animations.html" title="Implicit Animations">
+<link rel="next" href="cluttertools.html" title="Part VI. Clutter Tools">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="clutter-Implicit-Animations.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="cluttertools.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ClutterAnimatable.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#ClutterAnimatable.description" class="shortcut">Description</a>
+                 | 
+                <a href="#ClutterAnimatable.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ClutterAnimatable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ClutterAnimatable.top_of_page"></a>ClutterAnimatable</span></h2>
+<p>ClutterAnimatable — Interface for animatable classes</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ClutterAnimatable.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="ClutterAnimatable.html#ClutterAnimatable-struct" title="ClutterAnimatable">ClutterAnimatable</a>;
+                    <a class="link" href="ClutterAnimatable.html#ClutterAnimatableIface" title="ClutterAnimatableIface">ClutterAnimatableIface</a>;
+gboolean            <a class="link" href="ClutterAnimatable.html#clutter-animatable-animate-property" title="clutter_animatable_animate_property ()">clutter_animatable_animate_property</a> (<a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable">ClutterAnimatable</a> *animatable,
+                                                         <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         const GValue *initial_value,
+                                                         const GValue *final_value,
+                                                         gdouble progress,
+                                                         GValue *value);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterAnimatable.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----ClutterAnimatable
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterAnimatable.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> is an interface that allows a <span class="type">GObject</span> class
+to control how a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will animate a property.
+</p>
+<p>
+Each <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> should implement the <code class="function">animate_property()</code>
+virtual function of the interface to compute the animation state
+between two values of an interval depending on a progress factor,
+expressed as a floating point value.
+</p>
+<p>
+If a <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> is animated by a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+instance, the <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a> will call
+<a class="link" href="ClutterAnimatable.html#clutter-animatable-animate-property" title="clutter_animatable_animate_property ()"><code class="function">clutter_animatable_animate_property()</code></a> passing the name of the
+currently animated property; the initial and final values of
+the animation interval; the progress factor. The <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a>
+implementation should return the computed value for the animated
+property.
+</p>
+<p>
+<a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> is available since Clutter 1.0</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterAnimatable.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimatable-struct"></a><h3>ClutterAnimatable</h3>
+<pre class="programlisting">typedef struct _ClutterAnimatable ClutterAnimatable;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterAnimatableIface"></a><h3>ClutterAnimatableIface</h3>
+<pre class="programlisting">typedef struct {
+  gboolean (* animate_property) (ClutterAnimatable *animatable,
+                                 ClutterAnimation  *animation,
+                                 const gchar       *property_name,
+                                 const GValue      *initial_value,
+                                 const GValue      *final_value,
+                                 gdouble            progress,
+                                 GValue            *value);
+} ClutterAnimatableIface;
+</pre>
+<p>
+Base interface for <span class="type">GObject</span>s that can be animated by a
+a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="structfield"><code>animate_property</code></em> ()</span></p></td>
+<td> virtual function for animating a property
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-animatable-animate-property"></a><h3>clutter_animatable_animate_property ()</h3>
+<pre class="programlisting">gboolean            clutter_animatable_animate_property (<a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable">ClutterAnimatable</a> *animatable,
+                                                         <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a> *animation,
+                                                         const gchar *property_name,
+                                                         const GValue *initial_value,
+                                                         const GValue *final_value,
+                                                         gdouble progress,
+                                                         GValue *value);</pre>
+<p>
+Calls the <code class="function">animate_property()</code> virtual function for <em class="parameter"><code>animatable</code></em>.
+</p>
+<p>
+The <em class="parameter"><code>initial_value</code></em> and <em class="parameter"><code>final_value</code></em> <span class="type">GValue</span>s must contain
+the same type; <em class="parameter"><code>value</code></em> must have been initialized to the same
+type of <em class="parameter"><code>initial_value</code></em> and <em class="parameter"><code>final_value</code></em>.
+</p>
+<p>
+All implementation of the <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a> interface must
+implement this function.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animatable</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>animation</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation"><span class="type">ClutterAnimation</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td> the name of the animated property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_value</code></em> :</span></p></td>
+<td> the initial value of the animation interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>final_value</code></em> :</span></p></td>
+<td> the final value of the animation interval
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td> the progress factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> return location for the animation value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the value has been validated and can
+  be applied to the <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable"><span class="type">ClutterAnimatable</span></a>, and <code class="literal">FALSE</code> otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

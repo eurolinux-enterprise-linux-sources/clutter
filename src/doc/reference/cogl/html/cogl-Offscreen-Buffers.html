@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Offscreen Buffers</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="COGL Reference Manual">
+<link rel="up" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="prev" href="cogl-Shaders-and-Programmable-Pipeline.html" title="Shaders and Programmable Pipeline">
+<link rel="next" href="cogl-Fixed-Point-API.html" title="Fixed Point API">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cogl-Shaders-and-Programmable-Pipeline.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">COGL Reference Manual</th>
+<td><a accesskey="n" href="cogl-Fixed-Point-API.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cogl-Offscreen-Buffers.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#cogl-Offscreen-Buffers.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="cogl-Offscreen-Buffers"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cogl-Offscreen-Buffers.top_of_page"></a>Offscreen Buffers</span></h2>
+<p>Offscreen Buffers — Fuctions for creating and manipulating offscreen
+                    frame buffer objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cogl-Offscreen-Buffers.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Offscreen-Buffers.html#cogl-offscreen-new-to-texture" title="cogl_offscreen_new_to_texture ()">cogl_offscreen_new_to_texture</a>       (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          <a class="link" href="cogl-Offscreen-Buffers.html#cogl-offscreen-ref" title="cogl_offscreen_ref ()">cogl_offscreen_ref</a>                  (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+void                <a class="link" href="cogl-Offscreen-Buffers.html#cogl-offscreen-unref" title="cogl_offscreen_unref ()">cogl_offscreen_unref</a>                (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+gboolean            <a class="link" href="cogl-Offscreen-Buffers.html#cogl-is-offscreen" title="cogl_is_offscreen ()">cogl_is_offscreen</a>                   (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);
+void                <a class="link" href="cogl-Offscreen-Buffers.html#cogl-set-draw-buffer" title="cogl_set_draw_buffer ()">cogl_set_draw_buffer</a>                (<a class="link" href="cogl-General-API.html#CoglBufferTarget" title="enum CoglBufferTarget">CoglBufferTarget</a> target,
+                                                         <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> offscreen);
+void                <a class="link" href="cogl-Offscreen-Buffers.html#cogl-pop-draw-buffer" title="cogl_pop_draw_buffer ()">cogl_pop_draw_buffer</a>                (void);
+void                <a class="link" href="cogl-Offscreen-Buffers.html#cogl-push-draw-buffer" title="cogl_push_draw_buffer ()">cogl_push_draw_buffer</a>               (void);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Offscreen-Buffers.description"></a><h2>Description</h2>
+<p>
+Cogl allows creating and operating on offscreen render targets.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Offscreen-Buffers.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="cogl-offscreen-new-to-texture"></a><h3>cogl_offscreen_new_to_texture ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_offscreen_new_to_texture       (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+This creates an offscreen buffer object using the given texture as the
+primary color buffer. It doesn't just initialize the contents of the
+offscreen buffer with the texture; they are tightly bound so that
+drawing to the offscreen buffer effectivly updates the contents of the
+given texture. You don't need to destroy the offscreen buffer before
+you can use the texture again.
+</p>
+<p>
+Note: This does not work with sliced Cogl textures.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A CoglHandle for a Cogl texture
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle"><span class="type">CoglHandle</span></a> for the new offscreen buffer or <a class="link" href="cogl-General-API.html#COGL-INVALID-HANDLE--CAPS" title="COGL_INVALID_HANDLE"><code class="literal">COGL_INVALID_HANDLE</code></a>
+         if it wasn't possible to create the buffer.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-offscreen-ref"></a><h3>cogl_offscreen_ref ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a>          cogl_offscreen_ref                  (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Increments the reference count on the offscreen buffer.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A CoglHandle for an offscreen buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> For convenience it returns the given CoglHandle
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-offscreen-unref"></a><h3>cogl_offscreen_unref ()</h3>
+<pre class="programlisting">void                cogl_offscreen_unref                (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Decreases the reference count for the offscreen buffer and frees it when
+the count reaches 0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A CoglHandle for an offscreen buffer
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-is-offscreen"></a><h3>cogl_is_offscreen ()</h3>
+<pre class="programlisting">gboolean            cogl_is_offscreen                   (<a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> handle);</pre>
+<p>
+Gets whether the given handle references an existing offscreen buffer
+object.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td> A CoglHandle for an offscreen buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the handle references an offscreen buffer,
+  <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-set-draw-buffer"></a><h3>cogl_set_draw_buffer ()</h3>
+<pre class="programlisting">void                cogl_set_draw_buffer                (<a class="link" href="cogl-General-API.html#CoglBufferTarget" title="enum CoglBufferTarget">CoglBufferTarget</a> target,
+                                                         <a class="link" href="cogl-General-API.html#CoglHandle" title="CoglHandle">CoglHandle</a> offscreen);</pre>
+<p>
+This redirects all subsequent drawing to the specified draw buffer. This
+can either be an offscreen buffer created with
+<a class="link" href="cogl-Offscreen-Buffers.html#cogl-offscreen-new-to-texture" title="cogl_offscreen_new_to_texture ()"><code class="function">cogl_offscreen_new_to_texture()</code></a> or you can revert to your original
+on screen window buffer.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td> A <a class="link" href="cogl-General-API.html#CoglBufferTarget" title="enum CoglBufferTarget"><span class="type">CoglBufferTarget</span></a> that specifies what kind of draw buffer you
+         are setting as the render target.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offscreen</code></em> :</span></p></td>
+<td> If you are setting a draw buffer of type COGL_OFFSCREEN_BUFFER
+            then this is a CoglHandle for the offscreen buffer.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-pop-draw-buffer"></a><h3>cogl_pop_draw_buffer ()</h3>
+<pre class="programlisting">void                cogl_pop_draw_buffer                (void);</pre>
+<p>
+Restore <a class="link" href="cogl-Offscreen-Buffers.html#cogl-set-draw-buffer" title="cogl_set_draw_buffer ()"><code class="function">cogl_set_draw_buffer()</code></a> state.</p>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-push-draw-buffer"></a><h3>cogl_push_draw_buffer ()</h3>
+<pre class="programlisting">void                cogl_push_draw_buffer               (void);</pre>
+<p>
+Save <a class="link" href="cogl-Offscreen-Buffers.html#cogl-set-draw-buffer" title="cogl_set_draw_buffer ()"><code class="function">cogl_set_draw_buffer()</code></a> state.</p>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

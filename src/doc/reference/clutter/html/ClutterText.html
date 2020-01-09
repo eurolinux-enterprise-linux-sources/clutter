@@ -1,0 +1,2499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterText</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch02.html" title="Base actors">
+<link rel="prev" href="ClutterClone.html" title="ClutterClone">
+<link rel="next" href="ClutterCairoTexture.html" title="ClutterCairoTexture">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ClutterClone.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="ClutterCairoTexture.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ClutterText.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#ClutterText.description" class="shortcut">Description</a>
+                 | 
+                <a href="#ClutterText.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#ClutterText.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                 | 
+                <a href="#ClutterText.properties" class="shortcut">Properties</a>
+                 | 
+                <a href="#ClutterText.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ClutterText"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ClutterText.top_of_page"></a>ClutterText</span></h2>
+<p>ClutterText — An actor for displaying and editing text</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ClutterText.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="ClutterText.html#ClutterText-struct" title="ClutterText">ClutterText</a>;
+                    <a class="link" href="ClutterText.html#ClutterTextClass" title="ClutterTextClass">ClutterTextClass</a>;
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="ClutterText.html#clutter-text-new" title="clutter_text_new ()">clutter_text_new</a>                    (void);
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="ClutterText.html#clutter-text-new-full" title="clutter_text_new_full ()">clutter_text_new_full</a>               (const gchar *font_name,
+                                                         const gchar *text,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="ClutterText.html#clutter-text-new-with-text" title="clutter_text_new_with_text ()">clutter_text_new_with_text</a>          (const gchar *font_name,
+                                                         const gchar *text);
+
+void                <a class="link" href="ClutterText.html#clutter-text-set-text" title="clutter_text_set_text ()">clutter_text_set_text</a>               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *text);
+void                <a class="link" href="ClutterText.html#clutter-text-set-markup" title="clutter_text_set_markup ()">clutter_text_set_markup</a>             (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *markup);
+const gchar *       <a class="link" href="ClutterText.html#clutter-text-get-text" title="clutter_text_get_text ()">clutter_text_get_text</a>               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-activatable" title="clutter_text_set_activatable ()">clutter_text_set_activatable</a>        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean activatable);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-activatable" title="clutter_text_get_activatable ()">clutter_text_get_activatable</a>        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-attributes" title="clutter_text_set_attributes ()">clutter_text_set_attributes</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoAttrList *attrs);
+PangoAttrList *     <a class="link" href="ClutterText.html#clutter-text-get-attributes" title="clutter_text_get_attributes ()">clutter_text_get_attributes</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-color" title="clutter_text_set_color ()">clutter_text_set_color</a>              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-get-color" title="clutter_text_get_color ()">clutter_text_get_color</a>              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-set-ellipsize" title="clutter_text_set_ellipsize ()">clutter_text_set_ellipsize</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoEllipsizeMode mode);
+PangoEllipsizeMode  <a class="link" href="ClutterText.html#clutter-text-get-ellipsize" title="clutter_text_get_ellipsize ()">clutter_text_get_ellipsize</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-font-name" title="clutter_text_set_font_name ()">clutter_text_set_font_name</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *font_name);
+const gchar *       <a class="link" href="ClutterText.html#clutter-text-get-font-name" title="clutter_text_get_font_name ()">clutter_text_get_font_name</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-password-char" title="clutter_text_set_password_char ()">clutter_text_set_password_char</a>      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gunichar wc);
+gunichar            <a class="link" href="ClutterText.html#clutter-text-get-password-char" title="clutter_text_get_password_char ()">clutter_text_get_password_char</a>      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-justify" title="clutter_text_set_justify ()">clutter_text_set_justify</a>            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean justify);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-justify" title="clutter_text_get_justify ()">clutter_text_get_justify</a>            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+PangoLayout *       <a class="link" href="ClutterText.html#clutter-text-get-layout" title="clutter_text_get_layout ()">clutter_text_get_layout</a>             (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-line-alignment" title="clutter_text_set_line_alignment ()">clutter_text_set_line_alignment</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoAlignment alignment);
+PangoAlignment      <a class="link" href="ClutterText.html#clutter-text-get-line-alignment" title="clutter_text_get_line_alignment ()">clutter_text_get_line_alignment</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-line-wrap" title="clutter_text_set_line_wrap ()">clutter_text_set_line_wrap</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean line_wrap);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-line-wrap" title="clutter_text_get_line_wrap ()">clutter_text_get_line_wrap</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-line-wrap-mode" title="clutter_text_set_line_wrap_mode ()">clutter_text_set_line_wrap_mode</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoWrapMode wrap_mode);
+PangoWrapMode       <a class="link" href="ClutterText.html#clutter-text-get-line-wrap-mode" title="clutter_text_get_line_wrap_mode ()">clutter_text_get_line_wrap_mode</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-max-length" title="clutter_text_set_max_length ()">clutter_text_set_max_length</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint max);
+gint                <a class="link" href="ClutterText.html#clutter-text-get-max-length" title="clutter_text_get_max_length ()">clutter_text_get_max_length</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-selectable" title="clutter_text_set_selectable ()">clutter_text_set_selectable</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean selectable);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-selectable" title="clutter_text_get_selectable ()">clutter_text_get_selectable</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-selection" title="clutter_text_set_selection ()">clutter_text_set_selection</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);
+gchar *             <a class="link" href="ClutterText.html#clutter-text-get-selection" title="clutter_text_get_selection ()">clutter_text_get_selection</a>          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-selection-bound" title="clutter_text_set_selection_bound ()">clutter_text_set_selection_bound</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint selection_bound);
+gint                <a class="link" href="ClutterText.html#clutter-text-get-selection-bound" title="clutter_text_get_selection_bound ()">clutter_text_get_selection_bound</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-single-line-mode" title="clutter_text_set_single_line_mode ()">clutter_text_set_single_line_mode</a>   (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean single_line);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-single-line-mode" title="clutter_text_get_single_line_mode ()">clutter_text_get_single_line_mode</a>   (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-use-markup" title="clutter_text_set_use_markup ()">clutter_text_set_use_markup</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean setting);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-use-markup" title="clutter_text_get_use_markup ()">clutter_text_get_use_markup</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+
+void                <a class="link" href="ClutterText.html#clutter-text-set-editable" title="clutter_text_set_editable ()">clutter_text_set_editable</a>           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean editable);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-editable" title="clutter_text_get_editable ()">clutter_text_get_editable</a>           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-insert-text" title="clutter_text_insert_text ()">clutter_text_insert_text</a>            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *text,
+                                                         gssize position);
+void                <a class="link" href="ClutterText.html#clutter-text-insert-unichar" title="clutter_text_insert_unichar ()">clutter_text_insert_unichar</a>         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gunichar wc);
+void                <a class="link" href="ClutterText.html#clutter-text-delete-chars" title="clutter_text_delete_chars ()">clutter_text_delete_chars</a>           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         guint n_chars);
+void                <a class="link" href="ClutterText.html#clutter-text-delete-text" title="clutter_text_delete_text ()">clutter_text_delete_text</a>            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-delete-selection" title="clutter_text_delete_selection ()">clutter_text_delete_selection</a>       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+gchar *             <a class="link" href="ClutterText.html#clutter-text-get-chars" title="clutter_text_get_chars ()">clutter_text_get_chars</a>              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);
+void                <a class="link" href="ClutterText.html#clutter-text-set-cursor-color" title="clutter_text_set_cursor_color ()">clutter_text_set_cursor_color</a>       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-get-cursor-color" title="clutter_text_get_cursor_color ()">clutter_text_get_cursor_color</a>       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-set-selection-color" title="clutter_text_set_selection_color ()">clutter_text_set_selection_color</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-get-selection-color" title="clutter_text_get_selection_color ()">clutter_text_get_selection_color</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="ClutterText.html#clutter-text-set-cursor-position" title="clutter_text_set_cursor_position ()">clutter_text_set_cursor_position</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint position);
+gint                <a class="link" href="ClutterText.html#clutter-text-get-cursor-position" title="clutter_text_get_cursor_position ()">clutter_text_get_cursor_position</a>    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-cursor-visible" title="clutter_text_set_cursor_visible ()">clutter_text_set_cursor_visible</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean cursor_visible);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-get-cursor-visible" title="clutter_text_get_cursor_visible ()">clutter_text_get_cursor_visible</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+void                <a class="link" href="ClutterText.html#clutter-text-set-cursor-size" title="clutter_text_set_cursor_size ()">clutter_text_set_cursor_size</a>        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint size);
+guint               <a class="link" href="ClutterText.html#clutter-text-get-cursor-size" title="clutter_text_get_cursor_size ()">clutter_text_get_cursor_size</a>        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+
+gboolean            <a class="link" href="ClutterText.html#clutter-text-activate" title="clutter_text_activate ()">clutter_text_activate</a>               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);
+gboolean            <a class="link" href="ClutterText.html#clutter-text-position-to-coords" title="clutter_text_position_to_coords ()">clutter_text_position_to_coords</a>     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint position,
+                                                         gfloat *x,
+                                                         gfloat *y,
+                                                         gfloat *line_height);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a>
+               +----ClutterText
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ClutterText implements
+ <a class="link" href="ClutterScriptable.html" title="ClutterScriptable">ClutterScriptable</a>.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterText.html#ClutterText--activatable" title='The "activatable" property'>activatable</a>"              gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--attributes" title='The "attributes" property'>attributes</a>"               PangoAttrList*        : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--color" title='The "color" property'>color</a>"                    <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--cursor-color" title='The "cursor-color" property'>cursor-color</a>"             <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--cursor-color-set" title='The "cursor-color-set" property'>cursor-color-set</a>"         gboolean              : Read
+  "<a class="link" href="ClutterText.html#ClutterText--cursor-size" title='The "cursor-size" property'>cursor-size</a>"              gint                  : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--cursor-visible" title='The "cursor-visible" property'>cursor-visible</a>"           gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--editable" title='The "editable" property'>editable</a>"                 gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--ellipsize" title='The "ellipsize" property'>ellipsize</a>"                PangoEllipsizeMode    : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--font-name" title='The "font-name" property'>font-name</a>"                gchar*                : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--justify" title='The "justify" property'>justify</a>"                  gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--line-alignment" title='The "line-alignment" property'>line-alignment</a>"           PangoAlignment        : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--line-wrap" title='The "line-wrap" property'>line-wrap</a>"                gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--line-wrap-mode" title='The "line-wrap-mode" property'>line-wrap-mode</a>"           PangoWrapMode         : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--max-length" title='The "max-length" property'>max-length</a>"               gint                  : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--password-char" title='The "password-char" property'>password-char</a>"            guint                 : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--position" title='The "position" property'>position</a>"                 gint                  : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--selectable" title='The "selectable" property'>selectable</a>"               gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--selection-bound" title='The "selection-bound" property'>selection-bound</a>"          gint                  : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--selection-color" title='The "selection-color" property'>selection-color</a>"          <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--selection-color-set" title='The "selection-color-set" property'>selection-color-set</a>"      gboolean              : Read
+  "<a class="link" href="ClutterText.html#ClutterText--single-line-mode" title='The "single-line-mode" property'>single-line-mode</a>"         gboolean              : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--text" title='The "text" property'>text</a>"                     gchar*                : Read / Write
+  "<a class="link" href="ClutterText.html#ClutterText--use-markup" title='The "use-markup" property'>use-markup</a>"               gboolean              : Read / Write
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterText.html#ClutterText-activate" title='The "activate" signal'>activate</a>"                                       : Run Last
+  "<a class="link" href="ClutterText.html#ClutterText-cursor-event" title='The "cursor-event" signal'>cursor-event</a>"                                   : Run Last
+  "<a class="link" href="ClutterText.html#ClutterText-text-changed" title='The "text-changed" signal'>text-changed</a>"                                   : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is an actor that displays custom text using Pango
+as the text rendering engine.
+</p>
+<p>
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> also allows inline editing of the text if the
+actor is set editable using <a class="link" href="ClutterText.html#clutter-text-set-editable" title="clutter_text_set_editable ()"><code class="function">clutter_text_set_editable()</code></a>.
+</p>
+<p>
+Selection using keyboard or pointers can be enabled using
+<a class="link" href="ClutterText.html#clutter-text-set-selectable" title="clutter_text_set_selectable ()"><code class="function">clutter_text_set_selectable()</code></a>.
+</p>
+<p>
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is available since Clutter 1.0</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterText-struct"></a><h3>ClutterText</h3>
+<pre class="programlisting">typedef struct _ClutterText ClutterText;</pre>
+<p>
+The <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> struct contains only private data.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterTextClass"></a><h3>ClutterTextClass</h3>
+<pre class="programlisting">typedef struct {
+  /* signals, not vfuncs */
+  void (* text_changed) (ClutterText           *self);
+  void (* activate)     (ClutterText           *self);
+  void (* cursor_event) (ClutterText           *self,
+                         const ClutterGeometry *geometry);
+} ClutterTextClass;
+</pre>
+<p>
+The <a class="link" href="ClutterText.html#ClutterTextClass" title="ClutterTextClass"><span class="type">ClutterTextClass</span></a> struct contains only private data.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>text_changed</code></em> ()</span></p></td>
+<td> class handler for the <a class="link" href="ClutterText.html#ClutterText-text-changed" title='The "text-changed" signal'><span class="type">"text-changed"</span></a> signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>activate</code></em> ()</span></p></td>
+<td> class handler for the <a class="link" href="ClutterText.html#ClutterText-activate" title='The "activate" signal'><span class="type">"activate"</span></a> signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code>cursor_event</code></em> ()</span></p></td>
+<td> class handler for the <a class="link" href="ClutterText.html#ClutterText-cursor-event" title='The "cursor-event" signal'><span class="type">"cursor_event"</span></a> signal
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-new"></a><h3>clutter_text_new ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_text_new                    (void);</pre>
+<p>
+Creates a new <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor. This actor can be used to
+display and edit text.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-new-full"></a><h3>clutter_text_new_full ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_text_new_full               (const gchar *font_name,
+                                                         const gchar *text,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Creates a new <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor, using <em class="parameter"><code>font_name</code></em> as the font
+description; <em class="parameter"><code>text</code></em> will be used to set the contents of the actor;
+and <em class="parameter"><code>color</code></em> will be used as the color to render <em class="parameter"><code>text</code></em>.
+</p>
+<p>
+This function is equivalent to calling <a class="link" href="ClutterText.html#clutter-text-new" title="clutter_text_new ()"><code class="function">clutter_text_new()</code></a>,
+<a class="link" href="ClutterText.html#clutter-text-set-font-name" title="clutter_text_set_font_name ()"><code class="function">clutter_text_set_font_name()</code></a>, <a class="link" href="ClutterText.html#clutter-text-set-text" title="clutter_text_set_text ()"><code class="function">clutter_text_set_text()</code></a> and
+<a class="link" href="ClutterText.html#clutter-text-set-color" title="clutter_text_set_color ()"><code class="function">clutter_text_set_color()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_name</code></em> :</span></p></td>
+<td> a string with a font description
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> the contents of the actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> the color to be used to render <em class="parameter"><code>text</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-new-with-text"></a><h3>clutter_text_new_with_text ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_text_new_with_text          (const gchar *font_name,
+                                                         const gchar *text);</pre>
+<p>
+Creates a new <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor, using <em class="parameter"><code>font_name</code></em> as the font
+description; <em class="parameter"><code>text</code></em> will be used to set the contents of the actor.
+</p>
+<p>
+This function is equivalent to calling <a class="link" href="ClutterText.html#clutter-text-new" title="clutter_text_new ()"><code class="function">clutter_text_new()</code></a>,
+<a class="link" href="ClutterText.html#clutter-text-set-font-name" title="clutter_text_set_font_name ()"><code class="function">clutter_text_set_font_name()</code></a>, and <a class="link" href="ClutterText.html#clutter-text-set-text" title="clutter_text_set_text ()"><code class="function">clutter_text_set_text()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_name</code></em> :</span></p></td>
+<td> a string with a font description
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> the contents of the actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-text"></a><h3>clutter_text_set_text ()</h3>
+<pre class="programlisting">void                clutter_text_set_text               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *text);</pre>
+<p>
+Sets the contents of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> the text to set. Passing <code class="literal">NULL</code> is the same as passing "" (the
+   empty string)
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-markup"></a><h3>clutter_text_set_markup ()</h3>
+<pre class="programlisting">void                clutter_text_set_markup             (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *markup);</pre>
+<p>
+Sets <em class="parameter"><code>markup</code></em> as the contents of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>.
+</p>
+<p>
+This is a convenience function for setting a string containing
+Pango markup, and it is logically equivalent to:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_text_set_use_markup (CLUTTER_TEXT (actor), TRUE);
+  clutter_text_set_text (CLUTTER_TEXT (actor), markup);
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>markup</code></em> :</span></p></td>
+<td> a string containing Pango markup. Passing <code class="literal">NULL</code> is the same
+   as passing "" (the empty string)
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-text"></a><h3>clutter_text_get_text ()</h3>
+<pre class="programlisting">const gchar *       clutter_text_get_text               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves a pointer to the current contents of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+actor.
+</p>
+<p>
+If you need a copy of the contents for manipulating, either
+use <code class="function">g_strdup()</code> on the returned string, or use:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+   copy = clutter_text_get_chars (text, 0, -1);
+</pre></div>
+<p>
+</p>
+<p>
+Which will return a newly allocated string.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the contents of the actor. The returned string
+  is owned by the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor and should never be
+  modified or freed
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-activatable"></a><h3>clutter_text_set_activatable ()</h3>
+<pre class="programlisting">void                clutter_text_set_activatable        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean activatable);</pre>
+<p>
+Sets whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be activatable.
+</p>
+<p>
+An activatable <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor will emit the <a class="link" href="ClutterText.html#ClutterText-activate" title='The "activate" signal'><span class="type">"activate"</span></a>
+signal whenever the 'Enter' (or 'Return') key is pressed; if it is not
+activatable, a new line will be appended to the current content.
+</p>
+<p>
+An activatable <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> must also be set as editable using
+<a class="link" href="ClutterText.html#clutter-text-set-editable" title="clutter_text_set_editable ()"><code class="function">clutter_text_set_editable()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>activatable</code></em> :</span></p></td>
+<td> whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be activatable
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-activatable"></a><h3>clutter_text_get_activatable ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_activatable        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is activatable or not.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the actor is activatable
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-attributes"></a><h3>clutter_text_set_attributes ()</h3>
+<pre class="programlisting">void                clutter_text_set_attributes         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoAttrList *attrs);</pre>
+<p>
+Sets the attributes list that are going to be applied to the
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> contents.
+</p>
+<p>
+The <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor will take a reference on the <span class="type">PangoAttrList</span>
+passed to this function.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attrs</code></em> :</span></p></td>
+<td> a <span class="type">PangoAttrList</span> or <code class="literal">NULL</code> to unset the attributes
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-attributes"></a><h3>clutter_text_get_attributes ()</h3>
+<pre class="programlisting">PangoAttrList *     clutter_text_get_attributes         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Gets the attribute list that was set on the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor
+<a class="link" href="ClutterText.html#clutter-text-set-attributes" title="clutter_text_set_attributes ()"><code class="function">clutter_text_set_attributes()</code></a>, if any.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-color"></a><h3>clutter_text_set_color ()</h3>
+<pre class="programlisting">void                clutter_text_set_color              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Sets the color of the contents of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.
+</p>
+<p>
+The overall opacity of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor will be the
+result of the alpha value of <em class="parameter"><code>color</code></em> and the composited
+opacity of the actor itself on the scenegraph, as returned
+by <a class="link" href="ClutterActor.html#clutter-actor-get-paint-opacity" title="clutter_actor_get_paint_opacity ()"><code class="function">clutter_actor_get_paint_opacity()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-color"></a><h3>clutter_text_get_color ()</h3>
+<pre class="programlisting">void                clutter_text_get_color              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Retrieves the text color as set by <a class="link" href="ClutterText.html#clutter-text-set-color" title="clutter_text_set_color ()"><code class="function">clutter_text_set_color()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-ellipsize"></a><h3>clutter_text_set_ellipsize ()</h3>
+<pre class="programlisting">void                clutter_text_set_ellipsize          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoEllipsizeMode mode);</pre>
+<p>
+Sets the mode used to ellipsize (add an ellipsis: "...") to the
+text if there is not enough space to render the entire contents
+of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td> a <span class="type">PangoEllipsizeMode</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-ellipsize"></a><h3>clutter_text_get_ellipsize ()</h3>
+<pre class="programlisting">PangoEllipsizeMode  clutter_text_get_ellipsize          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Returns the ellipsizing position of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor, as
+set by <a class="link" href="ClutterText.html#clutter-text-set-ellipsize" title="clutter_text_set_ellipsize ()"><code class="function">clutter_text_set_ellipsize()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">PangoEllipsizeMode</span>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-font-name"></a><h3>clutter_text_set_font_name ()</h3>
+<pre class="programlisting">void                clutter_text_set_font_name          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *font_name);</pre>
+<p>
+Sets the font used by a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>. The <em class="parameter"><code>font_name</code></em> string
+must either be <code class="literal">NULL</code>, which means that the font name from the
+default <span class="type">ClutterBackend</span> will be used; or be something that can
+be parsed by the <code class="function">pango_font_description_from_string()</code> function,
+like:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+  clutter_text_set_font_name (text, "Sans 10pt");
+  clutter_text_set_font_name (text, "Serif 16px");
+  clutter_text_set_font_name (text, "Helvetica 10");
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_name</code></em> :</span></p></td>
+<td> a font name, or <code class="literal">NULL</code> to set the default font name
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-font-name"></a><h3>clutter_text_get_font_name ()</h3>
+<pre class="programlisting">const gchar *       clutter_text_get_font_name          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the font name as set by <a class="link" href="ClutterText.html#clutter-text-set-font-name" title="clutter_text_set_font_name ()"><code class="function">clutter_text_set_font_name()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a string containing the font name. The returned
+  string is owned by the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor and should not be
+  modified or freed
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-password-char"></a><h3>clutter_text_set_password_char ()</h3>
+<pre class="programlisting">void                clutter_text_set_password_char      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gunichar wc);</pre>
+<p>
+Sets the character to use in place of the actual text in a
+password text actor.
+</p>
+<p>
+If <em class="parameter"><code>wc</code></em> is 0 the text will be displayed as it is entered in the
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>wc</code></em> :</span></p></td>
+<td> a Unicode character, or 0 to unset the password character
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-password-char"></a><h3>clutter_text_get_password_char ()</h3>
+<pre class="programlisting">gunichar            clutter_text_get_password_char      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the character to use in place of the actual text
+as set by <a class="link" href="ClutterText.html#clutter-text-set-password-char" title="clutter_text_set_password_char ()"><code class="function">clutter_text_set_password_char()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a Unicode character or 0 if the password
+  character is not set
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-justify"></a><h3>clutter_text_set_justify ()</h3>
+<pre class="programlisting">void                clutter_text_set_justify            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean justify);</pre>
+<p>
+Sets whether the text of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be justified
+on both margins. This setting is ignored if Clutter is compiled
+against Pango &lt; 1.18.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>justify</code></em> :</span></p></td>
+<td> whether the text should be justified
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-justify"></a><h3>clutter_text_get_justify ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_justify            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should justify its contents
+on both margins.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the text should be justified
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-layout"></a><h3>clutter_text_get_layout ()</h3>
+<pre class="programlisting">PangoLayout *       clutter_text_get_layout             (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the current <span class="type">PangoLayout</span> used by a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>transfer none. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-line-alignment"></a><h3>clutter_text_set_line_alignment ()</h3>
+<pre class="programlisting">void                clutter_text_set_line_alignment     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoAlignment alignment);</pre>
+<p>
+Sets the way that the lines of a wrapped label are aligned with
+respect to each other. This does not affect the overall alignment
+of the label within its allocated or specified width.
+</p>
+<p>
+To align a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor you should add it to a container
+that supports alignment, or use the anchor point.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alignment</code></em> :</span></p></td>
+<td> A <span class="type">PangoAlignment</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-line-alignment"></a><h3>clutter_text_get_line_alignment ()</h3>
+<pre class="programlisting">PangoAlignment      clutter_text_get_line_alignment     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the alignment of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>, as set by
+<a class="link" href="ClutterText.html#clutter-text-set-line-alignment" title="clutter_text_set_line_alignment ()"><code class="function">clutter_text_set_line_alignment()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <span class="type">PangoAlignment</span>
+
+Since 1.0
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-line-wrap"></a><h3>clutter_text_set_line_wrap ()</h3>
+<pre class="programlisting">void                clutter_text_set_line_wrap          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean line_wrap);</pre>
+<p>
+Sets whether the contents of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should wrap,
+if they don't fit the size assigned to the actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line_wrap</code></em> :</span></p></td>
+<td> whether the contents should wrap
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-line-wrap"></a><h3>clutter_text_get_line_wrap ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_line_wrap          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the value set using <a class="link" href="ClutterText.html#clutter-text-set-line-wrap" title="clutter_text_set_line_wrap ()"><code class="function">clutter_text_set_line_wrap()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should wrap
+  its contents
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-line-wrap-mode"></a><h3>clutter_text_set_line_wrap_mode ()</h3>
+<pre class="programlisting">void                clutter_text_set_line_wrap_mode     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         PangoWrapMode wrap_mode);</pre>
+<p>
+If line wrapping is enabled (see <a class="link" href="ClutterText.html#clutter-text-set-line-wrap" title="clutter_text_set_line_wrap ()"><code class="function">clutter_text_set_line_wrap()</code></a>) this
+function controls how the line wrapping is performed. The default is
+<code class="literal">PANGO_WRAP_WORD</code> which means wrap on word boundaries.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>wrap_mode</code></em> :</span></p></td>
+<td> the line wrapping mode
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-line-wrap-mode"></a><h3>clutter_text_get_line_wrap_mode ()</h3>
+<pre class="programlisting">PangoWrapMode       clutter_text_get_line_wrap_mode     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the line wrap mode used by the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.
+</p>
+<p>
+See <a class="link" href="ClutterText.html#clutter-text-set-line-wrap-mode" title="clutter_text_set_line_wrap_mode ()"><code class="function">clutter_text_set_line_wrap_mode()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the wrap mode used by the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-max-length"></a><h3>clutter_text_set_max_length ()</h3>
+<pre class="programlisting">void                clutter_text_set_max_length         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint max);</pre>
+<p>
+Sets the maximum allowed length of the contents of the actor. If the
+current contents are longer than the given length, then they will be
+truncated to fit.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max</code></em> :</span></p></td>
+<td> the maximum number of characters allowed in the text actor; 0
+  to disable or -1 to set the length of the current string
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-max-length"></a><h3>clutter_text_get_max_length ()</h3>
+<pre class="programlisting">gint                clutter_text_get_max_length         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Gets the maximum length of text that can be set into a text actor.
+</p>
+<p>
+See <a class="link" href="ClutterText.html#clutter-text-set-max-length" title="clutter_text_set_max_length ()"><code class="function">clutter_text_set_max_length()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the maximum number of characters.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-selectable"></a><h3>clutter_text_set_selectable ()</h3>
+<pre class="programlisting">void                clutter_text_set_selectable         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean selectable);</pre>
+<p>
+Sets whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be selectable.
+</p>
+<p>
+A selectable <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> will allow selecting its contents using
+the pointer or the keyboard.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selectable</code></em> :</span></p></td>
+<td> whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be selectable
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-selectable"></a><h3>clutter_text_get_selectable ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_selectable         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is selectable or not.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the actor is selectable
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-selection"></a><h3>clutter_text_set_selection ()</h3>
+<pre class="programlisting">void                clutter_text_set_selection          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);</pre>
+<p>
+Selects the region of text between <em class="parameter"><code>start_pos</code></em> and <em class="parameter"><code>end_pos</code></em>.
+</p>
+<p>
+This function changes the position of the cursor to match
+<em class="parameter"><code>start_pos</code></em> and the selection bound to match <em class="parameter"><code>end_pos</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start_pos</code></em> :</span></p></td>
+<td> start of the selection, in characters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end_pos</code></em> :</span></p></td>
+<td> end of the selection, in characters
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-selection"></a><h3>clutter_text_get_selection ()</h3>
+<pre class="programlisting">gchar *             clutter_text_get_selection          (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the currently selected text.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly allocated string containing the currently
+  selected text, or <code class="literal">NULL</code>. Use <code class="function">g_free()</code> to free the returned
+  string.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-selection-bound"></a><h3>clutter_text_set_selection_bound ()</h3>
+<pre class="programlisting">void                clutter_text_set_selection_bound    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint selection_bound);</pre>
+<p>
+Sets the other end of the selection, starting from the current
+cursor position.
+</p>
+<p>
+If <em class="parameter"><code>selection_bound</code></em> is -1, the selection unset.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selection_bound</code></em> :</span></p></td>
+<td> the position of the end of the selection, in characters
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-selection-bound"></a><h3>clutter_text_get_selection_bound ()</h3>
+<pre class="programlisting">gint                clutter_text_get_selection_bound    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the other end of the selection of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor,
+in characters from the current cursor position.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the position of the other end of the selection
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-single-line-mode"></a><h3>clutter_text_set_single_line_mode ()</h3>
+<pre class="programlisting">void                clutter_text_set_single_line_mode   (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean single_line);</pre>
+<p>
+Sets whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be in single line mode
+or not.
+</p>
+<p>
+A text actor in single line mode will not wrap text and will clip
+the the visible area to the predefined size. The contents of the
+text actor will scroll to display the end of the text if its length
+is bigger than the allocated width.
+</p>
+<p>
+When setting the single line mode the <a class="link" href="ClutterText.html#ClutterText--activatable" title='The "activatable" property'><span class="type">"activatable"</span></a>
+property is also set as a side effect. Instead of entering a new
+line character, the text actor will emit the <a class="link" href="ClutterText.html#ClutterText-activate" title='The "activate" signal'><span class="type">"activate"</span></a>
+signal.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>single_line</code></em> :</span></p></td>
+<td> whether to enable single line mode
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-single-line-mode"></a><h3>clutter_text_get_single_line_mode ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_single_line_mode   (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor is in single line mode.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor is in single line mode
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-use-markup"></a><h3>clutter_text_set_use_markup ()</h3>
+<pre class="programlisting">void                clutter_text_set_use_markup         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean setting);</pre>
+<p>
+Sets whether the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor contains markup
+in Pango's text markup language.
+</p>
+<p>
+Setting <a class="link" href="ClutterText.html#ClutterText--use-markup" title='The "use-markup" property'><span class="type">"use-markup"</span></a> on an editable <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> will
+make the actor discard any markup.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setting</code></em> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the text should be parsed for markup.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-use-markup"></a><h3>clutter_text_get_use_markup ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_use_markup         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be
+parsed for the Pango text markup.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the contents will be parsed for markup
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-editable"></a><h3>clutter_text_set_editable ()</h3>
+<pre class="programlisting">void                clutter_text_set_editable           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean editable);</pre>
+<p>
+Sets whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be editable.
+</p>
+<p>
+An editable <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> with key focus set using
+<a class="link" href="ClutterActor.html#clutter-actor-grab-key-focus" title="clutter_actor_grab_key_focus ()"><code class="function">clutter_actor_grab_key_focus()</code></a> or <code class="function">clutter_stage_take_key_focus()</code>
+will receive key events and will update its contents accordingly.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>editable</code></em> :</span></p></td>
+<td> whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> should be editable
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-editable"></a><h3>clutter_text_get_editable ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_editable           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is editable or not.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the actor is editable
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-insert-text"></a><h3>clutter_text_insert_text ()</h3>
+<pre class="programlisting">void                clutter_text_insert_text            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const gchar *text,
+                                                         gssize position);</pre>
+<p>
+Inserts <em class="parameter"><code>text</code></em> into a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> at the given position.
+</p>
+<p>
+If <em class="parameter"><code>position</code></em> is a negative number, the text will be appended
+at the end of the current contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>.
+</p>
+<p>
+The position is expressed in characters, not in bytes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> the text to be inserted
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>position</code></em> :</span></p></td>
+<td> the position of the insertion, or -1
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-insert-unichar"></a><h3>clutter_text_insert_unichar ()</h3>
+<pre class="programlisting">void                clutter_text_insert_unichar         (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gunichar wc);</pre>
+<p>
+Inserts <em class="parameter"><code>wc</code></em> at the current cursor position of a
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>wc</code></em> :</span></p></td>
+<td> a Unicode character
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-delete-chars"></a><h3>clutter_text_delete_chars ()</h3>
+<pre class="programlisting">void                clutter_text_delete_chars           (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         guint n_chars);</pre>
+<p>
+Deletes <em class="parameter"><code>n_chars</code></em> inside a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor, starting from the
+current cursor position.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_chars</code></em> :</span></p></td>
+<td> the number of characters to delete
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-delete-text"></a><h3>clutter_text_delete_text ()</h3>
+<pre class="programlisting">void                clutter_text_delete_text            (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);</pre>
+<p>
+Deletes the text inside a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor between <em class="parameter"><code>start_pos</code></em>
+and <em class="parameter"><code>end_pos</code></em>.
+</p>
+<p>
+The starting and ending positions are expressed in characters,
+not in bytes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start_pos</code></em> :</span></p></td>
+<td> starting position
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end_pos</code></em> :</span></p></td>
+<td> ending position
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-delete-selection"></a><h3>clutter_text_delete_selection ()</h3>
+<pre class="programlisting">gboolean            clutter_text_delete_selection       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Deletes the currently selected text
+</p>
+<p>
+This function is only useful in subclasses of <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if text was deleted or if the text actor
+  is empty, and <code class="literal">FALSE</code> otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-chars"></a><h3>clutter_text_get_chars ()</h3>
+<pre class="programlisting">gchar *             clutter_text_get_chars              (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gssize start_pos,
+                                                         gssize end_pos);</pre>
+<p>
+Retrieves the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor between
+<em class="parameter"><code>start_pos</code></em> and <em class="parameter"><code>end_pos</code></em>.
+</p>
+<p>
+The positions are specified in characters, not in bytes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start_pos</code></em> :</span></p></td>
+<td> start of text, in characters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end_pos</code></em> :</span></p></td>
+<td> end of text, in characters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly allocated string with the contents of
+  the text actor between the specified positions. Use <code class="function">g_free()</code>
+  to free the resources when done
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-cursor-color"></a><h3>clutter_text_set_cursor_color ()</h3>
+<pre class="programlisting">void                clutter_text_set_cursor_color       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Sets the color of the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.
+</p>
+<p>
+If <em class="parameter"><code>color</code></em> is <code class="literal">NULL</code>, the cursor color will be the same as the
+text color.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> the color of the cursor, or <code class="literal">NULL</code> to unset it
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-cursor-color"></a><h3>clutter_text_get_cursor_color ()</h3>
+<pre class="programlisting">void                clutter_text_get_cursor_color       (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Retrieves the color of the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-selection-color"></a><h3>clutter_text_set_selection_color ()</h3>
+<pre class="programlisting">void                clutter_text_set_selection_color    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Sets the color of the selection of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.
+</p>
+<p>
+If <em class="parameter"><code>color</code></em> is <code class="literal">NULL</code>, the selection color will be the same as the
+cursor color, or if no cursor color is set either then it will be
+the same as the text color.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> the color of the selection, or <code class="literal">NULL</code> to unset it
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-selection-color"></a><h3>clutter_text_get_selection_color ()</h3>
+<pre class="programlisting">void                clutter_text_get_selection_color    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Retrieves the color of the selection of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-cursor-position"></a><h3>clutter_text_set_cursor_position ()</h3>
+<pre class="programlisting">void                clutter_text_set_cursor_position    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint position);</pre>
+<p>
+Sets the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor at <em class="parameter"><code>position</code></em>.
+</p>
+<p>
+The position is expressed in characters, not in bytes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>position</code></em> :</span></p></td>
+<td> the new cursor position, in characters
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-cursor-position"></a><h3>clutter_text_get_cursor_position ()</h3>
+<pre class="programlisting">gint                clutter_text_get_cursor_position    (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the cursor position.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the cursor position, in characters
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-cursor-visible"></a><h3>clutter_text_set_cursor_visible ()</h3>
+<pre class="programlisting">void                clutter_text_set_cursor_visible     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gboolean cursor_visible);</pre>
+<p>
+Sets whether the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be
+visible or not.
+</p>
+<p>
+The color of the cursor will be the same as the text color
+unless <a class="link" href="ClutterText.html#clutter-text-set-cursor-color" title="clutter_text_set_cursor_color ()"><code class="function">clutter_text_set_cursor_color()</code></a> has been called.
+</p>
+<p>
+The size of the cursor can be set using <a class="link" href="ClutterText.html#clutter-text-set-cursor-size" title="clutter_text_set_cursor_size ()"><code class="function">clutter_text_set_cursor_size()</code></a>.
+</p>
+<p>
+The position of the cursor can be changed programmatically using
+<a class="link" href="ClutterText.html#clutter-text-set-cursor-position" title="clutter_text_set_cursor_position ()"><code class="function">clutter_text_set_cursor_position()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cursor_visible</code></em> :</span></p></td>
+<td> whether the cursor should be visible
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-cursor-visible"></a><h3>clutter_text_get_cursor_visible ()</h3>
+<pre class="programlisting">gboolean            clutter_text_get_cursor_visible     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves whether the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor is visible.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the cursor is visible
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-set-cursor-size"></a><h3>clutter_text_set_cursor_size ()</h3>
+<pre class="programlisting">void                clutter_text_set_cursor_size        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint size);</pre>
+<p>
+Sets the size of the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>. The cursor
+will only be visible if the <a class="link" href="ClutterText.html#ClutterText--cursor-visible" title='The "cursor-visible" property'><span class="type">"cursor-visible"</span></a> property
+is set to <code class="literal">TRUE</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td> the size of the cursor, in pixels, or -1 to use the
+  default value
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-get-cursor-size"></a><h3>clutter_text_get_cursor_size ()</h3>
+<pre class="programlisting">guint               clutter_text_get_cursor_size        (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Retrieves the size of the cursor of a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the size of the cursor, in pixels
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-activate"></a><h3>clutter_text_activate ()</h3>
+<pre class="programlisting">gboolean            clutter_text_activate               (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self);</pre>
+<p>
+Emits the <a class="link" href="ClutterText.html#ClutterText-activate" title='The "activate" signal'><span class="type">"activate"</span></a> signal, if <em class="parameter"><code>self</code></em> has been set
+as activatable using <a class="link" href="ClutterText.html#clutter-text-set-activatable" title="clutter_text_set_activatable ()"><code class="function">clutter_text_set_activatable()</code></a>.
+</p>
+<p>
+This function can be used to emit the ::activate signal inside
+a <a class="link" href="ClutterActor.html#ClutterActor-captured-event" title='The "captured-event" signal'><span class="type">"captured-event"</span></a> or <a class="link" href="ClutterActor.html#ClutterActor-key-press-event" title='The "key-press-event" signal'><span class="type">"key-press-event"</span></a>
+signal handlers before the default signal handler for the
+<a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> is invoked.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the ::activate signal has been emitted,
+  and <code class="literal">FALSE</code> otherwise
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-text-position-to-coords"></a><h3>clutter_text_position_to_coords ()</h3>
+<pre class="programlisting">gboolean            clutter_text_position_to_coords     (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                         gint position,
+                                                         gfloat *x,
+                                                         gfloat *y,
+                                                         gfloat *line_height);</pre>
+<p>
+Retrieves the coordinates of the given <em class="parameter"><code>position</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>position</code></em> :</span></p></td>
+<td> position in characters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td> return location for the X coordinate, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td> return location for the Y coordinate, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line_height</code></em> :</span></p></td>
+<td> return location for the line height, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the conversion was successful
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterText--activatable"></a><h3>The <code class="literal">"activatable"</code> property</h3>
+<pre class="programlisting">  "activatable"              gboolean              : Read / Write</pre>
+<p>
+Toggles whether return invokes the activate signal or not.</p>
+<p>
+</p>
+<p>Default value: TRUE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--attributes"></a><h3>The <code class="literal">"attributes"</code> property</h3>
+<pre class="programlisting">  "attributes"               PangoAttrList*        : Read / Write</pre>
+<p>
+A list of <span class="type">PangoStyleAttribute</span>s to be applied to the
+contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--color"></a><h3>The <code class="literal">"color"</code> property</h3>
+<pre class="programlisting">  "color"                    <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write</pre>
+<p>
+The color used to render the text.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--cursor-color"></a><h3>The <code class="literal">"cursor-color"</code> property</h3>
+<pre class="programlisting">  "cursor-color"             <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write</pre>
+<p>
+The color of the cursor.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--cursor-color-set"></a><h3>The <code class="literal">"cursor-color-set"</code> property</h3>
+<pre class="programlisting">  "cursor-color-set"         gboolean              : Read</pre>
+<p>
+Will be set to <code class="literal">TRUE</code> if <a class="link" href="ClutterText.html#ClutterText--cursor-color" title='The "cursor-color" property'><span class="type">"cursor-color"</span></a> has been set.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--cursor-size"></a><h3>The <code class="literal">"cursor-size"</code> property</h3>
+<pre class="programlisting">  "cursor-size"              gint                  : Read / Write</pre>
+<p>
+The size of the cursor, in pixels. If set to -1 the size used will
+be the default cursor size of 2 pixels.</p>
+<p>
+</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 2</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--cursor-visible"></a><h3>The <code class="literal">"cursor-visible"</code> property</h3>
+<pre class="programlisting">  "cursor-visible"           gboolean              : Read / Write</pre>
+<p>
+Whether the input cursor is visible or not, it will only be visible
+if both <a class="link" href="ClutterText.html#ClutterText--cursor-visible" title='The "cursor-visible" property'><span class="type">"cursor-visible"</span></a> and <a class="link" href="ClutterText.html#ClutterText--editable" title='The "editable" property'><span class="type">"editable"</span></a> are
+set to <code class="literal">TRUE</code>.</p>
+<p>
+</p>
+<p>Default value: TRUE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--editable"></a><h3>The <code class="literal">"editable"</code> property</h3>
+<pre class="programlisting">  "editable"                 gboolean              : Read / Write</pre>
+<p>
+Whether key events delivered to the actor causes editing.</p>
+<p>
+</p>
+<p>Default value: TRUE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--ellipsize"></a><h3>The <code class="literal">"ellipsize"</code> property</h3>
+<pre class="programlisting">  "ellipsize"                PangoEllipsizeMode    : Read / Write</pre>
+<p>
+The preferred place to ellipsize the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor</p>
+<p>
+</p>
+<p>Default value: PANGO_ELLIPSIZE_NONE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--font-name"></a><h3>The <code class="literal">"font-name"</code> property</h3>
+<pre class="programlisting">  "font-name"                gchar*                : Read / Write</pre>
+<p>
+The font to be used by the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a>, as a string
+that can be parsed by <code class="function">pango_font_description_from_string()</code>.</p>
+<p>
+</p>
+<p>Default value: NULL</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--justify"></a><h3>The <code class="literal">"justify"</code> property</h3>
+<pre class="programlisting">  "justify"                  gboolean              : Read / Write</pre>
+<p>
+Whether the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> should be justified
+on both margins.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--line-alignment"></a><h3>The <code class="literal">"line-alignment"</code> property</h3>
+<pre class="programlisting">  "line-alignment"           PangoAlignment        : Read / Write</pre>
+<p>
+The preferred alignment for the text. This property controls
+the alignment of multi-line paragraphs.</p>
+<p>
+</p>
+<p>Default value: PANGO_ALIGN_LEFT</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--line-wrap"></a><h3>The <code class="literal">"line-wrap"</code> property</h3>
+<pre class="programlisting">  "line-wrap"                gboolean              : Read / Write</pre>
+<p>
+Whether to wrap the lines of <a class="link" href="ClutterText.html#ClutterText--text" title='The "text" property'><span class="type">"text"</span></a> if the contents
+exceed the available allocation. The wrapping strategy is
+controlled by the <a class="link" href="ClutterText.html#ClutterText--line-wrap-mode" title='The "line-wrap-mode" property'><span class="type">"line-wrap-mode"</span></a> property.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--line-wrap-mode"></a><h3>The <code class="literal">"line-wrap-mode"</code> property</h3>
+<pre class="programlisting">  "line-wrap-mode"           PangoWrapMode         : Read / Write</pre>
+<p>
+If <a class="link" href="ClutterText.html#ClutterText--line-wrap" title='The "line-wrap" property'><span class="type">"line-wrap"</span></a> is set to <code class="literal">TRUE</code>, this property will
+control how the text is wrapped.</p>
+<p>
+</p>
+<p>Default value: PANGO_WRAP_WORD</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--max-length"></a><h3>The <code class="literal">"max-length"</code> property</h3>
+<pre class="programlisting">  "max-length"               gint                  : Read / Write</pre>
+<p>
+The maximum length of the contents of the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor.</p>
+<p>
+</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--password-char"></a><h3>The <code class="literal">"password-char"</code> property</h3>
+<pre class="programlisting">  "password-char"            guint                 : Read / Write</pre>
+<p>
+If non-zero, the character that should be used in place of
+the actual text in a password text actor.</p>
+<p>
+</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--position"></a><h3>The <code class="literal">"position"</code> property</h3>
+<pre class="programlisting">  "position"                 gint                  : Read / Write</pre>
+<p>
+The current input cursor position. -1 is taken to be the end of the text</p>
+<p>
+</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--selectable"></a><h3>The <code class="literal">"selectable"</code> property</h3>
+<pre class="programlisting">  "selectable"               gboolean              : Read / Write</pre>
+<p>
+Whether it is possible to select text, either using the pointer
+or the keyboard.</p>
+<p>
+</p>
+<p>Default value: TRUE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--selection-bound"></a><h3>The <code class="literal">"selection-bound"</code> property</h3>
+<pre class="programlisting">  "selection-bound"          gint                  : Read / Write</pre>
+<p>
+The current input cursor position. -1 is taken to be the end of the text</p>
+<p>
+</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--selection-color"></a><h3>The <code class="literal">"selection-color"</code> property</h3>
+<pre class="programlisting">  "selection-color"          <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>*         : Read / Write</pre>
+<p>
+The color of the selection.</p>
+<p>
+</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--selection-color-set"></a><h3>The <code class="literal">"selection-color-set"</code> property</h3>
+<pre class="programlisting">  "selection-color-set"      gboolean              : Read</pre>
+<p>
+Will be set to <code class="literal">TRUE</code> if <a class="link" href="ClutterText.html#ClutterText--selection-color" title='The "selection-color" property'><span class="type">"selection-color"</span></a> has been set.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--single-line-mode"></a><h3>The <code class="literal">"single-line-mode"</code> property</h3>
+<pre class="programlisting">  "single-line-mode"         gboolean              : Read / Write</pre>
+<p>
+Whether the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor should be in single line mode
+or not. A single line <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor will only contain a
+single line of text, scrolling it in case its length is bigger
+than the allocated size.
+</p>
+<p>
+Setting this property will also set the <a class="link" href="ClutterText.html#ClutterText--activatable" title='The "activatable" property'><span class="type">"activatable"</span></a>
+property as a side-effect.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--text"></a><h3>The <code class="literal">"text"</code> property</h3>
+<pre class="programlisting">  "text"                     gchar*                : Read / Write</pre>
+<p>
+The text to render inside the actor.</p>
+<p>
+</p>
+<p>Default value: ""</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText--use-markup"></a><h3>The <code class="literal">"use-markup"</code> property</h3>
+<pre class="programlisting">  "use-markup"               gboolean              : Read / Write</pre>
+<p>
+Whether the text includes Pango markup. See <code class="function">pango_layout_set_markup()</code>
+in the Pango documentation.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 1.0</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterText.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterText-activate"></a><h3>The <code class="literal">"activate"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                        gpointer     user_data)      : Run Last</pre>
+<p>
+The ::activate signal is emitted each time the actor is 'activated'
+by the user, normally by pressing the 'Enter' key. The signal is
+emitted only if <a class="link" href="ClutterText.html#ClutterText--activatable" title='The "activatable" property'><span class="type">"activatable"</span></a> is set to <code class="literal">TRUE</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> that emitted the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText-cursor-event"></a><h3>The <code class="literal">"cursor-event"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a>     *self,
+                                                        <a class="link" href="ClutterActor.html#ClutterGeometry" title="ClutterGeometry">ClutterGeometry</a> *geometry,
+                                                        gpointer         user_data)      : Run Last</pre>
+<p>
+The ::cursor-event signal is emitted whenever the cursor position
+changes inside a <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> actor. Inside <em class="parameter"><code>geometry</code></em> it is stored
+the current position and size of the cursor, relative to the actor
+itself.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> that emitted the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>geometry</code></em> :</span></p></td>
+<td> the coordinates of the cursor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterText-text-changed"></a><h3>The <code class="literal">"text-changed"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a> *self,
+                                                        gpointer     user_data)      : Run Last</pre>
+<p>
+The ::text-changed signal is emitted after <em class="parameter"><code>actor</code></em>'s text changes</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td> the <a class="link" href="ClutterText.html" title="ClutterText"><span class="type">ClutterText</span></a> that emitted the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

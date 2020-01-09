@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="cogl-clip-stack-restore"><link linkend="cogl-clip-stack-restore">cogl_clip_stack_restore</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cogl-clip-stack-save"><link linkend="cogl-clip-stack-save">cogl_clip_stack_save</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="cogl-frustum"><link linkend="cogl-frustum">cogl_frustum</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="cogl-viewport"><link linkend="cogl-viewport">cogl_viewport</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

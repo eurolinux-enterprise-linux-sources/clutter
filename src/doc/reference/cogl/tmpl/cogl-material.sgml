@@ -1,0 +1,385 @@
+<!-- ##### SECTION Title ##### -->
+Materials
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION cogl_material_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_ref ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_unref ##### -->
+<para>
+
+</para>
+
+@handle: 
+
+
+<!-- ##### FUNCTION cogl_is_material ##### -->
+<para>
+
+</para>
+
+@handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_set_color ##### -->
+<para>
+
+</para>
+
+@material: 
+@color: 
+
+
+<!-- ##### FUNCTION cogl_material_set_color4ub ##### -->
+<para>
+
+</para>
+
+@material: 
+@red: 
+@green: 
+@blue: 
+@alpha: 
+
+
+<!-- ##### FUNCTION cogl_material_set_color4f ##### -->
+<para>
+
+</para>
+
+@material: 
+@red: 
+@green: 
+@blue: 
+@alpha: 
+
+
+<!-- ##### FUNCTION cogl_material_get_color ##### -->
+<para>
+
+</para>
+
+@material: 
+@color: 
+
+
+<!-- ##### FUNCTION cogl_material_set_ambient ##### -->
+<para>
+
+</para>
+
+@material: 
+@ambient: 
+
+
+<!-- ##### FUNCTION cogl_material_get_ambient ##### -->
+<para>
+
+</para>
+
+@material: 
+@ambient: 
+
+
+<!-- ##### FUNCTION cogl_material_set_diffuse ##### -->
+<para>
+
+</para>
+
+@material: 
+@diffuse: 
+
+
+<!-- ##### FUNCTION cogl_material_get_diffuse ##### -->
+<para>
+
+</para>
+
+@material: 
+@diffuse: 
+
+
+<!-- ##### FUNCTION cogl_material_set_ambient_and_diffuse ##### -->
+<para>
+
+</para>
+
+@material: 
+@color: 
+
+
+<!-- ##### FUNCTION cogl_material_set_emission ##### -->
+<para>
+
+</para>
+
+@material: 
+@emission: 
+
+
+<!-- ##### FUNCTION cogl_material_get_emission ##### -->
+<para>
+
+</para>
+
+@material: 
+@emission: 
+
+
+<!-- ##### FUNCTION cogl_material_set_specular ##### -->
+<para>
+
+</para>
+
+@material: 
+@specular: 
+
+
+<!-- ##### FUNCTION cogl_material_get_specular ##### -->
+<para>
+
+</para>
+
+@material: 
+@specular: 
+
+
+<!-- ##### FUNCTION cogl_material_set_shininess ##### -->
+<para>
+
+</para>
+
+@material: 
+@shininess: 
+
+
+<!-- ##### FUNCTION cogl_material_get_shininess ##### -->
+<para>
+
+</para>
+
+@material: 
+@Returns: 
+
+
+<!-- ##### ENUM CoglMaterialAlphaFunc ##### -->
+<para>
+
+</para>
+
+@COGL_MATERIAL_ALPHA_FUNC_NEVER: 
+@COGL_MATERIAL_ALPHA_FUNC_LESS: 
+@COGL_MATERIAL_ALPHA_FUNC_EQUAL: 
+@COGL_MATERIAL_ALPHA_FUNC_LEQUAL: 
+@COGL_MATERIAL_ALPHA_FUNC_GREATER: 
+@COGL_MATERIAL_ALPHA_FUNC_NOTEQUAL: 
+@COGL_MATERIAL_ALPHA_FUNC_GEQUAL: 
+@COGL_MATERIAL_ALPHA_FUNC_ALWAYS: 
+
+<!-- ##### FUNCTION cogl_material_set_alpha_test_function ##### -->
+<para>
+
+</para>
+
+@material: 
+@alpha_func: 
+@alpha_reference: 
+
+
+<!-- ##### ENUM CoglBlendStringError ##### -->
+<para>
+
+</para>
+
+@COGL_BLEND_STRING_ERROR_PARSE_ERROR: 
+@COGL_BLEND_STRING_ERROR_ARGUMENT_PARSE_ERROR: 
+@COGL_BLEND_STRING_ERROR_INVALID_ERROR: 
+@COGL_BLEND_STRING_ERROR_GPU_UNSUPPORTED_ERROR: 
+
+<!-- ##### MACRO COGL_BLEND_STRING_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_material_set_blend ##### -->
+<para>
+
+</para>
+
+@material: 
+@blend_string: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_set_blend_constant ##### -->
+<para>
+
+</para>
+
+@material: 
+@constant_color: 
+
+
+<!-- ##### FUNCTION cogl_material_set_layer ##### -->
+<para>
+
+</para>
+
+@material: 
+@layer_index: 
+@texture: 
+
+
+<!-- ##### FUNCTION cogl_material_remove_layer ##### -->
+<para>
+
+</para>
+
+@material: 
+@layer_index: 
+
+
+<!-- ##### FUNCTION cogl_material_set_layer_combine ##### -->
+<para>
+
+</para>
+
+@material: 
+@layer_index: 
+@blend_string: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_set_layer_combine_constant ##### -->
+<para>
+
+</para>
+
+@material: 
+@layer_index: 
+@constant: 
+
+
+<!-- ##### FUNCTION cogl_material_set_layer_matrix ##### -->
+<para>
+
+</para>
+
+@material: 
+@layer_index: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cogl_material_get_layers ##### -->
+<para>
+
+</para>
+
+@material: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_get_n_layers ##### -->
+<para>
+
+</para>
+
+@material: 
+@Returns: 
+
+
+<!-- ##### ENUM CoglMaterialFilter ##### -->
+<para>
+
+</para>
+
+@COGL_MATERIAL_FILTER_NEAREST: 
+@COGL_MATERIAL_FILTER_LINEAR: 
+@COGL_MATERIAL_FILTER_NEAREST_MIPMAP_NEAREST: 
+@COGL_MATERIAL_FILTER_LINEAR_MIPMAP_NEAREST: 
+@COGL_MATERIAL_FILTER_NEAREST_MIPMAP_LINEAR: 
+@COGL_MATERIAL_FILTER_LINEAR_MIPMAP_LINEAR: 
+
+<!-- ##### FUNCTION cogl_material_set_layer_filters ##### -->
+<para>
+
+</para>
+
+@handle: 
+@layer_index: 
+@min_filter: 
+@mag_filter: 
+
+
+<!-- ##### FUNCTION cogl_material_layer_get_type ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_layer_get_texture ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_layer_get_min_filter ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_material_layer_get_mag_filter ##### -->
+<para>
+
+</para>
+
+@layer_handle: 
+@Returns: 
+
+

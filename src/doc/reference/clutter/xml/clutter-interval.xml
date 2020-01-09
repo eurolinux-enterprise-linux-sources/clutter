@@ -1,0 +1,537 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-Value-intervals">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-Value-intervals.top_of_page">Value intervals</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Value intervals</refname>
+<refpurpose>An object holding an interval of two values</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-Value-intervals.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+<anchor id="ClutterInterval"/>
+<synopsis>
+                    <link linkend="ClutterInterval-struct">ClutterInterval</link>;
+                    <link linkend="ClutterIntervalClass">ClutterIntervalClass</link>;
+<link linkend="ClutterInterval">ClutterInterval</link> *   <link linkend="clutter-interval-new">clutter_interval_new</link>                (<link linkend="GType">GType</link> gtype,
+                                                         ...);
+<link linkend="ClutterInterval">ClutterInterval</link> *   <link linkend="clutter-interval-new-with-values">clutter_interval_new_with_values</link>    (<link linkend="GType">GType</link> gtype,
+                                                         const <link linkend="GValue">GValue</link> *initial,
+                                                         const <link linkend="GValue">GValue</link> *final);
+<link linkend="ClutterInterval">ClutterInterval</link> *   <link linkend="clutter-interval-clone">clutter_interval_clone</link>              (<link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="GType">GType</link>               <link linkend="clutter-interval-get-value-type">clutter_interval_get_value_type</link>     (<link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="void">void</link>                <link linkend="clutter-interval-set-initial-value">clutter_interval_set_initial_value</link>  (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="clutter-interval-get-initial-value">clutter_interval_get_initial_value</link>  (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GValue">GValue</link> *value);
+<link linkend="GValue">GValue</link> *            <link linkend="clutter-interval-peek-initial-value">clutter_interval_peek_initial_value</link> (<link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="void">void</link>                <link linkend="clutter-interval-set-final-value">clutter_interval_set_final_value</link>    (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="clutter-interval-get-final-value">clutter_interval_get_final_value</link>    (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GValue">GValue</link> *value);
+<link linkend="GValue">GValue</link> *            <link linkend="clutter-interval-peek-final-value">clutter_interval_peek_final_value</link>   (<link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="void">void</link>                <link linkend="clutter-interval-set-interval">clutter_interval_set_interval</link>       (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         ...);
+<link linkend="void">void</link>                <link linkend="clutter-interval-get-interval">clutter_interval_get_interval</link>       (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         ...);
+
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-interval-compute-value">clutter_interval_compute_value</link>      (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="gdouble">gdouble</link> factor,
+                                                         <link linkend="GValue">GValue</link> *value);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-interval-validate">clutter_interval_validate</link>           (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GParamSpec">GParamSpec</link> *pspec);
+
+<link linkend="gboolean">gboolean</link>            (<link linkend="ClutterProgressFunc">*ClutterProgressFunc</link>)              (const <link linkend="GValue">GValue</link> *a,
+                                                         const <link linkend="GValue">GValue</link> *b,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="GValue">GValue</link> *retval);
+<link linkend="void">void</link>                <link linkend="clutter-interval-register-progress-func">clutter_interval_register_progress_func</link>
+                                                        (<link linkend="GType">GType</link> value_type,
+                                                         <link linkend="ClutterProgressFunc">ClutterProgressFunc</link> func);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="clutter-Value-intervals.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----ClutterInterval
+</synopsis>
+</refsect1>
+
+
+
+
+
+<refsect1 id="clutter-Value-intervals.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterInterval--value-type">value-type</link>&quot;               <link linkend="GType">GType</link>*                : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="clutter-Value-intervals.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterInterval"><type>ClutterInterval</type></link> is a simple object that can hold two values
+defining an interval. <link linkend="ClutterInterval"><type>ClutterInterval</type></link> can hold any value that
+can be enclosed inside a <link linkend="GValue"><type>GValue</type></link>.
+</para>
+<para>
+Once a <link linkend="ClutterInterval"><type>ClutterInterval</type></link> for a specific <link linkend="GType"><type>GType</type></link> has been instantiated
+the <link linkend="ClutterInterval--value-type"><type>"value-type"</type></link> property cannot be changed anymore.
+</para>
+<para>
+<link linkend="ClutterInterval"><type>ClutterInterval</type></link> starts with a floating reference; this means that
+any object taking a reference on a <link linkend="ClutterInterval"><type>ClutterInterval</type></link> instance should
+also take ownership of the interval by using <link linkend="g-object-ref-sink"><function>g_object_ref_sink()</function></link>.
+</para>
+<para>
+<link linkend="ClutterInterval"><type>ClutterInterval</type></link> is used by <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> to define the
+interval of values that an implicit animation should tween over.
+</para>
+<para>
+<link linkend="ClutterInterval"><type>ClutterInterval</type></link> can be subclassed to override the validation
+and value computation.
+</para>
+<para>
+<link linkend="ClutterInterval"><type>ClutterInterval</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-Value-intervals.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterInterval-struct" role="struct">
+<title>ClutterInterval</title>
+<indexterm zone="ClutterInterval-struct" role="1.0"><primary sortas="Interval">ClutterInterval</primary></indexterm><programlisting>typedef struct _ClutterInterval ClutterInterval;</programlisting>
+<para>
+The <link linkend="ClutterInterval"><type>ClutterInterval</type></link> structure contains only private data and should
+be accessed using the provided functions.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterIntervalClass" role="struct" condition="since:1.0">
+<title>ClutterIntervalClass</title>
+<indexterm zone="ClutterIntervalClass" role="1.0"><primary sortas="IntervalClass">ClutterIntervalClass</primary></indexterm><programlisting>typedef struct {
+  gboolean (* validate)      (ClutterInterval *interval,
+                              GParamSpec      *pspec);
+  gboolean (* compute_value) (ClutterInterval *interval,
+                              gdouble          factor,
+                              GValue          *value);
+} ClutterIntervalClass;
+</programlisting>
+<para>
+The <link linkend="ClutterIntervalClass"><type>ClutterIntervalClass</type></link> contains only private data.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><structfield>validate</structfield>&#160;()</term>
+<listitem><simpara> virtual function for validating an interval
+  using a <link linkend="GParamSpec"><type>GParamSpec</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>compute_value</structfield>&#160;()</term>
+<listitem><simpara> virtual function for computing the value
+  inside an interval using an adimensional factor between 0 and 1
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-new" role="function" condition="since:1.0">
+<title>clutter_interval_new ()</title>
+<indexterm zone="clutter-interval-new" role="1.0"><primary sortas="interval_new">clutter_interval_new</primary></indexterm><programlisting><link linkend="ClutterInterval">ClutterInterval</link> *   clutter_interval_new                (<link linkend="GType">GType</link> gtype,
+                                                         ...);</programlisting>
+<para>
+Creates a new <link linkend="ClutterInterval"><type>ClutterInterval</type></link> holding values of type <parameter>gtype</parameter>.
+</para>
+<para>
+This function avoids using a <link linkend="GValue"><type>GValue</type></link> for the initial and final values
+of the interval:
+</para>
+<para>
+<informalexample><programlisting>
+  interval = clutter_interval_new (G_TYPE_FLOAT, 0.0, 1.0);
+  interval = clutter_interval_new (G_TYPE_BOOLEAN, FALSE, TRUE);
+  interval = clutter_interval_new (G_TYPE_INT, 0, 360);
+</programlisting></informalexample></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>gtype</parameter>&#160;:</term>
+<listitem><simpara> the type of the values in the interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> the initial value and the final value of the interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-new-with-values" role="function" condition="since:1.0">
+<title>clutter_interval_new_with_values ()</title>
+<indexterm zone="clutter-interval-new-with-values" role="1.0"><primary sortas="interval_new_with_values">clutter_interval_new_with_values</primary></indexterm><programlisting><link linkend="ClutterInterval">ClutterInterval</link> *   clutter_interval_new_with_values    (<link linkend="GType">GType</link> gtype,
+                                                         const <link linkend="GValue">GValue</link> *initial,
+                                                         const <link linkend="GValue">GValue</link> *final);</programlisting>
+<para>
+Creates a new <link linkend="ClutterInterval"><type>ClutterInterval</type></link> of type <parameter>gtype</parameter>, between <parameter>initial</parameter>
+and <parameter>final</parameter>.
+</para>
+<para>
+This function is useful for language bindings.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>gtype</parameter>&#160;:</term>
+<listitem><simpara> the type of the values in the interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>initial</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> holding the initial value of the interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>final</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> holding the final value of the interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-clone" role="function" condition="since:1.0">
+<title>clutter_interval_clone ()</title>
+<indexterm zone="clutter-interval-clone" role="1.0"><primary sortas="interval_clone">clutter_interval_clone</primary></indexterm><programlisting><link linkend="ClutterInterval">ClutterInterval</link> *   clutter_interval_clone              (<link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Creates a copy of <parameter>interval</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-get-value-type" role="function" condition="since:1.0">
+<title>clutter_interval_get_value_type ()</title>
+<indexterm zone="clutter-interval-get-value-type" role="1.0"><primary sortas="interval_get_value_type">clutter_interval_get_value_type</primary></indexterm><programlisting><link linkend="GType">GType</link>               clutter_interval_get_value_type     (<link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Retrieves the <link linkend="GType"><type>GType</type></link> of the values inside <parameter>interval</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the type of the value, or G_TYPE_INVALID
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-set-initial-value" role="function" condition="since:1.0">
+<title>clutter_interval_set_initial_value ()</title>
+<indexterm zone="clutter-interval-set-initial-value" role="1.0"><primary sortas="interval_set_initial_value">clutter_interval_set_initial_value</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_set_initial_value  (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Sets the initial value of <parameter>interval</parameter> to <parameter>value</parameter>. The value is copied
+inside the <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-get-initial-value" role="function" condition="since:1.0">
+<title>clutter_interval_get_initial_value ()</title>
+<indexterm zone="clutter-interval-get-initial-value" role="1.0"><primary sortas="interval_get_initial_value">clutter_interval_get_initial_value</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_get_initial_value  (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Retrieves the initial value of <parameter>interval</parameter> and copies
+it into <parameter>value</parameter>.
+</para>
+<para>
+The passed <link linkend="GValue"><type>GValue</type></link> must be initialized to the value held by
+the <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-peek-initial-value" role="function" condition="since:1.0">
+<title>clutter_interval_peek_initial_value ()</title>
+<indexterm zone="clutter-interval-peek-initial-value" role="1.0"><primary sortas="interval_peek_initial_value">clutter_interval_peek_initial_value</primary></indexterm><programlisting><link linkend="GValue">GValue</link> *            clutter_interval_peek_initial_value (<link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Gets the pointer to the initial value of <parameter>interval</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-set-final-value" role="function" condition="since:1.0">
+<title>clutter_interval_set_final_value ()</title>
+<indexterm zone="clutter-interval-set-final-value" role="1.0"><primary sortas="interval_set_final_value">clutter_interval_set_final_value</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_set_final_value    (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Sets the final value of <parameter>interval</parameter> to <parameter>value</parameter>. The value is
+copied inside the <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-get-final-value" role="function" condition="since:1.0">
+<title>clutter_interval_get_final_value ()</title>
+<indexterm zone="clutter-interval-get-final-value" role="1.0"><primary sortas="interval_get_final_value">clutter_interval_get_final_value</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_get_final_value    (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Retrieves the final value of <parameter>interval</parameter> and copies
+it into <parameter>value</parameter>.
+</para>
+<para>
+The passed <link linkend="GValue"><type>GValue</type></link> must be initialized to the value held by
+the <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-peek-final-value" role="function" condition="since:1.0">
+<title>clutter_interval_peek_final_value ()</title>
+<indexterm zone="clutter-interval-peek-final-value" role="1.0"><primary sortas="interval_peek_final_value">clutter_interval_peek_final_value</primary></indexterm><programlisting><link linkend="GValue">GValue</link> *            clutter_interval_peek_final_value   (<link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Gets the pointer to the final value of <parameter>interval</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-set-interval" role="function" condition="since:1.0">
+<title>clutter_interval_set_interval ()</title>
+<indexterm zone="clutter-interval-set-interval" role="1.0"><primary sortas="interval_set_interval">clutter_interval_set_interval</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_set_interval       (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         ...);</programlisting>
+<para>
+Variable arguments wrapper for <link linkend="clutter-interval-set-initial-value"><function>clutter_interval_set_initial_value()</function></link>
+and <link linkend="clutter-interval-set-final-value"><function>clutter_interval_set_final_value()</function></link> that avoids using the
+<link linkend="GValue"><type>GValue</type></link> arguments:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_interval_set_interval (interval, 0, 50);
+  clutter_interval_set_interval (interval, 1.0, 0.0);
+  clutter_interval_set_interval (interval, FALSE, TRUE);
+</programlisting></informalexample>
+</para>
+<para>
+This function is meant for the convenience of the C API; bindings
+should reimplement this function using the <link linkend="GValue-based"><type>GValue-based</type></link> API.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> the initial and final values of the interval
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-get-interval" role="function" condition="since:1.0">
+<title>clutter_interval_get_interval ()</title>
+<indexterm zone="clutter-interval-get-interval" role="1.0"><primary sortas="interval_get_interval">clutter_interval_get_interval</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_get_interval       (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         ...);</programlisting>
+<para>
+Variable arguments wrapper for <link linkend="clutter-interval-get-initial-value"><function>clutter_interval_get_initial_value()</function></link>
+and <link linkend="clutter-interval-get-final-value"><function>clutter_interval_get_final_value()</function></link> that avoids using the
+<link linkend="GValue"><type>GValue</type></link> arguments:
+</para>
+<para>
+<informalexample><programlisting>
+  gint a = 0, b = 0;
+  clutter_interval_get_interval (interval, &amp;a, &amp;b);
+</programlisting></informalexample>
+</para>
+<para>
+This function is meant for the convenience of the C API; bindings
+should reimplement this function using the <link linkend="GValue-based"><type>GValue-based</type></link> API.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> return locations for the initial and final values of
+  the interval
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-compute-value" role="function" condition="since:1.0">
+<title>clutter_interval_compute_value ()</title>
+<indexterm zone="clutter-interval-compute-value" role="1.0"><primary sortas="interval_compute_value">clutter_interval_compute_value</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_interval_compute_value      (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="gdouble">gdouble</link> factor,
+                                                         <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Computes the value between the <parameter>interval</parameter> boundaries given the
+progress <parameter>factor</parameter> and puts it into <parameter>value</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>factor</parameter>&#160;:</term>
+<listitem><simpara> the progress factor, between 0 and 1
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> return location for an initialized <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the operation was successful
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-validate" role="function" condition="since:1.0">
+<title>clutter_interval_validate ()</title>
+<indexterm zone="clutter-interval-validate" role="1.0"><primary sortas="interval_validate">clutter_interval_validate</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_interval_validate           (<link linkend="ClutterInterval">ClutterInterval</link> *interval,
+                                                         <link linkend="GParamSpec">GParamSpec</link> *pspec);</programlisting>
+<para>
+Validates the initial and final values of <parameter>interval</parameter> against
+a <link linkend="GParamSpec"><type>GParamSpec</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pspec</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GParamSpec"><type>GParamSpec</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the <link linkend="ClutterInterval"><type>ClutterInterval</type></link> is valid, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterProgressFunc" role="function" condition="since:1.0">
+<title>ClutterProgressFunc ()</title>
+<indexterm zone="ClutterProgressFunc" role="1.0"><primary sortas="ProgressFunc">ClutterProgressFunc</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            (*ClutterProgressFunc)              (const <link linkend="GValue">GValue</link> *a,
+                                                         const <link linkend="GValue">GValue</link> *b,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="GValue">GValue</link> *retval);</programlisting>
+<para>
+Prototype of the progress function used to compute the value
+between the two ends <parameter>a</parameter> and <parameter>b</parameter> of an interval depending on
+the value of <parameter>progress</parameter>.
+</para>
+<para>
+The <link linkend="GValue"><type>GValue</type></link> in <parameter>retval</parameter> is already initialized with the same
+type as <parameter>a</parameter> and <parameter>b</parameter>.
+</para>
+<para>
+This function will be called by <link linkend="ClutterInterval"><type>ClutterInterval</type></link> if the
+type of the values of the interval was registered using
+<link linkend="clutter-interval-register-progress-func"><function>clutter_interval_register_progress_func()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> the initial value of an interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> the final value of an interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>progress</parameter>&#160;:</term>
+<listitem><simpara> the progress factor, between 0 and 1
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>retval</parameter>&#160;:</term>
+<listitem><simpara> the value used to store the progress
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the function successfully computed
+  the value and stored it inside <parameter>retval</parameter>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-interval-register-progress-func" role="function" condition="since:1.0">
+<title>clutter_interval_register_progress_func ()</title>
+<indexterm zone="clutter-interval-register-progress-func" role="1.0"><primary sortas="interval_register_progress_func">clutter_interval_register_progress_func</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_interval_register_progress_func
+                                                        (<link linkend="GType">GType</link> value_type,
+                                                         <link linkend="ClutterProgressFunc">ClutterProgressFunc</link> func);</programlisting>
+<para>
+Sets the progress function for a given <parameter>value_type</parameter>, like:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_interval_register_progress_func (MY_TYPE_FOO,
+                                           my_foo_progress);
+</programlisting></informalexample>
+</para>
+<para>
+Whenever a <link linkend="ClutterInterval"><type>ClutterInterval</type></link> instance using the default
+<link linkend="ClutterInterval-compute-value"><type>"compute_value"</type></link> implementation is set as an
+interval between two <link linkend="GValue"><type>GValue</type></link> of type <parameter>value_type</parameter>, it will call
+<parameter>func</parameter> to establish the value depending on the given progress,
+for instance:
+</para>
+<para>
+<informalexample><programlisting>
+  static gboolean
+  my_int_progress (const GValue *a,
+                   const GValue *b,
+                   gdouble       progress,
+                   GValue       *retval)
+  {
+    gint ia = g_value_get_int (a);
+    gint ib = g_value_get_int (b);
+    gint res = factor * (ib - ia) + ia;
+
+    g_value_set_int (retval, res);
+
+    return TRUE;
+  }
+
+  clutter_interval_register_progress_func (G_TYPE_INT, my_int_progress);
+</programlisting></informalexample>
+</para>
+<para>
+To unset a previously set progress function of a <link linkend="GType"><type>GType</type></link>, pass <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+for <parameter>func</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>value_type</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GType"><type>GType</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterProgressFunc"><type>ClutterProgressFunc</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset a previously
+  set progress function
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="clutter-Value-intervals.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterInterval--value-type" role="property"><title>The <literal>&quot;value-type&quot;</literal> property</title>
+<indexterm zone="ClutterInterval--value-type" role="1.0"><primary sortas="Interval:value-type">ClutterInterval:value-type</primary></indexterm><programlisting>  &quot;value-type&quot;               <link linkend="GType">GType</link>*                : Read / Write / Construct Only</programlisting>
+<para>
+The type of the values in the interval.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+</refsect1>
+
+
+
+
+</refentry>

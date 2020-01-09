@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-GLX-Specific-Support">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-GLX-Specific-Support.top_of_page">GLX Specific Support</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GLX Specific Support</refname>
+<refpurpose>GLX specific API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-GLX-Specific-Support.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterGLXTexturePixmap">ClutterGLXTexturePixmap</link>;
+                    <link linkend="ClutterGLXTexturePixmapClass">ClutterGLXTexturePixmapClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-glx-texture-pixmap-new">clutter_glx_texture_pixmap_new</link>      (void);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-glx-texture-pixmap-new-with-pixmap">clutter_glx_texture_pixmap_new_with_pixmap</link>
+                                                        (<link linkend="Pixmap">Pixmap</link> pixmap);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-glx-texture-pixmap-new-with-window">clutter_glx_texture_pixmap_new_with_window</link>
+                                                        (<link linkend="Window">Window</link> window);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-glx-texture-pixmap-using-extension">clutter_glx_texture_pixmap_using_extension</link>
+                                                        (<link linkend="ClutterGLXTexturePixmap">ClutterGLXTexturePixmap</link> *texture);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-GLX-Specific-Support.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The GLX backend for Clutter provides some specific API for GLX
+related calls.
+</para>
+<para>
+The ClutterGLX API is available since Clutter 0.4</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-GLX-Specific-Support.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterGLXTexturePixmap" role="struct">
+<title>ClutterGLXTexturePixmap</title>
+<indexterm zone="ClutterGLXTexturePixmap"><primary sortas="GLXTexturePixmap">ClutterGLXTexturePixmap</primary></indexterm><programlisting>typedef struct {
+  ClutterX11TexturePixmap         parent;
+
+  ClutterGLXTexturePixmapPrivate *priv;
+} ClutterGLXTexturePixmap;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ClutterGLXTexturePixmapClass" role="struct">
+<title>ClutterGLXTexturePixmapClass</title>
+<indexterm zone="ClutterGLXTexturePixmapClass"><primary sortas="GLXTexturePixmapClass">ClutterGLXTexturePixmapClass</primary></indexterm><programlisting>typedef struct {
+  ClutterX11TexturePixmapClass   parent_class;
+} ClutterGLXTexturePixmapClass;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="clutter-glx-texture-pixmap-new" role="function" condition="since:0.8">
+<title>clutter_glx_texture_pixmap_new ()</title>
+<indexterm zone="clutter-glx-texture-pixmap-new" role="0.8"><primary sortas="glx_texture_pixmap_new">clutter_glx_texture_pixmap_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_glx_texture_pixmap_new      (void);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterGLXTexturePixmap"><type>ClutterGLXTexturePixmap</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-glx-texture-pixmap-new-with-pixmap" role="function" condition="since:0.8">
+<title>clutter_glx_texture_pixmap_new_with_pixmap ()</title>
+<indexterm zone="clutter-glx-texture-pixmap-new-with-pixmap" role="0.8"><primary sortas="glx_texture_pixmap_new_with_pixmap">clutter_glx_texture_pixmap_new_with_pixmap</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_glx_texture_pixmap_new_with_pixmap
+                                                        (<link linkend="Pixmap">Pixmap</link> pixmap);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pixmap</parameter>&#160;:</term>
+<listitem><simpara> the X Pixmap to which this texture should be bound
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterGLXTexturePixmap"><type>ClutterGLXTexturePixmap</type></link> bound to the given X Pixmap
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-glx-texture-pixmap-new-with-window" role="function" condition="since:0.8">
+<title>clutter_glx_texture_pixmap_new_with_window ()</title>
+<indexterm zone="clutter-glx-texture-pixmap-new-with-window" role="0.8"><primary sortas="glx_texture_pixmap_new_with_window">clutter_glx_texture_pixmap_new_with_window</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_glx_texture_pixmap_new_with_window
+                                                        (<link linkend="Window">Window</link> window);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&#160;:</term>
+<listitem><simpara> the X window to which this texture should be bound
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ClutterGLXTexturePixmap"><type>ClutterGLXTexturePixmap</type></link> bound to the given X window
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-glx-texture-pixmap-using-extension" role="function" condition="since:0.8">
+<title>clutter_glx_texture_pixmap_using_extension ()</title>
+<indexterm zone="clutter-glx-texture-pixmap-using-extension" role="0.8"><primary sortas="glx_texture_pixmap_using_extension">clutter_glx_texture_pixmap_using_extension</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_glx_texture_pixmap_using_extension
+                                                        (<link linkend="ClutterGLXTexturePixmap">ClutterGLXTexturePixmap</link> *texture);</programlisting>
+<para>
+</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterGLXTexturePixmap"><type>ClutterGLXTexturePixmap</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A boolean indicating if the texture is using the
+GLX_EXT_texture_from_pixmap OpenGL extension or falling back to
+slower software mechanism.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

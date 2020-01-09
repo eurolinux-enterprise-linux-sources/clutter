@@ -1,0 +1,884 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterPath">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterPath.top_of_page">ClutterPath</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterPath</refname>
+<refpurpose>An object describing a path with straight lines
+and bezier curves.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterPath.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterPath-struct">ClutterPath</link>;
+                    <link linkend="ClutterPathClass">ClutterPathClass</link>;
+<link linkend="void">void</link>                (<link linkend="ClutterPathCallback">*ClutterPathCallback</link>)              (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node,
+                                                         <link linkend="gpointer">gpointer</link> data);
+enum                <link linkend="ClutterPathNodeType">ClutterPathNodeType</link>;
+<link linkend="ClutterPath">ClutterPath</link> *       <link linkend="clutter-path-new">clutter_path_new</link>                    (void);
+<link linkend="ClutterPath">ClutterPath</link> *       <link linkend="clutter-path-new-with-description">clutter_path_new_with_description</link>   (const <link linkend="gchar">gchar</link> *desc);
+
+<link linkend="void">void</link>                <link linkend="clutter-path-add-move-to">clutter_path_add_move_to</link>            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-rel-move-to">clutter_path_add_rel_move_to</link>        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-line-to">clutter_path_add_line_to</link>            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-rel-line-to">clutter_path_add_rel_line_to</link>        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-curve-to">clutter_path_add_curve_to</link>           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x_1,
+                                                         <link linkend="gint">gint</link> y_1,
+                                                         <link linkend="gint">gint</link> x_2,
+                                                         <link linkend="gint">gint</link> y_2,
+                                                         <link linkend="gint">gint</link> x_3,
+                                                         <link linkend="gint">gint</link> y_3);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-rel-curve-to">clutter_path_add_rel_curve_to</link>       (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x_1,
+                                                         <link linkend="gint">gint</link> y_1,
+                                                         <link linkend="gint">gint</link> x_2,
+                                                         <link linkend="gint">gint</link> y_2,
+                                                         <link linkend="gint">gint</link> x_3,
+                                                         <link linkend="gint">gint</link> y_3);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-close">clutter_path_add_close</link>              (<link linkend="ClutterPath">ClutterPath</link> *path);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-path-add-string">clutter_path_add_string</link>             (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="gchar">gchar</link> *str);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-node">clutter_path_add_node</link>               (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="void">void</link>                <link linkend="clutter-path-add-cairo-path">clutter_path_add_cairo_path</link>         (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="cairo-path-t">cairo_path_t</link> *cpath);
+
+<link linkend="guint">guint</link>               <link linkend="clutter-path-get-n-nodes">clutter_path_get_n_nodes</link>            (<link linkend="ClutterPath">ClutterPath</link> *path);
+<link linkend="void">void</link>                <link linkend="clutter-path-get-node">clutter_path_get_node</link>               (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_,
+                                                         <link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="GSList">GSList</link> *            <link linkend="clutter-path-get-nodes">clutter_path_get_nodes</link>              (<link linkend="ClutterPath">ClutterPath</link> *path);
+<link linkend="void">void</link>                <link linkend="clutter-path-foreach">clutter_path_foreach</link>                (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="ClutterPathCallback">ClutterPathCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="void">void</link>                <link linkend="clutter-path-insert-node">clutter_path_insert_node</link>            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> index_,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="void">void</link>                <link linkend="clutter-path-remove-node">clutter_path_remove_node</link>            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_);
+<link linkend="void">void</link>                <link linkend="clutter-path-replace-node">clutter_path_replace_node</link>           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="gchar">gchar</link> *             <link linkend="clutter-path-get-description">clutter_path_get_description</link>        (<link linkend="ClutterPath">ClutterPath</link> *path);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-path-set-description">clutter_path_set_description</link>        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="gchar">gchar</link> *str);
+<link linkend="void">void</link>                <link linkend="clutter-path-to-cairo-path">clutter_path_to_cairo_path</link>          (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="cairo-t">cairo_t</link> *cr);
+<link linkend="void">void</link>                <link linkend="clutter-path-clear">clutter_path_clear</link>                  (<link linkend="ClutterPath">ClutterPath</link> *path);
+<link linkend="guint">guint</link>               <link linkend="clutter-path-get-position">clutter_path_get_position</link>           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="ClutterKnot">ClutterKnot</link> *position);
+<link linkend="guint">guint</link>               <link linkend="clutter-path-get-length">clutter_path_get_length</link>             (<link linkend="ClutterPath">ClutterPath</link> *path);
+
+                    <link linkend="ClutterPathNode">ClutterPathNode</link>;
+<link linkend="ClutterPathNode">ClutterPathNode</link> *   <link linkend="clutter-path-node-copy">clutter_path_node_copy</link>              (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="void">void</link>                <link linkend="clutter-path-node-free">clutter_path_node_free</link>              (<link linkend="ClutterPathNode">ClutterPathNode</link> *node);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-path-node-equal">clutter_path_node_equal</link>             (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node_a,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node_b);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterPath.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----ClutterPath
+</synopsis>
+</refsect1>
+
+
+
+
+
+<refsect1 id="ClutterPath.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterPath--description">description</link>&quot;              <link linkend="gchar">gchar</link>*                : Read / Write
+  &quot;<link linkend="ClutterPath--length">length</link>&quot;                   <link linkend="guint">guint</link>                 : Read
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterPath.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+A <link linkend="ClutterPath"><type>ClutterPath</type></link> contains a description of a path consisting of
+straight lines and bezier curves. This can be used in a
+<link linkend="ClutterBehaviourPath"><type>ClutterBehaviourPath</type></link> to animate an actor moving along the path.
+</para>
+<para>
+The path consists of a series of nodes. Each node is one of the
+following four types:
+</para>
+<para>
+<variablelist>
+<varlistentry><term><link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link></term>
+<listitem><para>
+Changes the position of the path to the given pair of
+coordinates. This is usually used as the first node of a path to
+mark the start position. If it is used in the middle of a path then
+the path will be disjoint and the actor will appear to jump to the
+new position when animated.
+</para></listitem></varlistentry>
+<varlistentry><term><link linkend="CLUTTER-PATH-LINE-TO--CAPS"><literal>CLUTTER_PATH_LINE_TO</literal></link></term>
+<listitem><para>
+Creates a straight line from the previous point to the given point.
+</para></listitem></varlistentry>
+<varlistentry><term><link linkend="CLUTTER-PATH-CURVE-TO--CAPS"><literal>CLUTTER_PATH_CURVE_TO</literal></link></term>
+<listitem><para>
+Creates a bezier curve. The end of the last node is used as the
+first control point and the three subsequent coordinates given in
+the node as used as the other three.
+</para></listitem></varlistentry>
+<varlistentry><term><link linkend="CLUTTER-PATH-CLOSE--CAPS"><literal>CLUTTER_PATH_CLOSE</literal></link></term>
+<listitem><para>
+Creates a straight line from the last node to the last
+<link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link> node. This can be used to close a path so
+that it will appear as a loop when animated.
+</para></listitem></varlistentry>
+</variablelist>
+</para>
+<para>
+The first three types have the corresponding relative versions
+<link linkend="CLUTTER-PATH-REL-MOVE-TO--CAPS"><literal>CLUTTER_PATH_REL_MOVE_TO</literal></link>, <link linkend="CLUTTER-PATH-REL-LINE-TO--CAPS"><literal>CLUTTER_PATH_REL_LINE_TO</literal></link> and
+<link linkend="CLUTTER-PATH-REL-CURVE-TO--CAPS"><literal>CLUTTER_PATH_REL_CURVE_TO</literal></link>. These are exactly the same except the
+coordinates are given relative to the previous node instead of as
+direct screen positions.
+</para>
+<para>
+You can build a path using the node adding functions such as
+<link linkend="clutter-path-add-line-to"><function>clutter_path_add_line_to()</function></link>. Alternatively the path can be described
+in a string using a subset of the SVG path syntax. See
+<link linkend="clutter-path-add-string"><function>clutter_path_add_string()</function></link> for details.
+</para>
+<para>
+<link linkend="ClutterPath"><type>ClutterPath</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterPath.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterPath-struct" role="struct">
+<title>ClutterPath</title>
+<indexterm zone="ClutterPath-struct" role="1.0"><primary sortas="Path">ClutterPath</primary></indexterm><programlisting>typedef struct _ClutterPath ClutterPath;</programlisting>
+<para>
+The <link linkend="ClutterPath"><type>ClutterPath</type></link> struct contains only private data and should
+be accessed with the functions below.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterPathClass" role="struct" condition="since:1.0">
+<title>ClutterPathClass</title>
+<indexterm zone="ClutterPathClass" role="1.0"><primary sortas="PathClass">ClutterPathClass</primary></indexterm><programlisting>typedef struct {
+} ClutterPathClass;
+</programlisting>
+<para>
+The <link linkend="ClutterPathClass"><type>ClutterPathClass</type></link> struct contains only private data.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterPathCallback" role="function" condition="since:1.0">
+<title>ClutterPathCallback ()</title>
+<indexterm zone="ClutterPathCallback" role="1.0"><primary sortas="PathCallback">ClutterPathCallback</primary></indexterm><programlisting><link linkend="void">void</link>                (*ClutterPathCallback)              (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node,
+                                                         <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+This function is passed to <link linkend="clutter-path-foreach"><function>clutter_path_foreach()</function></link> and will be
+called for each node contained in the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> the node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara> optional data passed to the function
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterPathNodeType" role="enum" condition="since:1.0">
+<title>enum ClutterPathNodeType</title>
+<indexterm zone="ClutterPathNodeType" role="1.0"><primary sortas="PathNodeType">ClutterPathNodeType</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_PATH_MOVE_TO      = 0,
+  CLUTTER_PATH_LINE_TO      = 1,
+  CLUTTER_PATH_CURVE_TO     = 2,
+  CLUTTER_PATH_CLOSE        = 3,
+
+  CLUTTER_PATH_REL_MOVE_TO  = CLUTTER_PATH_MOVE_TO | CLUTTER_PATH_RELATIVE,
+  CLUTTER_PATH_REL_LINE_TO  = CLUTTER_PATH_LINE_TO | CLUTTER_PATH_RELATIVE,
+  CLUTTER_PATH_REL_CURVE_TO = CLUTTER_PATH_CURVE_TO | CLUTTER_PATH_RELATIVE
+} ClutterPathNodeType;
+</programlisting>
+<para>
+Types of nodes in a <link linkend="ClutterPath"><type>ClutterPath</type></link>.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="CLUTTER-PATH-MOVE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_MOVE_TO</literal></term>
+<listitem><simpara> jump to the given position
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-LINE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_LINE_TO</literal></term>
+<listitem><simpara> create a line from the last node to the
+  given position
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-CURVE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_CURVE_TO</literal></term>
+<listitem><simpara> bezier curve using the last position and
+  three control points.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-CLOSE--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_CLOSE</literal></term>
+<listitem><simpara> create a line from the last node to the last
+  <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link> node.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-REL-MOVE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_REL_MOVE_TO</literal></term>
+<listitem><simpara> same as <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link> but with
+  coordinates relative to the last node.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-REL-LINE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_REL_LINE_TO</literal></term>
+<listitem><simpara> same as <link linkend="CLUTTER-PATH-LINE-TO--CAPS"><literal>CLUTTER_PATH_LINE_TO</literal></link> but with
+  coordinates relative to the last node.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PATH-REL-CURVE-TO--CAPS" role="constant">
+<term><literal>CLUTTER_PATH_REL_CURVE_TO</literal></term>
+<listitem><simpara> same as <link linkend="CLUTTER-PATH-CURVE-TO--CAPS"><literal>CLUTTER_PATH_CURVE_TO</literal></link> but with
+  coordinates relative to the last node.
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-new" role="function" condition="since:1.0">
+<title>clutter_path_new ()</title>
+<indexterm zone="clutter-path-new" role="1.0"><primary sortas="path_new">clutter_path_new</primary></indexterm><programlisting><link linkend="ClutterPath">ClutterPath</link> *       clutter_path_new                    (void);</programlisting>
+<para>
+Creates a new <link linkend="ClutterPath"><type>ClutterPath</type></link> instance with no nodes.
+</para>
+<para>
+The object has a floating reference so if you add it to a
+<link linkend="ClutterBehaviourPath"><type>ClutterBehaviourPath</type></link> then you do not need to unref it.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterPath"><type>ClutterPath</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-new-with-description" role="function" condition="since:1.0">
+<title>clutter_path_new_with_description ()</title>
+<indexterm zone="clutter-path-new-with-description" role="1.0"><primary sortas="path_new_with_description">clutter_path_new_with_description</primary></indexterm><programlisting><link linkend="ClutterPath">ClutterPath</link> *       clutter_path_new_with_description   (const <link linkend="gchar">gchar</link> *desc);</programlisting>
+<para>
+Creates a new <link linkend="ClutterPath"><type>ClutterPath</type></link> instance with the nodes described in
+<parameter>desc</parameter>. See <link linkend="clutter-path-add-string"><function>clutter_path_add_string()</function></link> for details of the format of
+the string.
+</para>
+<para>
+The object has a floating reference so if you add it to a
+<link linkend="ClutterBehaviourPath"><type>ClutterBehaviourPath</type></link> then you do not need to unref it.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>desc</parameter>&#160;:</term>
+<listitem><simpara> a string describing the path
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterPath"><type>ClutterPath</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-move-to" role="function" condition="since:1.0">
+<title>clutter_path_add_move_to ()</title>
+<indexterm zone="clutter-path-add-move-to" role="1.0"><primary sortas="path_add_move_to">clutter_path_add_move_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_move_to            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Adds a <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><type>CLUTTER_PATH_MOVE_TO</type></link> type node to the path. This is usually
+used as the first node in a path. It can also be used in the middle
+of the path to cause the actor to jump to the new coordinate.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-rel-move-to" role="function" condition="since:1.0">
+<title>clutter_path_add_rel_move_to ()</title>
+<indexterm zone="clutter-path-add-rel-move-to" role="1.0"><primary sortas="path_add_rel_move_to">clutter_path_add_rel_move_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_rel_move_to        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Same as <link linkend="clutter-path-add-move-to"><function>clutter_path_add_move_to()</function></link> except the coordinates are
+relative to the previous node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-line-to" role="function" condition="since:1.0">
+<title>clutter_path_add_line_to ()</title>
+<indexterm zone="clutter-path-add-line-to" role="1.0"><primary sortas="path_add_line_to">clutter_path_add_line_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_line_to            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Adds a <link linkend="CLUTTER-PATH-LINE-TO--CAPS"><type>CLUTTER_PATH_LINE_TO</type></link> type node to the path. This causes the
+actor to move to the new coordinates in a straight line.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-rel-line-to" role="function" condition="since:1.0">
+<title>clutter_path_add_rel_line_to ()</title>
+<indexterm zone="clutter-path-add-rel-line-to" role="1.0"><primary sortas="path_add_rel_line_to">clutter_path_add_rel_line_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_rel_line_to        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Same as <link linkend="clutter-path-add-line-to"><function>clutter_path_add_line_to()</function></link> except the coordinates are
+relative to the previous node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-curve-to" role="function" condition="since:1.0">
+<title>clutter_path_add_curve_to ()</title>
+<indexterm zone="clutter-path-add-curve-to" role="1.0"><primary sortas="path_add_curve_to">clutter_path_add_curve_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_curve_to           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x_1,
+                                                         <link linkend="gint">gint</link> y_1,
+                                                         <link linkend="gint">gint</link> x_2,
+                                                         <link linkend="gint">gint</link> y_2,
+                                                         <link linkend="gint">gint</link> x_3,
+                                                         <link linkend="gint">gint</link> y_3);</programlisting>
+<para>
+Adds a <link linkend="CLUTTER-PATH-CURVE-TO--CAPS"><type>CLUTTER_PATH_CURVE_TO</type></link> type node to the path. This causes
+the actor to follow a bezier from the last node to (<parameter>x_3</parameter>, <parameter>y_3</parameter>) using
+(<parameter>x_1</parameter>, <parameter>y_1</parameter>) and (<parameter>x_2</parameter>,<parameter>y_2</parameter>) as control points.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_1</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the first control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_1</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the first control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_2</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the second control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_2</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the second control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_3</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the third control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_3</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the third control point
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-rel-curve-to" role="function" condition="since:1.0">
+<title>clutter_path_add_rel_curve_to ()</title>
+<indexterm zone="clutter-path-add-rel-curve-to" role="1.0"><primary sortas="path_add_rel_curve_to">clutter_path_add_rel_curve_to</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_rel_curve_to       (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> x_1,
+                                                         <link linkend="gint">gint</link> y_1,
+                                                         <link linkend="gint">gint</link> x_2,
+                                                         <link linkend="gint">gint</link> y_2,
+                                                         <link linkend="gint">gint</link> x_3,
+                                                         <link linkend="gint">gint</link> y_3);</programlisting>
+<para>
+Same as <link linkend="clutter-path-add-curve-to"><function>clutter_path_add_curve_to()</function></link> except the coordinates are
+relative to the previous node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_1</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the first control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_1</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the first control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_2</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the second control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_2</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the second control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_3</parameter>&#160;:</term>
+<listitem><simpara> the x coordinate of the third control point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_3</parameter>&#160;:</term>
+<listitem><simpara> the y coordinate of the third control point
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-close" role="function" condition="since:1.0">
+<title>clutter_path_add_close ()</title>
+<indexterm zone="clutter-path-add-close" role="1.0"><primary sortas="path_add_close">clutter_path_add_close</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_close              (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Adds a <link linkend="CLUTTER-PATH-CLOSE--CAPS"><type>CLUTTER_PATH_CLOSE</type></link> type node to the path. This creates a
+straight line from the last node to the last <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><type>CLUTTER_PATH_MOVE_TO</type></link>
+type node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-string" role="function" condition="since:1.0">
+<title>clutter_path_add_string ()</title>
+<indexterm zone="clutter-path-add-string" role="1.0"><primary sortas="path_add_string">clutter_path_add_string</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_path_add_string             (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="gchar">gchar</link> *str);</programlisting>
+<para>
+Adds new nodes to the end of the path as described in <parameter>str</parameter>. The
+format is a subset of the SVG path format. Each node is represented
+by a letter and is followed by zero, one or three pairs of
+coordinates. The coordinates can be separated by spaces or a
+comma. The types are:
+</para>
+<para>
+<variablelist>
+<varlistentry><term>M</term>
+<listitem><para>
+Adds a <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link> node. Takes one pair of coordinates.
+</para></listitem></varlistentry>
+<varlistentry><term>L</term>
+<listitem><para>
+Adds a <link linkend="CLUTTER-PATH-LINE-TO--CAPS"><literal>CLUTTER_PATH_LINE_TO</literal></link> node. Takes one pair of coordinates.
+</para></listitem></varlistentry>
+<varlistentry><term>C</term>
+<listitem><para>
+Adds a <link linkend="CLUTTER-PATH-CURVE-TO--CAPS"><literal>CLUTTER_PATH_CURVE_TO</literal></link> node. Takes three pairs of coordinates.
+</para></listitem></varlistentry>
+<varlistentry><term>z</term>
+<listitem><para>
+Adds a <link linkend="CLUTTER-PATH-CLOSE--CAPS"><literal>CLUTTER_PATH_CLOSE</literal></link> node. No coordinates are needed.
+</para></listitem></varlistentry>
+</variablelist>
+</para>
+<para>
+The M, L and C commands can also be specified in lower case which
+means the coordinates are relative to the previous node.
+</para>
+<para>
+For example, to move an actor in a 100 by 100 pixel square centered
+on the point 300,300 you could use the following path:
+</para>
+<para>
+<informalexample>
+ <programlisting>
+  M 250,350 l 0 -100 L 350,250 l 0 100 z
+ </programlisting>
+</informalexample>
+</para>
+<para>
+If the path description isn't valid <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> will be returned and no
+nodes will be added.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara> a string describing the new nodes
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> is the path description was valid or <link linkend="FALSE--CAPS"><literal>FALSE</literal></link>
+otherwise.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-node" role="function" condition="since:1.0">
+<title>clutter_path_add_node ()</title>
+<indexterm zone="clutter-path-add-node" role="1.0"><primary sortas="path_add_node">clutter_path_add_node</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_node               (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Adds <parameter>node</parameter> to the end of the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPathNode"><type>ClutterPathNode</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-add-cairo-path" role="function" condition="since:1.0">
+<title>clutter_path_add_cairo_path ()</title>
+<indexterm zone="clutter-path-add-cairo-path" role="1.0"><primary sortas="path_add_cairo_path">clutter_path_add_cairo_path</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_add_cairo_path         (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="cairo-path-t">cairo_path_t</link> *cpath);</programlisting>
+<para>
+Add the nodes of the Cairo path to the end of <parameter>path</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cpath</parameter>&#160;:</term>
+<listitem><simpara> a Cairo path
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-n-nodes" role="function" condition="since:1.0">
+<title>clutter_path_get_n_nodes ()</title>
+<indexterm zone="clutter-path-get-n-nodes" role="1.0"><primary sortas="path_get_n_nodes">clutter_path_get_n_nodes</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_path_get_n_nodes            (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Retrieves the number of nodes in the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the number of nodes.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-node" role="function" condition="since:1.0">
+<title>clutter_path_get_node ()</title>
+<indexterm zone="clutter-path-get-node" role="1.0"><primary sortas="path_get_node">clutter_path_get_node</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_get_node               (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_,
+                                                         <link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Retrieves the node of the path indexed by <parameter>index</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index_</parameter>&#160;:</term>
+<listitem><simpara> the node number to retrieve
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> a location to store a copy of the node
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-nodes" role="function" condition="since:1.0">
+<title>clutter_path_get_nodes ()</title>
+<indexterm zone="clutter-path-get-nodes" role="1.0"><primary sortas="path_get_nodes">clutter_path_get_nodes</primary></indexterm><programlisting><link linkend="GSList">GSList</link> *            clutter_path_get_nodes              (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Returns a <link linkend="GSList"><type>GSList</type></link> of <link linkend="ClutterPathNode"><type>ClutterPathNode</type></link><!-- -->s. The list should be
+freed with <link linkend="g-slist-free"><function>g_slist_free()</function></link>. The nodes are owned by the path and
+should not be freed. Altering the path may cause the nodes in the
+list to become invalid so you should copy them if you want to keep
+the list.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a list of nodes in the path.. <acronym>transfer</acronym> container. <acronym>element-type</acronym> ClutterPathNode. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-foreach" role="function" condition="since:1.0">
+<title>clutter_path_foreach ()</title>
+<indexterm zone="clutter-path-foreach" role="1.0"><primary sortas="path_foreach">clutter_path_foreach</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_foreach                (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="ClutterPathCallback">ClutterPathCallback</link> callback,
+                                                         <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Calls a function for each node of the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara> the function to call with each node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara> user data to pass to the function
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-insert-node" role="function" condition="since:1.0">
+<title>clutter_path_insert_node ()</title>
+<indexterm zone="clutter-path-insert-node" role="1.0"><primary sortas="path_insert_node">clutter_path_insert_node</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_insert_node            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gint">gint</link> index_,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Inserts <parameter>node</parameter> into the path before the node at the given offset. If
+<parameter>index_</parameter> is negative it will append the node to the end of the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index_</parameter>&#160;:</term>
+<listitem><simpara> offset of where to insert the node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> the node to insert
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-remove-node" role="function" condition="since:1.0">
+<title>clutter_path_remove_node ()</title>
+<indexterm zone="clutter-path-remove-node" role="1.0"><primary sortas="path_remove_node">clutter_path_remove_node</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_remove_node            (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_);</programlisting>
+<para>
+Removes the node at the given offset from the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index_</parameter>&#160;:</term>
+<listitem><simpara> index of the node to remove
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-replace-node" role="function" condition="since:1.0">
+<title>clutter_path_replace_node ()</title>
+<indexterm zone="clutter-path-replace-node" role="1.0"><primary sortas="path_replace_node">clutter_path_replace_node</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_replace_node           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="guint">guint</link> index_,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Replaces the node at offset <parameter>index_</parameter> with <parameter>node</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index_</parameter>&#160;:</term>
+<listitem><simpara> index to the existing node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> the replacement node
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-description" role="function" condition="since:1.0">
+<title>clutter_path_get_description ()</title>
+<indexterm zone="clutter-path-get-description" role="1.0"><primary sortas="path_get_description">clutter_path_get_description</primary></indexterm><programlisting><link linkend="gchar">gchar</link> *             clutter_path_get_description        (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Returns a newly allocated string describing the path in the same
+format as used by <link linkend="clutter-path-add-string"><function>clutter_path_add_string()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a string description of the path. Free with <link linkend="g-free"><function>g_free()</function></link>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-set-description" role="function" condition="since:1.0">
+<title>clutter_path_set_description ()</title>
+<indexterm zone="clutter-path-set-description" role="1.0"><primary sortas="path_set_description">clutter_path_set_description</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_path_set_description        (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         const <link linkend="gchar">gchar</link> *str);</programlisting>
+<para>
+Replaces all of the nodes in the path with nodes described by
+<parameter>str</parameter>. See <link linkend="clutter-path-add-string"><function>clutter_path_add_string()</function></link> for details of the format.
+</para>
+<para>
+If the string is invalid then <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> is returned and the path is
+unaltered.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara> a string describing the path
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> is the path was valid, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-to-cairo-path" role="function" condition="since:1.0">
+<title>clutter_path_to_cairo_path ()</title>
+<indexterm zone="clutter-path-to-cairo-path" role="1.0"><primary sortas="path_to_cairo_path">clutter_path_to_cairo_path</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_to_cairo_path          (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="cairo-t">cairo_t</link> *cr);</programlisting>
+<para>
+Add the nodes of the ClutterPath to the path in the Cairo context.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cr</parameter>&#160;:</term>
+<listitem><simpara> a Cairo context
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-clear" role="function" condition="since:1.0">
+<title>clutter_path_clear ()</title>
+<indexterm zone="clutter-path-clear" role="1.0"><primary sortas="path_clear">clutter_path_clear</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_clear                  (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Removes all nodes from the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-position" role="function" condition="since:1.0">
+<title>clutter_path_get_position ()</title>
+<indexterm zone="clutter-path-get-position" role="1.0"><primary sortas="path_get_position">clutter_path_get_position</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_path_get_position           (<link linkend="ClutterPath">ClutterPath</link> *path,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="ClutterKnot">ClutterKnot</link> *position);</programlisting>
+<para>
+The value in <parameter>progress</parameter> represents a position along the path where
+0.0 is the beginning and 1.0 is the end of the path. An
+interpolated position is then stored in <parameter>position</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>progress</parameter>&#160;:</term>
+<listitem><simpara> a position along the path as a fraction of its length
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&#160;:</term>
+<listitem><simpara> location to store the position
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> index of the node used to calculate the position.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-get-length" role="function" condition="since:1.0">
+<title>clutter_path_get_length ()</title>
+<indexterm zone="clutter-path-get-length" role="1.0"><primary sortas="path_get_length">clutter_path_get_length</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_path_get_length             (<link linkend="ClutterPath">ClutterPath</link> *path);</programlisting>
+<para>
+Retrieves an approximation of the total length of the path.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPath"><type>ClutterPath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the length of the path.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterPathNode" role="struct" condition="since:1.0">
+<title>ClutterPathNode</title>
+<indexterm zone="ClutterPathNode" role="1.0"><primary sortas="PathNode">ClutterPathNode</primary></indexterm><programlisting>typedef struct {
+  ClutterPathNodeType type;
+
+  ClutterKnot points[3];
+} ClutterPathNode;
+</programlisting>
+<para>
+Represents a single node of a <link linkend="ClutterPath"><type>ClutterPath</type></link>.
+</para>
+<para>
+Some of the coordinates in <parameter>points</parameter> may be unused for some node
+types. <link linkend="CLUTTER-PATH-MOVE-TO--CAPS"><literal>CLUTTER_PATH_MOVE_TO</literal></link> and <link linkend="CLUTTER-PATH-LINE-TO--CAPS"><literal>CLUTTER_PATH_LINE_TO</literal></link> use only two
+pairs of coordinates, <link linkend="CLUTTER-PATH-CURVE-TO--CAPS"><literal>CLUTTER_PATH_CURVE_TO</literal></link> uses all three and
+<link linkend="CLUTTER-PATH-CLOSE--CAPS"><literal>CLUTTER_PATH_CLOSE</literal></link> uses none.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="ClutterPathNodeType">ClutterPathNodeType</link>&#160;<structfield>type</structfield>;</term>
+<listitem><simpara> the node's type
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ClutterKnot">ClutterKnot</link>&#160;<structfield>points</structfield>[3];</term>
+<listitem><simpara> the coordinates of the node
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-node-copy" role="function" condition="since:1.0">
+<title>clutter_path_node_copy ()</title>
+<indexterm zone="clutter-path-node-copy" role="1.0"><primary sortas="path_node_copy">clutter_path_node_copy</primary></indexterm><programlisting><link linkend="ClutterPathNode">ClutterPathNode</link> *   clutter_path_node_copy              (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Makes an allocated copy of a node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPathNode"><type>ClutterPathNode</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the copied node.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-node-free" role="function" condition="since:1.0">
+<title>clutter_path_node_free ()</title>
+<indexterm zone="clutter-path-node-free" role="1.0"><primary sortas="path_node_free">clutter_path_node_free</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_path_node_free              (<link linkend="ClutterPathNode">ClutterPathNode</link> *node);</programlisting>
+<para>
+Frees the memory of an allocated node.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterPathNode"><type>ClutterPathNode</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-path-node-equal" role="function" condition="since:1.0">
+<title>clutter_path_node_equal ()</title>
+<indexterm zone="clutter-path-node-equal" role="1.0"><primary sortas="path_node_equal">clutter_path_node_equal</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_path_node_equal             (const <link linkend="ClutterPathNode">ClutterPathNode</link> *node_a,
+                                                         const <link linkend="ClutterPathNode">ClutterPathNode</link> *node_b);</programlisting>
+<para>
+Compares two nodes and checks if they are the same type with the
+same coordinates.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node_a</parameter>&#160;:</term>
+<listitem><simpara> First node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node_b</parameter>&#160;:</term>
+<listitem><simpara> Second node
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the nodes are the same.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterPath.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterPath--description" role="property"><title>The <literal>&quot;description&quot;</literal> property</title>
+<indexterm zone="ClutterPath--description"><primary sortas="Path:description">ClutterPath:description</primary></indexterm><programlisting>  &quot;description&quot;              <link linkend="gchar">gchar</link>*                : Read / Write</programlisting>
+<para>SVG-style description of the path.</para><para>Default value: ""</para>
+</refsect2>
+<refsect2 id="ClutterPath--length" role="property"><title>The <literal>&quot;length&quot;</literal> property</title>
+<indexterm zone="ClutterPath--length"><primary sortas="Path:length">ClutterPath:length</primary></indexterm><programlisting>  &quot;length&quot;                   <link linkend="guint">guint</link>                 : Read</programlisting>
+<para>An approximation of the total length of the path.</para><para>Default value: 0</para>
+</refsect2>
+</refsect1>
+
+
+
+
+</refentry>

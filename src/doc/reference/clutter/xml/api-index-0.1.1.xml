@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="clutter-actor-has-clip"><link linkend="clutter-actor-has-clip">clutter_actor_has_clip</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-unparent"><link linkend="clutter-actor-unparent">clutter_actor_unparent</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="clutter-feature-available"><link linkend="clutter-feature-available">clutter_feature_available</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-feature-get-all"><link linkend="clutter-feature-get-all">clutter_feature_get_all</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

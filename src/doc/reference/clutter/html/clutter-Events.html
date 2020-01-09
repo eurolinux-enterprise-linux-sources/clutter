@@ -1,0 +1,1775 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Events</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch07.html" title="General purpose API">
+<link rel="prev" href="clutter-Key-Bindings.html" title="Key Bindings">
+<link rel="next" href="clutter-General.html" title="General">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="clutter-Key-Bindings.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutter-General.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#clutter-Events.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#clutter-Events.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="clutter-Events"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="clutter-Events.top_of_page"></a>Events</span></h2>
+<p>Events — User and window system events</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="clutter-Events.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#define             <a class="link" href="clutter-Events.html#CLUTTER-CURRENT-TIME--CAPS" title="CLUTTER_CURRENT_TIME">CLUTTER_CURRENT_TIME</a>
+#define             <a class="link" href="clutter-Events.html#CLUTTER-PRIORITY-EVENTS--CAPS" title="CLUTTER_PRIORITY_EVENTS">CLUTTER_PRIORITY_EVENTS</a>
+enum                <a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a>;
+enum                <a class="link" href="clutter-Events.html#ClutterScrollDirection" title="enum ClutterScrollDirection">ClutterScrollDirection</a>;
+enum                <a class="link" href="clutter-Events.html#ClutterStageState" title="enum ClutterStageState">ClutterStageState</a>;
+enum                <a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a>;
+union               <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a>;
+enum                <a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a>;
+                    <a class="link" href="clutter-Events.html#ClutterButtonEvent" title="ClutterButtonEvent">ClutterButtonEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterKeyEvent" title="ClutterKeyEvent">ClutterKeyEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterMotionEvent" title="ClutterMotionEvent">ClutterMotionEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterScrollEvent" title="ClutterScrollEvent">ClutterScrollEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterStageStateEvent" title="ClutterStageStateEvent">ClutterStageStateEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterCrossingEvent" title="ClutterCrossingEvent">ClutterCrossingEvent</a>;
+                    <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a>;
+<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      <a class="link" href="clutter-Events.html#clutter-event-new" title="clutter_event_new ()">clutter_event_new</a>                   (<a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> type);
+<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      <a class="link" href="clutter-Events.html#clutter-event-copy" title="clutter_event_copy ()">clutter_event_copy</a>                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+void                <a class="link" href="clutter-Events.html#clutter-event-free" title="clutter_event_free ()">clutter_event_free</a>                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a>    <a class="link" href="clutter-Events.html#clutter-event-type" title="clutter_event_type ()">clutter_event_type</a>                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+
+void                <a class="link" href="clutter-Events.html#clutter-event-get-coords" title="clutter_event_get_coords ()">clutter_event_get_coords</a>            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event,
+                                                         gfloat *x,
+                                                         gfloat *y);
+<a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a>  <a class="link" href="clutter-Events.html#clutter-event-get-state" title="clutter_event_get_state ()">clutter_event_get_state</a>            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+guint32             <a class="link" href="clutter-Events.html#clutter-event-get-time" title="clutter_event_get_time ()">clutter_event_get_time</a>              (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="clutter-Events.html#clutter-event-get-source" title="clutter_event_get_source ()">clutter_event_get_source</a>            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *      <a class="link" href="clutter-Events.html#clutter-event-get-stage" title="clutter_event_get_stage ()">clutter_event_get_stage</a>             (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a>   <a class="link" href="clutter-Events.html#clutter-event-get-flags" title="clutter_event_get_flags ()">clutter_event_get_flags</a>             (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+
+<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      <a class="link" href="clutter-Events.html#clutter-event-get" title="clutter_event_get ()">clutter_event_get</a>                   (void);
+<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      <a class="link" href="clutter-Events.html#clutter-event-peek" title="clutter_event_peek ()">clutter_event_peek</a>                  (void);
+void                <a class="link" href="clutter-Events.html#clutter-event-put" title="clutter_event_put ()">clutter_event_put</a>                   (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+gboolean            <a class="link" href="clutter-Events.html#clutter-events-pending" title="clutter_events_pending ()">clutter_events_pending</a>              (void);
+
+guint32             <a class="link" href="clutter-Events.html#clutter-event-get-button" title="clutter_event_get_button ()">clutter_event_get_button</a>            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+guint               <a class="link" href="clutter-Events.html#clutter-event-get-click-count" title="clutter_event_get_click_count ()">clutter_event_get_click_count</a>       (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+
+guint               <a class="link" href="clutter-Events.html#clutter-event-get-key-symbol" title="clutter_event_get_key_symbol ()">clutter_event_get_key_symbol</a>        (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+guint16             <a class="link" href="clutter-Events.html#clutter-event-get-key-code" title="clutter_event_get_key_code ()">clutter_event_get_key_code</a>          (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+guint32             <a class="link" href="clutter-Events.html#clutter-event-get-key-unicode" title="clutter_event_get_key_unicode ()">clutter_event_get_key_unicode</a>       (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+guint32             <a class="link" href="clutter-Events.html#clutter-keysym-to-unicode" title="clutter_keysym_to_unicode ()">clutter_keysym_to_unicode</a>           (guint keyval);
+
+<a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      <a class="link" href="clutter-Events.html#clutter-event-get-related" title="clutter_event_get_related ()">clutter_event_get_related</a>           (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+
+<a class="link" href="clutter-Events.html#ClutterScrollDirection" title="enum ClutterScrollDirection">ClutterScrollDirection</a>  <a class="link" href="clutter-Events.html#clutter-event-get-scroll-direction" title="clutter_event_get_scroll_direction ()">clutter_event_get_scroll_direction</a>
+                                                        (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+
+enum                <a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType">ClutterInputDeviceType</a>;
+<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> * <a class="link" href="clutter-Events.html#clutter-event-get-device" title="clutter_event_get_device ()">clutter_event_get_device</a>           (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+gint                <a class="link" href="clutter-Events.html#clutter-event-get-device-id" title="clutter_event_get_device_id ()">clutter_event_get_device_id</a>         (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType">ClutterInputDeviceType</a>  <a class="link" href="clutter-Events.html#clutter-event-get-device-type" title="clutter_event_get_device_type ()">clutter_event_get_device_type</a>   (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);
+<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> * <a class="link" href="clutter-Events.html#clutter-get-input-device-for-id" title="clutter_get_input_device_for_id ()">clutter_get_input_device_for_id</a>    (gint id);
+gint                <a class="link" href="clutter-Events.html#clutter-input-device-get-device-id" title="clutter_input_device_get_device_id ()">clutter_input_device_get_device_id</a>  (<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *device);
+<a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType">ClutterInputDeviceType</a>  <a class="link" href="clutter-Events.html#clutter-input-device-get-device-type" title="clutter_input_device_get_device_type ()">clutter_input_device_get_device_type</a>
+                                                        (<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *device);
+
+guint32             <a class="link" href="clutter-Events.html#clutter-get-current-event-time" title="clutter_get_current_event_time ()">clutter_get_current_event_time</a>      (void);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Events.description"></a><h2>Description</h2>
+<p>
+Windowing events handled by Clutter.
+</p>
+<p>
+The events usually come from the windowing backend, but can also
+be synthesized by Clutter itself or by the application code.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Events.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CLUTTER-CURRENT-TIME--CAPS"></a><h3>CLUTTER_CURRENT_TIME</h3>
+<pre class="programlisting">#define CLUTTER_CURRENT_TIME    0L
+</pre>
+<p>
+Default value for "now".</p>
+<p>
+</p>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CLUTTER-PRIORITY-EVENTS--CAPS"></a><h3>CLUTTER_PRIORITY_EVENTS</h3>
+<pre class="programlisting">#define CLUTTER_PRIORITY_EVENTS (G_PRIORITY_DEFAULT)
+</pre>
+<p>
+Priority for event handling.</p>
+<p>
+</p>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterModifierType"></a><h3>enum ClutterModifierType</h3>
+<pre class="programlisting">typedef enum {
+  CLUTTER_SHIFT_MASK    = 1 &lt;&lt; 0,
+  CLUTTER_LOCK_MASK     = 1 &lt;&lt; 1,
+  CLUTTER_CONTROL_MASK  = 1 &lt;&lt; 2,
+  CLUTTER_MOD1_MASK     = 1 &lt;&lt; 3,
+  CLUTTER_MOD2_MASK     = 1 &lt;&lt; 4,
+  CLUTTER_MOD3_MASK     = 1 &lt;&lt; 5,
+  CLUTTER_MOD4_MASK     = 1 &lt;&lt; 6,
+  CLUTTER_MOD5_MASK     = 1 &lt;&lt; 7,
+  CLUTTER_BUTTON1_MASK  = 1 &lt;&lt; 8,
+  CLUTTER_BUTTON2_MASK  = 1 &lt;&lt; 9,
+  CLUTTER_BUTTON3_MASK  = 1 &lt;&lt; 10,
+  CLUTTER_BUTTON4_MASK  = 1 &lt;&lt; 11,
+  CLUTTER_BUTTON5_MASK  = 1 &lt;&lt; 12,
+
+  /* bits 15 to 25 are currently unused; bit 29 is used internally */
+
+  CLUTTER_SUPER_MASK    = 1 &lt;&lt; 26,
+  CLUTTER_HYPER_MASK    = 1 &lt;&lt; 27,
+  CLUTTER_META_MASK     = 1 &lt;&lt; 28,
+
+  CLUTTER_RELEASE_MASK  = 1 &lt;&lt; 30,
+
+  CLUTTER_MODIFIER_MASK = 0x5c001fff
+} ClutterModifierType;
+</pre>
+<p>
+Masks applied to a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> by modifiers.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-SHIFT-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_SHIFT_MASK</code></span></p></td>
+<td> Mask applied by the Shift key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-LOCK-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_LOCK_MASK</code></span></p></td>
+<td> Mask applied by the Caps Lock key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-CONTROL-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_CONTROL_MASK</code></span></p></td>
+<td> Mask applied by the Control key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOD1-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOD1_MASK</code></span></p></td>
+<td> Mask applied by the first Mod key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOD2-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOD2_MASK</code></span></p></td>
+<td> Mask applied by the second Mod key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOD3-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOD3_MASK</code></span></p></td>
+<td> Mask applied by the third Mod key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOD4-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOD4_MASK</code></span></p></td>
+<td> Mask applied by the fourth Mod key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOD5-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOD5_MASK</code></span></p></td>
+<td> Mask applied by the fifth Mod key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON1-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON1_MASK</code></span></p></td>
+<td> Mask applied by the first pointer button
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON2-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON2_MASK</code></span></p></td>
+<td> Mask applied by the second pointer button
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON3-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON3_MASK</code></span></p></td>
+<td> Mask applied by the third pointer button
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON4-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON4_MASK</code></span></p></td>
+<td> Mask applied by the fourth pointer button
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON5-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON5_MASK</code></span></p></td>
+<td> Mask applied by the fifth pointer button
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-SUPER-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_SUPER_MASK</code></span></p></td>
+<td> Mask applied by the Super key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-HYPER-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_HYPER_MASK</code></span></p></td>
+<td> Mask applied by the Hyper key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-META-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_META_MASK</code></span></p></td>
+<td> Mask applied by the Meta key
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-RELEASE-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_RELEASE_MASK</code></span></p></td>
+<td> Mask applied during release
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MODIFIER-MASK--CAPS"></a><span class="term"><code class="literal">CLUTTER_MODIFIER_MASK</code></span></p></td>
+<td> A mask covering all modifier types
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterScrollDirection"></a><h3>enum ClutterScrollDirection</h3>
+<pre class="programlisting">typedef enum
+{
+  CLUTTER_SCROLL_UP,
+  CLUTTER_SCROLL_DOWN,
+  CLUTTER_SCROLL_LEFT,
+  CLUTTER_SCROLL_RIGHT
+} ClutterScrollDirection;
+</pre>
+<p>
+Direction of a pointer scroll event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-SCROLL-UP--CAPS"></a><span class="term"><code class="literal">CLUTTER_SCROLL_UP</code></span></p></td>
+<td> Scroll up
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-SCROLL-DOWN--CAPS"></a><span class="term"><code class="literal">CLUTTER_SCROLL_DOWN</code></span></p></td>
+<td> Scroll down
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-SCROLL-LEFT--CAPS"></a><span class="term"><code class="literal">CLUTTER_SCROLL_LEFT</code></span></p></td>
+<td> Scroll left
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-SCROLL-RIGHT--CAPS"></a><span class="term"><code class="literal">CLUTTER_SCROLL_RIGHT</code></span></p></td>
+<td> Scroll right
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterStageState"></a><h3>enum ClutterStageState</h3>
+<pre class="programlisting">typedef enum
+{
+  CLUTTER_STAGE_STATE_FULLSCREEN       = (1&lt;&lt;1),
+  CLUTTER_STAGE_STATE_OFFSCREEN        = (1&lt;&lt;2),
+  CLUTTER_STAGE_STATE_ACTIVATED        = (1&lt;&lt;3)
+} ClutterStageState;
+</pre>
+<p>
+Stage state masks</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-STAGE-STATE-FULLSCREEN--CAPS"></a><span class="term"><code class="literal">CLUTTER_STAGE_STATE_FULLSCREEN</code></span></p></td>
+<td> Fullscreen mask
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-STAGE-STATE-OFFSCREEN--CAPS"></a><span class="term"><code class="literal">CLUTTER_STAGE_STATE_OFFSCREEN</code></span></p></td>
+<td> Offscreen mask
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-STAGE-STATE-ACTIVATED--CAPS"></a><span class="term"><code class="literal">CLUTTER_STAGE_STATE_ACTIVATED</code></span></p></td>
+<td> Activated mask
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterEventType"></a><h3>enum ClutterEventType</h3>
+<pre class="programlisting">typedef enum 
+{
+  CLUTTER_NOTHING = 0,
+  CLUTTER_KEY_PRESS,
+  CLUTTER_KEY_RELEASE,
+  CLUTTER_MOTION,
+  CLUTTER_ENTER,
+  CLUTTER_LEAVE,
+  CLUTTER_BUTTON_PRESS,
+  CLUTTER_BUTTON_RELEASE,
+  CLUTTER_SCROLL,
+  CLUTTER_STAGE_STATE,
+  CLUTTER_DESTROY_NOTIFY,
+  CLUTTER_CLIENT_MESSAGE,
+  CLUTTER_DELETE
+} ClutterEventType;
+</pre>
+<p>
+Types of events.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-NOTHING--CAPS"></a><span class="term"><code class="literal">CLUTTER_NOTHING</code></span></p></td>
+<td> Empty event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-KEY-PRESS--CAPS"></a><span class="term"><code class="literal">CLUTTER_KEY_PRESS</code></span></p></td>
+<td> Key press event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-KEY-RELEASE--CAPS"></a><span class="term"><code class="literal">CLUTTER_KEY_RELEASE</code></span></p></td>
+<td> Key release event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-MOTION--CAPS"></a><span class="term"><code class="literal">CLUTTER_MOTION</code></span></p></td>
+<td> Pointer motion event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-ENTER--CAPS"></a><span class="term"><code class="literal">CLUTTER_ENTER</code></span></p></td>
+<td> Actor enter event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-LEAVE--CAPS"></a><span class="term"><code class="literal">CLUTTER_LEAVE</code></span></p></td>
+<td> Actor leave event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON-PRESS--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON_PRESS</code></span></p></td>
+<td> Pointer button press event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-BUTTON-RELEASE--CAPS"></a><span class="term"><code class="literal">CLUTTER_BUTTON_RELEASE</code></span></p></td>
+<td> Pointer button release event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-SCROLL--CAPS"></a><span class="term"><code class="literal">CLUTTER_SCROLL</code></span></p></td>
+<td> Pointer scroll event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-STAGE-STATE--CAPS"></a><span class="term"><code class="literal">CLUTTER_STAGE_STATE</code></span></p></td>
+<td> Stage stage change event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-DESTROY-NOTIFY--CAPS"></a><span class="term"><code class="literal">CLUTTER_DESTROY_NOTIFY</code></span></p></td>
+<td> Destroy notification event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-CLIENT-MESSAGE--CAPS"></a><span class="term"><code class="literal">CLUTTER_CLIENT_MESSAGE</code></span></p></td>
+<td> Client message event
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-DELETE--CAPS"></a><span class="term"><code class="literal">CLUTTER_DELETE</code></span></p></td>
+<td> Stage delete event
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterEvent"></a><h3>union ClutterEvent</h3>
+<pre class="programlisting">union ClutterEvent
+{
+  ClutterEventType type;
+
+  ClutterAnyEvent any;
+  ClutterButtonEvent button;
+  ClutterKeyEvent key;
+  ClutterMotionEvent motion;
+  ClutterScrollEvent scroll;
+  ClutterStageStateEvent stage_state;
+  ClutterCrossingEvent crossing;
+};
+</pre>
+<p>
+Generic event wrapper.</p>
+<p>
+</p>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterEventFlags"></a><h3>enum ClutterEventFlags</h3>
+<pre class="programlisting">typedef enum {
+  CLUTTER_EVENT_NONE           = 0,
+  CLUTTER_EVENT_FLAG_SYNTHETIC = 1 &lt;&lt; 0,
+} ClutterEventFlags;
+</pre>
+<p>
+Flags for the <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-EVENT-NONE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EVENT_NONE</code></span></p></td>
+<td> No flag set
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EVENT-FLAG-SYNTHETIC--CAPS"></a><span class="term"><code class="literal">CLUTTER_EVENT_FLAG_SYNTHETIC</code></span></p></td>
+<td> Synthetic event
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterButtonEvent"></a><h3>ClutterButtonEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  gfloat x;
+  gfloat y;
+  ClutterModifierType modifier_state;
+  guint32 button;
+  guint click_count;
+  gdouble *axes; /* Future use */
+  ClutterInputDevice *device;
+} ClutterButtonEvent;
+</pre>
+<p>
+Button event.
+</p>
+<p>
+The event coordinates are relative to the stage that received the
+event, and can be transformed into actor-relative coordinates by
+using <a class="link" href="ClutterActor.html#clutter-actor-transform-stage-point" title="clutter_actor_transform_stage_point ()"><code class="function">clutter_actor_transform_stage_point()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>x</code></em>;</span></p></td>
+<td> event X coordinate, relative to the stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>y</code></em>;</span></p></td>
+<td> event Y coordinate, relative to the stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a> <em class="structfield"><code>modifier_state</code></em>;</span></p></td>
+<td> button modifiers
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>button</code></em>;</span></p></td>
+<td> event button
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint <em class="structfield"><code>click_count</code></em>;</span></p></td>
+<td> number of button presses within the default time
+  and radius
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gdouble *<em class="structfield"><code>axes</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *<em class="structfield"><code>device</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterKeyEvent"></a><h3>ClutterKeyEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  ClutterModifierType modifier_state;
+  guint keyval;
+  guint16 hardware_keycode;
+  gunichar unicode_value;
+  ClutterInputDevice *device;
+} ClutterKeyEvent;
+</pre>
+<p>
+Key event</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a> <em class="structfield"><code>modifier_state</code></em>;</span></p></td>
+<td> key modifiers
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint <em class="structfield"><code>keyval</code></em>;</span></p></td>
+<td> raw key value
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint16 <em class="structfield"><code>hardware_keycode</code></em>;</span></p></td>
+<td> raw hardware key value
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gunichar <em class="structfield"><code>unicode_value</code></em>;</span></p></td>
+<td> Unicode representation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *<em class="structfield"><code>device</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMotionEvent"></a><h3>ClutterMotionEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  gfloat x;
+  gfloat y;
+  ClutterModifierType modifier_state;
+  gdouble *axes; /* Future use */
+  ClutterInputDevice *device;
+} ClutterMotionEvent;
+</pre>
+<p>
+Event for the pointer motion</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>x</code></em>;</span></p></td>
+<td> event X coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>y</code></em>;</span></p></td>
+<td> event Y coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a> <em class="structfield"><code>modifier_state</code></em>;</span></p></td>
+<td> button modifiers
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gdouble *<em class="structfield"><code>axes</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *<em class="structfield"><code>device</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterScrollEvent"></a><h3>ClutterScrollEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  gfloat x;
+  gfloat y;
+  ClutterScrollDirection direction;
+  ClutterModifierType modifier_state;
+  gdouble *axes; /* future use */
+  ClutterInputDevice *device;
+} ClutterScrollEvent;
+</pre>
+<p>
+Scroll wheel (or similar device) event</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>x</code></em>;</span></p></td>
+<td> event X coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>y</code></em>;</span></p></td>
+<td> event Y coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterScrollDirection" title="enum ClutterScrollDirection">ClutterScrollDirection</a> <em class="structfield"><code>direction</code></em>;</span></p></td>
+<td> direction of the scrolling
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a> <em class="structfield"><code>modifier_state</code></em>;</span></p></td>
+<td> button modifiers
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gdouble *<em class="structfield"><code>axes</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *<em class="structfield"><code>device</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterStageStateEvent"></a><h3>ClutterStageStateEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source; /* XXX: should probably be the stage itself */
+
+  ClutterStageState changed_mask;
+  ClutterStageState new_state;
+} ClutterStageStateEvent;
+</pre>
+<p>
+Event signalling a change in the <a class="link" href="ClutterStage.html" title="ClutterStage"><span class="type">ClutterStage</span></a> state.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor (unused)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterStageState" title="enum ClutterStageState">ClutterStageState</a> <em class="structfield"><code>changed_mask</code></em>;</span></p></td>
+<td> bitwise OR of the changed flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterStageState" title="enum ClutterStageState">ClutterStageState</a> <em class="structfield"><code>new_state</code></em>;</span></p></td>
+<td> bitwise OR of the current state flags
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterCrossingEvent"></a><h3>ClutterCrossingEvent</h3>
+<pre class="programlisting">typedef struct {
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  gfloat x;
+  gfloat y;
+  ClutterInputDevice *device;
+  ClutterActor *related;
+} ClutterCrossingEvent;
+</pre>
+<p>
+Event for the movement of the pointer across different actors</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> <em class="structfield"><code>type</code></em>;</span></p></td>
+<td> event type
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint32 <em class="structfield"><code>time</code></em>;</span></p></td>
+<td> event time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a> <em class="structfield"><code>flags</code></em>;</span></p></td>
+<td> event flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *<em class="structfield"><code>stage</code></em>;</span></p></td>
+<td> event source stage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>source</code></em>;</span></p></td>
+<td> event source actor
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>x</code></em>;</span></p></td>
+<td> event X coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term">gfloat <em class="structfield"><code>y</code></em>;</span></p></td>
+<td> event Y coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *<em class="structfield"><code>device</code></em>;</span></p></td>
+<td> reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *<em class="structfield"><code>related</code></em>;</span></p></td>
+<td> actor related to the crossing
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterInputDevice"></a><h3>ClutterInputDevice</h3>
+<pre class="programlisting">typedef struct _ClutterInputDevice ClutterInputDevice;</pre>
+<p>
+Generic representation of an input device. The
+actual contents of this structure depend on the
+backend used.</p>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-new"></a><h3>clutter_event_new ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      clutter_event_new                   (<a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a> type);</pre>
+<p>
+Creates a new <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of the specified type.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> The type of event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A newly allocated <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-copy"></a><h3>clutter_event_copy ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      clutter_event_copy                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Copies <em class="parameter"><code>event</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> A <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A newly allocated <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-free"></a><h3>clutter_event_free ()</h3>
+<pre class="programlisting">void                clutter_event_free                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Frees all resources used by <em class="parameter"><code>event</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> A <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-type"></a><h3>clutter_event_type ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType">ClutterEventType</a>    clutter_event_type                  (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the type of the event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEventType" title="enum ClutterEventType"><span class="type">ClutterEventType</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-coords"></a><h3>clutter_event_get_coords ()</h3>
+<pre class="programlisting">void                clutter_event_get_coords            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event,
+                                                         gfloat *x,
+                                                         gfloat *y);</pre>
+<p>
+Retrieves the coordinates of <em class="parameter"><code>event</code></em> and puts them into <em class="parameter"><code>x</code></em> and <em class="parameter"><code>y</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td> return location for the X coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td> return location for the Y coordinate
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-state"></a><h3>clutter_event_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterModifierType" title="enum ClutterModifierType">ClutterModifierType</a>  clutter_event_get_state            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the modifier state of the event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the modifier state parameter, or 0
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-time"></a><h3>clutter_event_get_time ()</h3>
+<pre class="programlisting">guint32             clutter_event_get_time              (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the time of the event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the time of the event, or <a class="link" href="clutter-Events.html#CLUTTER-CURRENT-TIME--CAPS" title="CLUTTER_CURRENT_TIME"><code class="literal">CLUTTER_CURRENT_TIME</code></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-source"></a><h3>clutter_event_get_source ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_event_get_source            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the source <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> the event originated from, or
+NULL if the event has no source.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-stage"></a><h3>clutter_event_get_stage ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a> *      clutter_event_get_stage             (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the source <a class="link" href="ClutterStage.html" title="ClutterStage"><span class="type">ClutterStage</span></a> the event originated for, or
+<code class="literal">NULL</code> if the event has no stage.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="ClutterStage.html" title="ClutterStage"><span class="type">ClutterStage</span></a>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-flags"></a><h3>clutter_event_get_flags ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags">ClutterEventFlags</a>   clutter_event_get_flags             (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the <a class="link" href="clutter-Events.html#ClutterEventFlags" title="enum ClutterEventFlags"><span class="type">ClutterEventFlags</span></a> of <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the event flags
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get"></a><h3>clutter_event_get ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      clutter_event_get                   (void);</pre>
+<p>
+Pops an event off the event queue. Applications should not need to call 
+this.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> or NULL if queue empty
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-peek"></a><h3>clutter_event_peek ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *      clutter_event_peek                  (void);</pre>
+<p>
+Returns a pointer to the first event from the event queue but 
+does not remove it.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> or NULL if queue empty.. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-put"></a><h3>clutter_event_put ()</h3>
+<pre class="programlisting">void                clutter_event_put                   (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Puts a copy of the event on the back of the event queue. The event will
+have the <a class="link" href="clutter-Events.html#CLUTTER-EVENT-FLAG-SYNTHETIC--CAPS"><code class="literal">CLUTTER_EVENT_FLAG_SYNTHETIC</code></a> flag set. If the source is set
+event signals will be emitted for this source and capture/bubbling for
+its ancestors. If the source is not set it will be generated by picking
+or use the actor that currently has keyboard focus</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-events-pending"></a><h3>clutter_events_pending ()</h3>
+<pre class="programlisting">gboolean            clutter_events_pending              (void);</pre>
+<p>
+Checks if events are pending in the event queue.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if there are pending events, FALSE otherwise.
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-button"></a><h3>clutter_event_get_button ()</h3>
+<pre class="programlisting">guint32             clutter_event_get_button            (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the button number of <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-BUTTON-PRESS--CAPS"><code class="literal">CLUTTER_BUTTON_PRESS</code></a> or
+  of type <a class="link" href="clutter-Events.html#CLUTTER-BUTTON-RELEASE--CAPS"><code class="literal">CLUTTER_BUTTON_RELEASE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the button number
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-click-count"></a><h3>clutter_event_get_click_count ()</h3>
+<pre class="programlisting">guint               clutter_event_get_click_count       (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the number of clicks of <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-BUTTON-PRESS--CAPS"><code class="literal">CLUTTER_BUTTON_PRESS</code></a> or
+  of type <a class="link" href="clutter-Events.html#CLUTTER-BUTTON-RELEASE--CAPS"><code class="literal">CLUTTER_BUTTON_RELEASE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the click count
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-key-symbol"></a><h3>clutter_event_get_key_symbol ()</h3>
+<pre class="programlisting">guint               clutter_event_get_key_symbol        (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the key symbol of <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-KEY-PRESS--CAPS"><code class="literal">CLUTTER_KEY_PRESS</code></a> or
+  of type <a class="link" href="clutter-Events.html#CLUTTER-KEY-RELEASE--CAPS"><code class="literal">CLUTTER_KEY_RELEASE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the key symbol representing the key
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-key-code"></a><h3>clutter_event_get_key_code ()</h3>
+<pre class="programlisting">guint16             clutter_event_get_key_code          (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the keycode of the key that caused <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-KEY-PRESS--CAPS"><code class="literal">CLUTTER_KEY_PRESS</code></a> or
+   of type <a class="link" href="clutter-Events.html#CLUTTER-KEY-RELEASE--CAPS"><code class="literal">CLUTTER_KEY_RELEASE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The keycode representing the key
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-key-unicode"></a><h3>clutter_event_get_key_unicode ()</h3>
+<pre class="programlisting">guint32             clutter_event_get_key_unicode       (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the unicode value for the key that caused <em class="parameter"><code>keyev</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> A <a class="link" href="clutter-Events.html#ClutterKeyEvent" title="ClutterKeyEvent"><span class="type">ClutterKeyEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The unicode value representing the key
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-keysym-to-unicode"></a><h3>clutter_keysym_to_unicode ()</h3>
+<pre class="programlisting">guint32             clutter_keysym_to_unicode           (guint keyval);</pre>
+<p>
+Convert from a Clutter key symbol to the corresponding ISO10646 (Unicode)
+character.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>keyval</code></em> :</span></p></td>
+<td> a key symbol 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a Unicode character, or 0 if there  is no corresponding
+  character.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-related"></a><h3>clutter_event_get_related ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a> *      clutter_event_get_related           (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the related actor of a crossing event.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-ENTER--CAPS"><code class="literal">CLUTTER_ENTER</code></a> or of
+  type <a class="link" href="clutter-Events.html#CLUTTER-LEAVE--CAPS"><code class="literal">CLUTTER_LEAVE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the related <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>, or <code class="literal">NULL</code>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-scroll-direction"></a><h3>clutter_event_get_scroll_direction ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterScrollDirection" title="enum ClutterScrollDirection">ClutterScrollDirection</a>  clutter_event_get_scroll_direction
+                                                        (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the direction of the scrolling of <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a> of type <a class="link" href="clutter-Events.html#CLUTTER-SCROLL--CAPS"><code class="literal">CLUTTER_SCROLL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the scrolling direction
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterInputDeviceType"></a><h3>enum ClutterInputDeviceType</h3>
+<pre class="programlisting">typedef enum {
+  CLUTTER_POINTER_DEVICE,
+  CLUTTER_KEYBOARD_DEVICE,
+  CLUTTER_EXTENSION_DEVICE,
+
+  CLUTTER_N_DEVICE_TYPES
+} ClutterInputDeviceType;
+</pre>
+<p>
+The types of input devices available.
+</p>
+<p>
+The <a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType"><span class="type">ClutterInputDeviceType</span></a> enumeration can be extended at later
+date; not every platform supports every input device type.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CLUTTER-POINTER-DEVICE--CAPS"></a><span class="term"><code class="literal">CLUTTER_POINTER_DEVICE</code></span></p></td>
+<td> A pointer device
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-KEYBOARD-DEVICE--CAPS"></a><span class="term"><code class="literal">CLUTTER_KEYBOARD_DEVICE</code></span></p></td>
+<td> A keyboard device
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-EXTENSION-DEVICE--CAPS"></a><span class="term"><code class="literal">CLUTTER_EXTENSION_DEVICE</code></span></p></td>
+<td> A generic extension device
+</td>
+</tr>
+<tr>
+<td><p><a name="CLUTTER-N-DEVICE-TYPES--CAPS"></a><span class="term"><code class="literal">CLUTTER_N_DEVICE_TYPES</code></span></p></td>
+<td> The number of device types
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-device"></a><h3>clutter_event_get_device ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> * clutter_event_get_device           (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a> for the event.
+</p>
+<p>
+The <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a> structure is completely opaque and should
+be cast to the platform-specific implementation.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a> or <code class="literal">NULL</code>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-device-id"></a><h3>clutter_event_get_device_id ()</h3>
+<pre class="programlisting">gint                clutter_event_get_device_id         (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the events device id if set.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a clutter event 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A unique identifier for the device or -1 if the event has
+  no specific device set.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-event-get-device-type"></a><h3>clutter_event_get_device_type ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType">ClutterInputDeviceType</a>  clutter_event_get_device_type   (<a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent">ClutterEvent</a> *event);</pre>
+<p>
+Retrieves the type of the device for <em class="parameter"><code>event</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterEvent" title="union ClutterEvent"><span class="type">ClutterEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType"><span class="type">ClutterInputDeviceType</span></a> for the device, if
+  any is set
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-get-input-device-for-id"></a><h3>clutter_get_input_device_for_id ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> * clutter_get_input_device_for_id    (gint id);</pre>
+<p>
+Retrieves the <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a> from its id.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td> a device id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a>, or <code class="literal">NULL</code>. <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=transfer"><span class="acronym">transfer</span></a> none. </td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-input-device-get-device-id"></a><h3>clutter_input_device_get_device_id ()</h3>
+<pre class="programlisting">gint                clutter_input_device_get_device_id  (<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *device);</pre>
+<p>
+Retrieves the unique identifier of <em class="parameter"><code>device</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the identifier of the device
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-input-device-get-device-type"></a><h3>clutter_input_device_get_device_type ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Events.html#ClutterInputDeviceType" title="enum ClutterInputDeviceType">ClutterInputDeviceType</a>  clutter_input_device_get_device_type
+                                                        (<a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice">ClutterInputDevice</a> *device);</pre>
+<p>
+Retrieves the type of <em class="parameter"><code>device</code></em></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Events.html#ClutterInputDevice" title="ClutterInputDevice"><span class="type">ClutterInputDevice</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the type of the device
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-get-current-event-time"></a><h3>clutter_get_current_event_time ()</h3>
+<pre class="programlisting">guint32             clutter_get_current_event_time      (void);</pre>
+<p>
+Retrieves the timestamp of the last event, if there is an
+event or if the event has a timestamp.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the event timestamp, or <a class="link" href="clutter-Events.html#CLUTTER-CURRENT-TIME--CAPS" title="CLUTTER_CURRENT_TIME"><code class="literal">CLUTTER_CURRENT_TIME</code></a>
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Object Hierarchy</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="prev" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="next" href="clutterobjectindex.html" title="Object Index">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="clutterobjects.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="clutterobjects.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutterobjectindex.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter" lang="en">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="clutterobjecthierarchy"></a>Object Hierarchy</h2></div></div></div>
+<pre class="screen">
+    GObject
+        GInitiallyUnowned
+            <a class="link" href="ClutterActor.html" title="ClutterActor">ClutterActor</a>
+                <a class="link" href="ClutterGroup.html" title="ClutterGroup">ClutterGroup</a>
+                    <a class="link" href="ClutterStage.html" title="ClutterStage">ClutterStage</a>
+                <a class="link" href="ClutterRectangle.html" title="ClutterRectangle">ClutterRectangle</a>
+                <a class="link" href="ClutterTexture.html" title="ClutterTexture">ClutterTexture</a>
+                    <a class="link" href="ClutterCairoTexture.html" title="ClutterCairoTexture">ClutterCairoTexture</a>
+                <a class="link" href="ClutterClone.html" title="ClutterClone">ClutterClone</a>
+                <a class="link" href="ClutterText.html" title="ClutterText">ClutterText</a>
+            <a class="link" href="ClutterAlpha.html" title="ClutterAlpha">ClutterAlpha</a>
+            <a class="link" href="ClutterPath.html" title="ClutterPath">ClutterPath</a>
+            <a class="link" href="clutter-Value-intervals.html#ClutterInterval">ClutterInterval</a>
+        <a class="link" href="ClutterTimeline.html" title="ClutterTimeline">ClutterTimeline</a>
+        <a class="link" href="ClutterBehaviour.html" title="ClutterBehaviour">ClutterBehaviour</a>
+            <a class="link" href="ClutterBehaviourDepth.html" title="ClutterBehaviourDepth">ClutterBehaviourDepth</a>
+            <a class="link" href="ClutterBehaviourEllipse.html" title="ClutterBehaviourEllipse">ClutterBehaviourEllipse</a>
+            <a class="link" href="ClutterBehaviourOpacity.html" title="ClutterBehaviourOpacity">ClutterBehaviourOpacity</a>
+            <a class="link" href="ClutterBehaviourPath.html" title="ClutterBehaviourPath">ClutterBehaviourPath</a>
+            <a class="link" href="ClutterBehaviourRotate.html" title="ClutterBehaviourRotate">ClutterBehaviourRotate</a>
+            <a class="link" href="ClutterBehaviourScale.html" title="ClutterBehaviourScale">ClutterBehaviourScale</a>
+        <a class="link" href="ClutterScript.html" title="ClutterScript">ClutterScript</a>
+        <a class="link" href="ClutterModel.html" title="ClutterModel">ClutterModel</a>
+            <a class="link" href="ClutterListModel.html" title="ClutterListModel">ClutterListModel</a>
+        <a class="link" href="ClutterModelIter.html" title="ClutterModelIter">ClutterModelIter</a>
+        <a class="link" href="ClutterScore.html" title="ClutterScore">ClutterScore</a>
+        <a class="link" href="ClutterShader.html" title="ClutterShader">ClutterShader</a>
+        <a class="link" href="ClutterChildMeta.html" title="ClutterChildMeta">ClutterChildMeta</a>
+        <a class="link" href="clutter-Implicit-Animations.html#ClutterAnimation">ClutterAnimation</a>
+        <a class="link" href="clutter-Key-Bindings.html#ClutterBindingPool">ClutterBindingPool</a>
+    GInterface
+        <a class="link" href="ClutterScriptable.html" title="ClutterScriptable">ClutterScriptable</a>
+        <a class="link" href="ClutterContainer.html" title="ClutterContainer">ClutterContainer</a>
+        <a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a>
+        <a class="link" href="ClutterAnimatable.html" title="ClutterAnimatable">ClutterAnimatable</a>
+</pre>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

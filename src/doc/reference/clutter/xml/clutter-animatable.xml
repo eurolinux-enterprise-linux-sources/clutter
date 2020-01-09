@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterAnimatable">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterAnimatable.top_of_page">ClutterAnimatable</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterAnimatable</refname>
+<refpurpose>Interface for animatable classes</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterAnimatable.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterAnimatable-struct">ClutterAnimatable</link>;
+                    <link linkend="ClutterAnimatableIface">ClutterAnimatableIface</link>;
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-animatable-animate-property">clutter_animatable_animate_property</link> (<link linkend="ClutterAnimatable">ClutterAnimatable</link> *animatable,
+                                                         <link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         const <link linkend="GValue">GValue</link> *initial_value,
+                                                         const <link linkend="GValue">GValue</link> *final_value,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="GValue">GValue</link> *value);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterAnimatable.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GInterface">GInterface</link>
+   +----ClutterAnimatable
+</synopsis>
+</refsect1>
+
+
+
+
+
+
+
+
+<refsect1 id="ClutterAnimatable.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> is an interface that allows a <link linkend="GObject"><type>GObject</type></link> class
+to control how a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will animate a property.
+</para>
+<para>
+Each <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> should implement the <link linkend="animate-property"><function>animate_property()</function></link>
+virtual function of the interface to compute the animation state
+between two values of an interval depending on a progress factor,
+expressed as a floating point value.
+</para>
+<para>
+If a <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> is animated by a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+instance, the <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will call
+<link linkend="clutter-animatable-animate-property"><function>clutter_animatable_animate_property()</function></link> passing the name of the
+currently animated property; the initial and final values of
+the animation interval; the progress factor. The <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link>
+implementation should return the computed value for the animated
+property.
+</para>
+<para>
+<link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterAnimatable.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterAnimatable-struct" role="struct">
+<title>ClutterAnimatable</title>
+<indexterm zone="ClutterAnimatable-struct"><primary sortas="Animatable">ClutterAnimatable</primary></indexterm><programlisting>typedef struct _ClutterAnimatable ClutterAnimatable;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ClutterAnimatableIface" role="struct" condition="since:1.0">
+<title>ClutterAnimatableIface</title>
+<indexterm zone="ClutterAnimatableIface" role="1.0"><primary sortas="AnimatableIface">ClutterAnimatableIface</primary></indexterm><programlisting>typedef struct {
+  gboolean (* animate_property) (ClutterAnimatable *animatable,
+                                 ClutterAnimation  *animation,
+                                 const gchar       *property_name,
+                                 const GValue      *initial_value,
+                                 const GValue      *final_value,
+                                 gdouble            progress,
+                                 GValue            *value);
+} ClutterAnimatableIface;
+</programlisting>
+<para>
+Base interface for <link linkend="GObject"><type>GObject</type></link><!-- -->s that can be animated by a
+a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><structfield>animate_property</structfield>&#160;()</term>
+<listitem><simpara> virtual function for animating a property
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animatable-animate-property" role="function" condition="since:1.0">
+<title>clutter_animatable_animate_property ()</title>
+<indexterm zone="clutter-animatable-animate-property" role="1.0"><primary sortas="animatable_animate_property">clutter_animatable_animate_property</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_animatable_animate_property (<link linkend="ClutterAnimatable">ClutterAnimatable</link> *animatable,
+                                                         <link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         const <link linkend="GValue">GValue</link> *initial_value,
+                                                         const <link linkend="GValue">GValue</link> *final_value,
+                                                         <link linkend="gdouble">gdouble</link> progress,
+                                                         <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Calls the <link linkend="animate-property"><function>animate_property()</function></link> virtual function for <parameter>animatable</parameter>.
+</para>
+<para>
+The <parameter>initial_value</parameter> and <parameter>final_value</parameter> <link linkend="GValue"><type>GValue</type></link><!-- -->s must contain
+the same type; <parameter>value</parameter> must have been initialized to the same
+type of <parameter>initial_value</parameter> and <parameter>final_value</parameter>.
+</para>
+<para>
+All implementation of the <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> interface must
+implement this function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animatable</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> the name of the animated property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>initial_value</parameter>&#160;:</term>
+<listitem><simpara> the initial value of the animation interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>final_value</parameter>&#160;:</term>
+<listitem><simpara> the final value of the animation interval
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>progress</parameter>&#160;:</term>
+<listitem><simpara> the progress factor
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> return location for the animation value
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the value has been validated and can
+  be applied to the <link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link>, and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

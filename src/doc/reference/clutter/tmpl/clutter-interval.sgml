@@ -1,0 +1,193 @@
+<!-- ##### SECTION Title ##### -->
+Value intervals
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterInterval ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG ClutterInterval:value-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterIntervalClass ##### -->
+<para>
+
+</para>
+
+@validate: 
+@compute_value: 
+
+<!-- ##### FUNCTION clutter_interval_new ##### -->
+<para>
+
+</para>
+
+@gtype: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_new_with_values ##### -->
+<para>
+
+</para>
+
+@gtype: 
+@initial: 
+@final: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_clone ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_get_value_type ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_set_initial_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@value: 
+
+
+<!-- ##### FUNCTION clutter_interval_get_initial_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@value: 
+
+
+<!-- ##### FUNCTION clutter_interval_peek_initial_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_set_final_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@value: 
+
+
+<!-- ##### FUNCTION clutter_interval_get_final_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@value: 
+
+
+<!-- ##### FUNCTION clutter_interval_peek_final_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_set_interval ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION clutter_interval_get_interval ##### -->
+<para>
+
+</para>
+
+@interval: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION clutter_interval_compute_value ##### -->
+<para>
+
+</para>
+
+@interval: 
+@factor: 
+@value: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_validate ##### -->
+<para>
+
+</para>
+
+@interval: 
+@pspec: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION ClutterProgressFunc ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@progress: 
+@retval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_interval_register_progress_func ##### -->
+<para>
+
+</para>
+
+@value_type: 
+@func: 
+
+

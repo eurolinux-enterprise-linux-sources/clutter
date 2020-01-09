@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Color-Type">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Color-Type.top_of_page">Color Type</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Color Type</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Color-Type.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="CoglColor">CoglColor</link>;
+<link linkend="CoglColor">CoglColor</link> *         <link linkend="cogl-color-new">cogl_color_new</link>                      (void);
+<link linkend="CoglColor">CoglColor</link> *         <link linkend="cogl-color-copy">cogl_color_copy</link>                     (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-color-free">cogl_color_free</link>                     (<link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-color-set-from-4ub">cogl_color_set_from_4ub</link>             (<link linkend="CoglColor">CoglColor</link> *dest,
+                                                         <link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);
+<link linkend="void">void</link>                <link linkend="cogl-color-set-from-4f">cogl_color_set_from_4f</link>              (<link linkend="CoglColor">CoglColor</link> *dest,
+                                                         <link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);
+
+<link linkend="float">float</link>               <link linkend="cogl-color-get-red">cogl_color_get_red</link>                  (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-green">cogl_color_get_green</link>                (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-blue">cogl_color_get_blue</link>                 (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-alpha">cogl_color_get_alpha</link>                (const <link linkend="CoglColor">CoglColor</link> *color);
+
+unsigned <link linkend="char">char</link>       <link linkend="cogl-color-get-red-byte">cogl_color_get_red_byte</link>             (const <link linkend="CoglColor">CoglColor</link> *color);
+unsigned <link linkend="char">char</link>       <link linkend="cogl-color-get-green-byte">cogl_color_get_green_byte</link>           (const <link linkend="CoglColor">CoglColor</link> *color);
+unsigned <link linkend="char">char</link>       <link linkend="cogl-color-get-blue-byte">cogl_color_get_blue_byte</link>            (const <link linkend="CoglColor">CoglColor</link> *color);
+unsigned <link linkend="char">char</link>       <link linkend="cogl-color-get-alpha-byte">cogl_color_get_alpha_byte</link>           (const <link linkend="CoglColor">CoglColor</link> *color);
+
+<link linkend="float">float</link>               <link linkend="cogl-color-get-red-float">cogl_color_get_red_float</link>            (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-green-float">cogl_color_get_green_float</link>          (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-blue-float">cogl_color_get_blue_float</link>           (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="float">float</link>               <link linkend="cogl-color-get-alpha-float">cogl_color_get_alpha_float</link>          (const <link linkend="CoglColor">CoglColor</link> *color);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Color-Type.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Color-Type.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CoglColor" role="struct" condition="since:1.0">
+<title>CoglColor</title>
+<indexterm zone="CoglColor" role="1.0"><primary sortas="Color">CoglColor</primary></indexterm><programlisting>typedef struct {
+} CoglColor;
+</programlisting>
+<para>
+A structure for holding a color definition. The contents of
+the CoglColor structure are private and should never by accessed
+directly.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-new" role="function">
+<title>cogl_color_new ()</title>
+<indexterm zone="cogl-color-new"><primary sortas="color_new">cogl_color_new</primary></indexterm><programlisting><link linkend="CoglColor">CoglColor</link> *         cogl_color_new                      (void);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-color-copy" role="function">
+<title>cogl_color_copy ()</title>
+<indexterm zone="cogl-color-copy"><primary sortas="color_copy">cogl_color_copy</primary></indexterm><programlisting><link linkend="CoglColor">CoglColor</link> *         cogl_color_copy                     (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-color-free" role="function">
+<title>cogl_color_free ()</title>
+<indexterm zone="cogl-color-free"><primary sortas="color_free">cogl_color_free</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_color_free                     (<link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-color-set-from-4ub" role="function" condition="since:1.0">
+<title>cogl_color_set_from_4ub ()</title>
+<indexterm zone="cogl-color-set-from-4ub" role="1.0"><primary sortas="color_set_from_4ub">cogl_color_set_from_4ub</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_color_set_from_4ub             (<link linkend="CoglColor">CoglColor</link> *dest,
+                                                         <link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);</programlisting>
+<para>
+Sets the values of the passed channels into a <link linkend="CoglColor"><type>CoglColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> value of the red channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> value of the green channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> value of the blue channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> value of the alpha channel, between 0 and 255
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-set-from-4f" role="function" condition="since:1.0">
+<title>cogl_color_set_from_4f ()</title>
+<indexterm zone="cogl-color-set-from-4f" role="1.0"><primary sortas="color_set_from_4f">cogl_color_set_from_4f</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_color_set_from_4f              (<link linkend="CoglColor">CoglColor</link> *dest,
+                                                         <link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);</programlisting>
+<para>
+Sets the values of the passed channels into a <link linkend="CoglColor"><type>CoglColor</type></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> value of the red channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> value of the green channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> value of the blue channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> value of the alpha channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-red" role="function" condition="since:1.0">
+<title>cogl_color_get_red ()</title>
+<indexterm zone="cogl-color-get-red" role="1.0"><primary sortas="color_get_red">cogl_color_get_red</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_red                  (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the red channel of <parameter>color</parameter> as a fixed point
+value between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the red channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-green" role="function" condition="since:1.0">
+<title>cogl_color_get_green ()</title>
+<indexterm zone="cogl-color-get-green" role="1.0"><primary sortas="color_get_green">cogl_color_get_green</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_green                (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the green channel of <parameter>color</parameter> as a fixed point
+value between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the green channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-blue" role="function" condition="since:1.0">
+<title>cogl_color_get_blue ()</title>
+<indexterm zone="cogl-color-get-blue" role="1.0"><primary sortas="color_get_blue">cogl_color_get_blue</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_blue                 (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the blue channel of <parameter>color</parameter> as a fixed point
+value between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the blue channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-alpha" role="function" condition="since:1.0">
+<title>cogl_color_get_alpha ()</title>
+<indexterm zone="cogl-color-get-alpha" role="1.0"><primary sortas="color_get_alpha">cogl_color_get_alpha</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_alpha                (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the alpha channel of <parameter>color</parameter> as a fixed point
+value between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the alpha channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-red-byte" role="function" condition="since:1.0">
+<title>cogl_color_get_red_byte ()</title>
+<indexterm zone="cogl-color-get-red-byte" role="1.0"><primary sortas="color_get_red_byte">cogl_color_get_red_byte</primary></indexterm><programlisting>unsigned <link linkend="char">char</link>       cogl_color_get_red_byte             (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the red channel of <parameter>color</parameter> as a byte value
+between 0 and 255</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the red channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-green-byte" role="function" condition="since:1.0">
+<title>cogl_color_get_green_byte ()</title>
+<indexterm zone="cogl-color-get-green-byte" role="1.0"><primary sortas="color_get_green_byte">cogl_color_get_green_byte</primary></indexterm><programlisting>unsigned <link linkend="char">char</link>       cogl_color_get_green_byte           (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the green channel of <parameter>color</parameter> as a byte value
+between 0 and 255</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the green channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-blue-byte" role="function" condition="since:1.0">
+<title>cogl_color_get_blue_byte ()</title>
+<indexterm zone="cogl-color-get-blue-byte" role="1.0"><primary sortas="color_get_blue_byte">cogl_color_get_blue_byte</primary></indexterm><programlisting>unsigned <link linkend="char">char</link>       cogl_color_get_blue_byte            (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the blue channel of <parameter>color</parameter> as a byte value
+between 0 and 255</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the blue channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-alpha-byte" role="function" condition="since:1.0">
+<title>cogl_color_get_alpha_byte ()</title>
+<indexterm zone="cogl-color-get-alpha-byte" role="1.0"><primary sortas="color_get_alpha_byte">cogl_color_get_alpha_byte</primary></indexterm><programlisting>unsigned <link linkend="char">char</link>       cogl_color_get_alpha_byte           (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the alpha channel of <parameter>color</parameter> as a byte value
+between 0 and 255</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the alpha channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-red-float" role="function" condition="since:1.0">
+<title>cogl_color_get_red_float ()</title>
+<indexterm zone="cogl-color-get-red-float" role="1.0"><primary sortas="color_get_red_float">cogl_color_get_red_float</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_red_float            (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the red channel of <parameter>color</parameter> as a floating point
+value between 0.0 and 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the red channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-green-float" role="function" condition="since:1.0">
+<title>cogl_color_get_green_float ()</title>
+<indexterm zone="cogl-color-get-green-float" role="1.0"><primary sortas="color_get_green_float">cogl_color_get_green_float</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_green_float          (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the green channel of <parameter>color</parameter> as a floating point
+value between 0.0 and 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the green channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-blue-float" role="function" condition="since:1.0">
+<title>cogl_color_get_blue_float ()</title>
+<indexterm zone="cogl-color-get-blue-float" role="1.0"><primary sortas="color_get_blue_float">cogl_color_get_blue_float</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_blue_float           (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the blue channel of <parameter>color</parameter> as a floating point
+value between 0.0 and 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the blue channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-color-get-alpha-float" role="function" condition="since:1.0">
+<title>cogl_color_get_alpha_float ()</title>
+<indexterm zone="cogl-color-get-alpha-float" role="1.0"><primary sortas="color_get_alpha_float">cogl_color_get_alpha_float</primary></indexterm><programlisting><link linkend="float">float</link>               cogl_color_get_alpha_float          (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+Retrieves the alpha channel of <parameter>color</parameter> as a floating point
+value between 0.0 and 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the alpha channel of the passed color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

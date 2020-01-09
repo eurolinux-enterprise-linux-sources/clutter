@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="ClutterActor-button-press-event"><link linkend="ClutterActor-button-press-event">ClutterActor::button-press-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-button-release-event"><link linkend="ClutterActor-button-release-event">ClutterActor::button-release-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-captured-event"><link linkend="ClutterActor-captured-event">ClutterActor::captured-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-enter-event"><link linkend="ClutterActor-enter-event">ClutterActor::enter-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-event"><link linkend="ClutterActor-event">ClutterActor::event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-key-focus-in"><link linkend="ClutterActor-key-focus-in">ClutterActor::key-focus-in</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-key-focus-out"><link linkend="ClutterActor-key-focus-out">ClutterActor::key-focus-out</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-key-press-event"><link linkend="ClutterActor-key-press-event">ClutterActor::key-press-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-key-release-event"><link linkend="ClutterActor-key-release-event">ClutterActor::key-release-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-leave-event"><link linkend="ClutterActor-leave-event">ClutterActor::leave-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-motion-event"><link linkend="ClutterActor-motion-event">ClutterActor::motion-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-scroll-event"><link linkend="ClutterActor-scroll-event">ClutterActor::scroll-event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--depth"><link linkend="ClutterActor--depth">ClutterActor:depth</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--reactive"><link linkend="ClutterActor--reactive">ClutterActor:reactive</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-angle-x"><link linkend="ClutterActor--rotation-angle-x">ClutterActor:rotation-angle-x</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-angle-y"><link linkend="ClutterActor--rotation-angle-y">ClutterActor:rotation-angle-y</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-angle-z"><link linkend="ClutterActor--rotation-angle-z">ClutterActor:rotation-angle-z</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-center-x"><link linkend="ClutterActor--rotation-center-x">ClutterActor:rotation-center-x</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-center-y"><link linkend="ClutterActor--rotation-center-y">ClutterActor:rotation-center-y</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--rotation-center-z"><link linkend="ClutterActor--rotation-center-z">ClutterActor:rotation-center-z</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--scale-x"><link linkend="ClutterActor--scale-x">ClutterActor:scale-x</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--scale-y"><link linkend="ClutterActor--scale-y">ClutterActor:scale-y</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-apply-relative-transform-to-point"><link linkend="clutter-actor-apply-relative-transform-to-point">clutter_actor_apply_relative_transform_to_point</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-event"><link linkend="clutter-actor-event">clutter_actor_event</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-allocation-vertices"><link linkend="clutter-actor-get-allocation-vertices">clutter_actor_get_allocation_vertices</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-anchor-point"><link linkend="clutter-actor-get-anchor-point">clutter_actor_get_anchor_point</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-clip"><link linkend="clutter-actor-get-clip">clutter_actor_get_clip</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-gid"><link linkend="clutter-actor-get-gid">clutter_actor_get_gid</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-position"><link linkend="clutter-actor-get-position">clutter_actor_get_position</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-reactive"><link linkend="clutter-actor-get-reactive">clutter_actor_get_reactive</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-shader"><link linkend="clutter-actor-get-shader">clutter_actor_get_shader</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-ACTOR-IS-REACTIVE--CAPS"><link linkend="CLUTTER-ACTOR-IS-REACTIVE--CAPS">CLUTTER_ACTOR_IS_REACTIVE</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-is-rotated"><link linkend="clutter-actor-is-rotated">clutter_actor_is_rotated</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-is-scaled"><link linkend="clutter-actor-is-scaled">clutter_actor_is_scaled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-move-anchor-point"><link linkend="clutter-actor-move-anchor-point">clutter_actor_move_anchor_point</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-move-anchor-point-from-gravity"><link linkend="clutter-actor-move-anchor-point-from-gravity">clutter_actor_move_anchor_point_from_gravity</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-anchor-point"><link linkend="clutter-actor-set-anchor-point">clutter_actor_set_anchor_point</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-anchor-point-from-gravity"><link linkend="clutter-actor-set-anchor-point-from-gravity">clutter_actor_set_anchor_point_from_gravity</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-clip"><link linkend="clutter-actor-set-clip">clutter_actor_set_clip</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-reactive"><link linkend="clutter-actor-set-reactive">clutter_actor_set_reactive</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-shader"><link linkend="clutter-actor-set-shader">clutter_actor_set_shader</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-x"><link linkend="clutter-actor-set-x">clutter_actor_set_x</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-y"><link linkend="clutter-actor-set-y">clutter_actor_set_y</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-transform-stage-point"><link linkend="clutter-actor-transform-stage-point">clutter_actor_transform_stage_point</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="ClutterBehaviourScale--x-scale-end"><link linkend="ClutterBehaviourScale--x-scale-end">ClutterBehaviourScale:x-scale-end</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourScale--x-scale-start"><link linkend="ClutterBehaviourScale--x-scale-start">ClutterBehaviourScale:x-scale-start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourScale--y-scale-end"><link linkend="ClutterBehaviourScale--y-scale-end">ClutterBehaviourScale:y-scale-end</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourScale--y-scale-start"><link linkend="ClutterBehaviourScale--y-scale-start">ClutterBehaviourScale:y-scale-start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-depth-get-bounds"><link linkend="clutter-behaviour-depth-get-bounds">clutter_behaviour_depth_get_bounds</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-depth-set-bounds"><link linkend="clutter-behaviour-depth-set-bounds">clutter_behaviour_depth_set_bounds</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-ellipse-get-angle-start"><link linkend="clutter-behaviour-ellipse-get-angle-start">clutter_behaviour_ellipse_get_angle_start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-ellipse-set-angle-start"><link linkend="clutter-behaviour-ellipse-set-angle-start">clutter_behaviour_ellipse_set_angle_start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-opacity-get-bounds"><link linkend="clutter-behaviour-opacity-get-bounds">clutter_behaviour_opacity_get_bounds</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-opacity-set-bounds"><link linkend="clutter-behaviour-opacity-set-bounds">clutter_behaviour_opacity_set_bounds</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-scale-set-bounds"><link linkend="clutter-behaviour-scale-set-bounds">clutter_behaviour_scale_set_bounds</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="clutter-container-find-child-by-name"><link linkend="clutter-container-find-child-by-name">clutter_container_find_child_by_name</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-container-lower-child"><link linkend="clutter-container-lower-child">clutter_container_lower_child</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-container-raise-child"><link linkend="clutter-container-raise-child">clutter_container_raise_child</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-container-sort-depth-order"><link linkend="clutter-container-sort-depth-order">clutter_container_sort_depth_order</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>E</title>
+<indexentry><primaryie linkends="ClutterEventFlags"><link linkend="ClutterEventFlags">ClutterEventFlags</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-event-get-source"><link linkend="clutter-event-get-source">clutter_event_get_source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-event-put"><link linkend="clutter-event-put">clutter_event_put</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="ClutterFog"><link linkend="ClutterFog">ClutterFog</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="clutter-get-actor-by-gid"><link linkend="clutter-get-actor-by-gid">clutter_get_actor_by_gid</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-get-default-frame-rate"><link linkend="clutter-get-default-frame-rate">clutter_get_default_frame_rate</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-get-keyboard-grab"><link linkend="clutter-get-keyboard-grab">clutter_get_keyboard_grab</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-get-motion-events-enabled"><link linkend="clutter-get-motion-events-enabled">clutter_get_motion_events_enabled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-get-pointer-grab"><link linkend="clutter-get-pointer-grab">clutter_get_pointer_grab</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-get-script-id"><link linkend="clutter-get-script-id">clutter_get_script_id</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-grab-keyboard"><link linkend="clutter-grab-keyboard">clutter_grab_keyboard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-grab-pointer"><link linkend="clutter-grab-pointer">clutter_grab_pointer</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>L</title>
+<indexentry><primaryie linkends="ClutterListModel-struct"><link linkend="ClutterListModel">ClutterListModel</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterListModelClass"><link linkend="ClutterListModelClass">ClutterListModelClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-list-model-new"><link linkend="clutter-list-model-new">clutter_list_model_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-list-model-newv"><link linkend="clutter-list-model-newv">clutter_list_model_newv</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="ClutterModel-struct"><link linkend="ClutterModel">ClutterModel</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModel-filter-changed"><link linkend="ClutterModel-filter-changed">ClutterModel::filter-changed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModel-row-added"><link linkend="ClutterModel-row-added">ClutterModel::row-added</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModel-row-changed"><link linkend="ClutterModel-row-changed">ClutterModel::row-changed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModel-row-removed"><link linkend="ClutterModel-row-removed">ClutterModel::row-removed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModel-sort-changed"><link linkend="ClutterModel-sort-changed">ClutterModel::sort-changed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelClass"><link linkend="ClutterModelClass">ClutterModelClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelFilterFunc"><link linkend="ClutterModelFilterFunc">ClutterModelFilterFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelForeachFunc"><link linkend="ClutterModelForeachFunc">ClutterModelForeachFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelIter-struct"><link linkend="ClutterModelIter">ClutterModelIter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelIter--model"><link linkend="ClutterModelIter--model">ClutterModelIter:model</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelIter--row"><link linkend="ClutterModelIter--row">ClutterModelIter:row</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelIterClass"><link linkend="ClutterModelIterClass">ClutterModelIterClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterModelSortFunc"><link linkend="ClutterModelSortFunc">ClutterModelSortFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-append"><link linkend="clutter-model-append">clutter_model_append</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-appendv"><link linkend="clutter-model-appendv">clutter_model_appendv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-filter-iter"><link linkend="clutter-model-filter-iter">clutter_model_filter_iter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-filter-row"><link linkend="clutter-model-filter-row">clutter_model_filter_row</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-foreach"><link linkend="clutter-model-foreach">clutter_model_foreach</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-column-name"><link linkend="clutter-model-get-column-name">clutter_model_get_column_name</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-column-type"><link linkend="clutter-model-get-column-type">clutter_model_get_column_type</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-first-iter"><link linkend="clutter-model-get-first-iter">clutter_model_get_first_iter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-iter-at-row"><link linkend="clutter-model-get-iter-at-row">clutter_model_get_iter_at_row</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-last-iter"><link linkend="clutter-model-get-last-iter">clutter_model_get_last_iter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-n-columns"><link linkend="clutter-model-get-n-columns">clutter_model_get_n_columns</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-n-rows"><link linkend="clutter-model-get-n-rows">clutter_model_get_n_rows</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-get-sorting-column"><link linkend="clutter-model-get-sorting-column">clutter_model_get_sorting_column</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-insert"><link linkend="clutter-model-insert">clutter_model_insert</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-insertv"><link linkend="clutter-model-insertv">clutter_model_insertv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-insert-value"><link linkend="clutter-model-insert-value">clutter_model_insert_value</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-get"><link linkend="clutter-model-iter-get">clutter_model_iter_get</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-get-model"><link linkend="clutter-model-iter-get-model">clutter_model_iter_get_model</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-get-row"><link linkend="clutter-model-iter-get-row">clutter_model_iter_get_row</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-get-valist"><link linkend="clutter-model-iter-get-valist">clutter_model_iter_get_valist</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-get-value"><link linkend="clutter-model-iter-get-value">clutter_model_iter_get_value</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-is-first"><link linkend="clutter-model-iter-is-first">clutter_model_iter_is_first</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-is-last"><link linkend="clutter-model-iter-is-last">clutter_model_iter_is_last</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-next"><link linkend="clutter-model-iter-next">clutter_model_iter_next</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-prev"><link linkend="clutter-model-iter-prev">clutter_model_iter_prev</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-set"><link linkend="clutter-model-iter-set">clutter_model_iter_set</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-set-valist"><link linkend="clutter-model-iter-set-valist">clutter_model_iter_set_valist</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-iter-set-value"><link linkend="clutter-model-iter-set-value">clutter_model_iter_set_value</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-prepend"><link linkend="clutter-model-prepend">clutter_model_prepend</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-prependv"><link linkend="clutter-model-prependv">clutter_model_prependv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-remove"><link linkend="clutter-model-remove">clutter_model_remove</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-resort"><link linkend="clutter-model-resort">clutter_model_resort</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-set-filter"><link linkend="clutter-model-set-filter">clutter_model_set_filter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-set-names"><link linkend="clutter-model-set-names">clutter_model_set_names</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-set-sort"><link linkend="clutter-model-set-sort">clutter_model_set_sort</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-set-sorting-column"><link linkend="clutter-model-set-sorting-column">clutter_model_set_sorting_column</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-model-set-types"><link linkend="clutter-model-set-types">clutter_model_set_types</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="ClutterScore-struct"><link linkend="ClutterScore">ClutterScore</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore-completed"><link linkend="ClutterScore-completed">ClutterScore::completed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore-paused"><link linkend="ClutterScore-paused">ClutterScore::paused</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore-started"><link linkend="ClutterScore-started">ClutterScore::started</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore-timeline-completed"><link linkend="ClutterScore-timeline-completed">ClutterScore::timeline-completed</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore-timeline-started"><link linkend="ClutterScore-timeline-started">ClutterScore::timeline-started</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScore--loop"><link linkend="ClutterScore--loop">ClutterScore:loop</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScoreClass"><link linkend="ClutterScoreClass">ClutterScoreClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-append"><link linkend="clutter-score-append">clutter_score_append</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-get-loop"><link linkend="clutter-score-get-loop">clutter_score_get_loop</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-get-timeline"><link linkend="clutter-score-get-timeline">clutter_score_get_timeline</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-is-playing"><link linkend="clutter-score-is-playing">clutter_score_is_playing</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-list-timelines"><link linkend="clutter-score-list-timelines">clutter_score_list_timelines</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-new"><link linkend="clutter-score-new">clutter_score_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-pause"><link linkend="clutter-score-pause">clutter_score_pause</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-remove"><link linkend="clutter-score-remove">clutter_score_remove</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-remove-all"><link linkend="clutter-score-remove-all">clutter_score_remove_all</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-rewind"><link linkend="clutter-score-rewind">clutter_score_rewind</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-set-loop"><link linkend="clutter-score-set-loop">clutter_score_set_loop</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-start"><link linkend="clutter-score-start">clutter_score_start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-score-stop"><link linkend="clutter-score-stop">clutter_score_stop</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScript-struct"><link linkend="ClutterScript">ClutterScript</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScript--filename"><link linkend="ClutterScript--filename">ClutterScript:filename</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScript--filename-set"><link linkend="ClutterScript--filename-set">ClutterScript:filename-set</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScriptableIface"><link linkend="ClutterScriptableIface">ClutterScriptableIface</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-scriptable-get-id"><link linkend="clutter-scriptable-get-id">clutter_scriptable_get_id</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-scriptable-parse-custom-node"><link linkend="clutter-scriptable-parse-custom-node">clutter_scriptable_parse_custom_node</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-scriptable-set-custom-property"><link linkend="clutter-scriptable-set-custom-property">clutter_scriptable_set_custom_property</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-scriptable-set-id"><link linkend="clutter-scriptable-set-id">clutter_scriptable_set_id</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScriptClass"><link linkend="ClutterScriptClass">ClutterScriptClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScriptConnectFunc"><link linkend="ClutterScriptConnectFunc">ClutterScriptConnectFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterScriptError"><link linkend="ClutterScriptError">ClutterScriptError</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-connect-signals"><link linkend="clutter-script-connect-signals">clutter_script_connect_signals</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-connect-signals-full"><link linkend="clutter-script-connect-signals-full">clutter_script_connect_signals_full</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-ensure-objects"><link linkend="clutter-script-ensure-objects">clutter_script_ensure_objects</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-get-object"><link linkend="clutter-script-get-object">clutter_script_get_object</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-get-objects"><link linkend="clutter-script-get-objects">clutter_script_get_objects</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-get-type-from-name"><link linkend="clutter-script-get-type-from-name">clutter_script_get_type_from_name</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-load-from-data"><link linkend="clutter-script-load-from-data">clutter_script_load_from_data</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-load-from-file"><link linkend="clutter-script-load-from-file">clutter_script_load_from_file</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-new"><link linkend="clutter-script-new">clutter_script_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-script-unmerge-objects"><link linkend="clutter-script-unmerge-objects">clutter_script_unmerge_objects</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-set-default-frame-rate"><link linkend="clutter-set-default-frame-rate">clutter_set_default_frame_rate</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-set-motion-events-enabled"><link linkend="clutter-set-motion-events-enabled">clutter_set_motion_events_enabled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShader-struct"><link linkend="ClutterShader">ClutterShader</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShader--enabled"><link linkend="ClutterShader--enabled">ClutterShader:enabled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShader--fragment-source"><link linkend="ClutterShader--fragment-source">ClutterShader:fragment-source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShader--vertex-source"><link linkend="ClutterShader--vertex-source">ClutterShader:vertex-source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShaderClass"><link linkend="ClutterShaderClass">ClutterShaderClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterShaderError"><link linkend="ClutterShaderError">ClutterShaderError</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-get-fragment-source"><link linkend="clutter-shader-get-fragment-source">clutter_shader_get_fragment_source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-get-is-enabled"><link linkend="clutter-shader-get-is-enabled">clutter_shader_get_is_enabled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-get-vertex-source"><link linkend="clutter-shader-get-vertex-source">clutter_shader_get_vertex_source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-new"><link linkend="clutter-shader-new">clutter_shader_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-release"><link linkend="clutter-shader-release">clutter_shader_release</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-set-fragment-source"><link linkend="clutter-shader-set-fragment-source">clutter_shader_set_fragment_source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-set-is-enabled"><link linkend="clutter-shader-set-is-enabled">clutter_shader_set_is_enabled</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-shader-set-vertex-source"><link linkend="clutter-shader-set-vertex-source">clutter_shader_set_vertex_source</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage-activate"><link linkend="ClutterStage-activate">ClutterStage::activate</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage-deactivate"><link linkend="ClutterStage-deactivate">ClutterStage::deactivate</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage-fullscreen"><link linkend="ClutterStage-fullscreen">ClutterStage::fullscreen</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage-unfullscreen"><link linkend="ClutterStage-unfullscreen">ClutterStage::unfullscreen</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage--use-fog"><link linkend="ClutterStage--use-fog">ClutterStage:use-fog</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-get-fog"><link linkend="clutter-stage-get-fog">clutter_stage_get_fog</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-get-key-focus"><link linkend="clutter-stage-get-key-focus">clutter_stage_get_key_focus</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-get-use-fog"><link linkend="clutter-stage-get-use-fog">clutter_stage_get_use_fog</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-set-fog"><link linkend="clutter-stage-set-fog">clutter_stage_set_fog</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-set-key-focus"><link linkend="clutter-stage-set-key-focus">clutter_stage_set_key_focus</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-stage-set-use-fog"><link linkend="clutter-stage-set-use-fog">clutter_stage_set_use_fog</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="clutter-texture-new-from-actor"><link linkend="clutter-texture-new-from-actor">clutter_texture_new_from_actor</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-texture-set-area-from-rgb-data"><link linkend="clutter-texture-set-area-from-rgb-data">clutter_texture_set_area_from_rgb_data</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-text-get-justify"><link linkend="clutter-text-get-justify">clutter_text_get_justify</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterTimeline--direction"><link linkend="ClutterTimeline--direction">ClutterTimeline:direction</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterTimeline--duration"><link linkend="ClutterTimeline--duration">ClutterTimeline:duration</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterTimelineDirection"><link linkend="ClutterTimelineDirection">ClutterTimelineDirection</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-get-delta"><link linkend="clutter-timeline-get-delta">clutter_timeline_get_delta</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-get-direction"><link linkend="clutter-timeline-get-direction">clutter_timeline_get_direction</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-get-duration"><link linkend="clutter-timeline-get-duration">clutter_timeline_get_duration</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-get-progress"><link linkend="clutter-timeline-get-progress">clutter_timeline_get_progress</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-new"><link linkend="clutter-timeline-new">clutter_timeline_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-set-direction"><link linkend="clutter-timeline-set-direction">clutter_timeline_set_direction</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-timeline-set-duration"><link linkend="clutter-timeline-set-duration">clutter_timeline_set_duration</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>U</title>
+<indexentry><primaryie linkends="clutter-ungrab-keyboard"><link linkend="clutter-ungrab-keyboard">clutter_ungrab_keyboard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-ungrab-pointer"><link linkend="clutter-ungrab-pointer">clutter_ungrab_pointer</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>X</title>
+<indexentry><primaryie linkends="ClutterX11FilterFunc"><link linkend="ClutterX11FilterFunc">ClutterX11FilterFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterX11FilterReturn"><link linkend="ClutterX11FilterReturn">ClutterX11FilterReturn</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-add-filter"><link linkend="clutter-x11-add-filter">clutter_x11_add_filter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-get-default-display"><link linkend="clutter-x11-get-default-display">clutter_x11_get_default_display</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-get-default-screen"><link linkend="clutter-x11-get-default-screen">clutter_x11_get_default_screen</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-get-root-window"><link linkend="clutter-x11-get-root-window">clutter_x11_get_root_window</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-remove-filter"><link linkend="clutter-x11-remove-filter">clutter_x11_remove_filter</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-x11-trap-x-errors"><link linkend="clutter-x11-trap-x-errors">clutter_x11_trap_x_errors</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

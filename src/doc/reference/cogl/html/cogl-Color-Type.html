@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Color Type</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="COGL Reference Manual">
+<link rel="up" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="prev" href="cogl-General-API.html" title="General API">
+<link rel="next" href="cogl-Textures.html" title="Textures">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="COGL - GL Abstraction API">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cogl-General-API.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">COGL Reference Manual</th>
+<td><a accesskey="n" href="cogl-Textures.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cogl-Color-Type.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#cogl-Color-Type.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="cogl-Color-Type"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cogl-Color-Type.top_of_page"></a>Color Type</span></h2>
+<p>Color Type</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cogl-Color-Type.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a>;
+<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *         <a class="link" href="cogl-Color-Type.html#cogl-color-new" title="cogl_color_new ()">cogl_color_new</a>                      (void);
+<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *         <a class="link" href="cogl-Color-Type.html#cogl-color-copy" title="cogl_color_copy ()">cogl_color_copy</a>                     (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+void                <a class="link" href="cogl-Color-Type.html#cogl-color-free" title="cogl_color_free ()">cogl_color_free</a>                     (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+void                <a class="link" href="cogl-Color-Type.html#cogl-color-set-from-4ub" title="cogl_color_set_from_4ub ()">cogl_color_set_from_4ub</a>             (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *dest,
+                                                         guint8 red,
+                                                         guint8 green,
+                                                         guint8 blue,
+                                                         guint8 alpha);
+void                <a class="link" href="cogl-Color-Type.html#cogl-color-set-from-4f" title="cogl_color_set_from_4f ()">cogl_color_set_from_4f</a>              (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *dest,
+                                                         float red,
+                                                         float green,
+                                                         float blue,
+                                                         float alpha);
+
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-red" title="cogl_color_get_red ()">cogl_color_get_red</a>                  (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-green" title="cogl_color_get_green ()">cogl_color_get_green</a>                (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-blue" title="cogl_color_get_blue ()">cogl_color_get_blue</a>                 (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-alpha" title="cogl_color_get_alpha ()">cogl_color_get_alpha</a>                (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+
+unsigned char       <a class="link" href="cogl-Color-Type.html#cogl-color-get-red-byte" title="cogl_color_get_red_byte ()">cogl_color_get_red_byte</a>             (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+unsigned char       <a class="link" href="cogl-Color-Type.html#cogl-color-get-green-byte" title="cogl_color_get_green_byte ()">cogl_color_get_green_byte</a>           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+unsigned char       <a class="link" href="cogl-Color-Type.html#cogl-color-get-blue-byte" title="cogl_color_get_blue_byte ()">cogl_color_get_blue_byte</a>            (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+unsigned char       <a class="link" href="cogl-Color-Type.html#cogl-color-get-alpha-byte" title="cogl_color_get_alpha_byte ()">cogl_color_get_alpha_byte</a>           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-red-float" title="cogl_color_get_red_float ()">cogl_color_get_red_float</a>            (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-green-float" title="cogl_color_get_green_float ()">cogl_color_get_green_float</a>          (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-blue-float" title="cogl_color_get_blue_float ()">cogl_color_get_blue_float</a>           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+float               <a class="link" href="cogl-Color-Type.html#cogl-color-get-alpha-float" title="cogl_color_get_alpha_float ()">cogl_color_get_alpha_float</a>          (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Color-Type.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="cogl-Color-Type.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CoglColor"></a><h3>CoglColor</h3>
+<pre class="programlisting">typedef struct {
+} CoglColor;
+</pre>
+<p>
+A structure for holding a color definition. The contents of
+the CoglColor structure are private and should never by accessed
+directly.</p>
+<p>
+</p>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-new"></a><h3>cogl_color_new ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *         cogl_color_new                      (void);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-copy"></a><h3>cogl_color_copy ()</h3>
+<pre class="programlisting"><a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *         cogl_color_copy                     (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-free"></a><h3>cogl_color_free ()</h3>
+<pre class="programlisting">void                cogl_color_free                     (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-set-from-4ub"></a><h3>cogl_color_set_from_4ub ()</h3>
+<pre class="programlisting">void                cogl_color_set_from_4ub             (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *dest,
+                                                         guint8 red,
+                                                         guint8 green,
+                                                         guint8 blue,
+                                                         guint8 alpha);</pre>
+<p>
+Sets the values of the passed channels into a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>red</code></em> :</span></p></td>
+<td> value of the red channel, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>green</code></em> :</span></p></td>
+<td> value of the green channel, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blue</code></em> :</span></p></td>
+<td> value of the blue channel, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> value of the alpha channel, between 0 and 255
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-set-from-4f"></a><h3>cogl_color_set_from_4f ()</h3>
+<pre class="programlisting">void                cogl_color_set_from_4f              (<a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *dest,
+                                                         float red,
+                                                         float green,
+                                                         float blue,
+                                                         float alpha);</pre>
+<p>
+Sets the values of the passed channels into a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a></p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>red</code></em> :</span></p></td>
+<td> value of the red channel, between 0 and <code class="literal">1</code>.0
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>green</code></em> :</span></p></td>
+<td> value of the green channel, between 0 and <code class="literal">1</code>.0
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blue</code></em> :</span></p></td>
+<td> value of the blue channel, between 0 and <code class="literal">1</code>.0
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> value of the alpha channel, between 0 and <code class="literal">1</code>.0
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-red"></a><h3>cogl_color_get_red ()</h3>
+<pre class="programlisting">float               cogl_color_get_red                  (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the red channel of <em class="parameter"><code>color</code></em> as a fixed point
+value between 0 and <code class="literal">1</code>.0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the red channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-green"></a><h3>cogl_color_get_green ()</h3>
+<pre class="programlisting">float               cogl_color_get_green                (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the green channel of <em class="parameter"><code>color</code></em> as a fixed point
+value between 0 and <code class="literal">1</code>.0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the green channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-blue"></a><h3>cogl_color_get_blue ()</h3>
+<pre class="programlisting">float               cogl_color_get_blue                 (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the blue channel of <em class="parameter"><code>color</code></em> as a fixed point
+value between 0 and <code class="literal">1</code>.0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the blue channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-alpha"></a><h3>cogl_color_get_alpha ()</h3>
+<pre class="programlisting">float               cogl_color_get_alpha                (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the alpha channel of <em class="parameter"><code>color</code></em> as a fixed point
+value between 0 and <code class="literal">1</code>.0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the alpha channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-red-byte"></a><h3>cogl_color_get_red_byte ()</h3>
+<pre class="programlisting">unsigned char       cogl_color_get_red_byte             (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the red channel of <em class="parameter"><code>color</code></em> as a byte value
+between 0 and 255</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the red channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-green-byte"></a><h3>cogl_color_get_green_byte ()</h3>
+<pre class="programlisting">unsigned char       cogl_color_get_green_byte           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the green channel of <em class="parameter"><code>color</code></em> as a byte value
+between 0 and 255</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the green channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-blue-byte"></a><h3>cogl_color_get_blue_byte ()</h3>
+<pre class="programlisting">unsigned char       cogl_color_get_blue_byte            (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the blue channel of <em class="parameter"><code>color</code></em> as a byte value
+between 0 and 255</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the blue channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-alpha-byte"></a><h3>cogl_color_get_alpha_byte ()</h3>
+<pre class="programlisting">unsigned char       cogl_color_get_alpha_byte           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the alpha channel of <em class="parameter"><code>color</code></em> as a byte value
+between 0 and 255</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the alpha channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-red-float"></a><h3>cogl_color_get_red_float ()</h3>
+<pre class="programlisting">float               cogl_color_get_red_float            (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the red channel of <em class="parameter"><code>color</code></em> as a floating point
+value between 0.0 and 1.0</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the red channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-green-float"></a><h3>cogl_color_get_green_float ()</h3>
+<pre class="programlisting">float               cogl_color_get_green_float          (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the green channel of <em class="parameter"><code>color</code></em> as a floating point
+value between 0.0 and 1.0</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the green channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-blue-float"></a><h3>cogl_color_get_blue_float ()</h3>
+<pre class="programlisting">float               cogl_color_get_blue_float           (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the blue channel of <em class="parameter"><code>color</code></em> as a floating point
+value between 0.0 and 1.0</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the blue channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="cogl-color-get-alpha-float"></a><h3>cogl_color_get_alpha_float ()</h3>
+<pre class="programlisting">float               cogl_color_get_alpha_float          (const <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor">CoglColor</a> *color);</pre>
+<p>
+Retrieves the alpha channel of <em class="parameter"><code>color</code></em> as a floating point
+value between 0.0 and 1.0</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="cogl-Color-Type.html#CoglColor" title="CoglColor"><span class="type">CoglColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the alpha channel of the passed color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="ClutterActor-destroy"><link linkend="ClutterActor-destroy">ClutterActor::destroy</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-hide"><link linkend="ClutterActor-hide">ClutterActor::hide</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-parent-set"><link linkend="ClutterActor-parent-set">ClutterActor::parent-set</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor-show"><link linkend="ClutterActor-show">ClutterActor::show</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterActor--name"><link linkend="ClutterActor--name">ClutterActor:name</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-scale"><link linkend="clutter-actor-get-scale">clutter_actor_get_scale</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-get-size"><link linkend="clutter-actor-get-size">clutter_actor_get_size</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-hide-all"><link linkend="clutter-actor-hide-all">clutter_actor_hide_all</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-ACTOR-IS-MAPPED--CAPS"><link linkend="CLUTTER-ACTOR-IS-MAPPED--CAPS">CLUTTER_ACTOR_IS_MAPPED</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-ACTOR-IS-REALIZED--CAPS"><link linkend="CLUTTER-ACTOR-IS-REALIZED--CAPS">CLUTTER_ACTOR_IS_REALIZED</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-ACTOR-IS-VISIBLE--CAPS"><link linkend="CLUTTER-ACTOR-IS-VISIBLE--CAPS">CLUTTER_ACTOR_IS_VISIBLE</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-move-by"><link linkend="clutter-actor-move-by">clutter_actor_move_by</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-reparent"><link linkend="clutter-actor-reparent">clutter_actor_reparent</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-height"><link linkend="clutter-actor-set-height">clutter_actor_set_height</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-scale"><link linkend="clutter-actor-set-scale">clutter_actor_set_scale</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-set-width"><link linkend="clutter-actor-set-width">clutter_actor_set_width</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-actor-show-all"><link linkend="clutter-actor-show-all">clutter_actor_show_all</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterAlpha-struct"><link linkend="ClutterAlpha">ClutterAlpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterAlpha--alpha"><link linkend="ClutterAlpha--alpha">ClutterAlpha:alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterAlpha--timeline"><link linkend="ClutterAlpha--timeline">ClutterAlpha:timeline</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterAlphaClass"><link linkend="ClutterAlphaClass">ClutterAlphaClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterAlphaFunc"><link linkend="ClutterAlphaFunc">ClutterAlphaFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-alpha-get-alpha"><link linkend="clutter-alpha-get-alpha">clutter_alpha_get_alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-alpha-get-timeline"><link linkend="clutter-alpha-get-timeline">clutter_alpha_get_timeline</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-alpha-new"><link linkend="clutter-alpha-new">clutter_alpha_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-alpha-set-func"><link linkend="clutter-alpha-set-func">clutter_alpha_set_func</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-alpha-set-timeline"><link linkend="clutter-alpha-set-timeline">clutter_alpha_set_timeline</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="ClutterBehaviour-struct"><link linkend="ClutterBehaviour">ClutterBehaviour</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviour--alpha"><link linkend="ClutterBehaviour--alpha">ClutterBehaviour:alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourClass"><link linkend="ClutterBehaviourClass">ClutterBehaviourClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourDepth-struct"><link linkend="ClutterBehaviourDepth">ClutterBehaviourDepth</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourDepthClass"><link linkend="ClutterBehaviourDepthClass">ClutterBehaviourDepthClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourForeachFunc"><link linkend="ClutterBehaviourForeachFunc">ClutterBehaviourForeachFunc</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourOpacity-struct"><link linkend="ClutterBehaviourOpacity">ClutterBehaviourOpacity</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourOpacity--opacity-end"><link linkend="ClutterBehaviourOpacity--opacity-end">ClutterBehaviourOpacity:opacity-end</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourOpacity--opacity-start"><link linkend="ClutterBehaviourOpacity--opacity-start">ClutterBehaviourOpacity:opacity-start</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourOpacityClass"><link linkend="ClutterBehaviourOpacityClass">ClutterBehaviourOpacityClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourPath-struct"><link linkend="ClutterBehaviourPath">ClutterBehaviourPath</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourPath-knot-reached"><link linkend="ClutterBehaviourPath-knot-reached">ClutterBehaviourPath::knot-reached</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourScale-struct"><link linkend="ClutterBehaviourScale">ClutterBehaviourScale</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterBehaviourScaleClass"><link linkend="ClutterBehaviourScaleClass">ClutterBehaviourScaleClass</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-actors-foreach"><link linkend="clutter-behaviour-actors-foreach">clutter_behaviour_actors_foreach</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-apply"><link linkend="clutter-behaviour-apply">clutter_behaviour_apply</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-get-actors"><link linkend="clutter-behaviour-get-actors">clutter_behaviour_get_actors</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-get-alpha"><link linkend="clutter-behaviour-get-alpha">clutter_behaviour_get_alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-get-nth-actor"><link linkend="clutter-behaviour-get-nth-actor">clutter_behaviour_get_nth_actor</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-get-n-actors"><link linkend="clutter-behaviour-get-n-actors">clutter_behaviour_get_n_actors</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-opacity-new"><link linkend="clutter-behaviour-opacity-new">clutter_behaviour_opacity_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-path-new"><link linkend="clutter-behaviour-path-new">clutter_behaviour_path_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-remove"><link linkend="clutter-behaviour-remove">clutter_behaviour_remove</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-scale-new"><link linkend="clutter-behaviour-scale-new">clutter_behaviour_scale_new</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-behaviour-set-alpha"><link linkend="clutter-behaviour-set-alpha">clutter_behaviour_set_alpha</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterButtonEvent"><link linkend="ClutterButtonEvent">ClutterButtonEvent</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="clutter-color-copy"><link linkend="clutter-color-copy">clutter_color_copy</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-color-equal"><link linkend="clutter-color-equal">clutter_color_equal</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-color-free"><link linkend="clutter-color-free">clutter_color_free</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-color-to-string"><link linkend="clutter-color-to-string">clutter_color_to_string</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterCrossingEvent"><link linkend="ClutterCrossingEvent">ClutterCrossingEvent</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>E</title>
+<indexentry><primaryie linkends="ClutterEvent"><link linkend="ClutterEvent">ClutterEvent</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="clutter-get-option-group"><link linkend="clutter-get-option-group">clutter_get_option_group</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterGravity"><link linkend="ClutterGravity">ClutterGravity</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-group-get-nth-child"><link linkend="clutter-group-get-nth-child">clutter_group_get_nth_child</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-group-get-n-children"><link linkend="clutter-group-get-n-children">clutter_group_get_n_children</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>I</title>
+<indexentry><primaryie linkends="ClutterInitError"><link linkend="ClutterInitError">ClutterInitError</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-init-with-args"><link linkend="clutter-init-with-args">clutter_init_with_args</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>K</title>
+<indexentry><primaryie linkends="ClutterKeyEvent"><link linkend="ClutterKeyEvent">ClutterKeyEvent</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterKnot"><link linkend="ClutterKnot">ClutterKnot</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-knot-copy"><link linkend="clutter-knot-copy">clutter_knot_copy</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-knot-equal"><link linkend="clutter-knot-equal">clutter_knot_equal</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-knot-free"><link linkend="clutter-knot-free">clutter_knot_free</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="ClutterMedia-eos"><link linkend="ClutterMedia-eos">ClutterMedia::eos</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMedia-error"><link linkend="ClutterMedia-error">ClutterMedia::error</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMedia--can-seek"><link linkend="ClutterMedia--can-seek">ClutterMedia:can-seek</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMedia--duration"><link linkend="ClutterMedia--duration">ClutterMedia:duration</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMedia--playing"><link linkend="ClutterMedia--playing">ClutterMedia:playing</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMedia--uri"><link linkend="ClutterMedia--uri">ClutterMedia:uri</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMediaIface"><link linkend="ClutterMediaIface">ClutterMediaIface</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-get-can-seek"><link linkend="clutter-media-get-can-seek">clutter_media_get_can_seek</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-get-duration"><link linkend="clutter-media-get-duration">clutter_media_get_duration</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-get-playing"><link linkend="clutter-media-get-playing">clutter_media_get_playing</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-get-uri"><link linkend="clutter-media-get-uri">clutter_media_get_uri</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-set-filename"><link linkend="clutter-media-set-filename">clutter_media_set_filename</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-set-playing"><link linkend="clutter-media-set-playing">clutter_media_set_playing</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-media-set-uri"><link linkend="clutter-media-set-uri">clutter_media_set_uri</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterMotionEvent"><link linkend="ClutterMotionEvent">ClutterMotionEvent</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="ClutterRectangle--border-color"><link linkend="ClutterRectangle--border-color">ClutterRectangle:border-color</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterRectangle--border-width"><link linkend="ClutterRectangle--border-width">ClutterRectangle:border-width</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterRectangle--has-border"><link linkend="ClutterRectangle--has-border">ClutterRectangle:has-border</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-rectangle-get-border-color"><link linkend="clutter-rectangle-get-border-color">clutter_rectangle_get_border_color</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-rectangle-get-border-width"><link linkend="clutter-rectangle-get-border-width">clutter_rectangle_get_border_width</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-rectangle-set-border-width"><link linkend="clutter-rectangle-set-border-width">clutter_rectangle_set_border_width</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="ClutterScrollEvent"><link linkend="ClutterScrollEvent">ClutterScrollEvent</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStageStateEvent"><link linkend="ClutterStageStateEvent">ClutterStageStateEvent</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-STAGE-HEIGHT--CAPS"><link linkend="CLUTTER-STAGE-HEIGHT--CAPS">CLUTTER_STAGE_HEIGHT</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CLUTTER-STAGE-WIDTH--CAPS"><link linkend="CLUTTER-STAGE-WIDTH--CAPS">CLUTTER_STAGE_WIDTH</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="ClutterTimeline-struct"><link linkend="ClutterTimeline">ClutterTimeline</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterTimelineClass"><link linkend="ClutterTimelineClass">ClutterTimelineClass</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

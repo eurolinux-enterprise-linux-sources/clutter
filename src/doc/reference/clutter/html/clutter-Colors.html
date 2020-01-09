@@ -1,0 +1,843 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Colors</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch07.html" title="General purpose API">
+<link rel="prev" href="ch07.html" title="General purpose API">
+<link rel="next" href="clutter-Key-Bindings.html" title="Key Bindings">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch07.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="clutter-Key-Bindings.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#clutter-Colors.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#clutter-Colors.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="clutter-Colors"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="clutter-Colors.top_of_page"></a>Colors</span></h2>
+<p>Colors — Color management and manipulation.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="clutter-Colors.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a>;
+<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *      <a class="link" href="clutter-Colors.html#clutter-color-new" title="clutter_color_new ()">clutter_color_new</a>                   (guint8 red,
+                                                         guint8 green,
+                                                         guint8 blue,
+                                                         guint8 alpha);
+<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *      <a class="link" href="clutter-Colors.html#clutter-color-copy" title="clutter_color_copy ()">clutter_color_copy</a>                  (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="clutter-Colors.html#clutter-color-free" title="clutter_color_free ()">clutter_color_free</a>                  (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+gboolean            <a class="link" href="clutter-Colors.html#clutter-color-equal" title="clutter_color_equal ()">clutter_color_equal</a>                 (gconstpointer v1,
+                                                         gconstpointer v2);
+guint               <a class="link" href="clutter-Colors.html#clutter-color-hash" title="clutter_color_hash ()">clutter_color_hash</a>                  (gconstpointer v);
+
+gboolean            <a class="link" href="clutter-Colors.html#clutter-color-from-string" title="clutter_color_from_string ()">clutter_color_from_string</a>           (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         const gchar *str);
+gchar *             <a class="link" href="clutter-Colors.html#clutter-color-to-string" title="clutter_color_to_string ()">clutter_color_to_string</a>             (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+void                <a class="link" href="clutter-Colors.html#clutter-color-from-hls" title="clutter_color_from_hls ()">clutter_color_from_hls</a>              (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gfloat hue,
+                                                         gfloat luminance,
+                                                         gfloat saturation);
+void                <a class="link" href="clutter-Colors.html#clutter-color-to-hls" title="clutter_color_to_hls ()">clutter_color_to_hls</a>                (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gfloat *hue,
+                                                         gfloat *luminance,
+                                                         gfloat *saturation);
+void                <a class="link" href="clutter-Colors.html#clutter-color-from-pixel" title="clutter_color_from_pixel ()">clutter_color_from_pixel</a>            (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         guint32 pixel);
+guint32             <a class="link" href="clutter-Colors.html#clutter-color-to-pixel" title="clutter_color_to_pixel ()">clutter_color_to_pixel</a>              (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+
+void                <a class="link" href="clutter-Colors.html#clutter-color-add" title="clutter_color_add ()">clutter_color_add</a>                   (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *a,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *b,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);
+void                <a class="link" href="clutter-Colors.html#clutter-color-subtract" title="clutter_color_subtract ()">clutter_color_subtract</a>              (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *a,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *b,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);
+void                <a class="link" href="clutter-Colors.html#clutter-color-lighten" title="clutter_color_lighten ()">clutter_color_lighten</a>               (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);
+void                <a class="link" href="clutter-Colors.html#clutter-color-darken" title="clutter_color_darken ()">clutter_color_darken</a>                (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);
+void                <a class="link" href="clutter-Colors.html#clutter-color-shade" title="clutter_color_shade ()">clutter_color_shade</a>                 (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gdouble factor,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);
+
+                    <a class="link" href="clutter-Colors.html#ClutterParamSpecColor" title="ClutterParamSpecColor">ClutterParamSpecColor</a>;
+GParamSpec *        <a class="link" href="clutter-Colors.html#clutter-param-spec-color" title="clutter_param_spec_color ()">clutter_param_spec_color</a>            (const gchar *name,
+                                                         const gchar *nick,
+                                                         const gchar *blurb,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *default_value,
+                                                         GParamFlags flags);
+#define             <a class="link" href="clutter-Colors.html#CLUTTER-VALUE-HOLDS-COLOR--CAPS" title="CLUTTER_VALUE_HOLDS_COLOR()">CLUTTER_VALUE_HOLDS_COLOR</a>           (x)
+void                <a class="link" href="clutter-Colors.html#clutter-value-set-color" title="clutter_value_set_color ()">clutter_value_set_color</a>             (GValue *value,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);
+const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> * <a class="link" href="clutter-Colors.html#clutter-value-get-color" title="clutter_value_get_color ()">clutter_value_get_color</a>            (const GValue *value);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Colors.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a> is a simple type for representing colors in Clutter.
+</p>
+<p>
+A <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a> is expressed as a 4-tuple of values ranging from
+zero to 255, one for each color channel plus one for the alpha.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="clutter-Colors.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterColor"></a><h3>ClutterColor</h3>
+<pre class="programlisting">typedef struct {
+  guint8 red;
+  guint8 green;
+  guint8 blue;
+  
+  guint8 alpha;
+} ClutterColor;
+</pre>
+<p>
+Color representation.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">guint8 <em class="structfield"><code>red</code></em>;</span></p></td>
+<td> red component, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint8 <em class="structfield"><code>green</code></em>;</span></p></td>
+<td> green component, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint8 <em class="structfield"><code>blue</code></em>;</span></p></td>
+<td> blue component, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term">guint8 <em class="structfield"><code>alpha</code></em>;</span></p></td>
+<td> alpha component, between 0 and 255
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-new"></a><h3>clutter_color_new ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *      clutter_color_new                   (guint8 red,
+                                                         guint8 green,
+                                                         guint8 blue,
+                                                         guint8 alpha);</pre>
+<p>
+Creates a new <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a> with the given values.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>red</code></em> :</span></p></td>
+<td> red component of the color, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>green</code></em> :</span></p></td>
+<td> green component of the color, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blue</code></em> :</span></p></td>
+<td> blue component of the color, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alpha</code></em> :</span></p></td>
+<td> alpha component of the color, between 0 and 255
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly allocated color. Use <a class="link" href="clutter-Colors.html#clutter-color-free" title="clutter_color_free ()"><code class="function">clutter_color_free()</code></a>
+  when done
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-copy"></a><h3>clutter_color_copy ()</h3>
+<pre class="programlisting"><a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *      clutter_color_copy                  (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Makes a copy of the color structure.  The result must be
+freed using <a class="link" href="clutter-Colors.html#clutter-color-free" title="clutter_color_free ()"><code class="function">clutter_color_free()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> an allocated copy of <em class="parameter"><code>color</code></em>.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-free"></a><h3>clutter_color_free ()</h3>
+<pre class="programlisting">void                clutter_color_free                  (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Frees a color structure created with <a class="link" href="clutter-Colors.html#clutter-color-copy" title="clutter_color_copy ()"><code class="function">clutter_color_copy()</code></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-equal"></a><h3>clutter_color_equal ()</h3>
+<pre class="programlisting">gboolean            clutter_color_equal                 (gconstpointer v1,
+                                                         gconstpointer v2);</pre>
+<p>
+Compares two <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>s and checks if they are the same.
+</p>
+<p>
+This function can be passed to <code class="function">g_hash_table_new()</code> as the <em class="parameter"><code>key_equal_func</code></em>
+parameter, when using <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>s as keys in a <span class="type">GHashTable</span>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>v1</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>v2</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the two colors are the same.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-hash"></a><h3>clutter_color_hash ()</h3>
+<pre class="programlisting">guint               clutter_color_hash                  (gconstpointer v);</pre>
+<p>
+Converts a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a> to a hash value.
+</p>
+<p>
+This function can be passed to <code class="function">g_hash_table_new()</code> as the <em class="parameter"><code>hash_func</code></em>
+parameter, when using <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>s as keys in a <span class="type">GHashTable</span>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>v</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a hash value corresponding to the color
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-from-string"></a><h3>clutter_color_from_string ()</h3>
+<pre class="programlisting">gboolean            clutter_color_from_string           (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         const gchar *str);</pre>
+<p>
+Parses a string definition of a color, filling the
+<em class="structfield"><code>red</code></em>, <em class="structfield"><code>green</code></em>, 
+<em class="structfield"><code>blue</code></em> and <em class="structfield"><code>alpha</code></em> 
+channels of <em class="parameter"><code>color</code></em>. If alpha is not specified it will be set full opaque.
+</p>
+<p>
+The <em class="parameter"><code>color</code></em> is not allocated.
+</p>
+<p>
+The color may be defined by any of the formats understood by
+<code class="function">pango_color_from_string()</code>; these include literal color names, like
+<code class="literal">Red</code> or <code class="literal">DarkSlateGray</code>, or
+hexadecimal specifications like <code class="literal">#3050b2</code> or
+<code class="literal">#333</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td> a string specifiying a color (named color or <span class="type">RRGGBBAA</span>)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if parsing succeeded.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-to-string"></a><h3>clutter_color_to_string ()</h3>
+<pre class="programlisting">gchar *             clutter_color_to_string             (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Returns a textual specification of <em class="parameter"><code>color</code></em> in the hexadecimal form
+<code class="literal">#rrggbbaa</code>, where <code class="literal">r</code>,
+<code class="literal">g</code>, <code class="literal">b</code> and <code class="literal">a</code> are
+hex digits representing the red, green, blue and alpha components
+respectively.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly-allocated text string
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-from-hls"></a><h3>clutter_color_from_hls ()</h3>
+<pre class="programlisting">void                clutter_color_from_hls              (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gfloat hue,
+                                                         gfloat luminance,
+                                                         gfloat saturation);</pre>
+<p>
+Converts a color expressed in HLS (hue, luminance and saturation)
+values into a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hue</code></em> :</span></p></td>
+<td> hue value, in the 0 .. 360 range
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>luminance</code></em> :</span></p></td>
+<td> luminance value, in the 0 .. 1 range
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>saturation</code></em> :</span></p></td>
+<td> saturation value, in the 0 .. 1 range
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-to-hls"></a><h3>clutter_color_to_hls ()</h3>
+<pre class="programlisting">void                clutter_color_to_hls                (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gfloat *hue,
+                                                         gfloat *luminance,
+                                                         gfloat *saturation);</pre>
+<p>
+Converts <em class="parameter"><code>color</code></em> to the HLS format.
+</p>
+<p>
+The <em class="parameter"><code>hue</code></em> value is in the 0 .. 360 range. The <em class="parameter"><code>luminance</code></em> and
+<em class="parameter"><code>saturation</code></em> values are in the 0 .. 1 range.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hue</code></em> :</span></p></td>
+<td> return location for the hue value or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>luminance</code></em> :</span></p></td>
+<td> return location for the luminance value or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>saturation</code></em> :</span></p></td>
+<td> return location for the saturation value or <code class="literal">NULL</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-from-pixel"></a><h3>clutter_color_from_pixel ()</h3>
+<pre class="programlisting">void                clutter_color_from_pixel            (<a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         guint32 pixel);</pre>
+<p>
+Converts <em class="parameter"><code>pixel</code></em> from the packed representation of a four 8 bit channel
+color to a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> return location for a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pixel</code></em> :</span></p></td>
+<td> a 32 bit packed integer containing a color
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-to-pixel"></a><h3>clutter_color_to_pixel ()</h3>
+<pre class="programlisting">guint32             clutter_color_to_pixel              (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Converts <em class="parameter"><code>color</code></em> into a packed 32 bit integer, containing
+all the four 8 bit channels used by <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a packed color
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-add"></a><h3>clutter_color_add ()</h3>
+<pre class="programlisting">void                clutter_color_add                   (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *a,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *b,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);</pre>
+<p>
+Adds <em class="parameter"><code>a</code></em> to <em class="parameter"><code>b</code></em> and saves the resulting color inside <em class="parameter"><code>result</code></em>.
+</p>
+<p>
+The alpha channel of <em class="parameter"><code>result</code></em> is set as as the maximum value
+between the alpha channels of <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td> return location for the result. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-subtract"></a><h3>clutter_color_subtract ()</h3>
+<pre class="programlisting">void                clutter_color_subtract              (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *a,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *b,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);</pre>
+<p>
+Subtracts <em class="parameter"><code>b</code></em> from <em class="parameter"><code>a</code></em> and saves the resulting color inside <em class="parameter"><code>result</code></em>.
+</p>
+<p>
+This function assumes that the components of <em class="parameter"><code>a</code></em> are greater than the
+components of <em class="parameter"><code>b</code></em>; the result is, otherwise, undefined.
+</p>
+<p>
+The alpha channel of <em class="parameter"><code>result</code></em> is set as the minimum value
+between the alpha channels of <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td> return location for the result. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-lighten"></a><h3>clutter_color_lighten ()</h3>
+<pre class="programlisting">void                clutter_color_lighten               (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);</pre>
+<p>
+Lightens <em class="parameter"><code>color</code></em> by a fixed amount, and saves the changed color
+in <em class="parameter"><code>result</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td> return location for the lighter color. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-darken"></a><h3>clutter_color_darken ()</h3>
+<pre class="programlisting">void                clutter_color_darken                (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);</pre>
+<p>
+Darkens <em class="parameter"><code>color</code></em> by a fixed amount, and saves the changed color
+in <em class="parameter"><code>result</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td> return location for the darker color. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-color-shade"></a><h3>clutter_color_shade ()</h3>
+<pre class="programlisting">void                clutter_color_shade                 (const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color,
+                                                         gdouble factor,
+                                                         <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *result);</pre>
+<p>
+Shades <em class="parameter"><code>color</code></em> by <em class="parameter"><code>factor</code></em> and saves the modified color into <em class="parameter"><code>result</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factor</code></em> :</span></p></td>
+<td> the shade factor to apply
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td> return location for the shaded color. <acronym title="Parameter for returning results. Default is transfer-full."><span class="acronym">out</span></acronym>. </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterParamSpecColor"></a><h3>ClutterParamSpecColor</h3>
+<pre class="programlisting">typedef struct {
+  ClutterColor *default_value;
+} ClutterParamSpecColor;
+</pre>
+<p>
+A <span class="type">GParamSpec</span> subclass for defining properties holding
+a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *<em class="structfield"><code>default_value</code></em>;</span></p></td>
+<td> default color value
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-param-spec-color"></a><h3>clutter_param_spec_color ()</h3>
+<pre class="programlisting">GParamSpec *        clutter_param_spec_color            (const gchar *name,
+                                                         const gchar *nick,
+                                                         const gchar *blurb,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *default_value,
+                                                         GParamFlags flags);</pre>
+<p>
+Creates a <span class="type">GParamSpec</span> for properties using <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td> name of the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nick</code></em> :</span></p></td>
+<td> short name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blurb</code></em> :</span></p></td>
+<td> description (can be translatable)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_value</code></em> :</span></p></td>
+<td> default value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td> flags for the param spec
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly created <span class="type">GParamSpec</span>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CLUTTER-VALUE-HOLDS-COLOR--CAPS"></a><h3>CLUTTER_VALUE_HOLDS_COLOR()</h3>
+<pre class="programlisting">#define CLUTTER_VALUE_HOLDS_COLOR(x)       (G_VALUE_HOLDS ((x), CLUTTER_TYPE_COLOR))
+</pre>
+<p>
+Evaluates to <code class="literal">TRUE</code> if <em class="parameter"><code>x</code></em> holds a <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-value-set-color"></a><h3>clutter_value_set_color ()</h3>
+<pre class="programlisting">void                clutter_value_set_color             (GValue *value,
+                                                         const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> *color);</pre>
+<p>
+Sets <em class="parameter"><code>value</code></em> to <em class="parameter"><code>color</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span> initialized to <span class="type">CLUTTER_TYPE_COLOR</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td> the color to set
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8.4</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-value-get-color"></a><h3>clutter_value_get_color ()</h3>
+<pre class="programlisting">const <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor">ClutterColor</a> * clutter_value_get_color            (const GValue *value);</pre>
+<p>
+Gets the <a class="link" href="clutter-Colors.html#ClutterColor" title="ClutterColor"><span class="type">ClutterColor</span></a> contained in <em class="parameter"><code>value</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> a <span class="type">GValue</span> initialized to <span class="type">CLUTTER_TYPE_COLOR</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the colors inside the passed <span class="type">GValue</span>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.8.4</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

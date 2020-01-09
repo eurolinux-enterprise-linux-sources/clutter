@@ -1,0 +1,1036 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterStage">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterStage.top_of_page">ClutterStage</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterStage</refname>
+<refpurpose>Top level visual element to which actors are placed.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterStage.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterStage-struct">ClutterStage</link>;
+                    <link linkend="ClutterStageClass">ClutterStageClass</link>;
+#define             <link linkend="CLUTTER-STAGE-WIDTH--CAPS">CLUTTER_STAGE_WIDTH</link>                 ()
+#define             <link linkend="CLUTTER-STAGE-HEIGHT--CAPS">CLUTTER_STAGE_HEIGHT</link>                ()
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-stage-get-default">clutter_stage_get_default</link>           (void);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-stage-new">clutter_stage_new</link>                   (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-is-default">clutter_stage_is_default</link>            (<link linkend="ClutterStage">ClutterStage</link> *stage);
+
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-color">clutter_stage_set_color</link>             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-stage-get-color">clutter_stage_get_color</link>             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-fullscreen">clutter_stage_set_fullscreen</link>        (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> fullscreen);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-get-fullscreen">clutter_stage_get_fullscreen</link>        (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-show-cursor">clutter_stage_show_cursor</link>           (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-hide-cursor">clutter_stage_hide_cursor</link>           (<link linkend="ClutterStage">ClutterStage</link> *stage);
+enum                <link linkend="ClutterPickMode">ClutterPickMode</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-stage-get-actor-at-pos">clutter_stage_get_actor_at_pos</link>      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPickMode">ClutterPickMode</link> pick_mode,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>                <link linkend="clutter-stage-ensure-current">clutter_stage_ensure_current</link>        (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-ensure-viewport">clutter_stage_ensure_viewport</link>       (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-ensure-redraw">clutter_stage_ensure_redraw</link>         (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-queue-redraw">clutter_stage_queue_redraw</link>          (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-event">clutter_stage_event</link>                 (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterEvent">ClutterEvent</link> *event);
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-key-focus">clutter_stage_set_key_focus</link>         (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterActor">ClutterActor</link> *actor);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-stage-get-key-focus">clutter_stage_get_key_focus</link>         (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="guchar">guchar</link> *            <link linkend="clutter-stage-read-pixels">clutter_stage_read_pixels</link>           (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-throttle-motion-events">clutter_stage_set_throttle_motion_events</link>
+                                                        (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> throttle);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-get-throttle-motion-events">clutter_stage_get_throttle_motion_events</link>
+                                                        (<link linkend="ClutterStage">ClutterStage</link> *stage);
+
+                    <link linkend="ClutterPerspective">ClutterPerspective</link>;
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-perspective">clutter_stage_set_perspective</link>       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPerspective">ClutterPerspective</link> *perspective);
+<link linkend="void">void</link>                <link linkend="clutter-stage-get-perspective">clutter_stage_get_perspective</link>       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPerspective">ClutterPerspective</link> *perspective);
+
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-title">clutter_stage_set_title</link>             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         const <link linkend="gchar">gchar</link> *title);
+const <link linkend="gchar">gchar</link> *       <link linkend="clutter-stage-get-title">clutter_stage_get_title</link>             (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-user-resizable">clutter_stage_set_user_resizable</link>    (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> resizable);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-get-user-resizable">clutter_stage_get_user_resizable</link>    (<link linkend="ClutterStage">ClutterStage</link> *stage);
+
+                    <link linkend="ClutterFog">ClutterFog</link>;
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-use-fog">clutter_stage_set_use_fog</link>           (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> fog);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-stage-get-use-fog">clutter_stage_get_use_fog</link>           (<link linkend="ClutterStage">ClutterStage</link> *stage);
+<link linkend="void">void</link>                <link linkend="clutter-stage-set-fog">clutter_stage_set_fog</link>               (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterFog">ClutterFog</link> *fog);
+<link linkend="void">void</link>                <link linkend="clutter-stage-get-fog">clutter_stage_get_fog</link>               (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterFog">ClutterFog</link> *fog);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterStage.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="ClutterActor">ClutterActor</link>
+               +----<link linkend="ClutterGroup">ClutterGroup</link>
+                     +----ClutterStage
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterStage.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ClutterStage implements
+ <link linkend="ClutterScriptable">ClutterScriptable</link> and  <link linkend="ClutterContainer">ClutterContainer</link>.</para>
+</refsect1>
+
+
+<refsect1 id="ClutterStage.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterStage--color">color</link>&quot;                    <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write
+  &quot;<link linkend="ClutterStage--cursor-visible">cursor-visible</link>&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterStage--fog">fog</link>&quot;                      <link linkend="ClutterFog">ClutterFog</link>*           : Read / Write
+  &quot;<link linkend="ClutterStage--fullscreen-set">fullscreen-set</link>&quot;           <link linkend="gboolean">gboolean</link>              : Read
+  &quot;<link linkend="ClutterStage--offscreen">offscreen</link>&quot;                <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterStage--perspective">perspective</link>&quot;              <link linkend="ClutterPerspective">ClutterPerspective</link>*   : Read / Write
+  &quot;<link linkend="ClutterStage--title">title</link>&quot;                    <link linkend="gchar">gchar</link>*                : Read / Write
+  &quot;<link linkend="ClutterStage--use-fog">use-fog</link>&quot;                  <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterStage--user-resizable">user-resizable</link>&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1 id="ClutterStage.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ClutterStage-activate">activate</link>&quot;                                       : Run Last
+  &quot;<link linkend="ClutterStage-deactivate">deactivate</link>&quot;                                     : Run Last
+  &quot;<link linkend="ClutterStage-fullscreen">fullscreen</link>&quot;                                     : Run First
+  &quot;<link linkend="ClutterStage-unfullscreen">unfullscreen</link>&quot;                                   : Run Last
+</synopsis>
+</refsect1>
+
+
+<refsect1 id="ClutterStage.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterStage"><type>ClutterStage</type></link> is a top level 'window' on which child actors are placed
+and manipulated.
+</para>
+<para>
+Clutter creates a default stage upon initialization, which can be retrieved
+using <link linkend="clutter-stage-get-default"><function>clutter_stage_get_default()</function></link>. Clutter always provides the default
+stage, unless the backend is unable to create one. The stage returned
+by <link linkend="clutter-stage-get-default"><function>clutter_stage_get_default()</function></link> is guaranteed to always be the same.
+</para>
+<para>
+Backends might provide support for multiple stages. The support for this
+feature can be checked at run-time using the <link linkend="clutter-feature-available"><function>clutter_feature_available()</function></link>
+function and the <link linkend="CLUTTER-FEATURE-STAGE-MULTIPLE--CAPS"><literal>CLUTTER_FEATURE_STAGE_MULTIPLE</literal></link> flag. If the backend used
+supports multiple stages, new <link linkend="ClutterStage"><type>ClutterStage</type></link> instances can be created
+using <link linkend="clutter-stage-new"><function>clutter_stage_new()</function></link>. These stages must be managed by the developer
+using <link linkend="clutter-actor-destroy"><function>clutter_actor_destroy()</function></link>, which will take care of destroying all the
+actors contained inside them.
+</para>
+<para>
+<link linkend="ClutterStage"><type>ClutterStage</type></link> is a proxy actor, wrapping the backend-specific
+implementation of the windowing system. It is possible to subclass
+<link linkend="ClutterStage"><type>ClutterStage</type></link>, as long as every overridden virtual function chains up to
+the parent class corresponding function.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterStage.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterStage-struct" role="struct">
+<title>ClutterStage</title>
+<indexterm zone="ClutterStage-struct" role="0.1"><primary sortas="Stage">ClutterStage</primary></indexterm><programlisting>typedef struct _ClutterStage ClutterStage;</programlisting>
+<para>
+The <link linkend="ClutterStage"><type>ClutterStage</type></link> structure contains only private data
+and should be accessed using the provided API</para>
+<para>
+</para><para role="since">Since 0.1</para></refsect2>
+<refsect2 id="ClutterStageClass" role="struct" condition="since:0.1">
+<title>ClutterStageClass</title>
+<indexterm zone="ClutterStageClass" role="0.1"><primary sortas="StageClass">ClutterStageClass</primary></indexterm><programlisting>typedef struct {
+  /* signals */
+  void (* fullscreen)   (ClutterStage *stage);
+  void (* unfullscreen) (ClutterStage *stage);
+  void (* activate)     (ClutterStage *stage);
+  void (* deactivate)   (ClutterStage *stage);
+} ClutterStageClass;
+</programlisting>
+<para>
+The <link linkend="ClutterStageClass"><type>ClutterStageClass</type></link> structure contains only private data</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><structfield>fullscreen</structfield>&#160;()</term>
+<listitem><simpara> handler for the <link linkend="ClutterStage-fullscreen"><type>"fullscreen"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>unfullscreen</structfield>&#160;()</term>
+<listitem><simpara> handler for the <link linkend="ClutterStage-unfullscreen"><type>"unfullscreen"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>activate</structfield>&#160;()</term>
+<listitem><simpara> handler for the <link linkend="ClutterStage-activate"><type>"activate"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>deactivate</structfield>&#160;()</term>
+<listitem><simpara> handler for the <link linkend="ClutterStage-deactive"><type>"deactive"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.1</para></refsect2>
+<refsect2 id="CLUTTER-STAGE-WIDTH--CAPS" role="macro" condition="since:0.2">
+<title>CLUTTER_STAGE_WIDTH()</title>
+<indexterm zone="CLUTTER-STAGE-WIDTH--CAPS" role="0.2"><primary sortas="STAGE_WIDTH">CLUTTER_STAGE_WIDTH</primary></indexterm><programlisting>#define             CLUTTER_STAGE_WIDTH()</programlisting>
+<para>
+Macro that evaluates to the width of the default stage</para>
+<para>
+</para><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="CLUTTER-STAGE-HEIGHT--CAPS" role="macro" condition="since:0.2">
+<title>CLUTTER_STAGE_HEIGHT()</title>
+<indexterm zone="CLUTTER-STAGE-HEIGHT--CAPS" role="0.2"><primary sortas="STAGE_HEIGHT">CLUTTER_STAGE_HEIGHT</primary></indexterm><programlisting>#define             CLUTTER_STAGE_HEIGHT()</programlisting>
+<para>
+Macro that evaluates to the height of the default stage</para>
+<para>
+</para><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-stage-get-default" role="function">
+<title>clutter_stage_get_default ()</title>
+<indexterm zone="clutter-stage-get-default"><primary sortas="stage_get_default">clutter_stage_get_default</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_stage_get_default           (void);</programlisting>
+<para>
+Returns the main stage. The default <link linkend="ClutterStage"><type>ClutterStage</type></link> is a singleton,
+so the stage will be created the first time this function is
+called (typically, inside <link linkend="clutter-init"><function>clutter_init()</function></link>); all the subsequent
+calls to <link linkend="clutter-stage-get-default"><function>clutter_stage_get_default()</function></link> will return the same instance.
+</para>
+<para>
+Clutter guarantess the existence of the default stage.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-new" role="function" condition="since:0.8">
+<title>clutter_stage_new ()</title>
+<indexterm zone="clutter-stage-new" role="0.8"><primary sortas="stage_new">clutter_stage_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_stage_new                   (void);</programlisting>
+<para>
+Creates a new, non-default stage. A non-default stage is a new
+top-level actor which can be used as another container. It works
+exactly like the default stage, but while <link linkend="clutter-stage-get-default"><function>clutter_stage_get_default()</function></link>
+will always return the same instance, you will have to keep a pointer
+to any <link linkend="ClutterStage"><type>ClutterStage</type></link> returned by <link linkend="clutter-stage-create"><function>clutter_stage_create()</function></link>.
+</para>
+<para>
+The ability to support multiple stages depends on the current
+backend. Use <link linkend="clutter-feature-available"><function>clutter_feature_available()</function></link> and
+<link linkend="CLUTTER-FEATURE-STAGE-MULTIPLE--CAPS"><literal>CLUTTER_FEATURE_STAGE_MULTIPLE</literal></link> to check at runtime whether a
+backend supports multiple stages.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a new stage, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the default backend does
+  not support multiple stages. Use <link linkend="clutter-actor-destroy"><function>clutter_actor_destroy()</function></link> to
+  programmatically close the returned stage.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-stage-is-default" role="function" condition="since:0.8">
+<title>clutter_stage_is_default ()</title>
+<indexterm zone="clutter-stage-is-default" role="0.8"><primary sortas="stage_is_default">clutter_stage_is_default</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_is_default            (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Checks if <parameter>stage</parameter> is the default stage, or an instance created using
+<link linkend="clutter-stage-new"><function>clutter_stage_new()</function></link> but internally using the same implementation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the passed stage is the default one
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-stage-set-color" role="function">
+<title>clutter_stage_set_color ()</title>
+<indexterm zone="clutter-stage-set-color"><primary sortas="stage_set_color">clutter_stage_set_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_color             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Sets the stage color.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-get-color" role="function">
+<title>clutter_stage_get_color ()</title>
+<indexterm zone="clutter-stage-get-color"><primary sortas="stage_get_color">clutter_stage_get_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_get_color             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Retrieves the stage color.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-set-fullscreen" role="function" condition="since:1.0">
+<title>clutter_stage_set_fullscreen ()</title>
+<indexterm zone="clutter-stage-set-fullscreen" role="1.0"><primary sortas="stage_set_fullscreen">clutter_stage_set_fullscreen</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_fullscreen        (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> fullscreen);</programlisting>
+<para>
+Asks to place the stage window in the fullscreen or unfullscreen
+states.
+</para>
+<para>
+ ( Note that you shouldn't assume the window is definitely full screen
+afterward, because other entities (e.g. the user or window manager)
+could unfullscreen it again, and not all window managers honor
+requests to fullscreen windows.
+</para>
+<para>
+If you want to receive notification of the fullscreen state you
+should either use the <link linkend="ClutterStage-fullscreen"><type>"fullscreen"</type></link> and
+<link linkend="ClutterStage-unfullscreen"><type>"unfullscreen"</type></link> signals, or use the notify signal
+for the <link linkend="ClutterStage--fullscreen-set"><type>"fullscreen-set"</type></link> property</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fullscreen</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> to to set the stage fullscreen
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-get-fullscreen" role="function" condition="since:1.0">
+<title>clutter_stage_get_fullscreen ()</title>
+<indexterm zone="clutter-stage-get-fullscreen" role="1.0"><primary sortas="stage_get_fullscreen">clutter_stage_get_fullscreen</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_get_fullscreen        (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Retrieves whether the stage is full screen or not</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the stage is full screen
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-show-cursor" role="function">
+<title>clutter_stage_show_cursor ()</title>
+<indexterm zone="clutter-stage-show-cursor"><primary sortas="stage_show_cursor">clutter_stage_show_cursor</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_show_cursor           (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Shows the cursor on the stage window</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-hide-cursor" role="function" condition="since:0.4">
+<title>clutter_stage_hide_cursor ()</title>
+<indexterm zone="clutter-stage-hide-cursor" role="0.4"><primary sortas="stage_hide_cursor">clutter_stage_hide_cursor</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_hide_cursor           (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Makes the cursor invisible on the stage window</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="ClutterPickMode" role="enum" condition="since:1.0">
+<title>enum ClutterPickMode</title>
+<indexterm zone="ClutterPickMode" role="1.0"><primary sortas="PickMode">ClutterPickMode</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_PICK_NONE = 0,
+  CLUTTER_PICK_REACTIVE,
+  CLUTTER_PICK_ALL
+} ClutterPickMode;
+</programlisting>
+<para>
+Controls the paint cycle of the scene graph when in pick mode</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="CLUTTER-PICK-NONE--CAPS" role="constant">
+<term><literal>CLUTTER_PICK_NONE</literal></term>
+<listitem><simpara> Do not paint any actor
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PICK-REACTIVE--CAPS" role="constant">
+<term><literal>CLUTTER_PICK_REACTIVE</literal></term>
+<listitem><simpara> Paint only the reactive actors
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-PICK-ALL--CAPS" role="constant">
+<term><literal>CLUTTER_PICK_ALL</literal></term>
+<listitem><simpara> Paint all actors
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-get-actor-at-pos" role="function">
+<title>clutter_stage_get_actor_at_pos ()</title>
+<indexterm zone="clutter-stage-get-actor-at-pos"><primary sortas="stage_get_actor_at_pos">clutter_stage_get_actor_at_pos</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_stage_get_actor_at_pos      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPickMode">ClutterPickMode</link> pick_mode,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Checks the scene at the coordinates <parameter>x</parameter> and <parameter>y</parameter> and returns a pointer
+to the <link linkend="ClutterActor"><type>ClutterActor</type></link> at those coordinates.
+</para>
+<para>
+By using <parameter>pick_mode</parameter> it is possible to control which actors will be
+painted and thus available.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pick_mode</parameter>&#160;:</term>
+<listitem><simpara> how the scene graph should be painted
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> X coordinate to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> Y coordinate to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-ensure-current" role="function" condition="since:0.8">
+<title>clutter_stage_ensure_current ()</title>
+<indexterm zone="clutter-stage-ensure-current" role="0.8"><primary sortas="stage_ensure_current">clutter_stage_ensure_current</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_ensure_current        (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+This function essentially makes sure the right GL context is
+current for the passed stage. It is not intended to
+be used by applications.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-stage-ensure-viewport" role="function" condition="since:1.0">
+<title>clutter_stage_ensure_viewport ()</title>
+<indexterm zone="clutter-stage-ensure-viewport" role="1.0"><primary sortas="stage_ensure_viewport">clutter_stage_ensure_viewport</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_ensure_viewport       (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Ensures that the GL viewport is updated with the current
+stage window size.
+</para>
+<para>
+This function will queue a redraw of <parameter>stage</parameter>.
+</para>
+<para>
+This function should not be called by applications; it is used
+when embedding a <link linkend="ClutterStage"><type>ClutterStage</type></link> into a toolkit with another
+windowing system, like GTK+.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-ensure-redraw" role="function" condition="since:1.0">
+<title>clutter_stage_ensure_redraw ()</title>
+<indexterm zone="clutter-stage-ensure-redraw" role="1.0"><primary sortas="stage_ensure_redraw">clutter_stage_ensure_redraw</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_ensure_redraw         (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Ensures that <parameter>stage</parameter> is redrawn
+</para>
+<para>
+This function should not be called by applications: it is
+used when embedding a <link linkend="ClutterStage"><type>ClutterStage</type></link> into a toolkit with
+another windowing system, like GTK+.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-queue-redraw" role="function" condition="since:0.8">
+<title>clutter_stage_queue_redraw ()</title>
+<indexterm zone="clutter-stage-queue-redraw" role="0.8"><primary sortas="stage_queue_redraw">clutter_stage_queue_redraw</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_queue_redraw          (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Queues a redraw for the passed stage.
+</para>
+<para>
+<note>Applications should call <link linkend="clutter-actor-queue-redraw"><function>clutter_actor_queue_redraw()</function></link> and not
+this function.</note>
+</para>
+<para>
+<note>This function is just a wrapper for <link linkend="clutter-actor-queue-redraw"><function>clutter_actor_queue_redraw()</function></link>
+and should probably go away.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="clutter-stage-event" role="function" condition="since:0.4">
+<title>clutter_stage_event ()</title>
+<indexterm zone="clutter-stage-event" role="0.4"><primary sortas="stage_event">clutter_stage_event</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_event                 (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterEvent">ClutterEvent</link> *event);</programlisting>
+<para>
+This function is used to emit an event on the main stage.
+</para>
+<para>
+You should rarely need to use this function, except for
+synthetised events.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterEvent"><type>ClutterEvent</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the return value from the signal emission
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-stage-set-key-focus" role="function" condition="since:0.6">
+<title>clutter_stage_set_key_focus ()</title>
+<indexterm zone="clutter-stage-set-key-focus" role="0.6"><primary sortas="stage_set_key_focus">clutter_stage_set_key_focus</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_key_focus         (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterActor">ClutterActor</link> *actor);</programlisting>
+<para>
+Sets the key focus on <parameter>actor</parameter>. An actor with key focus will receive
+all the key events. If <parameter>actor</parameter> is <link linkend="NULL--CAPS"><literal>NULL</literal></link>, the stage will receive
+focus.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> the actor to set key focus to, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>. <acronym>allow-none</acronym>. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-get-key-focus" role="function" condition="since:0.6">
+<title>clutter_stage_get_key_focus ()</title>
+<indexterm zone="clutter-stage-get-key-focus" role="0.6"><primary sortas="stage_get_key_focus">clutter_stage_get_key_focus</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_stage_get_key_focus         (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Retrieves the actor that is currently under key focus.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the actor with key focus, or the stage. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-read-pixels" role="function">
+<title>clutter_stage_read_pixels ()</title>
+<indexterm zone="clutter-stage-read-pixels"><primary sortas="stage_read_pixels">clutter_stage_read_pixels</primary></indexterm><programlisting><link linkend="guchar">guchar</link> *            clutter_stage_read_pixels           (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gint">gint</link> x,
+                                                         <link linkend="gint">gint</link> y,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);</programlisting>
+<para>
+Makes a screenshot of the stage in RGBA 8bit data, returns a
+linear buffer with <parameter>width</parameter> * 4 as rowstride.
+</para>
+<para>
+The alpha data contained in the returned buffer is driver-dependent,
+and not guaranteed to hold any sensible value.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> x coordinate of the first pixel that is read from stage
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> y coordinate of the first pixel that is read from stage
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> Width dimention of pixels to be read, or -1 for the
+  entire stage width
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> Height dimention of pixels to be read, or -1 for the
+  entire stage height
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a pointer to newly allocated memory with the buffer
+  or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the read failed. Use <link linkend="g-free"><function>g_free()</function></link> on the returned data
+  to release the resources it has allocated.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-set-throttle-motion-events" role="function" condition="since:1.0">
+<title>clutter_stage_set_throttle_motion_events ()</title>
+<indexterm zone="clutter-stage-set-throttle-motion-events" role="1.0"><primary sortas="stage_set_throttle_motion_events">clutter_stage_set_throttle_motion_events</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_throttle_motion_events
+                                                        (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> throttle);</programlisting>
+<para>
+Sets whether motion events received between redraws should
+be throttled or not. If motion events are throttled, those
+events received by the windowing system between redraws will
+be compressed so that only the last event will be propagated
+to the <parameter>stage</parameter> and its actors.
+</para>
+<para>
+This function should only be used if you want to have all
+the motion events delivered to your application code.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>throttle</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> to throttle motion events
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-stage-get-throttle-motion-events" role="function" condition="since:1.0">
+<title>clutter_stage_get_throttle_motion_events ()</title>
+<indexterm zone="clutter-stage-get-throttle-motion-events" role="1.0"><primary sortas="stage_get_throttle_motion_events">clutter_stage_get_throttle_motion_events</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_get_throttle_motion_events
+                                                        (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Retrieves the value set with <link linkend="clutter-stage-set-throttle-motion-events"><function>clutter_stage_set_throttle_motion_events()</function></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the motion events are being throttled,
+  and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterPerspective" role="struct" condition="since:0.4">
+<title>ClutterPerspective</title>
+<indexterm zone="ClutterPerspective" role="0.4"><primary sortas="Perspective">ClutterPerspective</primary></indexterm><programlisting>typedef struct {
+  gfloat fovy;
+  gfloat aspect;
+  gfloat z_near;
+  gfloat z_far;
+} ClutterPerspective;
+</programlisting>
+<para>
+Stage perspective definition. <link linkend="ClutterPerspective"><type>ClutterPerspective</type></link> is only used by
+the fixed point version of <link linkend="clutter-stage-set-perspective"><function>clutter_stage_set_perspective()</function></link>.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>fovy</structfield>;</term>
+<listitem><simpara> the field of view angle, in degrees, in the y direction
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>aspect</structfield>;</term>
+<listitem><simpara> the aspect ratio that determines the field of view in the x
+  direction. The aspect ratio is the ratio of x (width) to y (height)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>z_near</structfield>;</term>
+<listitem><simpara> the distance from the viewer to the near clipping
+  plane (always positive)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>z_far</structfield>;</term>
+<listitem><simpara> the distance from the viewer to the far clipping
+  plane (always positive)
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-stage-set-perspective" role="function">
+<title>clutter_stage_set_perspective ()</title>
+<indexterm zone="clutter-stage-set-perspective"><primary sortas="stage_set_perspective">clutter_stage_set_perspective</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_perspective       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPerspective">ClutterPerspective</link> *perspective);</programlisting>
+<para>
+Sets the stage perspective.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>perspective</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterPerspective"><type>ClutterPerspective</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-get-perspective" role="function">
+<title>clutter_stage_get_perspective ()</title>
+<indexterm zone="clutter-stage-get-perspective"><primary sortas="stage_get_perspective">clutter_stage_get_perspective</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_get_perspective       (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterPerspective">ClutterPerspective</link> *perspective);</programlisting>
+<para>
+Retrieves the stage perspective.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>perspective</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterPerspective"><type>ClutterPerspective</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-stage-set-title" role="function" condition="since:0.4">
+<title>clutter_stage_set_title ()</title>
+<indexterm zone="clutter-stage-set-title" role="0.4"><primary sortas="stage_set_title">clutter_stage_set_title</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_title             (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         const <link linkend="gchar">gchar</link> *title);</programlisting>
+<para>
+Sets the stage title.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>title</parameter>&#160;:</term>
+<listitem><simpara> A utf8 string for the stage windows title.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-stage-get-title" role="function" condition="since:0.4">
+<title>clutter_stage_get_title ()</title>
+<indexterm zone="clutter-stage-get-title" role="0.4"><primary sortas="stage_get_title">clutter_stage_get_title</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link> *       clutter_stage_get_title             (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Gets the stage title.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> pointer to the title string for the stage. The
+returned string is owned by the actor and should not
+be modified or freed.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-stage-set-user-resizable" role="function" condition="since:0.4">
+<title>clutter_stage_set_user_resizable ()</title>
+<indexterm zone="clutter-stage-set-user-resizable" role="0.4"><primary sortas="stage_set_user_resizable">clutter_stage_set_user_resizable</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_user_resizable    (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> resizable);</programlisting>
+<para>
+Sets if the stage is resizable by user interaction (e.g. via
+window manager controls)</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>resizable</parameter>&#160;:</term>
+<listitem><simpara> whether the stage should be user resizable.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="clutter-stage-get-user-resizable" role="function" condition="since:0.4">
+<title>clutter_stage_get_user_resizable ()</title>
+<indexterm zone="clutter-stage-get-user-resizable" role="0.4"><primary sortas="stage_get_user_resizable">clutter_stage_get_user_resizable</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_get_user_resizable    (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Retrieves the value set with <link linkend="clutter-stage-set-user-resizable"><function>clutter_stage_set_user_resizable()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the stage is resizable by the user.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+<refsect2 id="ClutterFog" role="struct" condition="since:0.6">
+<title>ClutterFog</title>
+<indexterm zone="ClutterFog" role="0.6"><primary sortas="Fog">ClutterFog</primary></indexterm><programlisting>typedef struct {
+  gfloat z_near;
+  gfloat z_far;
+} ClutterFog;
+</programlisting>
+<para>
+Fog settings used to create the depth cueing effect.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>z_near</structfield>;</term>
+<listitem><simpara> starting distance from the viewer to the near clipping
+  plane (always positive)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gfloat">gfloat</link>&#160;<structfield>z_far</structfield>;</term>
+<listitem><simpara> final distance from the viewer to the far clipping
+  plane (always positive)
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-set-use-fog" role="function" condition="since:0.6">
+<title>clutter_stage_set_use_fog ()</title>
+<indexterm zone="clutter-stage-set-use-fog" role="0.6"><primary sortas="stage_set_use_fog">clutter_stage_set_use_fog</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_use_fog           (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="gboolean">gboolean</link> fog);</programlisting>
+<para>
+Sets whether the depth cueing effect on the stage should be enabled
+or not.
+</para>
+<para>
+Depth cueing is a 3D effect that makes actors farther away from the
+viewing point less opaque, by fading them with the stage color.
+</para>
+<para>
+The parameters of the GL fog used can be changed using the
+<link linkend="clutter-stage-set-fog"><function>clutter_stage_set_fog()</function></link> function.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fog</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> for enabling the depth cueing effect
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-get-use-fog" role="function" condition="since:0.6">
+<title>clutter_stage_get_use_fog ()</title>
+<indexterm zone="clutter-stage-get-use-fog" role="0.6"><primary sortas="stage_get_use_fog">clutter_stage_get_use_fog</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_stage_get_use_fog           (<link linkend="ClutterStage">ClutterStage</link> *stage);</programlisting>
+<para>
+Gets whether the depth cueing effect is enabled on <parameter>stage</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the the depth cueing effect is enabled
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-set-fog" role="function" condition="since:0.6">
+<title>clutter_stage_set_fog ()</title>
+<indexterm zone="clutter-stage-set-fog" role="0.6"><primary sortas="stage_set_fog">clutter_stage_set_fog</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_set_fog               (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterFog">ClutterFog</link> *fog);</programlisting>
+<para>
+Sets the fog (also known as "depth cueing") settings for the <parameter>stage</parameter>.
+</para>
+<para>
+A <link linkend="ClutterStage"><type>ClutterStage</type></link> will only use a linear fog progression, which
+depends solely on the distance from the viewer. The <link linkend="cogl-set-fog"><function>cogl_set_fog()</function></link>
+function in COGL exposes more of the underlying implementation,
+and allows changing the for progression function. It can be directly
+used by disabling the <link linkend="ClutterStage--use-fog"><type>"use-fog"</type></link> property and connecting
+a signal handler to the <link linkend="ClutterActor-paint"><type>"paint"</type></link> signal on the <parameter>stage</parameter>,
+like:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_stage_set_use_fog (stage, FALSE);
+  g_signal_connect (stage, "paint", G_CALLBACK (on_stage_paint), NULL);
+</programlisting></informalexample>
+</para>
+<para>
+The paint signal handler will call <link linkend="cogl-set-fog"><function>cogl_set_fog()</function></link> with the
+desired settings:
+</para>
+<para>
+<informalexample><programlisting>
+  static void
+  on_stage_paint (ClutterActor *actor)
+  {
+    ClutterColor stage_color = { 0, };
+    CoglColor fog_color = { 0, };
+
+    /&ast; set the fog color to the stage background color &ast;/
+    clutter_stage_get_color (CLUTTER_STAGE (actor), &amp;stage_color);
+    cogl_color_set_from_4ub (&amp;fog_color,
+                             stage_color.red,
+                             stage_color.green,
+                             stage_color.blue,
+                             stage_color.alpha);
+
+    /&ast; enable fog &ast;/
+    cogl_set_fog (&amp;fog_color,
+                  COGL_FOG_MODE_EXPONENTIAL, /&ast; mode &ast;/
+                  0.5,                       /&ast; density &ast;/
+                  5.0, 30.0);                /&ast; z_near and z_far &ast;/
+  }
+</programlisting></informalexample>
+</para>
+<para>
+Note: The fogging functions only work correctly when the visible actors use
+      unmultiplied alpha colors. By default Cogl will premultiply textures
+      and cogl_set_source_color will premultiply colors, so unless you
+      explicitly load your textures requesting an unmultiplied
+      internal_format and use cogl_material_set_color you can only use
+      fogging with fully opaque actors.
+</para>
+<para>
+      We can look to improve this in the future when we can depend on
+      fragment shaders.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fog</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterFog"><type>ClutterFog</type></link> structure
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+<refsect2 id="clutter-stage-get-fog" role="function" condition="since:0.6">
+<title>clutter_stage_get_fog ()</title>
+<indexterm zone="clutter-stage-get-fog" role="0.6"><primary sortas="stage_get_fog">clutter_stage_get_fog</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_stage_get_fog               (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                         <link linkend="ClutterFog">ClutterFog</link> *fog);</programlisting>
+<para>
+Retrieves the current depth cueing settings from the stage.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the <link linkend="ClutterStage"><type>ClutterStage</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fog</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterFog"><type>ClutterFog</type></link> structure
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.6</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterStage.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterStage--color" role="property"><title>The <literal>&quot;color&quot;</literal> property</title>
+<indexterm zone="ClutterStage--color"><primary sortas="Stage:color">ClutterStage:color</primary></indexterm><programlisting>  &quot;color&quot;                    <link linkend="ClutterColor">ClutterColor</link>*         : Read / Write</programlisting>
+<para>
+The color of the main stage.</para>
+<para>
+</para></refsect2>
+<refsect2 id="ClutterStage--cursor-visible" role="property"><title>The <literal>&quot;cursor-visible&quot;</literal> property</title>
+<indexterm zone="ClutterStage--cursor-visible"><primary sortas="Stage:cursor-visible">ClutterStage:cursor-visible</primary></indexterm><programlisting>  &quot;cursor-visible&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the mouse pointer should be visible</para>
+<para>
+</para><para>Default value: TRUE</para>
+</refsect2>
+<refsect2 id="ClutterStage--fog" role="property"><title>The <literal>&quot;fog&quot;</literal> property</title>
+<indexterm zone="ClutterStage--fog" role="1.0"><primary sortas="Stage:fog">ClutterStage:fog</primary></indexterm><programlisting>  &quot;fog&quot;                      <link linkend="ClutterFog">ClutterFog</link>*           : Read / Write</programlisting>
+<para>
+The settings for the GL "fog", used only if <link linkend="ClutterStage--use-fog"><type>"use-fog"</type></link>
+is set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link></para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterStage--fullscreen-set" role="property"><title>The <literal>&quot;fullscreen-set&quot;</literal> property</title>
+<indexterm zone="ClutterStage--fullscreen-set"><primary sortas="Stage:fullscreen-set">ClutterStage:fullscreen-set</primary></indexterm><programlisting>  &quot;fullscreen-set&quot;           <link linkend="gboolean">gboolean</link>              : Read</programlisting>
+<para>Whether the main stage is fullscreen.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2 id="ClutterStage--offscreen" role="property"><title>The <literal>&quot;offscreen&quot;</literal> property</title>
+<indexterm zone="ClutterStage--offscreen"><primary sortas="Stage:offscreen">ClutterStage:offscreen</primary></indexterm><programlisting>  &quot;offscreen&quot;                <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the stage should be rendered in an offscreen buffer.
+</para>
+<para>
+<warning><para>Not every backend supports redirecting the
+stage to an offscreen buffer. This property might not work
+and it might be deprecated at any later date.</para></warning></para>
+<para>
+</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2 id="ClutterStage--perspective" role="property"><title>The <literal>&quot;perspective&quot;</literal> property</title>
+<indexterm zone="ClutterStage--perspective" role="0.8.2"><primary sortas="Stage:perspective">ClutterStage:perspective</primary></indexterm><programlisting>  &quot;perspective&quot;              <link linkend="ClutterPerspective">ClutterPerspective</link>*   : Read / Write</programlisting>
+<para>
+The parameters used for the perspective projection from 3D
+coordinates to 2D</para>
+<para>
+</para><para>Since 0.8.2</para>
+</refsect2>
+<refsect2 id="ClutterStage--title" role="property"><title>The <literal>&quot;title&quot;</literal> property</title>
+<indexterm zone="ClutterStage--title" role="0.4"><primary sortas="Stage:title">ClutterStage:title</primary></indexterm><programlisting>  &quot;title&quot;                    <link linkend="gchar">gchar</link>*                : Read / Write</programlisting>
+<para>
+The stage's title - usually displayed in stage windows title decorations.</para>
+<para>
+</para><para>Default value: NULL</para>
+<para>Since 0.4</para>
+</refsect2>
+<refsect2 id="ClutterStage--use-fog" role="property"><title>The <literal>&quot;use-fog&quot;</literal> property</title>
+<indexterm zone="ClutterStage--use-fog" role="0.6"><primary sortas="Stage:use-fog">ClutterStage:use-fog</primary></indexterm><programlisting>  &quot;use-fog&quot;                  <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the stage should use a linear GL "fog" in creating the
+depth-cueing effect, to enhance the perception of depth by fading
+actors farther from the viewpoint.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 0.6</para>
+</refsect2>
+<refsect2 id="ClutterStage--user-resizable" role="property"><title>The <literal>&quot;user-resizable&quot;</literal> property</title>
+<indexterm zone="ClutterStage--user-resizable" role="0.4"><primary sortas="Stage:user-resizable">ClutterStage:user-resizable</primary></indexterm><programlisting>  &quot;user-resizable&quot;           <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the stage is resizable via user interaction.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 0.4</para>
+</refsect2>
+</refsect1>
+
+<refsect1 id="ClutterStage.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ClutterStage-activate" role="signal"><title>The <literal>&quot;activate&quot;</literal> signal</title>
+<indexterm zone="ClutterStage-activate" role="0.6"><primary sortas="Stage::activate">ClutterStage::activate</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                        <link linkend="gpointer">gpointer</link>      user_data)      : Run Last</programlisting>
+<para>
+The ::activate signal is emitted when the stage receives key focus
+from the underlying window system.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the stage which was activated
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.6</para></refsect2><refsect2 id="ClutterStage-deactivate" role="signal"><title>The <literal>&quot;deactivate&quot;</literal> signal</title>
+<indexterm zone="ClutterStage-deactivate" role="0.6"><primary sortas="Stage::deactivate">ClutterStage::deactivate</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                        <link linkend="gpointer">gpointer</link>      user_data)      : Run Last</programlisting>
+<para>
+The ::activate signal is emitted when the stage loses key focus
+from the underlying window system.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the stage which was deactivated
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.6</para></refsect2><refsect2 id="ClutterStage-fullscreen" role="signal"><title>The <literal>&quot;fullscreen&quot;</literal> signal</title>
+<indexterm zone="ClutterStage-fullscreen" role="0.6"><primary sortas="Stage::fullscreen">ClutterStage::fullscreen</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                        <link linkend="gpointer">gpointer</link>      user_data)      : Run First</programlisting>
+<para>
+The ::fullscreen signal is emitted when the stage is made fullscreen.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the stage which was fullscreened
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.6</para></refsect2><refsect2 id="ClutterStage-unfullscreen" role="signal"><title>The <literal>&quot;unfullscreen&quot;</literal> signal</title>
+<indexterm zone="ClutterStage-unfullscreen" role="0.6"><primary sortas="Stage::unfullscreen">ClutterStage::unfullscreen</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterStage">ClutterStage</link> *stage,
+                                                        <link linkend="gpointer">gpointer</link>      user_data)      : Run Last</programlisting>
+<para>
+The ::unfullscreen signal is emitted when the stage leaves a fullscreen
+state.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>stage</parameter>&#160;:</term>
+<listitem><simpara> the stage which has left a fullscreen state.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.6</para></refsect2>
+</refsect1>
+
+
+
+</refentry>

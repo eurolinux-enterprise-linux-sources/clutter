@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Offscreen-Buffers">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Offscreen-Buffers.top_of_page">Offscreen Buffers</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Offscreen Buffers</refname>
+<refpurpose>Fuctions for creating and manipulating offscreen
+                    frame buffer objects</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Offscreen-Buffers.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-offscreen-new-to-texture">cogl_offscreen_new_to_texture</link>       (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-offscreen-ref">cogl_offscreen_ref</link>                  (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-offscreen-unref">cogl_offscreen_unref</link>                (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-is-offscreen">cogl_is_offscreen</link>                   (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-set-draw-buffer">cogl_set_draw_buffer</link>                (<link linkend="CoglBufferTarget">CoglBufferTarget</link> target,
+                                                         <link linkend="CoglHandle">CoglHandle</link> offscreen);
+<link linkend="void">void</link>                <link linkend="cogl-pop-draw-buffer">cogl_pop_draw_buffer</link>                (void);
+<link linkend="void">void</link>                <link linkend="cogl-push-draw-buffer">cogl_push_draw_buffer</link>               (void);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Offscreen-Buffers.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Cogl allows creating and operating on offscreen render targets.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Offscreen-Buffers.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cogl-offscreen-new-to-texture" role="function">
+<title>cogl_offscreen_new_to_texture ()</title>
+<indexterm zone="cogl-offscreen-new-to-texture"><primary sortas="offscreen_new_to_texture">cogl_offscreen_new_to_texture</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_offscreen_new_to_texture       (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+This creates an offscreen buffer object using the given texture as the
+primary color buffer. It doesn't just initialize the contents of the
+offscreen buffer with the texture; they are tightly bound so that
+drawing to the offscreen buffer effectivly updates the contents of the
+given texture. You don't need to destroy the offscreen buffer before
+you can use the texture again.
+</para>
+<para>
+Note: This does not work with sliced Cogl textures.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle for a Cogl texture
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link> for the new offscreen buffer or <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link>
+         if it wasn't possible to create the buffer.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-offscreen-ref" role="function">
+<title>cogl_offscreen_ref ()</title>
+<indexterm zone="cogl-offscreen-ref"><primary sortas="offscreen_ref">cogl_offscreen_ref</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_offscreen_ref                  (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Increments the reference count on the offscreen buffer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle for an offscreen buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> For convenience it returns the given CoglHandle
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-offscreen-unref" role="function">
+<title>cogl_offscreen_unref ()</title>
+<indexterm zone="cogl-offscreen-unref"><primary sortas="offscreen_unref">cogl_offscreen_unref</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_offscreen_unref                (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Decreases the reference count for the offscreen buffer and frees it when
+the count reaches 0.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle for an offscreen buffer
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-is-offscreen" role="function">
+<title>cogl_is_offscreen ()</title>
+<indexterm zone="cogl-is-offscreen"><primary sortas="is_offscreen">cogl_is_offscreen</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_is_offscreen                   (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Gets whether the given handle references an existing offscreen buffer
+object.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> A CoglHandle for an offscreen buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the handle references an offscreen buffer,
+  <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-draw-buffer" role="function">
+<title>cogl_set_draw_buffer ()</title>
+<indexterm zone="cogl-set-draw-buffer"><primary sortas="set_draw_buffer">cogl_set_draw_buffer</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_draw_buffer                (<link linkend="CoglBufferTarget">CoglBufferTarget</link> target,
+                                                         <link linkend="CoglHandle">CoglHandle</link> offscreen);</programlisting>
+<para>
+This redirects all subsequent drawing to the specified draw buffer. This
+can either be an offscreen buffer created with
+<link linkend="cogl-offscreen-new-to-texture"><function>cogl_offscreen_new_to_texture()</function></link> or you can revert to your original
+on screen window buffer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>target</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="CoglBufferTarget"><type>CoglBufferTarget</type></link> that specifies what kind of draw buffer you
+         are setting as the render target.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offscreen</parameter>&#160;:</term>
+<listitem><simpara> If you are setting a draw buffer of type COGL_OFFSCREEN_BUFFER
+            then this is a CoglHandle for the offscreen buffer.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-pop-draw-buffer" role="function">
+<title>cogl_pop_draw_buffer ()</title>
+<indexterm zone="cogl-pop-draw-buffer"><primary sortas="pop_draw_buffer">cogl_pop_draw_buffer</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_pop_draw_buffer                (void);</programlisting>
+<para>
+Restore <link linkend="cogl-set-draw-buffer"><function>cogl_set_draw_buffer()</function></link> state.</para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-push-draw-buffer" role="function">
+<title>cogl_push_draw_buffer ()</title>
+<indexterm zone="cogl-push-draw-buffer"><primary sortas="push_draw_buffer">cogl_push_draw_buffer</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_push_draw_buffer               (void);</programlisting>
+<para>
+Save <link linkend="cogl-set-draw-buffer"><function>cogl_set_draw_buffer()</function></link> state.</para>
+<para>
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

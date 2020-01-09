@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterGroup">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterGroup.top_of_page">ClutterGroup</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterGroup</refname>
+<refpurpose>Actor class containing multiple children.
+actors.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterGroup.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterGroup-struct">ClutterGroup</link>;
+                    <link linkend="ClutterGroupClass">ClutterGroupClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-group-new">clutter_group_new</link>                   (void);
+<link linkend="void">void</link>                <link linkend="clutter-group-remove-all">clutter_group_remove_all</link>            (<link linkend="ClutterGroup">ClutterGroup</link> *group);
+<link linkend="gint">gint</link>                <link linkend="clutter-group-get-n-children">clutter_group_get_n_children</link>        (<link linkend="ClutterGroup">ClutterGroup</link> *self);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-group-get-nth-child">clutter_group_get_nth_child</link>         (<link linkend="ClutterGroup">ClutterGroup</link> *self,
+                                                         <link linkend="gint">gint</link> index_);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterGroup.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="ClutterActor">ClutterActor</link>
+               +----ClutterGroup
+                     +----<link linkend="ClutterStage">ClutterStage</link>
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterGroup.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ClutterGroup implements
+ <link linkend="ClutterScriptable">ClutterScriptable</link> and  <link linkend="ClutterContainer">ClutterContainer</link>.</para>
+</refsect1>
+
+
+
+
+
+<refsect1 id="ClutterGroup.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+A <link linkend="ClutterGroup"><type>ClutterGroup</type></link> is an Actor which contains multiple child actors positioned
+relative to the <link linkend="ClutterGroup"><type>ClutterGroup</type></link> position. Other operations such as scaling,
+rotating and clipping of the group will apply to the child actors.
+</para>
+<para>
+A <link linkend="ClutterGroup"><type>ClutterGroup</type></link>'s size is defined by the size and position of its children.
+Resize requests via the <link linkend="ClutterActor"><type>ClutterActor</type></link> API will be ignored.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterGroup.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterGroup-struct" role="struct">
+<title>ClutterGroup</title>
+<indexterm zone="ClutterGroup-struct" role="0.1"><primary sortas="Group">ClutterGroup</primary></indexterm><programlisting>typedef struct _ClutterGroup ClutterGroup;</programlisting>
+<para>
+The <link linkend="ClutterGroup"><type>ClutterGroup</type></link> structure contains only private data
+and should be accessed using the provided API</para>
+<para>
+</para><para role="since">Since 0.1</para></refsect2>
+<refsect2 id="ClutterGroupClass" role="struct" condition="since:0.1">
+<title>ClutterGroupClass</title>
+<indexterm zone="ClutterGroupClass" role="0.1"><primary sortas="GroupClass">ClutterGroupClass</primary></indexterm><programlisting>typedef struct {
+} ClutterGroupClass;
+</programlisting>
+<para>
+The <link linkend="ClutterGroupClass"><type>ClutterGroupClass</type></link> structure contains only private data</para>
+<para>
+</para><para role="since">Since 0.1</para></refsect2>
+<refsect2 id="clutter-group-new" role="function">
+<title>clutter_group_new ()</title>
+<indexterm zone="clutter-group-new"><primary sortas="group_new">clutter_group_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_group_new                   (void);</programlisting>
+<para>
+Create a new  <link linkend="ClutterGroup"><type>ClutterGroup</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterGroup"><type>ClutterGroup</type></link> actor
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-group-remove-all" role="function">
+<title>clutter_group_remove_all ()</title>
+<indexterm zone="clutter-group-remove-all"><primary sortas="group_remove_all">clutter_group_remove_all</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_group_remove_all            (<link linkend="ClutterGroup">ClutterGroup</link> *group);</programlisting>
+<para>
+Removes all children actors from the <link linkend="ClutterGroup"><type>ClutterGroup</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterGroup"><type>ClutterGroup</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-group-get-n-children" role="function" condition="since:0.2">
+<title>clutter_group_get_n_children ()</title>
+<indexterm zone="clutter-group-get-n-children" role="0.2"><primary sortas="group_get_n_children">clutter_group_get_n_children</primary></indexterm><programlisting><link linkend="gint">gint</link>                clutter_group_get_n_children        (<link linkend="ClutterGroup">ClutterGroup</link> *self);</programlisting>
+<para>
+Gets the number of actors held in the group.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterGroup"><type>ClutterGroup</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The number of child actors held in the group.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-group-get-nth-child" role="function" condition="since:0.2">
+<title>clutter_group_get_nth_child ()</title>
+<indexterm zone="clutter-group-get-nth-child" role="0.2"><primary sortas="group_get_nth_child">clutter_group_get_nth_child</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_group_get_nth_child         (<link linkend="ClutterGroup">ClutterGroup</link> *self,
+                                                         <link linkend="gint">gint</link> index_);</programlisting>
+<para>
+Gets a groups child held at <parameter>index_</parameter> in stack.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> A <link linkend="ClutterGroup"><type>ClutterGroup</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index_</parameter>&#160;:</term>
+<listitem><simpara> the position of the requested actor.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

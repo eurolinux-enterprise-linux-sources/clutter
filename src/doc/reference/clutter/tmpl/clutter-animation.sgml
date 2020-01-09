@@ -1,0 +1,391 @@
+<!-- ##### SECTION Title ##### -->
+Implicit Animations
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterAnimation ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL ClutterAnimation::completed ##### -->
+<para>
+
+</para>
+
+@clutteranimation: the object which received the signal.
+
+<!-- ##### SIGNAL ClutterAnimation::started ##### -->
+<para>
+
+</para>
+
+@clutteranimation: the object which received the signal.
+
+<!-- ##### ARG ClutterAnimation:alpha ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterAnimation:duration ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterAnimation:loop ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterAnimation:mode ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterAnimation:object ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterAnimation:timeline ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterAnimationClass ##### -->
+<para>
+
+</para>
+
+@started: 
+@completed: 
+
+<!-- ##### ENUM ClutterAnimationMode ##### -->
+<para>
+
+</para>
+
+@CLUTTER_CUSTOM_MODE: 
+@CLUTTER_LINEAR: 
+@CLUTTER_EASE_IN_QUAD: 
+@CLUTTER_EASE_OUT_QUAD: 
+@CLUTTER_EASE_IN_OUT_QUAD: 
+@CLUTTER_EASE_IN_CUBIC: 
+@CLUTTER_EASE_OUT_CUBIC: 
+@CLUTTER_EASE_IN_OUT_CUBIC: 
+@CLUTTER_EASE_IN_QUART: 
+@CLUTTER_EASE_OUT_QUART: 
+@CLUTTER_EASE_IN_OUT_QUART: 
+@CLUTTER_EASE_IN_QUINT: 
+@CLUTTER_EASE_OUT_QUINT: 
+@CLUTTER_EASE_IN_OUT_QUINT: 
+@CLUTTER_EASE_IN_SINE: 
+@CLUTTER_EASE_OUT_SINE: 
+@CLUTTER_EASE_IN_OUT_SINE: 
+@CLUTTER_EASE_IN_EXPO: 
+@CLUTTER_EASE_OUT_EXPO: 
+@CLUTTER_EASE_IN_OUT_EXPO: 
+@CLUTTER_EASE_IN_CIRC: 
+@CLUTTER_EASE_OUT_CIRC: 
+@CLUTTER_EASE_IN_OUT_CIRC: 
+@CLUTTER_EASE_IN_ELASTIC: 
+@CLUTTER_EASE_OUT_ELASTIC: 
+@CLUTTER_EASE_IN_OUT_ELASTIC: 
+@CLUTTER_EASE_IN_BACK: 
+@CLUTTER_EASE_OUT_BACK: 
+@CLUTTER_EASE_IN_OUT_BACK: 
+@CLUTTER_EASE_IN_BOUNCE: 
+@CLUTTER_EASE_OUT_BOUNCE: 
+@CLUTTER_EASE_IN_OUT_BOUNCE: 
+@CLUTTER_ANIMATION_LAST: 
+
+<!-- ##### FUNCTION clutter_animation_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_object ##### -->
+<para>
+
+</para>
+
+@animation: 
+@object: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_object ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_mode ##### -->
+<para>
+
+</para>
+
+@animation: 
+@mode: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_mode ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_duration ##### -->
+<para>
+
+</para>
+
+@animation: 
+@msecs: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_duration ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_loop ##### -->
+<para>
+
+</para>
+
+@animation: 
+@loop: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_loop ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_timeline ##### -->
+<para>
+
+</para>
+
+@animation: 
+@timeline: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_timeline ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_set_alpha ##### -->
+<para>
+
+</para>
+
+@animation: 
+@alpha: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_alpha ##### -->
+<para>
+
+</para>
+
+@animation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_completed ##### -->
+<para>
+
+</para>
+
+@animation: 
+
+
+<!-- ##### FUNCTION clutter_animation_bind ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+@final: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_bind_interval ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+@interval: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_update_interval ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+@interval: 
+
+
+<!-- ##### FUNCTION clutter_animation_has_property ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_animation_unbind_property ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+
+
+<!-- ##### FUNCTION clutter_animation_get_interval ##### -->
+<para>
+
+</para>
+
+@animation: 
+@property_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animate ##### -->
+<para>
+
+</para>
+
+@actor: 
+@mode: 
+@duration: 
+@first_property_name: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animate_with_timeline ##### -->
+<para>
+
+</para>
+
+@actor: 
+@mode: 
+@timeline: 
+@first_property_name: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animate_with_alpha ##### -->
+<para>
+
+</para>
+
+@actor: 
+@alpha: 
+@first_property_name: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animatev ##### -->
+<para>
+
+</para>
+
+@actor: 
+@mode: 
+@duration: 
+@n_properties: 
+@properties: 
+@values: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animate_with_timelinev ##### -->
+<para>
+
+</para>
+
+@actor: 
+@mode: 
+@timeline: 
+@n_properties: 
+@properties: 
+@values: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_animate_with_alphav ##### -->
+<para>
+
+</para>
+
+@actor: 
+@alpha: 
+@n_properties: 
+@properties: 
+@values: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_actor_get_animation ##### -->
+<para>
+
+</para>
+
+@actor: 
+@Returns: 
+
+

@@ -1,0 +1,198 @@
+<!-- ##### SECTION Title ##### -->
+Unit conversion
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM ClutterUnitType ##### -->
+<para>
+
+</para>
+
+@CLUTTER_UNIT_PIXEL: 
+@CLUTTER_UNIT_EM: 
+@CLUTTER_UNIT_MM: 
+@CLUTTER_UNIT_POINT: 
+
+<!-- ##### STRUCT ClutterUnits ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION clutter_units_from_mm ##### -->
+<para>
+
+</para>
+
+@units: 
+@mm: 
+
+
+<!-- ##### FUNCTION clutter_units_from_pt ##### -->
+<para>
+
+</para>
+
+@units: 
+@pt: 
+
+
+<!-- ##### FUNCTION clutter_units_from_em ##### -->
+<para>
+
+</para>
+
+@units: 
+@em: 
+
+
+<!-- ##### FUNCTION clutter_units_from_em_for_font ##### -->
+<para>
+
+</para>
+
+@units: 
+@font_name: 
+@em: 
+
+
+<!-- ##### FUNCTION clutter_units_from_pixels ##### -->
+<para>
+
+</para>
+
+@units: 
+@px: 
+
+
+<!-- ##### FUNCTION clutter_units_to_pixels ##### -->
+<para>
+
+</para>
+
+@units: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_units_copy ##### -->
+<para>
+
+</para>
+
+@units: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_units_free ##### -->
+<para>
+
+</para>
+
+@units: 
+
+
+<!-- ##### FUNCTION clutter_units_get_unit_type ##### -->
+<para>
+
+</para>
+
+@units: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_units_get_unit_value ##### -->
+<para>
+
+</para>
+
+@units: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_units_from_string ##### -->
+<para>
+
+</para>
+
+@units: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_units_to_string ##### -->
+<para>
+
+</para>
+
+@units: 
+@Returns: 
+
+
+<!-- ##### STRUCT ClutterParamSpecUnits ##### -->
+<para>
+
+</para>
+
+@default_type: 
+@default_value: 
+@minimum: 
+@maximum: 
+
+<!-- ##### FUNCTION clutter_param_spec_units ##### -->
+<para>
+
+</para>
+
+@name: 
+@nick: 
+@blurb: 
+@default_type: 
+@minimum: 
+@maximum: 
+@default_value: 
+@flags: 
+@Returns: 
+
+
+<!-- ##### MACRO CLUTTER_VALUE_HOLDS_UNITS ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### FUNCTION clutter_value_set_units ##### -->
+<para>
+
+</para>
+
+@value: 
+@units: 
+
+
+<!-- ##### FUNCTION clutter_value_get_units ##### -->
+<para>
+
+</para>
+
+@value: 
+@Returns: 
+
+

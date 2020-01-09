@@ -1,0 +1,1322 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-Implicit-Animations">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-Implicit-Animations.top_of_page">Implicit Animations</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Implicit Animations</refname>
+<refpurpose>Simple implicit animations</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-Implicit-Animations.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+<anchor id="ClutterAnimation"/>
+<synopsis>
+                    <link linkend="ClutterAnimation-struct">ClutterAnimation</link>;
+                    <link linkend="ClutterAnimationClass">ClutterAnimationClass</link>;
+enum                <link linkend="ClutterAnimationMode">ClutterAnimationMode</link>;
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-animation-new">clutter_animation_new</link>               (void);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-object">clutter_animation_set_object</link>        (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="GObject">GObject</link> *object);
+<link linkend="GObject">GObject</link> *           <link linkend="clutter-animation-get-object">clutter_animation_get_object</link>        (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-mode">clutter_animation_set_mode</link>          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gulong">gulong</link> mode);
+<link linkend="gulong">gulong</link>              <link linkend="clutter-animation-get-mode">clutter_animation_get_mode</link>          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-duration">clutter_animation_set_duration</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gint">gint</link> msecs);
+<link linkend="guint">guint</link>               <link linkend="clutter-animation-get-duration">clutter_animation_get_duration</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-loop">clutter_animation_set_loop</link>          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gboolean">gboolean</link> loop);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-animation-get-loop">clutter_animation_get_loop</link>          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-timeline">clutter_animation_set_timeline</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline);
+<link linkend="ClutterTimeline">ClutterTimeline</link> *   <link linkend="clutter-animation-get-timeline">clutter_animation_get_timeline</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-set-alpha">clutter_animation_set_alpha</link>         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);
+<link linkend="ClutterAlpha">ClutterAlpha</link> *      <link linkend="clutter-animation-get-alpha">clutter_animation_get_alpha</link>         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+<link linkend="void">void</link>                <link linkend="clutter-animation-completed">clutter_animation_completed</link>         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);
+
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-animation-bind">clutter_animation_bind</link>              (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         const <link linkend="GValue">GValue</link> *final);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-animation-bind-interval">clutter_animation_bind_interval</link>     (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         <link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="void">void</link>                <link linkend="clutter-animation-update-interval">clutter_animation_update_interval</link>   (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         <link linkend="ClutterInterval">ClutterInterval</link> *interval);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-animation-has-property">clutter_animation_has_property</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);
+<link linkend="void">void</link>                <link linkend="clutter-animation-unbind-property">clutter_animation_unbind_property</link>   (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);
+<link linkend="ClutterInterval">ClutterInterval</link> *   <link linkend="clutter-animation-get-interval">clutter_animation_get_interval</link>      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);
+
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animate">clutter_actor_animate</link>               (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="guint">guint</link> duration,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animate-with-timeline">clutter_actor_animate_with_timeline</link> (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animate-with-alpha">clutter_actor_animate_with_alpha</link>    (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animatev">clutter_actor_animatev</link>              (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="guint">guint</link> duration,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animate-with-timelinev">clutter_actor_animate_with_timelinev</link>
+                                                        (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-animate-with-alphav">clutter_actor_animate_with_alphav</link>   (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);
+<link linkend="ClutterAnimation">ClutterAnimation</link> *  <link linkend="clutter-actor-get-animation">clutter_actor_get_animation</link>         (<link linkend="ClutterActor">ClutterActor</link> *actor);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="clutter-Implicit-Animations.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ClutterAnimation
+</synopsis>
+</refsect1>
+
+
+
+
+
+<refsect1 id="clutter-Implicit-Animations.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterAnimation--alpha">alpha</link>&quot;                    <link linkend="ClutterAlpha">ClutterAlpha</link>*         : Read / Write
+  &quot;<link linkend="ClutterAnimation--duration">duration</link>&quot;                 <link linkend="guint">guint</link>                 : Read / Write
+  &quot;<link linkend="ClutterAnimation--loop">loop</link>&quot;                     <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ClutterAnimation--mode">mode</link>&quot;                     <link linkend="gulong">gulong</link>                : Read / Write
+  &quot;<link linkend="ClutterAnimation--object">object</link>&quot;                   <link linkend="GObject">GObject</link>*              : Read / Write
+  &quot;<link linkend="ClutterAnimation--timeline">timeline</link>&quot;                 <link linkend="ClutterTimeline">ClutterTimeline</link>*      : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1 id="clutter-Implicit-Animations.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ClutterAnimation-completed">completed</link>&quot;                                      : Run Last
+  &quot;<link linkend="ClutterAnimation-started">started</link>&quot;                                        : Run Last
+</synopsis>
+</refsect1>
+
+
+<refsect1 id="clutter-Implicit-Animations.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> is an object providing simple, implicit animations
+for <link linkend="GObject"><type>GObject</type></link><!-- -->s.
+</para>
+<para>
+<link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> instances will bind one or more <link linkend="GObject"><type>GObject</type></link> properties
+belonging to a <link linkend="GObject"><type>GObject</type></link> to a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>, and will then use a
+<link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> to interpolate the property between the initial and final
+values of the interval.
+</para>
+<para>
+The duration of the animation is set using <link linkend="clutter-animation-set-duration"><function>clutter_animation_set_duration()</function></link>.
+The easing mode of the animation is set using <link linkend="clutter-animation-set-mode"><function>clutter_animation_set_mode()</function></link>.
+</para>
+<para>
+If you want to control the animation you should retrieve the
+<link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> using <link linkend="clutter-animation-get-timeline"><function>clutter_animation_get_timeline()</function></link> and then
+use <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> functions like <link linkend="clutter-timeline-start"><function>clutter_timeline_start()</function></link>,
+<link linkend="clutter-timeline-pause"><function>clutter_timeline_pause()</function></link> or <link linkend="clutter-timeline-stop"><function>clutter_timeline_stop()</function></link>.
+</para>
+<para>
+A <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will emit the <link linkend="ClutterAnimation-completed"><type>"completed"</type></link> signal
+when the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> used by the animation is completed; unlike
+<link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>, though, the <link linkend="ClutterAnimation-completed"><type>"completed"</type></link> will not be
+emitted if <link linkend="ClutterAnimation--loop"><type>"loop"</type></link> is set to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> - that is, a looping
+animation never completes.
+</para>
+<para>
+If your animation depends on user control you can force its completion
+using <link linkend="clutter-animation-completed"><function>clutter_animation_completed()</function></link>.
+</para>
+<para>
+If the <link linkend="GObject"><type>GObject</type></link> instance bound to a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> implements the
+<link linkend="ClutterAnimatable"><type>ClutterAnimatable</type></link> interface it is possible for that instance to
+control the way the initial and final states are interpolated.
+</para>
+<para>
+<link linkend="ClutterAnimation"><type>ClutterAnimation</type></link><!-- -->s are distinguished from <link linkend="ClutterBehaviour"><type>ClutterBehaviour</type></link><!-- -->s
+because the former can only control <link linkend="GObject"><type>GObject</type></link> properties of a single
+<link linkend="GObject"><type>GObject</type></link> instance, while the latter can control multiple properties
+using accessor functions inside the <link linkend="ClutterBehaviour-alpha-notify"><type>"alpha_notify"</type></link>
+virtual function, and can control multiple <link linkend="ClutterActor"><type>ClutterActor</type></link><!-- -->s as well.
+</para>
+<para>
+For convenience, it is possible to use the <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>
+function call which will take care of setting up and tearing down
+a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> instance and animate an actor between its current
+state and the specified final state.
+</para>
+<para>
+<link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-Implicit-Animations.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterAnimation-struct" role="struct">
+<title>ClutterAnimation</title>
+<indexterm zone="ClutterAnimation-struct" role="1.0"><primary sortas="Animation">ClutterAnimation</primary></indexterm><programlisting>typedef struct _ClutterAnimation ClutterAnimation;</programlisting>
+<para>
+The <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> structure contains only private data and should
+be accessed using the provided functions.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterAnimationClass" role="struct" condition="since:1.0">
+<title>ClutterAnimationClass</title>
+<indexterm zone="ClutterAnimationClass" role="1.0"><primary sortas="AnimationClass">ClutterAnimationClass</primary></indexterm><programlisting>typedef struct {
+  void (* started)   (ClutterAnimation *animation);
+  void (* completed) (ClutterAnimation *animation);
+} ClutterAnimationClass;
+</programlisting>
+<para>
+The <link linkend="ClutterAnimationClass"><type>ClutterAnimationClass</type></link> structure contains only private data and
+should be accessed using the provided functions.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><structfield>started</structfield>&#160;()</term>
+<listitem><simpara> class handler for the <link linkend="ClutterAnimation-started"><type>"started"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><structfield>completed</structfield>&#160;()</term>
+<listitem><simpara> class handler for the <link linkend="ClutterAnimation-completed"><type>"completed"</type></link> signal
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterAnimationMode" role="enum" condition="since:1.0">
+<title>enum ClutterAnimationMode</title>
+<indexterm zone="ClutterAnimationMode" role="1.0"><primary sortas="AnimationMode">ClutterAnimationMode</primary></indexterm><programlisting>typedef enum {
+  CLUTTER_CUSTOM_MODE = 0,
+
+  /* linear */
+  CLUTTER_LINEAR,
+
+  /* quadratic */
+  CLUTTER_EASE_IN_QUAD,
+  CLUTTER_EASE_OUT_QUAD,
+  CLUTTER_EASE_IN_OUT_QUAD,
+
+  /* cubic */
+  CLUTTER_EASE_IN_CUBIC,
+  CLUTTER_EASE_OUT_CUBIC,
+  CLUTTER_EASE_IN_OUT_CUBIC,
+
+  /* quartic */
+  CLUTTER_EASE_IN_QUART,
+  CLUTTER_EASE_OUT_QUART,
+  CLUTTER_EASE_IN_OUT_QUART,
+
+  /* quintic */
+  CLUTTER_EASE_IN_QUINT,
+  CLUTTER_EASE_OUT_QUINT,
+  CLUTTER_EASE_IN_OUT_QUINT,
+
+  /* sinusoidal */
+  CLUTTER_EASE_IN_SINE,
+  CLUTTER_EASE_OUT_SINE,
+  CLUTTER_EASE_IN_OUT_SINE,
+
+  /* exponential */
+  CLUTTER_EASE_IN_EXPO,
+  CLUTTER_EASE_OUT_EXPO,
+  CLUTTER_EASE_IN_OUT_EXPO,
+
+  /* circular */
+  CLUTTER_EASE_IN_CIRC,
+  CLUTTER_EASE_OUT_CIRC,
+  CLUTTER_EASE_IN_OUT_CIRC,
+
+  /* elastic */
+  CLUTTER_EASE_IN_ELASTIC,
+  CLUTTER_EASE_OUT_ELASTIC,
+  CLUTTER_EASE_IN_OUT_ELASTIC,
+
+  /* overshooting cubic */
+  CLUTTER_EASE_IN_BACK,
+  CLUTTER_EASE_OUT_BACK,
+  CLUTTER_EASE_IN_OUT_BACK,
+
+  /* exponentially decaying parabolic */
+  CLUTTER_EASE_IN_BOUNCE,
+  CLUTTER_EASE_OUT_BOUNCE,
+  CLUTTER_EASE_IN_OUT_BOUNCE,
+
+  /* guard, before registered alpha functions */
+  CLUTTER_ANIMATION_LAST
+} ClutterAnimationMode;
+</programlisting>
+<para>
+The animation modes used by <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> and <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>. This
+enumeration can be expanded in later versions of Clutter. See the
+<link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> documentation for a graph of all the animation modes.
+</para>
+<para>
+Every global alpha function registered using <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>
+or <link linkend="clutter-alpha-register-closure"><function>clutter_alpha_register_closure()</function></link> will have a logical id greater than
+<link linkend="CLUTTER-ANIMATION-LAST--CAPS"><literal>CLUTTER_ANIMATION_LAST</literal></link>.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="CLUTTER-CUSTOM-MODE--CAPS" role="constant">
+<term><literal>CLUTTER_CUSTOM_MODE</literal></term>
+<listitem><simpara> custom progress function
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-LINEAR--CAPS" role="constant">
+<term><literal>CLUTTER_LINEAR</literal></term>
+<listitem><simpara> linear tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-QUAD--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_QUAD</literal></term>
+<listitem><simpara> quadratic tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-QUAD--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_QUAD</literal></term>
+<listitem><simpara> quadratic tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-QUAD--CAPS"><literal>CLUTTER_EASE_IN_QUAD</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-QUAD--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_QUAD</literal></term>
+<listitem><simpara> quadratic tweening, combininig
+   <link linkend="CLUTTER-EASE-IN-QUAD--CAPS"><literal>CLUTTER_EASE_IN_QUAD</literal></link> and <link linkend="CLUTTER-EASE-OUT-QUAD--CAPS"><literal>CLUTTER_EASE_OUT_QUAD</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-CUBIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_CUBIC</literal></term>
+<listitem><simpara> cubic tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-CUBIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_CUBIC</literal></term>
+<listitem><simpara> cubic tweening, invers of
+   <link linkend="CLUTTER-EASE-IN-CUBIC--CAPS"><literal>CLUTTER_EASE_IN_CUBIC</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-CUBIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_CUBIC</literal></term>
+<listitem><simpara> cubic tweening, combining
+   <link linkend="CLUTTER-EASE-IN-CUBIC--CAPS"><literal>CLUTTER_EASE_IN_CUBIC</literal></link> and <link linkend="CLUTTER-EASE-OUT-CUBIC--CAPS"><literal>CLUTTER_EASE_OUT_CUBIC</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-QUART--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_QUART</literal></term>
+<listitem><simpara> quartic tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-QUART--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_QUART</literal></term>
+<listitem><simpara> quartic tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-QUART--CAPS"><literal>CLUTTER_EASE_IN_QUART</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-QUART--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_QUART</literal></term>
+<listitem><simpara> quartic tweening, combining
+   <link linkend="CLUTTER-EASE-IN-QUART--CAPS"><literal>CLUTTER_EASE_IN_QUART</literal></link> and <link linkend="CLUTTER-EASE-OUT-QUART--CAPS"><literal>CLUTTER_EASE_OUT_QUART</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-QUINT--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_QUINT</literal></term>
+<listitem><simpara> quintic tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-QUINT--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_QUINT</literal></term>
+<listitem><simpara> quintic tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-QUINT--CAPS"><literal>CLUTTER_EASE_IN_QUINT</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-QUINT--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_QUINT</literal></term>
+<listitem><simpara> fifth power tweening, combining
+   <link linkend="CLUTTER-EASE-IN-QUINT--CAPS"><literal>CLUTTER_EASE_IN_QUINT</literal></link> and <link linkend="CLUTTER-EASE-OUT-QUINT--CAPS"><literal>CLUTTER_EASE_OUT_QUINT</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-SINE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_SINE</literal></term>
+<listitem><simpara> sinusoidal tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-SINE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_SINE</literal></term>
+<listitem><simpara> sinusoidal tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-SINE--CAPS"><literal>CLUTTER_EASE_IN_SINE</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-SINE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_SINE</literal></term>
+<listitem><simpara> sine wave tweening, combining
+   <link linkend="CLUTTER-EASE-IN-SINE--CAPS"><literal>CLUTTER_EASE_IN_SINE</literal></link> and <link linkend="CLUTTER-EASE-OUT-SINE--CAPS"><literal>CLUTTER_EASE_OUT_SINE</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-EXPO--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_EXPO</literal></term>
+<listitem><simpara> exponential tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-EXPO--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_EXPO</literal></term>
+<listitem><simpara> exponential tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-EXPO--CAPS"><literal>CLUTTER_EASE_IN_EXPO</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-EXPO--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_EXPO</literal></term>
+<listitem><simpara> exponential tweening, combining
+   <link linkend="CLUTTER-EASE-IN-EXPO--CAPS"><literal>CLUTTER_EASE_IN_EXPO</literal></link> and <link linkend="CLUTTER-EASE-OUT-EXPO--CAPS"><literal>CLUTTER_EASE_OUT_EXPO</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-CIRC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_CIRC</literal></term>
+<listitem><simpara> circular tweening
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-CIRC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_CIRC</literal></term>
+<listitem><simpara> circular tweening, inverse of
+   <link linkend="CLUTTER-EASE-IN-CIRC--CAPS"><literal>CLUTTER_EASE_IN_CIRC</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-CIRC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_CIRC</literal></term>
+<listitem><simpara> circular tweening, combining
+   <link linkend="CLUTTER-EASE-IN-CIRC--CAPS"><literal>CLUTTER_EASE_IN_CIRC</literal></link> and <link linkend="CLUTTER-EASE-OUT-CIRC--CAPS"><literal>CLUTTER_EASE_OUT_CIRC</literal></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-ELASTIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_ELASTIC</literal></term>
+<listitem><simpara> elastic tweening, with offshoot on start
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-ELASTIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_ELASTIC</literal></term>
+<listitem><simpara> elastic tweening, with offshoot on end
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-ELASTIC--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_ELASTIC</literal></term>
+<listitem><simpara> elastic tweening with offshoot on both ends
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-BACK--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_BACK</literal></term>
+<listitem><simpara> overshooting cubic tweening, with
+  backtracking on start
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-BACK--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_BACK</literal></term>
+<listitem><simpara> overshooting cubic tweening, with
+  backtracking on end
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-BACK--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_BACK</literal></term>
+<listitem><simpara> overshooting cubic tweening, with
+  backtracking on both ends
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-BOUNCE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_BOUNCE</literal></term>
+<listitem><simpara> exponentially decaying parabolic (bounce)
+  tweening, with bounce on start
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-OUT-BOUNCE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_OUT_BOUNCE</literal></term>
+<listitem><simpara> exponentially decaying parabolic (bounce)
+  tweening, with bounce on end
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-EASE-IN-OUT-BOUNCE--CAPS" role="constant">
+<term><literal>CLUTTER_EASE_IN_OUT_BOUNCE</literal></term>
+<listitem><simpara> exponentially decaying parabolic (bounce)
+  tweening, with bounce on both ends
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CLUTTER-ANIMATION-LAST--CAPS" role="constant">
+<term><literal>CLUTTER_ANIMATION_LAST</literal></term>
+<listitem><simpara> last animation mode, used as a guard for
+  registered global alpha functions
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-new" role="function" condition="since:1.0">
+<title>clutter_animation_new ()</title>
+<indexterm zone="clutter-animation-new" role="1.0"><primary sortas="animation_new">clutter_animation_new</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_animation_new               (void);</programlisting>
+<para>
+Creates a new <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> instance. You should set the
+<link linkend="GObject"><type>GObject</type></link> to be animated using <link linkend="clutter-animation-set-object"><function>clutter_animation_set_object()</function></link>,
+set the duration with <link linkend="clutter-animation-set-duration"><function>clutter_animation_set_duration()</function></link> and the
+easing mode using <link linkend="clutter-animation-set-mode"><function>clutter_animation_set_mode()</function></link>.
+</para>
+<para>
+Use <link linkend="clutter-animation-bind"><function>clutter_animation_bind()</function></link> or <link linkend="clutter-animation-bind-interval"><function>clutter_animation_bind_interval()</function></link>
+to define the properties to be animated. The interval and the
+animated properties can be updated at runtime.
+</para>
+<para>
+The <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> and relative family of functions provide
+an easy way to animate a <link linkend="ClutterActor"><type>ClutterActor</type></link> and automatically manage the
+lifetime of a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> instance, so you should consider using
+those functions instead of manually creating an animation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>. Use <link linkend="g-object-unref"><function>g_object_unref()</function></link>
+  to release the associated resources
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-object" role="function" condition="since:1.0">
+<title>clutter_animation_set_object ()</title>
+<indexterm zone="clutter-animation-set-object" role="1.0"><primary sortas="animation_set_object">clutter_animation_set_object</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_object        (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="GObject">GObject</link> *object);</programlisting>
+<para>
+Attaches <parameter>animation</parameter> to <parameter>object</parameter>. The <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will take a
+reference on <parameter>object</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GObject"><type>GObject</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-object" role="function" condition="since:1.0">
+<title>clutter_animation_get_object ()</title>
+<indexterm zone="clutter-animation-get-object" role="1.0"><primary sortas="animation_get_object">clutter_animation_get_object</primary></indexterm><programlisting><link linkend="GObject">GObject</link> *           clutter_animation_get_object        (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves the <link linkend="GObject"><type>GObject</type></link> attached to <parameter>animation</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="GObject"><type>GObject</type></link>. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-mode" role="function" condition="since:1.0">
+<title>clutter_animation_set_mode ()</title>
+<indexterm zone="clutter-animation-set-mode" role="1.0"><primary sortas="animation_set_mode">clutter_animation_set_mode</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_mode          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gulong">gulong</link> mode);</programlisting>
+<para>
+Sets the animation <parameter>mode</parameter> of <parameter>animation</parameter>. The animation <parameter>mode</parameter> is
+a logical id, either coming from the <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link> enumeration
+or the return value of <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.
+</para>
+<para>
+This function will also set <link linkend="ClutterAnimation--alpha"><type>"alpha"</type></link> if needed.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> an animation mode logical id
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-mode" role="function" condition="since:1.0">
+<title>clutter_animation_get_mode ()</title>
+<indexterm zone="clutter-animation-get-mode" role="1.0"><primary sortas="animation_get_mode">clutter_animation_get_mode</primary></indexterm><programlisting><link linkend="gulong">gulong</link>              clutter_animation_get_mode          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves the animation mode of <parameter>animation</parameter>, as set by
+<link linkend="clutter-animation-set-mode"><function>clutter_animation_set_mode()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the mode for the animation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-duration" role="function" condition="since:1.0">
+<title>clutter_animation_set_duration ()</title>
+<indexterm zone="clutter-animation-set-duration" role="1.0"><primary sortas="animation_set_duration">clutter_animation_set_duration</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_duration      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gint">gint</link> msecs);</programlisting>
+<para>
+Sets the duration of <parameter>animation</parameter> in milliseconds.
+</para>
+<para>
+This function will set <link linkend="ClutterAnimation--alpha"><type>"alpha"</type></link> and
+<link linkend="ClutterAnimation--timeline"><type>"timeline"</type></link> if needed.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>msecs</parameter>&#160;:</term>
+<listitem><simpara> the duration in milliseconds
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-duration" role="function" condition="since:1.0">
+<title>clutter_animation_get_duration ()</title>
+<indexterm zone="clutter-animation-get-duration" role="1.0"><primary sortas="animation_get_duration">clutter_animation_get_duration</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_animation_get_duration      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves the duration of <parameter>animation</parameter>, in milliseconds.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the duration of the animation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-loop" role="function" condition="since:1.0">
+<title>clutter_animation_set_loop ()</title>
+<indexterm zone="clutter-animation-set-loop" role="1.0"><primary sortas="animation_set_loop">clutter_animation_set_loop</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_loop          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="gboolean">gboolean</link> loop);</programlisting>
+<para>
+Sets whether <parameter>animation</parameter> should loop over itself once finished.
+</para>
+<para>
+A looping <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will not emit the <link linkend="ClutterAnimation-completed"><type>"completed"</type></link>
+signal when finished.
+</para>
+<para>
+This function will set <link linkend="ClutterAnimation--alpha"><type>"alpha"</type></link> and
+<link linkend="ClutterAnimation--timeline"><type>"timeline"</type></link> if needed.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>loop</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the animation should loop
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-loop" role="function" condition="since:1.0">
+<title>clutter_animation_get_loop ()</title>
+<indexterm zone="clutter-animation-get-loop" role="1.0"><primary sortas="animation_get_loop">clutter_animation_get_loop</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_animation_get_loop          (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves whether <parameter>animation</parameter> is looping.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the animation is looping
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-timeline" role="function" condition="since:1.0">
+<title>clutter_animation_set_timeline ()</title>
+<indexterm zone="clutter-animation-set-timeline" role="1.0"><primary sortas="animation_set_timeline">clutter_animation_set_timeline</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_timeline      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline);</programlisting>
+<para>
+Sets the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> used by <parameter>animation</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset the
+  current <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-timeline" role="function" condition="since:1.0">
+<title>clutter_animation_get_timeline ()</title>
+<indexterm zone="clutter-animation-get-timeline" role="1.0"><primary sortas="animation_get_timeline">clutter_animation_get_timeline</primary></indexterm><programlisting><link linkend="ClutterTimeline">ClutterTimeline</link> *   clutter_animation_get_timeline      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> used by <parameter>animation</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the timeline used by the animation. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-set-alpha" role="function" condition="since:1.0">
+<title>clutter_animation_set_alpha ()</title>
+<indexterm zone="clutter-animation-set-alpha" role="1.0"><primary sortas="animation_set_alpha">clutter_animation_set_alpha</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_set_alpha         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha);</programlisting>
+<para>
+Sets <parameter>alpha</parameter> as the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> used by <parameter>animation</parameter>.
+</para>
+<para>
+If <parameter>alpha</parameter> is not <link linkend="NULL--CAPS"><literal>NULL</literal></link>, the <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will take ownership
+of the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> instance.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to unset the current <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-alpha" role="function" condition="since:1.0">
+<title>clutter_animation_get_alpha ()</title>
+<indexterm zone="clutter-animation-get-alpha" role="1.0"><primary sortas="animation_get_alpha">clutter_animation_get_alpha</primary></indexterm><programlisting><link linkend="ClutterAlpha">ClutterAlpha</link> *      clutter_animation_get_alpha         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> used by <parameter>animation</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the alpha object used by the animation. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-completed" role="function" condition="since:1.0">
+<title>clutter_animation_completed ()</title>
+<indexterm zone="clutter-animation-completed" role="1.0"><primary sortas="animation_completed">clutter_animation_completed</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_completed         (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation);</programlisting>
+<para>
+Emits the ::completed signal on <parameter>animation</parameter>
+</para>
+<para>
+When using this function with a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> created
+by the <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> family of functions, <parameter>animation</parameter>
+will be unreferenced and it will not be valid anymore,
+unless <link linkend="g-object-ref"><function>g_object_ref()</function></link> was called before calling this function
+or unless a reference was taken inside a handler for the
+<link linkend="ClutterAnimation-completed"><type>"completed"</type></link> signal</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-bind" role="function" condition="since:1.0">
+<title>clutter_animation_bind ()</title>
+<indexterm zone="clutter-animation-bind" role="1.0"><primary sortas="animation_bind">clutter_animation_bind</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_animation_bind              (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         const <link linkend="GValue">GValue</link> *final);</programlisting>
+<para>
+Adds a single property with name <parameter>property_name</parameter> to the
+animation <parameter>animation</parameter>.  For more information about animations,
+see <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>.
+</para>
+<para>
+This method returns the animation primarily to make chained
+calls convenient in language bindings.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> the property to control
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>final</parameter>&#160;:</term>
+<listitem><simpara> The final value of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The animation itself.. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-bind-interval" role="function" condition="since:1.0">
+<title>clutter_animation_bind_interval ()</title>
+<indexterm zone="clutter-animation-bind-interval" role="1.0"><primary sortas="animation_bind_interval">clutter_animation_bind_interval</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_animation_bind_interval     (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         <link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Binds <parameter>interval</parameter> to the <parameter>property_name</parameter> of the <link linkend="GObject"><type>GObject</type></link>
+attached to <parameter>animation</parameter>. The <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> will take
+ownership of the passed <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.  For more information
+about animations, see <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>.
+</para>
+<para>
+If you need to update the interval instance use
+<link linkend="clutter-animation-update-property"><function>clutter_animation_update_property()</function></link> instead.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> the property to control
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>. <acronym>transfer</acronym> full. </simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The animation itself.. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-update-interval" role="function" condition="since:1.0">
+<title>clutter_animation_update_interval ()</title>
+<indexterm zone="clutter-animation-update-interval" role="1.0"><primary sortas="animation_update_interval">clutter_animation_update_interval</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_update_interval   (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name,
+                                                         <link linkend="ClutterInterval">ClutterInterval</link> *interval);</programlisting>
+<para>
+Changes the <parameter>interval</parameter> for <parameter>property_name</parameter>. The <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+will take ownership of the passed <link linkend="ClutterInterval"><type>ClutterInterval</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>interval</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterInterval"><type>ClutterInterval</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-has-property" role="function" condition="since:1.0">
+<title>clutter_animation_has_property ()</title>
+<indexterm zone="clutter-animation-has-property" role="1.0"><primary sortas="animation_has_property">clutter_animation_has_property</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_animation_has_property      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);</programlisting>
+<para>
+Checks whether <parameter>animation</parameter> is controlling <parameter>property_name</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the property is animated by the
+  <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-unbind-property" role="function" condition="since:1.0">
+<title>clutter_animation_unbind_property ()</title>
+<indexterm zone="clutter-animation-unbind-property" role="1.0"><primary sortas="animation_unbind_property">clutter_animation_unbind_property</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_animation_unbind_property   (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);</programlisting>
+<para>
+Removes <parameter>property_name</parameter> from the list of animated properties.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-animation-get-interval" role="function" condition="since:1.0">
+<title>clutter_animation_get_interval ()</title>
+<indexterm zone="clutter-animation-get-interval" role="1.0"><primary sortas="animation_get_interval">clutter_animation_get_interval</primary></indexterm><programlisting><link linkend="ClutterInterval">ClutterInterval</link> *   clutter_animation_get_interval      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                         const <link linkend="gchar">gchar</link> *property_name);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterInterval"><type>ClutterInterval</type></link> associated to <parameter>property_name</parameter>
+inside <parameter>animation</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animate" role="function" condition="since:1.0">
+<title>clutter_actor_animate ()</title>
+<indexterm zone="clutter-actor-animate" role="1.0"><primary sortas="actor_animate">clutter_actor_animate</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animate               (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="guint">guint</link> duration,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite duration and a speed given by the <parameter>mode</parameter>.
+</para>
+<para>
+For example, this:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_actor_animate (rectangle, CLUTTER_LINEAR, 250,
+                         "width", 100.0,
+                         "height", 100.0,
+                         NULL);
+</programlisting></informalexample>
+</para>
+<para>
+will make width and height properties of the <link linkend="ClutterActor"><type>ClutterActor</type></link> "rectangle"
+grow linearly between the current value and 100 pixels, in 250 milliseconds.
+</para>
+<para>
+The animation <parameter>mode</parameter> is a logical id, either from the <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link>
+enumeration of from <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>.
+</para>
+<para>
+All the properties specified will be animated between the current value
+and the final value. If a property should be set at the beginning of
+the animation but not updated during the animation, it should be prefixed
+by the "fixed::" string, for instance:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_SINE, 100,
+                         "rotation-angle-z", 360.0,
+                         "fixed::rotation-center-z", &amp;center,
+                         NULL);
+</programlisting></informalexample>
+</para>
+<para>
+Will animate the "rotation-angle-z" property between the current value
+and 360 degrees, and set the "rotation-center-z" property to the fixed
+value of the <link linkend="ClutterVertex"><type>ClutterVertex</type></link> "center".
+</para>
+<para>
+This function will implicitly create a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> object which
+will be assigned to the <parameter>actor</parameter> and will be returned to the developer
+to control the animation or to know when the animation has been
+completed.
+</para>
+<para>
+If a name argument starts with "signal::", "signal-after::" or
+"signal-swapped::" the two following arguments are used as callback
+function and data for a signal handler installed on the
+<link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> object for the specified signal name, for
+instance:
+</para>
+<para>
+<informalexample><programlisting>
+
+  static void
+  on_animation_completed (ClutterAnimation *animation,
+                          ClutterActor     *actor)
+  {
+    clutter_actor_hide (actor);
+  }
+
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 100,
+                         "opacity", 0,
+                         "signal::completed", on_animation_completed, actor,
+                         NULL);
+</programlisting></informalexample>
+</para>
+<para>
+The "signal::" modifier is the equivalent of using <link linkend="g-signal-connect"><function>g_signal_connect()</function></link>;
+the "signal-after::" modifier is the equivalent of using
+<link linkend="g-signal-connect-after"><function>g_signal_connect_after()</function></link>; the "signal-swapped::" modifier is the equivalent
+of using <link linkend="g-signal-connect-swapped"><function>g_signal_connect_swapped()</function></link>. The <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> function
+will not keep track of multiple connections to the same signal, so it is
+your responsability to avoid them when calling <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>
+multiple times on the same actor.
+</para>
+<para>
+Calling this function on an actor that is already being animated
+will cause the current animation to change with the new final values,
+the new easing mode and the new duration - that is, this code:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_actor_animate (actor, CLUTTER_LINEAR, 250,
+                         "width", 100.0,
+                         "height", 100.0,
+                         NULL);
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 500,
+                         "x", 100.0,
+                         "y", 100.0,
+                         "width", 200.0,
+                         NULL);
+</programlisting></informalexample>
+</para>
+<para>
+is the equivalent of:
+</para>
+<para>
+<informalexample><programlisting>
+  clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 500,
+                         "x", 100.0,
+                         "y", 100.0,
+                         "width", 200.0,
+                         "height", 100.0,
+                         NULL);
+</programlisting></informalexample>
+</para>
+<para>
+<note>Unless the animation is looping, the <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> created by
+<link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> will become invalid as soon as it is
+complete.</note>
+</para>
+<para>
+Since the created <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> instance attached to <parameter>actor</parameter>
+is guaranteed to be valid throughout the <link linkend="ClutterAnimation-completed"><type>"completed"</type></link>
+signal emission chain, you will not be able to create a new animation
+using <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> on the same <parameter>actor</parameter> from within the
+<link linkend="ClutterAnimation-completed"><type>"completed"</type></link> signal handler unless you use
+<link linkend="g-signal-connect-after"><function>g_signal_connect_after()</function></link> to connect the callback function, for instance:
+</para>
+<para>
+<informalexample><programlisting>
+  static void
+  on_animation_completed (ClutterAnimation *animation,
+                          ClutterActor     *actor)
+  {
+    clutter_actor_animate (actor, CLUTTER_EASE_OUT_CUBIC, 250,
+                           "x", 500.0,
+                           "y", 500.0,
+                           NULL);
+  }
+
+    ...
+    animation = clutter_actor_animate (actor, CLUTTER_EASE_IN_CUBIC, 250,
+                                       "x", 100.0,
+                                       "y", 100.0,
+                                       NULL);
+    g_signal_connect (animation, "completed",
+                      G_CALLBACK (on_animation_completed),
+                      actor);
+    ...
+</programlisting></informalexample></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> an animation mode logical id
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>duration</parameter>&#160;:</term>
+<listitem><simpara> duration of the animation, in milliseconds
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_property_name</parameter>&#160;:</term>
+<listitem><simpara> the name of a property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="NULL--CAPS"><literal>NULL</literal></link> terminated list of property names and
+  property values
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animate-with-timeline" role="function" condition="since:1.0">
+<title>clutter_actor_animate_with_timeline ()</title>
+<indexterm zone="clutter-actor-animate-with-timeline" role="1.0"><primary sortas="actor_animate_with_timeline">clutter_actor_animate_with_timeline</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animate_with_timeline (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite duration given by <parameter>timeline</parameter> and a speed given by the <parameter>mode</parameter>.
+</para>
+<para>
+See <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> for further details.
+</para>
+<para>
+This function is useful if you want to use an existing timeline
+to animate <parameter>actor</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> an animation mode logical id
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_property_name</parameter>&#160;:</term>
+<listitem><simpara> the name of a property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="NULL--CAPS"><literal>NULL</literal></link> terminated list of property names and
+  property values
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animate-with-alpha" role="function" condition="since:1.0">
+<title>clutter_actor_animate_with_alpha ()</title>
+<indexterm zone="clutter-actor-animate-with-alpha" role="1.0"><primary sortas="actor_animate_with_alpha">clutter_actor_animate_with_alpha</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animate_with_alpha    (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         const <link linkend="gchar">gchar</link> *first_property_name,
+                                                         ...);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite behaviour given by the passed <parameter>alpha</parameter>.
+</para>
+<para>
+See <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> for further details.
+</para>
+<para>
+This function is useful if you want to use an existing <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+to animate <parameter>actor</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_property_name</parameter>&#160;:</term>
+<listitem><simpara> the name of a property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="NULL--CAPS"><literal>NULL</literal></link> terminated list of property names and
+  property values
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animatev" role="function" condition="since:1.0">
+<title>clutter_actor_animatev ()</title>
+<indexterm zone="clutter-actor-animatev" role="1.0"><primary sortas="actor_animatev">clutter_actor_animatev</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animatev              (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="guint">guint</link> duration,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite duration and a speed given by the <parameter>mode</parameter>.
+</para>
+<para>
+This is the vector-based variant of <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>, useful
+for language bindings.
+</para>
+<para>
+<warning>Unlike <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>, this function will not
+allow you to specify "signal::" names and callbacks.</warning></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> an animation mode logical id
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>duration</parameter>&#160;:</term>
+<listitem><simpara> duration of the animation, in milliseconds
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_properties</parameter>&#160;:</term>
+<listitem><simpara> number of property names and values
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>properties</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properties) (element-type utf8. <acronym>array</acronym> length=n_properties. <acronym>element-type</acronym> utf8. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>values</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properies. <acronym>array</acronym> length=n_properies. </simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animate-with-timelinev" role="function" condition="since:1.0">
+<title>clutter_actor_animate_with_timelinev ()</title>
+<indexterm zone="clutter-actor-animate-with-timelinev" role="1.0"><primary sortas="actor_animate_with_timelinev">clutter_actor_animate_with_timelinev</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animate_with_timelinev
+                                                        (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="gulong">gulong</link> mode,
+                                                         <link linkend="ClutterTimeline">ClutterTimeline</link> *timeline,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite duration given by <parameter>timeline</parameter> and a speed given by the <parameter>mode</parameter>.
+</para>
+<para>
+See <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> for further details.
+</para>
+<para>
+This function is useful if you want to use an existing timeline
+to animate <parameter>actor</parameter>.
+</para>
+<para>
+This is the vector-based variant of <link linkend="clutter-actor-animate-with-timeline"><function>clutter_actor_animate_with_timeline()</function></link>,
+useful for language bindings.
+</para>
+<para>
+<warning>Unlike <link linkend="clutter-actor-animate-with-timeline"><function>clutter_actor_animate_with_timeline()</function></link>, this function
+will not allow you to specify "signal::" names and callbacks.</warning></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> an animation mode logical id
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeline</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_properties</parameter>&#160;:</term>
+<listitem><simpara> number of property names and values
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>properties</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properties) (element-type utf8. <acronym>array</acronym> length=n_properties. <acronym>element-type</acronym> utf8. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>values</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properies. <acronym>array</acronym> length=n_properies. </simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-animate-with-alphav" role="function" condition="since:1.0">
+<title>clutter_actor_animate_with_alphav ()</title>
+<indexterm zone="clutter-actor-animate-with-alphav" role="1.0"><primary sortas="actor_animate_with_alphav">clutter_actor_animate_with_alphav</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_animate_with_alphav   (<link linkend="ClutterActor">ClutterActor</link> *actor,
+                                                         <link linkend="ClutterAlpha">ClutterAlpha</link> *alpha,
+                                                         <link linkend="gint">gint</link> n_properties,
+                                                         const <link linkend="gchar">gchar</link> * const properties[],
+                                                         const <link linkend="GValue">GValue</link> *values);</programlisting>
+<para>
+Animates the given list of properties of <parameter>actor</parameter> between the current
+value for each property and a new final value. The animation has a
+definite behaviour given by the passed <parameter>alpha</parameter>.
+</para>
+<para>
+See <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link> for further details.
+</para>
+<para>
+This function is useful if you want to use an existing <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+to animate <parameter>actor</parameter>.
+</para>
+<para>
+This is the vector-based variant of <link linkend="clutter-actor-animate-with-alpha"><function>clutter_actor_animate_with_alpha()</function></link>,
+useful for language bindings.
+</para>
+<para>
+<warning>Unlike <link linkend="clutter-actor-animate-with-alpha"><function>clutter_actor_animate_with_alpha()</function></link>, this function will
+not allow you to specify "signal::" names and callbacks.</warning></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_properties</parameter>&#160;:</term>
+<listitem><simpara> number of property names and values
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>properties</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properties) (element-type utf8. <acronym>array</acronym> length=n_properties. <acronym>element-type</acronym> utf8. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>values</parameter>&#160;:</term>
+<listitem><simpara>array length=n_properies. <acronym>array</acronym> length=n_properies. </simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>transfer none. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-actor-get-animation" role="function" condition="since:1.0">
+<title>clutter_actor_get_animation ()</title>
+<indexterm zone="clutter-actor-get-animation" role="1.0"><primary sortas="actor_get_animation">clutter_actor_get_animation</primary></indexterm><programlisting><link linkend="ClutterAnimation">ClutterAnimation</link> *  clutter_actor_get_animation         (<link linkend="ClutterActor">ClutterActor</link> *actor);</programlisting>
+<para>
+Retrieves the <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link> used by <parameter>actor</parameter>, if <link linkend="clutter-actor-animate"><function>clutter_actor_animate()</function></link>
+has been called on <parameter>actor</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>actor</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="ClutterAnimation"><type>ClutterAnimation</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="clutter-Implicit-Animations.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterAnimation--alpha" role="property"><title>The <literal>&quot;alpha&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--alpha" role="1.0"><primary sortas="Animation:alpha">ClutterAnimation:alpha</primary></indexterm><programlisting>  &quot;alpha&quot;                    <link linkend="ClutterAlpha">ClutterAlpha</link>*         : Read / Write</programlisting>
+<para>
+The <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link> used by the animation.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterAnimation--duration" role="property"><title>The <literal>&quot;duration&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--duration" role="1.0"><primary sortas="Animation:duration">ClutterAnimation:duration</primary></indexterm><programlisting>  &quot;duration&quot;                 <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>
+The duration of the animation, expressed in milliseconds.</para>
+<para>
+</para><para>Default value: 0</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterAnimation--loop" role="property"><title>The <literal>&quot;loop&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--loop" role="1.0"><primary sortas="Animation:loop">ClutterAnimation:loop</primary></indexterm><programlisting>  &quot;loop&quot;                     <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+Whether the animation should loop.</para>
+<para>
+</para><para>Default value: FALSE</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterAnimation--mode" role="property"><title>The <literal>&quot;mode&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--mode" role="1.0"><primary sortas="Animation:mode">ClutterAnimation:mode</primary></indexterm><programlisting>  &quot;mode&quot;                     <link linkend="gulong">gulong</link>                : Read / Write</programlisting>
+<para>
+The animation mode, either a value from <link linkend="ClutterAnimationMode"><type>ClutterAnimationMode</type></link>
+or a value returned by <link linkend="clutter-alpha-register-func"><function>clutter_alpha_register_func()</function></link>. The
+default value is <link linkend="CLUTTER-LINEAR--CAPS"><literal>CLUTTER_LINEAR</literal></link>.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterAnimation--object" role="property"><title>The <literal>&quot;object&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--object"><primary sortas="Animation:object">ClutterAnimation:object</primary></indexterm><programlisting>  &quot;object&quot;                   <link linkend="GObject">GObject</link>*              : Read / Write</programlisting>
+<para>Object to which the animation applies.</para></refsect2>
+<refsect2 id="ClutterAnimation--timeline" role="property"><title>The <literal>&quot;timeline&quot;</literal> property</title>
+<indexterm zone="ClutterAnimation--timeline" role="1.0"><primary sortas="Animation:timeline">ClutterAnimation:timeline</primary></indexterm><programlisting>  &quot;timeline&quot;                 <link linkend="ClutterTimeline">ClutterTimeline</link>*      : Read / Write</programlisting>
+<para>
+The <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link> used by the animation.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+</refsect1>
+
+<refsect1 id="clutter-Implicit-Animations.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ClutterAnimation-completed" role="signal"><title>The <literal>&quot;completed&quot;</literal> signal</title>
+<indexterm zone="ClutterAnimation-completed" role="1.0"><primary sortas="Animation::completed">ClutterAnimation::completed</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                        <link linkend="gpointer">gpointer</link>          user_data)      : Run Last</programlisting>
+<para>
+The ::completed signal is emitted once the animation has
+been completed.
+</para>
+<para>
+The <parameter>animation</parameter> instance is guaranteed to be valid for the entire
+duration of the signal emission chain.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> the animation that emitted the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 1.0</para></refsect2><refsect2 id="ClutterAnimation-started" role="signal"><title>The <literal>&quot;started&quot;</literal> signal</title>
+<indexterm zone="ClutterAnimation-started" role="1.0"><primary sortas="Animation::started">ClutterAnimation::started</primary></indexterm><programlisting><link linkend="void">void</link>                user_function                      (<link linkend="ClutterAnimation">ClutterAnimation</link> *animation,
+                                                        <link linkend="gpointer">gpointer</link>          user_data)      : Run Last</programlisting>
+<para>
+The ::started signal is emitted once the animation has been
+started</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>animation</parameter>&#160;:</term>
+<listitem><simpara> the animation that emitted the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist><para>Since 1.0</para></refsect2>
+</refsect1>
+
+
+<refsect1 id="clutter-Implicit-Animations.see-also">
+<title>See Also</title>
+#ClutterAnimatable, <link linkend="ClutterInterval"><type>ClutterInterval</type></link>, <link linkend="ClutterAlpha"><type>ClutterAlpha</type></link>,
+  <link linkend="ClutterTimeline"><type>ClutterTimeline</type></link>
+</refsect1>
+
+</refentry>

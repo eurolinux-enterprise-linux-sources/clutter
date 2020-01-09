@@ -1,0 +1,112 @@
+<!-- ##### SECTION Title ##### -->
+ClutterCairoTexture
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterCairoTexture ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG ClutterCairoTexture:surface-height ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterCairoTexture:surface-width ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterCairoTextureClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_new ##### -->
+<para>
+
+</para>
+
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_set_surface_size ##### -->
+<para>
+
+</para>
+
+@self: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_get_surface_size ##### -->
+<para>
+
+</para>
+
+@self: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_create ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_create_region ##### -->
+<para>
+
+</para>
+
+@self: 
+@x_offset: 
+@y_offset: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_cairo_texture_clear ##### -->
+<para>
+
+</para>
+
+@self: 
+
+
+<!-- ##### FUNCTION clutter_cairo_set_source_color ##### -->
+<para>
+
+</para>
+
+@cr: 
+@color: 
+
+

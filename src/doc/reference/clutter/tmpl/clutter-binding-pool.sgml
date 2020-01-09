@@ -1,0 +1,167 @@
+<!-- ##### SECTION Title ##### -->
+Key Bindings
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterBindingPool ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### USER_FUNCTION ClutterBindingActionFunc ##### -->
+<para>
+
+</para>
+
+@gobject: 
+@action_name: 
+@key_val: 
+@modifiers: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_new ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_get_for_class ##### -->
+<para>
+
+</para>
+
+@klass: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_find ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_install_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@action_name: 
+@key_val: 
+@modifiers: 
+@callback: 
+@data: 
+@notify: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_install_closure ##### -->
+<para>
+
+</para>
+
+@pool: 
+@action_name: 
+@key_val: 
+@modifiers: 
+@closure: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_override_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@key_val: 
+@modifiers: 
+@callback: 
+@data: 
+@notify: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_override_closure ##### -->
+<para>
+
+</para>
+
+@pool: 
+@key_val: 
+@modifiers: 
+@closure: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_find_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@key_val: 
+@modifiers: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_remove_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@key_val: 
+@modifiers: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_block_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@action_name: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_unblock_action ##### -->
+<para>
+
+</para>
+
+@pool: 
+@action_name: 
+
+
+<!-- ##### FUNCTION clutter_binding_pool_activate ##### -->
+<para>
+
+</para>
+
+@pool: 
+@key_val: 
+@modifiers: 
+@gobject: 
+@Returns: 
+
+

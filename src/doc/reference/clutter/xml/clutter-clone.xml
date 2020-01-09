@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterClone">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterClone.top_of_page">ClutterClone</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterClone</refname>
+<refpurpose>An actor that displays a clone of a source actor</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterClone.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterClone-struct">ClutterClone</link>;
+                    <link linkend="ClutterCloneClass">ClutterCloneClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-clone-new">clutter_clone_new</link>                   (<link linkend="ClutterActor">ClutterActor</link> *source);
+<link linkend="void">void</link>                <link linkend="clutter-clone-set-source">clutter_clone_set_source</link>            (<link linkend="ClutterClone">ClutterClone</link> *clone,
+                                                         <link linkend="ClutterActor">ClutterActor</link> *source);
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-clone-get-source">clutter_clone_get_source</link>            (<link linkend="ClutterClone">ClutterClone</link> *clone);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterClone.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="ClutterActor">ClutterActor</link>
+               +----ClutterClone
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterClone.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ClutterClone implements
+ <link linkend="ClutterScriptable">ClutterScriptable</link>.</para>
+</refsect1>
+
+
+<refsect1 id="ClutterClone.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterClone--source">source</link>&quot;                   <link linkend="ClutterActor">ClutterActor</link>*         : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterClone.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterClone"><type>ClutterClone</type></link> is a <link linkend="ClutterActor"><type>ClutterActor</type></link> which draws with the paint
+function of another actor, scaled to fit its own allocation.
+</para>
+<para>
+<link linkend="ClutterClone"><type>ClutterClone</type></link> can be used to efficiently clone any other actor.
+</para>
+<para>
+<note><para>This is different from <link linkend="clutter-texture-new-from-actor"><function>clutter_texture_new_from_actor()</function></link>
+which requires support for FBOs in the underlying GL
+implementation.</para></note>
+</para>
+<para>
+<link linkend="ClutterClone"><type>ClutterClone</type></link> is available since Clutter 1.0</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterClone.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterClone-struct" role="struct">
+<title>ClutterClone</title>
+<indexterm zone="ClutterClone-struct" role="1.0"><primary sortas="Clone">ClutterClone</primary></indexterm><programlisting>typedef struct _ClutterClone ClutterClone;</programlisting>
+<para>
+The <link linkend="ClutterClone"><type>ClutterClone</type></link> structure contains only private data
+and should be accessed using the provided API</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterCloneClass" role="struct" condition="since:1.0">
+<title>ClutterCloneClass</title>
+<indexterm zone="ClutterCloneClass" role="1.0"><primary sortas="CloneClass">ClutterCloneClass</primary></indexterm><programlisting>typedef struct {
+} ClutterCloneClass;
+</programlisting>
+<para>
+The <link linkend="ClutterCloneClass"><type>ClutterCloneClass</type></link> structure contains only private data</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-clone-new" role="function" condition="since:1.0">
+<title>clutter_clone_new ()</title>
+<indexterm zone="clutter-clone-new" role="1.0"><primary sortas="clone_new">clutter_clone_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_clone_new                   (<link linkend="ClutterActor">ClutterActor</link> *source);</programlisting>
+<para>
+Creates a new <link linkend="ClutterActor"><type>ClutterActor</type></link> which clones <parameter>source</parameter>/</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterClone"><type>ClutterClone</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-clone-set-source" role="function" condition="since:1.0">
+<title>clutter_clone_set_source ()</title>
+<indexterm zone="clutter-clone-set-source" role="1.0"><primary sortas="clone_set_source">clutter_clone_set_source</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_clone_set_source            (<link linkend="ClutterClone">ClutterClone</link> *clone,
+                                                         <link linkend="ClutterActor">ClutterActor</link> *source);</programlisting>
+<para>
+Sets <parameter>source</parameter> as the source actor to be cloned by <parameter>clone</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>clone</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterClone"><type>ClutterClone</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterActor"><type>ClutterActor</type></link>, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-clone-get-source" role="function" condition="since:1.0">
+<title>clutter_clone_get_source ()</title>
+<indexterm zone="clutter-clone-get-source" role="1.0"><primary sortas="clone_get_source">clutter_clone_get_source</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_clone_get_source            (<link linkend="ClutterClone">ClutterClone</link> *clone);</programlisting>
+<para>
+Retrieves the source <link linkend="ClutterActor"><type>ClutterActor</type></link> being cloned by <parameter>clone</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>clone</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterClone"><type>ClutterClone</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the actor source for the clone. <acronym>transfer</acronym> none. </simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterClone.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterClone--source" role="property"><title>The <literal>&quot;source&quot;</literal> property</title>
+<indexterm zone="ClutterClone--source" role="1.0"><primary sortas="Clone:source">ClutterClone:source</primary></indexterm><programlisting>  &quot;source&quot;                   <link linkend="ClutterActor">ClutterActor</link>*         : Read / Write / Construct Only</programlisting>
+<para>
+This property specifies the source actor being cloned.</para>
+<para>
+</para><para>Since 1.0</para>
+</refsect2>
+</refsect1>
+
+
+
+
+</refentry>

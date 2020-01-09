@@ -1,0 +1,71 @@
+<!-- ##### SECTION Title ##### -->
+GLX Specific Support
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterGLXTexturePixmap ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT ClutterGLXTexturePixmapClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION clutter_glx_texture_pixmap_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_glx_texture_pixmap_new_with_pixmap ##### -->
+<para>
+
+</para>
+
+@pixmap: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_glx_texture_pixmap_new_with_window ##### -->
+<para>
+
+</para>
+
+@window: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_glx_texture_pixmap_using_extension ##### -->
+<para>
+
+</para>
+
+@texture: 
+@Returns: 
+
+

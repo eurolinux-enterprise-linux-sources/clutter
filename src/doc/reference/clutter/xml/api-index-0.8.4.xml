@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="clutter-actor-get-paint-visibility"><link linkend="clutter-actor-get-paint-visibility">clutter_actor_get_paint_visibility</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="clutter-color-new"><link linkend="clutter-color-new">clutter_color_new</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="clutter-param-spec-color"><link linkend="clutter-param-spec-color">clutter_param_spec_color</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="clutter-value-get-color"><link linkend="clutter-value-get-color">clutter_value_get_color</link></primaryie></indexentry>
+<indexentry><primaryie linkends="clutter-value-set-color"><link linkend="clutter-value-set-color">clutter_value_set_color</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

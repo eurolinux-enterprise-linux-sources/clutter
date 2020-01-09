@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-EGLX-Specific-Support">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-EGLX-Specific-Support.top_of_page">EGLX Specific Support</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>EGLX Specific Support</refname>
+<refpurpose>EGLX specific API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-EGLX-Specific-Support.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="EGLDisplay">EGLDisplay</link>          <link linkend="clutter-eglx-display">clutter_eglx_display</link>                (void);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-EGLX-Specific-Support.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The EGLX backend for Clutter provides some specific API on
+top of the X11-specific one</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-EGLX-Specific-Support.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="clutter-eglx-display" role="function" condition="since:0.4">
+<title>clutter_eglx_display ()</title>
+<indexterm zone="clutter-eglx-display" role="0.4"><primary sortas="eglx_display">clutter_eglx_display</primary></indexterm><programlisting><link linkend="EGLDisplay">EGLDisplay</link>          clutter_eglx_display                (void);</programlisting>
+<para>
+Gets the current EGLDisplay.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> an EGLDisplay
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.4</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

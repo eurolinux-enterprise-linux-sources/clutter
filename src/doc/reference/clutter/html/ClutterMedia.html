@@ -1,0 +1,635 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterMedia</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="prev" href="ClutterChildMeta.html" title="ClutterChildMeta">
+<link rel="next" href="ch02.html" title="Base actors">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="clutter-overview.html" title="Part I. Overview">
+<link rel="part" href="building-clutter.html" title="Part II. Building Clutter">
+<link rel="part" href="running-clutter.html" title="Part III. Running Clutter">
+<link rel="part" href="clutterbase.html" title="Part IV. Clutter Core Reference">
+<link rel="chapter" href="ch01.html" title="Abstract classes and interfaces">
+<link rel="chapter" href="ch02.html" title="Base actors">
+<link rel="chapter" href="ch03.html" title="Container actors">
+<link rel="part" href="clutteranimation.html" title="Part V. Clutter Animation Framework">
+<link rel="chapter" href="ch04.html" title="Base classes">
+<link rel="chapter" href="ch05.html" title="Behaviours">
+<link rel="chapter" href="ch06.html" title="High Level API">
+<link rel="part" href="cluttertools.html" title="Part VI. Clutter Tools">
+<link rel="chapter" href="ch07.html" title="General purpose API">
+<link rel="chapter" href="ch08.html" title="User interface definition">
+<link rel="chapter" href="ch09.html" title="Generic list model">
+<link rel="part" href="clutterbackends.html" title="Part VII. Clutter Backends">
+<link rel="part" href="additionaldocs.html" title="Part VIII. Additional Documentation">
+<link rel="chapter" href="clutter-subclassing-ClutterActor.html" title="Implementing a new actor">
+<link rel="chapter" href="clutter-animations.html" title="Creating Animations with Clutter">
+<link rel="chapter" href="creating-your-own-behaviours.html" title="Creating You Own Behaviours">
+<link rel="part" href="migration.html" title="Part IX. Migrating from previous version of Clutter">
+<link rel="part" href="pt10.html" title="Part I. ">
+<link rel="chapter" href="migrating-ClutterEffect.html" title="Migrating from ClutterEffect">
+<link rel="chapter" href="migrating-ClutterPath.html" title="Migrating to ClutterPath">
+<link rel="part" href="clutterobjects.html" title="Part X. Clutter Actors and Objects">
+<link rel="chapter" href="clutterobjecthierarchy.html" title="Object Hierarchy">
+<link rel="chapter" href="clutterobjectindex.html" title="Object Index">
+<link rel="part" href="clutterglossary.html" title="Part XI. Glossaries">
+<link rel="glossary" href="go01.html" title="Glossary">
+<link rel="glossary" href="annotation-glossary.html" title="Annotation Glossary">
+<link rel="index" href="ix01.html" title="Index of all symbols">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.2">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.4">
+<link rel="index" href="ix05.html" title="Index of new symbols in 0.6">
+<link rel="index" href="ix06.html" title="Index of new symbols in 0.8">
+<link rel="index" href="ix07.html" title="Index of new symbols in 1.0">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ClutterChildMeta.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="ch02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ClutterMedia.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#ClutterMedia.description" class="shortcut">Description</a>
+                 | 
+                <a href="#ClutterMedia.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#ClutterMedia.properties" class="shortcut">Properties</a>
+                 | 
+                <a href="#ClutterMedia.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ClutterMedia"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ClutterMedia.top_of_page"></a>ClutterMedia</span></h2>
+<p>ClutterMedia — An interface for controlling playback of media data</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ClutterMedia.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="ClutterMedia.html#ClutterMedia-struct" title="ClutterMedia">ClutterMedia</a>;
+                    <a class="link" href="ClutterMedia.html#ClutterMediaIface" title="ClutterMediaIface">ClutterMediaIface</a>;
+void                <a class="link" href="ClutterMedia.html#clutter-media-set-uri" title="clutter_media_set_uri ()">clutter_media_set_uri</a>               (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         const gchar *uri);
+gchar *             <a class="link" href="ClutterMedia.html#clutter-media-get-uri" title="clutter_media_get_uri ()">clutter_media_get_uri</a>               (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+void                <a class="link" href="ClutterMedia.html#clutter-media-set-playing" title="clutter_media_set_playing ()">clutter_media_set_playing</a>           (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gboolean playing);
+gboolean            <a class="link" href="ClutterMedia.html#clutter-media-get-playing" title="clutter_media_get_playing ()">clutter_media_get_playing</a>           (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+void                <a class="link" href="ClutterMedia.html#clutter-media-set-progress" title="clutter_media_set_progress ()">clutter_media_set_progress</a>          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gdouble progress);
+gdouble             <a class="link" href="ClutterMedia.html#clutter-media-get-progress" title="clutter_media_get_progress ()">clutter_media_get_progress</a>          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+void                <a class="link" href="ClutterMedia.html#clutter-media-set-audio-volume" title="clutter_media_set_audio_volume ()">clutter_media_set_audio_volume</a>      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gdouble volume);
+gdouble             <a class="link" href="ClutterMedia.html#clutter-media-get-audio-volume" title="clutter_media_get_audio_volume ()">clutter_media_get_audio_volume</a>      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+gboolean            <a class="link" href="ClutterMedia.html#clutter-media-get-can-seek" title="clutter_media_get_can_seek ()">clutter_media_get_can_seek</a>          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+gdouble             <a class="link" href="ClutterMedia.html#clutter-media-get-buffer-fill" title="clutter_media_get_buffer_fill ()">clutter_media_get_buffer_fill</a>       (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+gdouble             <a class="link" href="ClutterMedia.html#clutter-media-get-duration" title="clutter_media_get_duration ()">clutter_media_get_duration</a>          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);
+void                <a class="link" href="ClutterMedia.html#clutter-media-set-filename" title="clutter_media_set_filename ()">clutter_media_set_filename</a>          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         const gchar *filename);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----ClutterMedia
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--audio-volume" title='The "audio-volume" property'>audio-volume</a>"             gdouble               : Read / Write
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--buffer-fill" title='The "buffer-fill" property'>buffer-fill</a>"              gdouble               : Read
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--can-seek" title='The "can-seek" property'>can-seek</a>"                 gboolean              : Read
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--duration" title='The "duration" property'>duration</a>"                 gdouble               : Read
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--playing" title='The "playing" property'>playing</a>"                  gboolean              : Read / Write
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--progress" title='The "progress" property'>progress</a>"                 gdouble               : Read / Write
+  "<a class="link" href="ClutterMedia.html#ClutterMedia--uri" title='The "uri" property'>uri</a>"                      gchar*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterMedia.html#ClutterMedia-eos" title='The "eos" signal'>eos</a>"                                            : Run Last
+  "<a class="link" href="ClutterMedia.html#ClutterMedia-error" title='The "error" signal'>error</a>"                                          : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> is an interface for controlling playback of media sources.
+</p>
+<p>
+Clutter core does not provide an implementation of this interface, but
+other integration libraries like Clutter-GStreamer implement it to offer
+a uniform API for applications.
+</p>
+<p>
+<a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> is available since Clutter 0.2</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia-struct"></a><h3>ClutterMedia</h3>
+<pre class="programlisting">typedef struct _ClutterMedia ClutterMedia;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMediaIface"></a><h3>ClutterMediaIface</h3>
+<pre class="programlisting">typedef struct {
+} ClutterMediaIface;
+</pre>
+<p>
+Interface vtable for <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> implementations</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-set-uri"></a><h3>clutter_media_set_uri ()</h3>
+<pre class="programlisting">void                clutter_media_set_uri               (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         const gchar *uri);</pre>
+<p>
+Sets the URI of <em class="parameter"><code>media</code></em> to <em class="parameter"><code>uri</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI of the media stream
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-uri"></a><h3>clutter_media_get_uri ()</h3>
+<pre class="programlisting">gchar *             clutter_media_get_uri               (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the URI from <em class="parameter"><code>media</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the URI of the media stream. Use <code class="function">g_free()</code>
+  to free the returned string
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-set-playing"></a><h3>clutter_media_set_playing ()</h3>
+<pre class="programlisting">void                clutter_media_set_playing           (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gboolean playing);</pre>
+<p>
+Starts or stops playing of <em class="parameter"><code>media</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>playing</code></em> :</span></p></td>
+<td> <code class="literal">TRUE</code> to start playing
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-playing"></a><h3>clutter_media_get_playing ()</h3>
+<pre class="programlisting">gboolean            clutter_media_get_playing           (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the playing status of <em class="parameter"><code>media</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> A <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if playing, <code class="literal">FALSE</code> if stopped.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-set-progress"></a><h3>clutter_media_set_progress ()</h3>
+<pre class="programlisting">void                clutter_media_set_progress          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gdouble progress);</pre>
+<p>
+Sets the playback progress of <em class="parameter"><code>media</code></em>. The <em class="parameter"><code>progress</code></em> is
+a normalized value between 0.0 (begin) and 1.0 (end).</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td> the progress of the playback, between 0.0 and 1.0
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-progress"></a><h3>clutter_media_get_progress ()</h3>
+<pre class="programlisting">gdouble             clutter_media_get_progress          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the playback progress of <em class="parameter"><code>media</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the playback progress, between 0.0 and 1.0
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-set-audio-volume"></a><h3>clutter_media_set_audio_volume ()</h3>
+<pre class="programlisting">void                clutter_media_set_audio_volume      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         gdouble volume);</pre>
+<p>
+Sets the playback volume of <em class="parameter"><code>media</code></em> to <em class="parameter"><code>volume</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td> the volume as a double between 0.0 and 1.0
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-audio-volume"></a><h3>clutter_media_get_audio_volume ()</h3>
+<pre class="programlisting">gdouble             clutter_media_get_audio_volume      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the playback volume of <em class="parameter"><code>media</code></em>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The playback volume between 0.0 and 1.0
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-can-seek"></a><h3>clutter_media_get_can_seek ()</h3>
+<pre class="programlisting">gboolean            clutter_media_get_can_seek          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves whether <em class="parameter"><code>media</code></em> is seekable or not.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>media</code></em> can seek, <code class="literal">FALSE</code> otherwise.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-buffer-fill"></a><h3>clutter_media_get_buffer_fill ()</h3>
+<pre class="programlisting">gdouble             clutter_media_get_buffer_fill       (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the amount of the stream that is buffered.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the fill level, between 0.0 and 1.0
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-get-duration"></a><h3>clutter_media_get_duration ()</h3>
+<pre class="programlisting">gdouble             clutter_media_get_duration          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media);</pre>
+<p>
+Retrieves the duration of the media stream that <em class="parameter"><code>media</code></em> represents.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the duration of the media stream, in seconds
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="clutter-media-set-filename"></a><h3>clutter_media_set_filename ()</h3>
+<pre class="programlisting">void                clutter_media_set_filename          (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                         const gchar *filename);</pre>
+<p>
+Sets the source of <em class="parameter"><code>media</code></em> using a file path.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> a <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td> A filename
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.2</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--audio-volume"></a><h3>The <code class="literal">"audio-volume"</code> property</h3>
+<pre class="programlisting">  "audio-volume"             gdouble               : Read / Write</pre>
+<p>
+The volume of the audio, as a normalized value between
+0.0 and 1.0.</p>
+<p>
+</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0.5</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--buffer-fill"></a><h3>The <code class="literal">"buffer-fill"</code> property</h3>
+<pre class="programlisting">  "buffer-fill"              gdouble               : Read</pre>
+<p>
+The fill level of the buffer for the current stream,
+as a value between 0.0 and 1.0.</p>
+<p>
+</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--can-seek"></a><h3>The <code class="literal">"can-seek"</code> property</h3>
+<pre class="programlisting">  "can-seek"                 gboolean              : Read</pre>
+<p>
+Whether the current stream is seekable.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--duration"></a><h3>The <code class="literal">"duration"</code> property</h3>
+<pre class="programlisting">  "duration"                 gdouble               : Read</pre>
+<p>
+The duration of the current stream, in seconds</p>
+<p>
+</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p>Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--playing"></a><h3>The <code class="literal">"playing"</code> property</h3>
+<pre class="programlisting">  "playing"                  gboolean              : Read / Write</pre>
+<p>
+Whether the <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> actor is playing.</p>
+<p>
+</p>
+<p>Default value: FALSE</p>
+<p>Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--progress"></a><h3>The <code class="literal">"progress"</code> property</h3>
+<pre class="programlisting">  "progress"                 gdouble               : Read / Write</pre>
+<p>
+The current progress of the playback, as a normalized
+value between 0.0 and 1.0.</p>
+<p>
+</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0</p>
+<p>Since 1.0</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia--uri"></a><h3>The <code class="literal">"uri"</code> property</h3>
+<pre class="programlisting">  "uri"                      gchar*                : Read / Write</pre>
+<p>
+The location of a media file, expressed as a valid URI.</p>
+<p>
+</p>
+<p>Default value: NULL</p>
+<p>Since 0.2</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ClutterMedia.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia-eos"></a><h3>The <code class="literal">"eos"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                        gpointer      user_data)      : Run Last</pre>
+<p>
+The ::eos signal is emitted each time the media stream ends.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> the <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> instance that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 0.2</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ClutterMedia-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="ClutterMedia.html" title="ClutterMedia">ClutterMedia</a> *media,
+                                                        gpointer      error,
+                                                        gpointer      user_data)      : Run Last</pre>
+<p>
+The ::error signal is emitted each time an error occurred.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td> the <a class="link" href="ClutterMedia.html" title="ClutterMedia"><span class="type">ClutterMedia</span></a> instance that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> the <span class="type">GError</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since 0.2</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

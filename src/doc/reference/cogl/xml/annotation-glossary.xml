@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<glossary id="annotation-glossary">
+  <title>Annotation Glossary</title>
+<glossdiv><title>O</title>
+    <glossentry>
+      <glossterm><anchor id="annotation-glossterm-out"/>out</glossterm>
+      <glossdef>
+        <para>Parameter for returning results. Default is <acronym>transfer-full</acronym>.</para>
+      </glossdef>
+    </glossentry>
+</glossdiv>
+<glossdiv><title>A</title>
+    <glossentry>
+      <glossterm><anchor id="annotation-glossterm-allow-none"/>allow-none</glossterm>
+      <glossdef>
+        <para></para>
+      </glossdef>
+    </glossentry>
+</glossdiv>
+<glossdiv><title>E</title>
+    <glossentry>
+      <glossterm><anchor id="annotation-glossterm-element-type"/>element-type</glossterm>
+      <glossdef>
+        <para>Generics and defining elements of containers and arrays.</para>
+      </glossdef>
+    </glossentry>
+</glossdiv>
+<glossdiv><title>T</title>
+    <glossentry>
+      <glossterm><anchor id="annotation-glossterm-transfer"/>transfer</glossterm>
+      <glossdef>
+        <para></para>
+      </glossdef>
+    </glossentry>
+</glossdiv>
+</glossary>

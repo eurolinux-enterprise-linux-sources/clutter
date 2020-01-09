@@ -1,0 +1,543 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="clutter-Colors">
+<refmeta>
+<refentrytitle role="top_of_page" id="clutter-Colors.top_of_page">Colors</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Colors</refname>
+<refpurpose>Color management and manipulation.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="clutter-Colors.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterColor">ClutterColor</link>;
+<link linkend="ClutterColor">ClutterColor</link> *      <link linkend="clutter-color-new">clutter_color_new</link>                   (<link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);
+<link linkend="ClutterColor">ClutterColor</link> *      <link linkend="clutter-color-copy">clutter_color_copy</link>                  (const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-color-free">clutter_color_free</link>                  (<link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-color-equal">clutter_color_equal</link>                 (<link linkend="gconstpointer">gconstpointer</link> v1,
+                                                         <link linkend="gconstpointer">gconstpointer</link> v2);
+<link linkend="guint">guint</link>               <link linkend="clutter-color-hash">clutter_color_hash</link>                  (<link linkend="gconstpointer">gconstpointer</link> v);
+
+<link linkend="gboolean">gboolean</link>            <link linkend="clutter-color-from-string">clutter_color_from_string</link>           (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         const <link linkend="gchar">gchar</link> *str);
+<link linkend="gchar">gchar</link> *             <link linkend="clutter-color-to-string">clutter_color_to_string</link>             (const <link linkend="ClutterColor">ClutterColor</link> *color);
+<link linkend="void">void</link>                <link linkend="clutter-color-from-hls">clutter_color_from_hls</link>              (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gfloat">gfloat</link> hue,
+                                                         <link linkend="gfloat">gfloat</link> luminance,
+                                                         <link linkend="gfloat">gfloat</link> saturation);
+<link linkend="void">void</link>                <link linkend="clutter-color-to-hls">clutter_color_to_hls</link>                (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gfloat">gfloat</link> *hue,
+                                                         <link linkend="gfloat">gfloat</link> *luminance,
+                                                         <link linkend="gfloat">gfloat</link> *saturation);
+<link linkend="void">void</link>                <link linkend="clutter-color-from-pixel">clutter_color_from_pixel</link>            (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="guint32">guint32</link> pixel);
+<link linkend="guint32">guint32</link>             <link linkend="clutter-color-to-pixel">clutter_color_to_pixel</link>              (const <link linkend="ClutterColor">ClutterColor</link> *color);
+
+<link linkend="void">void</link>                <link linkend="clutter-color-add">clutter_color_add</link>                   (const <link linkend="ClutterColor">ClutterColor</link> *a,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *b,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);
+<link linkend="void">void</link>                <link linkend="clutter-color-subtract">clutter_color_subtract</link>              (const <link linkend="ClutterColor">ClutterColor</link> *a,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *b,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);
+<link linkend="void">void</link>                <link linkend="clutter-color-lighten">clutter_color_lighten</link>               (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);
+<link linkend="void">void</link>                <link linkend="clutter-color-darken">clutter_color_darken</link>                (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);
+<link linkend="void">void</link>                <link linkend="clutter-color-shade">clutter_color_shade</link>                 (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gdouble">gdouble</link> factor,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);
+
+                    <link linkend="ClutterParamSpecColor">ClutterParamSpecColor</link>;
+<link linkend="GParamSpec">GParamSpec</link> *        <link linkend="clutter-param-spec-color">clutter_param_spec_color</link>            (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *nick,
+                                                         const <link linkend="gchar">gchar</link> *blurb,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *default_value,
+                                                         <link linkend="GParamFlags">GParamFlags</link> flags);
+#define             <link linkend="CLUTTER-VALUE-HOLDS-COLOR--CAPS">CLUTTER_VALUE_HOLDS_COLOR</link>           (x)
+<link linkend="void">void</link>                <link linkend="clutter-value-set-color">clutter_value_set_color</link>             (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+const <link linkend="ClutterColor">ClutterColor</link> * <link linkend="clutter-value-get-color">clutter_value_get_color</link>            (const <link linkend="GValue">GValue</link> *value);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="clutter-Colors.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterColor"><type>ClutterColor</type></link> is a simple type for representing colors in Clutter.
+</para>
+<para>
+A <link linkend="ClutterColor"><type>ClutterColor</type></link> is expressed as a 4-tuple of values ranging from
+zero to 255, one for each color channel plus one for the alpha.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="clutter-Colors.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterColor" role="struct">
+<title>ClutterColor</title>
+<indexterm zone="ClutterColor"><primary sortas="Color">ClutterColor</primary></indexterm><programlisting>typedef struct {
+  guint8 red;
+  guint8 green;
+  guint8 blue;
+  
+  guint8 alpha;
+} ClutterColor;
+</programlisting>
+<para>
+Color representation.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&#160;<structfield>red</structfield>;</term>
+<listitem><simpara> red component, between 0 and 255
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&#160;<structfield>green</structfield>;</term>
+<listitem><simpara> green component, between 0 and 255
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&#160;<structfield>blue</structfield>;</term>
+<listitem><simpara> blue component, between 0 and 255
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&#160;<structfield>alpha</structfield>;</term>
+<listitem><simpara> alpha component, between 0 and 255
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-new" role="function" condition="since:0.8.4">
+<title>clutter_color_new ()</title>
+<indexterm zone="clutter-color-new" role="0.8.4"><primary sortas="color_new">clutter_color_new</primary></indexterm><programlisting><link linkend="ClutterColor">ClutterColor</link> *      clutter_color_new                   (<link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);</programlisting>
+<para>
+Creates a new <link linkend="ClutterColor"><type>ClutterColor</type></link> with the given values.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> red component of the color, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> green component of the color, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> blue component of the color, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> alpha component of the color, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly allocated color. Use <link linkend="clutter-color-free"><function>clutter_color_free()</function></link>
+  when done
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.4</para></refsect2>
+<refsect2 id="clutter-color-copy" role="function" condition="since:0.2">
+<title>clutter_color_copy ()</title>
+<indexterm zone="clutter-color-copy" role="0.2"><primary sortas="color_copy">clutter_color_copy</primary></indexterm><programlisting><link linkend="ClutterColor">ClutterColor</link> *      clutter_color_copy                  (const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Makes a copy of the color structure.  The result must be
+freed using <link linkend="clutter-color-free"><function>clutter_color_free()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> an allocated copy of <parameter>color</parameter>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-color-free" role="function" condition="since:0.2">
+<title>clutter_color_free ()</title>
+<indexterm zone="clutter-color-free" role="0.2"><primary sortas="color_free">clutter_color_free</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_free                  (<link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Frees a color structure created with <link linkend="clutter-color-copy"><function>clutter_color_copy()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-color-equal" role="function" condition="since:0.2">
+<title>clutter_color_equal ()</title>
+<indexterm zone="clutter-color-equal" role="0.2"><primary sortas="color_equal">clutter_color_equal</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_color_equal                 (<link linkend="gconstpointer">gconstpointer</link> v1,
+                                                         <link linkend="gconstpointer">gconstpointer</link> v2);</programlisting>
+<para>
+Compares two <link linkend="ClutterColor"><type>ClutterColor</type></link><!-- -->s and checks if they are the same.
+</para>
+<para>
+This function can be passed to <link linkend="g-hash-table-new"><function>g_hash_table_new()</function></link> as the <parameter>key_equal_func</parameter>
+parameter, when using <link linkend="ClutterColor"><type>ClutterColor</type></link><!-- -->s as keys in a <link linkend="GHashTable"><type>GHashTable</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>v1</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>v2</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the two colors are the same.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-color-hash" role="function" condition="since:1.0">
+<title>clutter_color_hash ()</title>
+<indexterm zone="clutter-color-hash" role="1.0"><primary sortas="color_hash">clutter_color_hash</primary></indexterm><programlisting><link linkend="guint">guint</link>               clutter_color_hash                  (<link linkend="gconstpointer">gconstpointer</link> v);</programlisting>
+<para>
+Converts a <link linkend="ClutterColor"><type>ClutterColor</type></link> to a hash value.
+</para>
+<para>
+This function can be passed to <link linkend="g-hash-table-new"><function>g_hash_table_new()</function></link> as the <parameter>hash_func</parameter>
+parameter, when using <link linkend="ClutterColor"><type>ClutterColor</type></link><!-- -->s as keys in a <link linkend="GHashTable"><type>GHashTable</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>v</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a hash value corresponding to the color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-color-from-string" role="function" condition="since:1.0">
+<title>clutter_color_from_string ()</title>
+<indexterm zone="clutter-color-from-string" role="1.0"><primary sortas="color_from_string">clutter_color_from_string</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            clutter_color_from_string           (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         const <link linkend="gchar">gchar</link> *str);</programlisting>
+<para>
+Parses a string definition of a color, filling the
+<structfield>red</structfield>, <structfield>green</structfield>, 
+<structfield>blue</structfield> and <structfield>alpha</structfield> 
+channels of <parameter>color</parameter>. If alpha is not specified it will be set full opaque.
+</para>
+<para>
+The <parameter>color</parameter> is not allocated.
+</para>
+<para>
+The color may be defined by any of the formats understood by
+<link linkend="pango-color-from-string"><function>pango_color_from_string()</function></link>; these include literal color names, like
+<literal>Red</literal> or <literal>DarkSlateGray</literal>, or
+hexadecimal specifications like <literal>&num;3050b2</literal> or
+<literal>&num;333</literal>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara> a string specifiying a color (named color or <link linkend="RRGGBBAA--CAPS"><type>RRGGBBAA</type></link>)
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if parsing succeeded.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-color-to-string" role="function" condition="since:0.2">
+<title>clutter_color_to_string ()</title>
+<indexterm zone="clutter-color-to-string" role="0.2"><primary sortas="color_to_string">clutter_color_to_string</primary></indexterm><programlisting><link linkend="gchar">gchar</link> *             clutter_color_to_string             (const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Returns a textual specification of <parameter>color</parameter> in the hexadecimal form
+<literal>&num;rrggbbaa</literal>, where <literal>r</literal>,
+<literal>g</literal>, <literal>b</literal> and <literal>a</literal> are
+hex digits representing the red, green, blue and alpha components
+respectively.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly-allocated text string
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="clutter-color-from-hls" role="function">
+<title>clutter_color_from_hls ()</title>
+<indexterm zone="clutter-color-from-hls"><primary sortas="color_from_hls">clutter_color_from_hls</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_from_hls              (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gfloat">gfloat</link> hue,
+                                                         <link linkend="gfloat">gfloat</link> luminance,
+                                                         <link linkend="gfloat">gfloat</link> saturation);</programlisting>
+<para>
+Converts a color expressed in HLS (hue, luminance and saturation)
+values into a <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>hue</parameter>&#160;:</term>
+<listitem><simpara> hue value, in the 0 .. 360 range
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>luminance</parameter>&#160;:</term>
+<listitem><simpara> luminance value, in the 0 .. 1 range
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>saturation</parameter>&#160;:</term>
+<listitem><simpara> saturation value, in the 0 .. 1 range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-to-hls" role="function">
+<title>clutter_color_to_hls ()</title>
+<indexterm zone="clutter-color-to-hls"><primary sortas="color_to_hls">clutter_color_to_hls</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_to_hls                (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gfloat">gfloat</link> *hue,
+                                                         <link linkend="gfloat">gfloat</link> *luminance,
+                                                         <link linkend="gfloat">gfloat</link> *saturation);</programlisting>
+<para>
+Converts <parameter>color</parameter> to the HLS format.
+</para>
+<para>
+The <parameter>hue</parameter> value is in the 0 .. 360 range. The <parameter>luminance</parameter> and
+<parameter>saturation</parameter> values are in the 0 .. 1 range.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>hue</parameter>&#160;:</term>
+<listitem><simpara> return location for the hue value or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>luminance</parameter>&#160;:</term>
+<listitem><simpara> return location for the luminance value or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>saturation</parameter>&#160;:</term>
+<listitem><simpara> return location for the saturation value or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-from-pixel" role="function">
+<title>clutter_color_from_pixel ()</title>
+<indexterm zone="clutter-color-from-pixel"><primary sortas="color_from_pixel">clutter_color_from_pixel</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_from_pixel            (<link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="guint32">guint32</link> pixel);</programlisting>
+<para>
+Converts <parameter>pixel</parameter> from the packed representation of a four 8 bit channel
+color to a <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> return location for a <link linkend="ClutterColor"><type>ClutterColor</type></link>. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixel</parameter>&#160;:</term>
+<listitem><simpara> a 32 bit packed integer containing a color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-to-pixel" role="function">
+<title>clutter_color_to_pixel ()</title>
+<indexterm zone="clutter-color-to-pixel"><primary sortas="color_to_pixel">clutter_color_to_pixel</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             clutter_color_to_pixel              (const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Converts <parameter>color</parameter> into a packed 32 bit integer, containing
+all the four 8 bit channels used by <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a packed color
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-add" role="function">
+<title>clutter_color_add ()</title>
+<indexterm zone="clutter-color-add"><primary sortas="color_add">clutter_color_add</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_add                   (const <link linkend="ClutterColor">ClutterColor</link> *a,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *b,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);</programlisting>
+<para>
+Adds <parameter>a</parameter> to <parameter>b</parameter> and saves the resulting color inside <parameter>result</parameter>.
+</para>
+<para>
+The alpha channel of <parameter>result</parameter> is set as as the maximum value
+between the alpha channels of <parameter>a</parameter> and <parameter>b</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> return location for the result. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-subtract" role="function">
+<title>clutter_color_subtract ()</title>
+<indexterm zone="clutter-color-subtract"><primary sortas="color_subtract">clutter_color_subtract</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_subtract              (const <link linkend="ClutterColor">ClutterColor</link> *a,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *b,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);</programlisting>
+<para>
+Subtracts <parameter>b</parameter> from <parameter>a</parameter> and saves the resulting color inside <parameter>result</parameter>.
+</para>
+<para>
+This function assumes that the components of <parameter>a</parameter> are greater than the
+components of <parameter>b</parameter>; the result is, otherwise, undefined.
+</para>
+<para>
+The alpha channel of <parameter>result</parameter> is set as the minimum value
+between the alpha channels of <parameter>a</parameter> and <parameter>b</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> return location for the result. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-lighten" role="function">
+<title>clutter_color_lighten ()</title>
+<indexterm zone="clutter-color-lighten"><primary sortas="color_lighten">clutter_color_lighten</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_lighten               (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);</programlisting>
+<para>
+Lightens <parameter>color</parameter> by a fixed amount, and saves the changed color
+in <parameter>result</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> return location for the lighter color. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-darken" role="function">
+<title>clutter_color_darken ()</title>
+<indexterm zone="clutter-color-darken"><primary sortas="color_darken">clutter_color_darken</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_darken                (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);</programlisting>
+<para>
+Darkens <parameter>color</parameter> by a fixed amount, and saves the changed color
+in <parameter>result</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> return location for the darker color. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="clutter-color-shade" role="function">
+<title>clutter_color_shade ()</title>
+<indexterm zone="clutter-color-shade"><primary sortas="color_shade">clutter_color_shade</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_color_shade                 (const <link linkend="ClutterColor">ClutterColor</link> *color,
+                                                         <link linkend="gdouble">gdouble</link> factor,
+                                                         <link linkend="ClutterColor">ClutterColor</link> *result);</programlisting>
+<para>
+Shades <parameter>color</parameter> by <parameter>factor</parameter> and saves the modified color into <parameter>result</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>factor</parameter>&#160;:</term>
+<listitem><simpara> the shade factor to apply
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> return location for the shaded color. <acronym>out</acronym>. </simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="ClutterParamSpecColor" role="struct" condition="since:1.0">
+<title>ClutterParamSpecColor</title>
+<indexterm zone="ClutterParamSpecColor" role="1.0"><primary sortas="ParamSpecColor">ClutterParamSpecColor</primary></indexterm><programlisting>typedef struct {
+  ClutterColor *default_value;
+} ClutterParamSpecColor;
+</programlisting>
+<para>
+A <link linkend="GParamSpec"><type>GParamSpec</type></link> subclass for defining properties holding
+a <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="ClutterColor">ClutterColor</link>&#160;*<structfield>default_value</structfield>;</term>
+<listitem><simpara> default color value
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-param-spec-color" role="function" condition="since:0.8.4">
+<title>clutter_param_spec_color ()</title>
+<indexterm zone="clutter-param-spec-color" role="0.8.4"><primary sortas="param_spec_color">clutter_param_spec_color</primary></indexterm><programlisting><link linkend="GParamSpec">GParamSpec</link> *        clutter_param_spec_color            (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *nick,
+                                                         const <link linkend="gchar">gchar</link> *blurb,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *default_value,
+                                                         <link linkend="GParamFlags">GParamFlags</link> flags);</programlisting>
+<para>
+Creates a <link linkend="GParamSpec"><type>GParamSpec</type></link> for properties using <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> name of the property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>nick</parameter>&#160;:</term>
+<listitem><simpara> short name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blurb</parameter>&#160;:</term>
+<listitem><simpara> description (can be translatable)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_value</parameter>&#160;:</term>
+<listitem><simpara> default value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara> flags for the param spec
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="GParamSpec"><type>GParamSpec</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.4</para></refsect2>
+<refsect2 id="CLUTTER-VALUE-HOLDS-COLOR--CAPS" role="macro" condition="since:1.0">
+<title>CLUTTER_VALUE_HOLDS_COLOR()</title>
+<indexterm zone="CLUTTER-VALUE-HOLDS-COLOR--CAPS" role="1.0"><primary sortas="VALUE_HOLDS_COLOR">CLUTTER_VALUE_HOLDS_COLOR</primary></indexterm><programlisting>#define CLUTTER_VALUE_HOLDS_COLOR(x)       (G_VALUE_HOLDS ((x), CLUTTER_TYPE_COLOR))
+</programlisting>
+<para>
+Evaluates to <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if <parameter>x</parameter> holds a <link linkend="ClutterColor"><type>ClutterColor</type></link><!-- -->.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-value-set-color" role="function" condition="since:0.8.4">
+<title>clutter_value_set_color ()</title>
+<indexterm zone="clutter-value-set-color" role="0.8.4"><primary sortas="value_set_color">clutter_value_set_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_value_set_color             (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Sets <parameter>value</parameter> to <parameter>color</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> initialized to <link linkend="CLUTTER-TYPE-COLOR--CAPS"><type>CLUTTER_TYPE_COLOR</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> the color to set
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.4</para></refsect2>
+<refsect2 id="clutter-value-get-color" role="function" condition="since:0.8.4">
+<title>clutter_value_get_color ()</title>
+<indexterm zone="clutter-value-get-color" role="0.8.4"><primary sortas="value_get_color">clutter_value_get_color</primary></indexterm><programlisting>const <link linkend="ClutterColor">ClutterColor</link> * clutter_value_get_color            (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the <link linkend="ClutterColor"><type>ClutterColor</type></link> contained in <parameter>value</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="GValue"><type>GValue</type></link> initialized to <link linkend="CLUTTER-TYPE-COLOR--CAPS"><type>CLUTTER_TYPE_COLOR</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the colors inside the passed <link linkend="GValue"><type>GValue</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.4</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

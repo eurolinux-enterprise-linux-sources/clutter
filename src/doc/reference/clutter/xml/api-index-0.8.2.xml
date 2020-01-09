@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="clutter-get-option-group-without-init"><link linkend="clutter-get-option-group-without-init">clutter_get_option_group_without_init</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="clutter-script-list-objects"><link linkend="clutter-script-list-objects">clutter_script_list_objects</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ClutterStage--perspective"><link linkend="ClutterStage--perspective">ClutterStage:perspective</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

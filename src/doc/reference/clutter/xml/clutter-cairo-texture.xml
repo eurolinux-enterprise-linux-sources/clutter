@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<refentry id="ClutterCairoTexture">
+<refmeta>
+<refentrytitle role="top_of_page" id="ClutterCairoTexture.top_of_page">ClutterCairoTexture</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>CLUTTER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ClutterCairoTexture</refname>
+<refpurpose>Texture with Cairo integration</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ClutterCairoTexture.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="ClutterCairoTexture-struct">ClutterCairoTexture</link>;
+                    <link linkend="ClutterCairoTextureClass">ClutterCairoTextureClass</link>;
+<link linkend="ClutterActor">ClutterActor</link> *      <link linkend="clutter-cairo-texture-new">clutter_cairo_texture_new</link>           (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);
+<link linkend="void">void</link>                <link linkend="clutter-cairo-texture-set-surface-size">clutter_cairo_texture_set_surface_size</link>
+                                                        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);
+<link linkend="void">void</link>                <link linkend="clutter-cairo-texture-get-surface-size">clutter_cairo_texture_get_surface_size</link>
+                                                        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="guint">guint</link> *width,
+                                                         <link linkend="guint">guint</link> *height);
+
+<link linkend="cairo-t">cairo_t</link> *           <link linkend="clutter-cairo-texture-create">clutter_cairo_texture_create</link>        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self);
+<link linkend="cairo-t">cairo_t</link> *           <link linkend="clutter-cairo-texture-create-region">clutter_cairo_texture_create_region</link> (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="gint">gint</link> x_offset,
+                                                         <link linkend="gint">gint</link> y_offset,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);
+<link linkend="void">void</link>                <link linkend="clutter-cairo-texture-clear">clutter_cairo_texture_clear</link>         (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self);
+
+<link linkend="void">void</link>                <link linkend="clutter-cairo-set-source-color">clutter_cairo_set_source_color</link>      (<link linkend="cairo-t">cairo_t</link> *cr,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="ClutterCairoTexture.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="ClutterActor">ClutterActor</link>
+               +----<link linkend="ClutterTexture">ClutterTexture</link>
+                     +----ClutterCairoTexture
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterCairoTexture.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ClutterCairoTexture implements
+ <link linkend="ClutterScriptable">ClutterScriptable</link>.</para>
+</refsect1>
+
+
+<refsect1 id="ClutterCairoTexture.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ClutterCairoTexture--surface-height">surface-height</link>&quot;           <link linkend="guint">guint</link>                 : Read / Write
+  &quot;<link linkend="ClutterCairoTexture--surface-width">surface-width</link>&quot;            <link linkend="guint">guint</link>                 : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1 id="ClutterCairoTexture.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> is a <link linkend="ClutterTexture"><type>ClutterTexture</type></link> that displays the contents
+of a Cairo context. The <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> actor will create a
+Cairo image surface which will then be uploaded to a GL texture when
+needed.
+</para>
+<para>
+<link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> will provide a <link linkend="cairo-t"><type>cairo_t</type></link> context by using the
+<link linkend="clutter-cairo-texture-create"><function>clutter_cairo_texture_create()</function></link> and <link linkend="clutter-cairo-texture-create-region"><function>clutter_cairo_texture_create_region()</function></link>
+functions; you can use the Cairo API to draw on the context and then
+call <link linkend="cairo-destroy"><function>cairo_destroy()</function></link> when done.
+</para>
+<para>
+As soon as the context is destroyed with <link linkend="cairo-destroy"><function>cairo_destroy()</function></link>, the contents
+of the surface will be uploaded into the <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> actor:
+</para>
+<para>
+<informalexample><programlisting>
+  cairo_t *cr;
+
+  cr = clutter_cairo_texture_create (CLUTTER_CAIRO_TEXTURE (texture));
+
+  /&ast; draw on the context &ast;/
+
+  cairo_destroy (cr);
+</programlisting></informalexample>
+</para>
+<para>
+Although a new <link linkend="cairo-t"><type>cairo_t</type></link> is created each time you call
+<link linkend="clutter-cairo-texture-create"><function>clutter_cairo_texture_create()</function></link> or
+<link linkend="clutter-cairo-texture-create-region"><function>clutter_cairo_texture_create_region()</function></link>, it uses the same
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> each time. You can call
+<link linkend="clutter-cairo-texture-clear"><function>clutter_cairo_texture_clear()</function></link> to erase the contents between calls.
+</para>
+<para>
+<warning><para>Note that you should never use the code above inside the
+<link linkend="ClutterActor-paint"><type>"paint"</type></link> or <link linkend="ClutterActor-pick"><type>"pick"</type></link> virtual functions or
+signal handlers because it will lead to performance
+degradation.</para></warning>
+</para>
+<para>
+<note><para>Since <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> uses a Cairo image surface
+internally all the drawing operations will be performed in
+software and not using hardware acceleration. This can lead to
+performance degradation if the contents of the texture change
+frequently.</para></note>
+</para>
+<para>
+<link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> is available since Clutter 1.0.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ClutterCairoTexture.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ClutterCairoTexture-struct" role="struct">
+<title>ClutterCairoTexture</title>
+<indexterm zone="ClutterCairoTexture-struct" role="1.0"><primary sortas="CairoTexture">ClutterCairoTexture</primary></indexterm><programlisting>typedef struct _ClutterCairoTexture ClutterCairoTexture;</programlisting>
+<para>
+The <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> struct contains only private data.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="ClutterCairoTextureClass" role="struct" condition="since:1.0">
+<title>ClutterCairoTextureClass</title>
+<indexterm zone="ClutterCairoTextureClass" role="1.0"><primary sortas="CairoTextureClass">ClutterCairoTextureClass</primary></indexterm><programlisting>typedef struct {
+} ClutterCairoTextureClass;
+</programlisting>
+<para>
+The <link linkend="ClutterCairoTextureClass"><type>ClutterCairoTextureClass</type></link> struct contains only private data.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-new" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_new ()</title>
+<indexterm zone="clutter-cairo-texture-new" role="1.0"><primary sortas="cairo_texture_new">clutter_cairo_texture_new</primary></indexterm><programlisting><link linkend="ClutterActor">ClutterActor</link> *      clutter_cairo_texture_new           (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);</programlisting>
+<para>
+Creates a new <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> actor, with a surface of <parameter>width</parameter> by
+<parameter>height</parameter> pixels.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> the width of the surface
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> the height of the surface
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link> actor
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-set-surface-size" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_set_surface_size ()</title>
+<indexterm zone="clutter-cairo-texture-set-surface-size" role="1.0"><primary sortas="cairo_texture_set_surface_size">clutter_cairo_texture_set_surface_size</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_cairo_texture_set_surface_size
+                                                        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);</programlisting>
+<para>
+Resizes the Cairo surface used by <parameter>self</parameter> to <parameter>width</parameter> and <parameter>height</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> the new width of the surface
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> the new height of the surface
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-get-surface-size" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_get_surface_size ()</title>
+<indexterm zone="clutter-cairo-texture-get-surface-size" role="1.0"><primary sortas="cairo_texture_get_surface_size">clutter_cairo_texture_get_surface_size</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_cairo_texture_get_surface_size
+                                                        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="guint">guint</link> *width,
+                                                         <link linkend="guint">guint</link> *height);</programlisting>
+<para>
+Retrieves the surface width and height for <parameter>self</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> return location for the surface width, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> return location for the surface height, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-create" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_create ()</title>
+<indexterm zone="clutter-cairo-texture-create" role="1.0"><primary sortas="cairo_texture_create">clutter_cairo_texture_create</primary></indexterm><programlisting><link linkend="cairo-t">cairo_t</link> *           clutter_cairo_texture_create        (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self);</programlisting>
+<para>
+Creates a new Cairo context for the <parameter>cairo</parameter> texture. It is
+similar to using <link linkend="clutter-cairo-texture-create-region"><function>clutter_cairo_texture_create_region()</function></link> with <parameter>x_offset</parameter>
+and <parameter>y_offset</parameter> of 0, <parameter>width</parameter> equal to the <parameter>cairo</parameter> texture surface width
+and <parameter>height</parameter> equal to the <parameter>cairo</parameter> texture surface height.
+</para>
+<para>
+<warning><para>Do not call this function within the paint virtual
+function or from a callback to the <link linkend="ClutterActor-paint"><type>"paint"</type></link>
+signal.</para></warning></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly created Cairo context. Use <link linkend="cairo-destroy"><function>cairo_destroy()</function></link>
+  to upload the contents of the context when done drawing
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-create-region" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_create_region ()</title>
+<indexterm zone="clutter-cairo-texture-create-region" role="1.0"><primary sortas="cairo_texture_create_region">clutter_cairo_texture_create_region</primary></indexterm><programlisting><link linkend="cairo-t">cairo_t</link> *           clutter_cairo_texture_create_region (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self,
+                                                         <link linkend="gint">gint</link> x_offset,
+                                                         <link linkend="gint">gint</link> y_offset,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);</programlisting>
+<para>
+Creates a new Cairo context that will updat the region defined
+by <parameter>x_offset</parameter>, <parameter>y_offset</parameter>, <parameter>width</parameter> and <parameter>height</parameter>.
+</para>
+<para>
+<warning><para>Do not call this function within the paint virtual
+function or from a callback to the <link linkend="ClutterActor-paint"><type>"paint"</type></link>
+signal.</para></warning></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x_offset</parameter>&#160;:</term>
+<listitem><simpara> offset of the region on the X axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y_offset</parameter>&#160;:</term>
+<listitem><simpara> offset of the region on the Y axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> width of the region, or -1 for the full surface width
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> height of the region, or -1 for the full surface height
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly created Cairo context. Use <link linkend="cairo-destroy"><function>cairo_destroy()</function></link>
+  to upload the contents of the context when done drawing
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-texture-clear" role="function" condition="since:1.0">
+<title>clutter_cairo_texture_clear ()</title>
+<indexterm zone="clutter-cairo-texture-clear" role="1.0"><primary sortas="cairo_texture_clear">clutter_cairo_texture_clear</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_cairo_texture_clear         (<link linkend="ClutterCairoTexture">ClutterCairoTexture</link> *self);</programlisting>
+<para>
+Clears <parameter>self</parameter>'s internal drawing surface, so that the next upload
+will replace the previous contents of the <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+rather than adding to it.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="clutter-cairo-set-source-color" role="function" condition="since:1.0">
+<title>clutter_cairo_set_source_color ()</title>
+<indexterm zone="clutter-cairo-set-source-color" role="1.0"><primary sortas="cairo_set_source_color">clutter_cairo_set_source_color</primary></indexterm><programlisting><link linkend="void">void</link>                clutter_cairo_set_source_color      (<link linkend="cairo-t">cairo_t</link> *cr,
+                                                         const <link linkend="ClutterColor">ClutterColor</link> *color);</programlisting>
+<para>
+Utility function for setting the source color of <parameter>cr</parameter> using
+a <link linkend="ClutterColor"><type>ClutterColor</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>cr</parameter>&#160;:</term>
+<listitem><simpara> a Cairo context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="ClutterColor"><type>ClutterColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+<refsect1 id="ClutterCairoTexture.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ClutterCairoTexture--surface-height" role="property"><title>The <literal>&quot;surface-height&quot;</literal> property</title>
+<indexterm zone="ClutterCairoTexture--surface-height" role="1.0"><primary sortas="CairoTexture:surface-height">ClutterCairoTexture:surface-height</primary></indexterm><programlisting>  &quot;surface-height&quot;           <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>
+The height of the Cairo surface used by the <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+actor, in pixels.</para>
+<para>
+</para><para>Default value: 0</para>
+<para>Since 1.0</para>
+</refsect2>
+<refsect2 id="ClutterCairoTexture--surface-width" role="property"><title>The <literal>&quot;surface-width&quot;</literal> property</title>
+<indexterm zone="ClutterCairoTexture--surface-width" role="1.0"><primary sortas="CairoTexture:surface-width">ClutterCairoTexture:surface-width</primary></indexterm><programlisting>  &quot;surface-width&quot;            <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>
+The width of the Cairo surface used by the <link linkend="ClutterCairoTexture"><type>ClutterCairoTexture</type></link>
+actor, in pixels.</para>
+<para>
+</para><para>Default value: 0</para>
+<para>Since 1.0</para>
+</refsect2>
+</refsect1>
+
+
+
+
+</refentry>

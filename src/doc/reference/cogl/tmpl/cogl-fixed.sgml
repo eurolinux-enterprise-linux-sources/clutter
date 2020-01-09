@@ -1,0 +1,493 @@
+<!-- ##### SECTION Title ##### -->
+Fixed Point API
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### TYPEDEF CoglFixed ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO COGL_FIXED_BITS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_Q ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_MAX ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_MIN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_FROM_FLOAT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_TO_FLOAT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_FROM_INT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_TO_INT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_FROM_DOUBLE ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_TO_DOUBLE ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FLOAT_TO_INT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FLOAT_TO_UINT ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_EPSILON ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_1 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_0_5 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_30 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_45 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_60 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_90 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_120 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_180 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_240 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_255 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_270 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_360 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_MUL ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+
+
+<!-- ##### MACRO COGL_FIXED_DIV ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+
+
+<!-- ##### MACRO COGL_FIXED_MUL_DIV ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@c: 
+
+
+<!-- ##### MACRO COGL_FIXED_FAST_DIV ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+
+
+<!-- ##### MACRO COGL_FIXED_FAST_MUL ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+
+
+<!-- ##### MACRO COGL_FIXED_FRACTION ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_FLOOR ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_CEIL ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_FIXED_2_PI ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_PI ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_PI_2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_FIXED_PI_4 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_RADIANS_TO_DEGREES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_SQRTI_ARG_10_PERCENT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_SQRTI_ARG_5_PERCENT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO COGL_SQRTI_ARG_MAX ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cogl_sqrti ##### -->
+<para>
+
+</para>
+
+@x: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_atan2 ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_atani ##### -->
+<para>
+
+</para>
+
+@a: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_cos ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_log2 ##### -->
+<para>
+
+</para>
+
+@x: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_pow ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_pow2 ##### -->
+<para>
+
+</para>
+
+@x: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_sin ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_sqrt ##### -->
+<para>
+
+</para>
+
+@x: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_fixed_tan ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+
+<!-- ##### TYPEDEF CoglAngle ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO COGL_ANGLE_FROM_DEG ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_ANGLE_FROM_DEGX ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_ANGLE_TO_DEG ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### MACRO COGL_ANGLE_TO_DEGX ##### -->
+<para>
+
+</para>
+
+@x: 
+
+
+<!-- ##### FUNCTION cogl_angle_cos ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_angle_sin ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_angle_tan ##### -->
+<para>
+
+</para>
+
+@angle: 
+@Returns: 
+
+

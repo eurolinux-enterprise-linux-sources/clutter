@@ -1,0 +1,131 @@
+<!-- ##### SECTION Title ##### -->
+ClutterBehaviourPath
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterBehaviourPath ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL ClutterBehaviourPath::knot-reached ##### -->
+<para>
+
+</para>
+
+@clutterbehaviourpath: the object which received the signal.
+@arg1: 
+
+<!-- ##### ARG ClutterBehaviourPath:path ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterBehaviourPathClass ##### -->
+<para>
+
+</para>
+
+@knot_reached: 
+
+<!-- ##### FUNCTION clutter_behaviour_path_new ##### -->
+<para>
+
+</para>
+
+@alpha: 
+@path: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_behaviour_path_new_with_description ##### -->
+<para>
+
+</para>
+
+@alpha: 
+@desc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_behaviour_path_new_with_knots ##### -->
+<para>
+
+</para>
+
+@alpha: 
+@knots: 
+@n_knots: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_behaviour_path_set_path ##### -->
+<para>
+
+</para>
+
+@pathb: 
+@path: 
+
+
+<!-- ##### FUNCTION clutter_behaviour_path_get_path ##### -->
+<para>
+
+</para>
+
+@pathb: 
+@Returns: 
+
+
+<!-- ##### STRUCT ClutterKnot ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+
+<!-- ##### FUNCTION clutter_knot_copy ##### -->
+<para>
+
+</para>
+
+@knot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_knot_free ##### -->
+<para>
+
+</para>
+
+@knot: 
+
+
+<!-- ##### FUNCTION clutter_knot_equal ##### -->
+<para>
+
+</para>
+
+@knot_a: 
+@knot_b: 
+@Returns: 
+
+

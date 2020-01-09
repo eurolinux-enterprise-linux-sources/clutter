@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Matrices">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Matrices.top_of_page">Matrices</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Matrices</refname>
+<refpurpose>Fuctions for initializing and manipulating 4x4
+                    matrices.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Matrices.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+                    <link linkend="CoglMatrix">CoglMatrix</link>;
+<link linkend="void">void</link>                <link linkend="cogl-matrix-init-identity">cogl_matrix_init_identity</link>           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-frustum">cogl_matrix_frustum</link>                 (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-ortho">cogl_matrix_ortho</link>                   (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-perspective">cogl_matrix_perspective</link>             (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> fov_y,
+                                                         <link linkend="float">float</link> aspect,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-transform-point">cogl_matrix_transform_point</link>         (const <link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> *x,
+                                                         <link linkend="float">float</link> *y,
+                                                         <link linkend="float">float</link> *z,
+                                                         <link linkend="float">float</link> *w);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-multiply">cogl_matrix_multiply</link>                (<link linkend="CoglMatrix">CoglMatrix</link> *result,
+                                                         const <link linkend="CoglMatrix">CoglMatrix</link> *a,
+                                                         const <link linkend="CoglMatrix">CoglMatrix</link> *b);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-rotate">cogl_matrix_rotate</link>                  (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> angle,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-translate">cogl_matrix_translate</link>               (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-scale">cogl_matrix_scale</link>                   (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> sx,
+                                                         <link linkend="float">float</link> sy,
+                                                         <link linkend="float">float</link> sz);
+<link linkend="void">void</link>                <link linkend="cogl-matrix-init-from-array">cogl_matrix_init_from_array</link>         (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         const <link linkend="float">float</link> *array);
+const <link linkend="float">float</link> *       <link linkend="cogl-matrix-get-array">cogl_matrix_get_array</link>               (const <link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Matrices.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Matrices are used in Cogl to describe affine model-view transforms, texture
+transforms, and projective transforms. This exposes a utility API that can
+be used for direct manipulation of these matrices.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Matrices.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CoglMatrix" role="struct">
+<title>CoglMatrix</title>
+<indexterm zone="CoglMatrix"><primary sortas="Matrix">CoglMatrix</primary></indexterm><programlisting>typedef struct {
+} CoglMatrix;
+</programlisting>
+<para>
+A CoglMatrix holds a 4x4 transform matrix. This is a single precision,
+column-major matrix which means it is compatible with what OpenGL expects.
+</para>
+<para>
+A CoglMatrix can represent transforms such as, rotations, scaling,
+translation, sheering, and linear projections. You can combine these
+transforms by multiplying multiple matrices in the order you want them
+applied.
+</para>
+<para>
+The transformation of a vertex (x, y, z, w) by a CoglMatrix is given by:
+</para>
+<para>
+<informalexample><programlisting>
+  x_new = xx * x + xy * y + xz * z + xw * w
+  y_new = yx * x + yy * y + yz * z + yw * w
+  z_new = zx * x + zy * y + zz * z + zw * w
+  w_new = wx * x + wy * y + wz * z + ww * w
+</programlisting></informalexample>
+</para>
+<para>
+Where w is normally 1
+</para>
+<para>
+<note>You must consider the members of the CoglMatrix structure read only,
+and all matrix modifications must be done via the cogl_matrix API. This
+allows Cogl to annotate the matrices internally. Violation of this will give
+undefined results. If you need to initialize a matrix with a constant other
+than the identity matrix you can use <link linkend="cogl-matrix-init-from-array"><function>cogl_matrix_init_from_array()</function></link>.</note></para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-matrix-init-identity" role="function">
+<title>cogl_matrix_init_identity ()</title>
+<indexterm zone="cogl-matrix-init-identity"><primary sortas="matrix_init_identity">cogl_matrix_init_identity</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_init_identity           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+Resets matrix to the identity matrix:
+<programlisting>
+.xx=1; .xy=0; .xz=0; .xw=0;
+.yx=0; .yy=1; .yz=0; .yw=0;
+.zx=0; .zy=0; .zz=1; .zw=0;
+.wx=0; .wy=0; .wz=0; .ww=1;
+</programlisting></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-frustum" role="function">
+<title>cogl_matrix_frustum ()</title>
+<indexterm zone="cogl-matrix-frustum"><primary sortas="matrix_frustum">cogl_matrix_frustum</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_frustum                 (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Multiplies the matrix by the given frustum perspective matrix.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>left</parameter>&#160;:</term>
+<listitem><simpara> coord of left vertical clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>right</parameter>&#160;:</term>
+<listitem><simpara> coord of right vertical clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bottom</parameter>&#160;:</term>
+<listitem><simpara> coord of bottom horizontal clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>top</parameter>&#160;:</term>
+<listitem><simpara> coord of top horizontal clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> positive distance to near depth clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> positive distance to far depth clipping plane
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-ortho" role="function">
+<title>cogl_matrix_ortho ()</title>
+<indexterm zone="cogl-matrix-ortho"><primary sortas="matrix_ortho">cogl_matrix_ortho</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_ortho                   (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Multiples the matrix by a parallel projection matrix.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>left</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the left clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>right</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the right clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bottom</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the bottom clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>top</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the top clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the near clipping plane (may be negative if
+         the plane is behind the viewer)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the far clipping plane (may be negative if
+        the plane is behind the viewer)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-perspective" role="function">
+<title>cogl_matrix_perspective ()</title>
+<indexterm zone="cogl-matrix-perspective"><primary sortas="matrix_perspective">cogl_matrix_perspective</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_perspective             (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> fov_y,
+                                                         <link linkend="float">float</link> aspect,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Multiplies the matrix by the described perspective matrix
+</para>
+<para>
+Note: you should be careful not to have to great a <parameter>z_far</parameter> / <parameter>z_near</parameter> ratio
+since that will reduce the effectiveness of depth testing since there wont
+be enough precision to identify the depth of objects near to each other.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fov_y</parameter>&#160;:</term>
+<listitem><simpara> A field of view angle for the Y axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>aspect</parameter>&#160;:</term>
+<listitem><simpara> The ratio of width to height determining the field of view angle
+         for the x axis.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> The distance to the near clip plane.
+         Never pass 0 and always pass a positive number.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> The distance to the far clip plane. (Should always be positive)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-transform-point" role="function">
+<title>cogl_matrix_transform_point ()</title>
+<indexterm zone="cogl-matrix-transform-point"><primary sortas="matrix_transform_point">cogl_matrix_transform_point</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_transform_point         (const <link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> *x,
+                                                         <link linkend="float">float</link> *y,
+                                                         <link linkend="float">float</link> *z,
+                                                         <link linkend="float">float</link> *w);</programlisting>
+<para>
+This transforms a point whos position is given and returned
+as four float components.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> The X component of your points position [in:out]
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> The Y component of your points position [in:out]
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara> The Z component of your points position [in:out]
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>w</parameter>&#160;:</term>
+<listitem><simpara> The W component of your points position [in:out]
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-multiply" role="function">
+<title>cogl_matrix_multiply ()</title>
+<indexterm zone="cogl-matrix-multiply"><primary sortas="matrix_multiply">cogl_matrix_multiply</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_multiply                (<link linkend="CoglMatrix">CoglMatrix</link> *result,
+                                                         const <link linkend="CoglMatrix">CoglMatrix</link> *a,
+                                                         const <link linkend="CoglMatrix">CoglMatrix</link> *b);</programlisting>
+<para>
+This function multiples the two supplied matricies together and stores
+the result in <parameter>result</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>result</parameter>&#160;:</term>
+<listitem><simpara> The address of a 4x4 matrix to store the result in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-rotate" role="function">
+<title>cogl_matrix_rotate ()</title>
+<indexterm zone="cogl-matrix-rotate"><primary sortas="matrix_rotate">cogl_matrix_rotate</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_rotate                  (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> angle,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);</programlisting>
+<para>
+This function multiples your matrix with a rotation matrix that applies
+a rotation of <link linkend="angle"><type>angle</type></link> degrees around the specified 3D vector.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> The angle you want to rotate in degrees
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> X component of your rotation vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> Y component of your rotation vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara> Z component of your rotation vector
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-translate" role="function">
+<title>cogl_matrix_translate ()</title>
+<indexterm zone="cogl-matrix-translate"><primary sortas="matrix_translate">cogl_matrix_translate</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_translate               (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-scale" role="function">
+<title>cogl_matrix_scale ()</title>
+<indexterm zone="cogl-matrix-scale"><primary sortas="matrix_scale">cogl_matrix_scale</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_scale                   (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         <link linkend="float">float</link> sx,
+                                                         <link linkend="float">float</link> sy,
+                                                         <link linkend="float">float</link> sz);</programlisting>
+<para>
+This function multiples your matrix with a transform matrix that scales
+along the X, Y and Z axis.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sx</parameter>&#160;:</term>
+<listitem><simpara> The X scale factor
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sy</parameter>&#160;:</term>
+<listitem><simpara> The Y scale factor
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sz</parameter>&#160;:</term>
+<listitem><simpara> The Z scale factor
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-init-from-array" role="function">
+<title>cogl_matrix_init_from_array ()</title>
+<indexterm zone="cogl-matrix-init-from-array"><primary sortas="matrix_init_from_array">cogl_matrix_init_from_array</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_matrix_init_from_array         (<link linkend="CoglMatrix">CoglMatrix</link> *matrix,
+                                                         const <link linkend="float">float</link> *array);</programlisting>
+<para>
+This initialises <parameter>matrix</parameter> with the contents of <parameter>array</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara> A linear array of 16 floats (column-major order)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-matrix-get-array" role="function">
+<title>cogl_matrix_get_array ()</title>
+<indexterm zone="cogl-matrix-get-array"><primary sortas="matrix_get_array">cogl_matrix_get_array</primary></indexterm><programlisting>const <link linkend="float">float</link> *       cogl_matrix_get_array               (const <link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+This casts a CoglMatrix to a float array which can be directly passed to
+OpenGL.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> A 4x4 transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a pointer to the float array
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

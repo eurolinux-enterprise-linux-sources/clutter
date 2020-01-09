@@ -1,0 +1,184 @@
+<!-- ##### SECTION Title ##### -->
+Color Type
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT CoglColor ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cogl_color_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_copy ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_free ##### -->
+<para>
+
+</para>
+
+@color: 
+
+
+<!-- ##### FUNCTION cogl_color_set_from_4ub ##### -->
+<para>
+
+</para>
+
+@dest: 
+@red: 
+@green: 
+@blue: 
+@alpha: 
+
+
+<!-- ##### FUNCTION cogl_color_set_from_4f ##### -->
+<para>
+
+</para>
+
+@dest: 
+@red: 
+@green: 
+@blue: 
+@alpha: 
+
+
+<!-- ##### FUNCTION cogl_color_get_red ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_green ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_blue ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_alpha ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_red_byte ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_green_byte ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_blue_byte ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_alpha_byte ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_red_float ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_green_float ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_blue_float ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cogl_color_get_alpha_float ##### -->
+<para>
+
+</para>
+
+@color: 
+@Returns: 
+
+

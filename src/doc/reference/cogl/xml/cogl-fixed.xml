@@ -1,0 +1,851 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Fixed-Point-API">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Fixed-Point-API.top_of_page">Fixed Point API</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Fixed Point API</refname>
+<refpurpose>Fixed Point API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Fixed-Point-API.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+typedef             <link linkend="CoglFixed">CoglFixed</link>;
+#define             <link linkend="COGL-FIXED-BITS--CAPS">COGL_FIXED_BITS</link>
+#define             <link linkend="COGL-FIXED-Q--CAPS">COGL_FIXED_Q</link>
+#define             <link linkend="COGL-FIXED-MAX--CAPS">COGL_FIXED_MAX</link>
+#define             <link linkend="COGL-FIXED-MIN--CAPS">COGL_FIXED_MIN</link>
+
+#define             <link linkend="COGL-FIXED-FROM-FLOAT--CAPS">COGL_FIXED_FROM_FLOAT</link>               (x)
+#define             <link linkend="COGL-FIXED-TO-FLOAT--CAPS">COGL_FIXED_TO_FLOAT</link>                 (x)
+#define             <link linkend="COGL-FIXED-FROM-INT--CAPS">COGL_FIXED_FROM_INT</link>                 (x)
+#define             <link linkend="COGL-FIXED-TO-INT--CAPS">COGL_FIXED_TO_INT</link>                   (x)
+#define             <link linkend="COGL-FIXED-FROM-DOUBLE--CAPS">COGL_FIXED_FROM_DOUBLE</link>              (x)
+#define             <link linkend="COGL-FIXED-TO-DOUBLE--CAPS">COGL_FIXED_TO_DOUBLE</link>                (x)
+#define             <link linkend="COGL-FLOAT-TO-INT--CAPS">COGL_FLOAT_TO_INT</link>                   (x)
+#define             <link linkend="COGL-FLOAT-TO-UINT--CAPS">COGL_FLOAT_TO_UINT</link>                  (x)
+
+#define             <link linkend="COGL-FIXED-EPSILON--CAPS">COGL_FIXED_EPSILON</link>
+#define             <link linkend="COGL-FIXED-1--CAPS">COGL_FIXED_1</link>
+#define             <link linkend="COGL-FIXED-0-5--CAPS">COGL_FIXED_0_5</link>
+#define             <link linkend="COGL-FIXED-30--CAPS">COGL_FIXED_30</link>
+#define             <link linkend="COGL-FIXED-45--CAPS">COGL_FIXED_45</link>
+#define             <link linkend="COGL-FIXED-60--CAPS">COGL_FIXED_60</link>
+#define             <link linkend="COGL-FIXED-90--CAPS">COGL_FIXED_90</link>
+#define             <link linkend="COGL-FIXED-120--CAPS">COGL_FIXED_120</link>
+#define             <link linkend="COGL-FIXED-180--CAPS">COGL_FIXED_180</link>
+#define             <link linkend="COGL-FIXED-240--CAPS">COGL_FIXED_240</link>
+#define             <link linkend="COGL-FIXED-255--CAPS">COGL_FIXED_255</link>
+#define             <link linkend="COGL-FIXED-270--CAPS">COGL_FIXED_270</link>
+#define             <link linkend="COGL-FIXED-360--CAPS">COGL_FIXED_360</link>
+
+#define             <link linkend="COGL-FIXED-MUL--CAPS">COGL_FIXED_MUL</link>                      (a,b)
+#define             <link linkend="COGL-FIXED-DIV--CAPS">COGL_FIXED_DIV</link>                      (a,b)
+#define             <link linkend="COGL-FIXED-MUL-DIV--CAPS">COGL_FIXED_MUL_DIV</link>                  (a,b,c)
+#define             <link linkend="COGL-FIXED-FAST-DIV--CAPS">COGL_FIXED_FAST_DIV</link>                 (a,b)
+#define             <link linkend="COGL-FIXED-FAST-MUL--CAPS">COGL_FIXED_FAST_MUL</link>                 (a,b)
+#define             <link linkend="COGL-FIXED-FRACTION--CAPS">COGL_FIXED_FRACTION</link>                 (x)
+#define             <link linkend="COGL-FIXED-FLOOR--CAPS">COGL_FIXED_FLOOR</link>                    (x)
+#define             <link linkend="COGL-FIXED-CEIL--CAPS">COGL_FIXED_CEIL</link>                     (x)
+
+#define             <link linkend="COGL-FIXED-2-PI--CAPS">COGL_FIXED_2_PI</link>
+#define             <link linkend="COGL-FIXED-PI--CAPS">COGL_FIXED_PI</link>
+#define             <link linkend="COGL-FIXED-PI-2--CAPS">COGL_FIXED_PI_2</link>
+#define             <link linkend="COGL-FIXED-PI-4--CAPS">COGL_FIXED_PI_4</link>
+#define             <link linkend="COGL-RADIANS-TO-DEGREES--CAPS">COGL_RADIANS_TO_DEGREES</link>
+
+#define             <link linkend="COGL-SQRTI-ARG-10-PERCENT--CAPS">COGL_SQRTI_ARG_10_PERCENT</link>
+#define             <link linkend="COGL-SQRTI-ARG-5-PERCENT--CAPS">COGL_SQRTI_ARG_5_PERCENT</link>
+#define             <link linkend="COGL-SQRTI-ARG-MAX--CAPS">COGL_SQRTI_ARG_MAX</link>
+<link linkend="gint">gint</link>                <link linkend="cogl-sqrti">cogl_sqrti</link>                          (<link linkend="gint">gint</link> x);
+
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-atan2">cogl_fixed_atan2</link>                    (<link linkend="CoglFixed">CoglFixed</link> a,
+                                                         <link linkend="CoglFixed">CoglFixed</link> b);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-atani">cogl_fixed_atani</link>                    (<link linkend="CoglFixed">CoglFixed</link> a);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-cos">cogl_fixed_cos</link>                      (<link linkend="CoglFixed">CoglFixed</link> angle);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-log2">cogl_fixed_log2</link>                     (<link linkend="guint">guint</link> x);
+<link linkend="guint">guint</link>               <link linkend="cogl-fixed-pow">cogl_fixed_pow</link>                      (<link linkend="guint">guint</link> x,
+                                                         <link linkend="CoglFixed">CoglFixed</link> y);
+<link linkend="guint">guint</link>               <link linkend="cogl-fixed-pow2">cogl_fixed_pow2</link>                     (<link linkend="CoglFixed">CoglFixed</link> x);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-sin">cogl_fixed_sin</link>                      (<link linkend="CoglFixed">CoglFixed</link> angle);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-sqrt">cogl_fixed_sqrt</link>                     (<link linkend="CoglFixed">CoglFixed</link> x);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-fixed-tan">cogl_fixed_tan</link>                      (<link linkend="CoglFixed">CoglFixed</link> angle);
+
+typedef             <link linkend="CoglAngle">CoglAngle</link>;
+#define             <link linkend="COGL-ANGLE-FROM-DEG--CAPS">COGL_ANGLE_FROM_DEG</link>                 (x)
+#define             <link linkend="COGL-ANGLE-FROM-DEGX--CAPS">COGL_ANGLE_FROM_DEGX</link>                (x)
+#define             <link linkend="COGL-ANGLE-TO-DEG--CAPS">COGL_ANGLE_TO_DEG</link>                   (x)
+#define             <link linkend="COGL-ANGLE-TO-DEGX--CAPS">COGL_ANGLE_TO_DEGX</link>                  (x)
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-angle-cos">cogl_angle_cos</link>                      (<link linkend="CoglAngle">CoglAngle</link> angle);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-angle-sin">cogl_angle_sin</link>                      (<link linkend="CoglAngle">CoglAngle</link> angle);
+<link linkend="CoglFixed">CoglFixed</link>           <link linkend="cogl-angle-tan">cogl_angle_tan</link>                      (<link linkend="CoglAngle">CoglAngle</link> angle);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Fixed-Point-API.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+COGL has a fixed point API targeted at platforms without a floating
+point unit, such as embedded devices. On such platforms this API should
+be preferred to the floating point one as it does not trigger the slow
+path of software emulation, relying on integer math for fixed-to-floating
+and floating-to-fixed notations conversion.
+</para>
+<para>
+It is not recommened for use on platforms with a floating point unit
+(e.g. desktop systems), nor for use in language bindings.
+</para>
+<para>
+Basic rules of Fixed Point arithmethic:
+<itemizedlist>
+  <listitem>
+    <para>Two fixed point numbers can be directly added, subtracted and
+    have their modulus taken.</para>
+  </listitem>
+  <listitem>
+    <para>To add other numerical type to a fixed point number it has to
+    be first converted to fixed point.</para>
+  </listitem>
+  <listitem>
+    <para>A fixed point number can be directly multiplied or divided by
+    an integer.</para>
+  </listitem>
+  <listitem>
+    <para>Two fixed point numbers can only be multiplied and divided by
+    the provided <link linkend="COGL-FIXED-MUL--CAPS"><literal>COGL_FIXED_MUL</literal></link> and <link linkend="COGL-FIXED-DIV--CAPS"><literal>COGL_FIXED_DIV</literal></link> macros.</para>
+  </listitem>
+</itemizedlist>
+</para>
+<para>
+The fixed point API is available since COGL 1.0.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Fixed-Point-API.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CoglFixed" role="typedef">
+<title>CoglFixed</title>
+<indexterm zone="CoglFixed"><primary sortas="Fixed">CoglFixed</primary></indexterm><programlisting>typedef gint32 CoglFixed;
+</programlisting>
+<para>
+Fixed point number using a (16.16) notation.</para>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-FIXED-BITS--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_BITS</title>
+<indexterm zone="COGL-FIXED-BITS--CAPS" role="1.0"><primary sortas="FIXED_BITS">COGL_FIXED_BITS</primary></indexterm><programlisting>#define COGL_FIXED_BITS         (32)
+</programlisting>
+<para>
+Evaluates to the number of bits used by the <link linkend="CoglFixed"><type>CoglFixed</type></link> type.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-Q--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_Q</title>
+<indexterm zone="COGL-FIXED-Q--CAPS" role="1.0"><primary sortas="FIXED_Q">COGL_FIXED_Q</primary></indexterm><programlisting>#define COGL_FIXED_Q            (COGL_FIXED_BITS - 16)
+</programlisting>
+<para>
+Evaluates to the number of bits used for the non-integer part
+of the <link linkend="CoglFixed"><type>CoglFixed</type></link> type.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-MAX--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_MAX</title>
+<indexterm zone="COGL-FIXED-MAX--CAPS" role="1.0"><primary sortas="FIXED_MAX">COGL_FIXED_MAX</primary></indexterm><programlisting>#define COGL_FIXED_MAX          (0x7fffffff)
+</programlisting>
+<para>
+The biggest number representable using <link linkend="CoglFixed"><type>CoglFixed</type></link></para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-MIN--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_MIN</title>
+<indexterm zone="COGL-FIXED-MIN--CAPS" role="1.0"><primary sortas="FIXED_MIN">COGL_FIXED_MIN</primary></indexterm><programlisting>#define COGL_FIXED_MIN          (0x80000000)
+</programlisting>
+<para>
+The smallest number representable using <link linkend="CoglFixed"><type>CoglFixed</type></link></para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FROM-FLOAT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FROM_FLOAT()</title>
+<indexterm zone="COGL-FIXED-FROM-FLOAT--CAPS" role="1.0"><primary sortas="FIXED_FROM_FLOAT">COGL_FIXED_FROM_FLOAT</primary></indexterm><programlisting>#define COGL_FIXED_FROM_FLOAT(x)        ((float) cogl_double_to_fixed (x))
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a floating point to a fixed point notation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a floating point number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-TO-FLOAT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_TO_FLOAT()</title>
+<indexterm zone="COGL-FIXED-TO-FLOAT--CAPS" role="1.0"><primary sortas="FIXED_TO_FLOAT">COGL_FIXED_TO_FLOAT</primary></indexterm><programlisting>#define COGL_FIXED_TO_FLOAT(x)          ((float) ((int)(x) / 65536.0))
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a fixed point to a floating point notation, in
+double precision.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FROM-INT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FROM_INT()</title>
+<indexterm zone="COGL-FIXED-FROM-INT--CAPS" role="1.0"><primary sortas="FIXED_FROM_INT">COGL_FIXED_FROM_INT</primary></indexterm><programlisting>#define COGL_FIXED_FROM_INT(x)          ((x) &lt;&lt; COGL_FIXED_Q)
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from an integer to a fixed point notation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> an integer number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-TO-INT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_TO_INT()</title>
+<indexterm zone="COGL-FIXED-TO-INT--CAPS" role="1.0"><primary sortas="FIXED_TO_INT">COGL_FIXED_TO_INT</primary></indexterm><programlisting>#define COGL_FIXED_TO_INT(x)            ((x) &gt;&gt; COGL_FIXED_Q)
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a fixed point notation to an integer, dropping
+the fractional part without rounding.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FROM-DOUBLE--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FROM_DOUBLE()</title>
+<indexterm zone="COGL-FIXED-FROM-DOUBLE--CAPS" role="1.0"><primary sortas="FIXED_FROM_DOUBLE">COGL_FIXED_FROM_DOUBLE</primary></indexterm><programlisting>#define COGL_FIXED_FROM_DOUBLE(x)       (cogl_double_to_fixed (x))
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a double precision, floating point to a fixed
+point notation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a floating point number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-TO-DOUBLE--CAPS" role="macro">
+<title>COGL_FIXED_TO_DOUBLE()</title>
+<indexterm zone="COGL-FIXED-TO-DOUBLE--CAPS"><primary sortas="FIXED_TO_DOUBLE">COGL_FIXED_TO_DOUBLE</primary></indexterm><programlisting>#define COGL_FIXED_TO_DOUBLE(x)         ((double) ((int)(x) / 65536.0))
+</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="COGL-FLOAT-TO-INT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FLOAT_TO_INT()</title>
+<indexterm zone="COGL-FLOAT-TO-INT--CAPS" role="1.0"><primary sortas="FLOAT_TO_INT">COGL_FLOAT_TO_INT</primary></indexterm><programlisting>#define COGL_FLOAT_TO_INT(x)            (cogl_double_to_int ((x)))
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a floating point notation to a signed integer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a floatint point number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FLOAT-TO-UINT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FLOAT_TO_UINT()</title>
+<indexterm zone="COGL-FLOAT-TO-UINT--CAPS" role="1.0"><primary sortas="FLOAT_TO_UINT">COGL_FLOAT_TO_UINT</primary></indexterm><programlisting>#define COGL_FLOAT_TO_UINT(x)           (cogl_double_to_uint ((x)))
+</programlisting>
+<para>
+Converts <parameter>x</parameter> from a floating point notation to an unsigned integer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a floatint point number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-EPSILON--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_EPSILON</title>
+<indexterm zone="COGL-FIXED-EPSILON--CAPS" role="1.0"><primary sortas="FIXED_EPSILON">COGL_FIXED_EPSILON</primary></indexterm><programlisting>#define COGL_FIXED_EPSILON      (1)
+</programlisting>
+<para>
+A very small number expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-1--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_1</title>
+<indexterm zone="COGL-FIXED-1--CAPS" role="1.0"><primary sortas="FIXED_1">COGL_FIXED_1</primary></indexterm><programlisting>#define COGL_FIXED_1            (1 &lt;&lt; COGL_FIXED_Q)
+</programlisting>
+<para>
+The number 1 expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-0-5--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_0_5</title>
+<indexterm zone="COGL-FIXED-0-5--CAPS" role="1.0"><primary sortas="FIXED_0_5">COGL_FIXED_0_5</primary></indexterm><programlisting>#define COGL_FIXED_0_5          (32768)
+</programlisting>
+<para>
+The number 0.5 expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-30--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_30</title>
+<indexterm zone="COGL-FIXED-30--CAPS" role="1.0"><primary sortas="FIXED_30">COGL_FIXED_30</primary></indexterm><programlisting>#define COGL_FIXED_30           (COGL_FIXED_FROM_INT (30))
+</programlisting>
+<para>
+Evaluates to the number 30 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-45--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_45</title>
+<indexterm zone="COGL-FIXED-45--CAPS" role="1.0"><primary sortas="FIXED_45">COGL_FIXED_45</primary></indexterm><programlisting>#define COGL_FIXED_45           (COGL_FIXED_FROM_INT (45))
+</programlisting>
+<para>
+Evaluates to the number 45 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-60--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_60</title>
+<indexterm zone="COGL-FIXED-60--CAPS" role="1.0"><primary sortas="FIXED_60">COGL_FIXED_60</primary></indexterm><programlisting>#define COGL_FIXED_60           (COGL_FIXED_FROM_INT (60))
+</programlisting>
+<para>
+Evaluates to the number 60 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-90--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_90</title>
+<indexterm zone="COGL-FIXED-90--CAPS" role="1.0"><primary sortas="FIXED_90">COGL_FIXED_90</primary></indexterm><programlisting>#define COGL_FIXED_90           (COGL_FIXED_FROM_INT (90))
+</programlisting>
+<para>
+Evaluates to the number 90 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-120--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_120</title>
+<indexterm zone="COGL-FIXED-120--CAPS" role="1.0"><primary sortas="FIXED_120">COGL_FIXED_120</primary></indexterm><programlisting>#define COGL_FIXED_120          (COGL_FIXED_FROM_INT (120))
+</programlisting>
+<para>
+Evaluates to the number 120 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-180--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_180</title>
+<indexterm zone="COGL-FIXED-180--CAPS" role="1.0"><primary sortas="FIXED_180">COGL_FIXED_180</primary></indexterm><programlisting>#define COGL_FIXED_180          (COGL_FIXED_FROM_INT (180))
+</programlisting>
+<para>
+Evaluates to the number 180 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-240--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_240</title>
+<indexterm zone="COGL-FIXED-240--CAPS" role="1.0"><primary sortas="FIXED_240">COGL_FIXED_240</primary></indexterm><programlisting>#define COGL_FIXED_240          (COGL_FIXED_FROM_INT (240))
+</programlisting>
+<para>
+Evaluates to the number 240 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-255--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_255</title>
+<indexterm zone="COGL-FIXED-255--CAPS" role="1.0"><primary sortas="FIXED_255">COGL_FIXED_255</primary></indexterm><programlisting>#define COGL_FIXED_255          (COGL_FIXED_FROM_INT (255))
+</programlisting>
+<para>
+Evaluates to the number 255 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-270--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_270</title>
+<indexterm zone="COGL-FIXED-270--CAPS" role="1.0"><primary sortas="FIXED_270">COGL_FIXED_270</primary></indexterm><programlisting>#define COGL_FIXED_270          (COGL_FIXED_FROM_INT (270))
+</programlisting>
+<para>
+Evaluates to the number 270 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-360--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_360</title>
+<indexterm zone="COGL-FIXED-360--CAPS" role="1.0"><primary sortas="FIXED_360">COGL_FIXED_360</primary></indexterm><programlisting>#define COGL_FIXED_360          (COGL_FIXED_FROM_INT (360))
+</programlisting>
+<para>
+Evaluates to the number 360 in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-MUL--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_MUL()</title>
+<indexterm zone="COGL-FIXED-MUL--CAPS" role="1.0"><primary sortas="FIXED_MUL">COGL_FIXED_MUL</primary></indexterm><programlisting>#define COGL_FIXED_MUL(a,b)             (cogl_fixed_mul ((a), (b)))
+</programlisting>
+<para>
+Computes (a * b).</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-DIV--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_DIV()</title>
+<indexterm zone="COGL-FIXED-DIV--CAPS" role="1.0"><primary sortas="FIXED_DIV">COGL_FIXED_DIV</primary></indexterm><programlisting>#define COGL_FIXED_DIV(a,b)             (cogl_fixed_div ((a), (b)))
+</programlisting>
+<para>
+Computes (a / b).</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-MUL-DIV--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_MUL_DIV()</title>
+<indexterm zone="COGL-FIXED-MUL-DIV--CAPS" role="1.0"><primary sortas="FIXED_MUL_DIV">COGL_FIXED_MUL_DIV</primary></indexterm><programlisting>#define COGL_FIXED_MUL_DIV(a,b,c)       (cogl_fixed_mul_div ((a), (b), (c)))
+</programlisting>
+<para>
+Computes ((a * b) / c). It is logically equivalent to:
+</para>
+<para>
+<informalexample><programlisting>
+  res = COGL_FIXED_DIV (COGL_FIXED_MUL (a, b), c);
+</programlisting></informalexample>
+</para>
+<para>
+But it is shorter to type.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FAST-DIV--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FAST_DIV()</title>
+<indexterm zone="COGL-FIXED-FAST-DIV--CAPS" role="1.0"><primary sortas="FIXED_FAST_DIV">COGL_FIXED_FAST_DIV</primary></indexterm><programlisting>#define COGL_FIXED_FAST_DIV(a,b)        ((((a) &lt;&lt; 8) / (b)) &lt;&lt; 8)
+</programlisting>
+<para>
+Fast version of <link linkend="COGL-FIXED-DIV--CAPS"><literal>COGL_FIXED_DIV</literal></link>, implemented as a macro.
+</para>
+<para>
+<note>This macro might lose precision. If the precision of the result
+is important use <link linkend="COGL-FIXED-DIV--CAPS"><literal>COGL_FIXED_DIV</literal></link> instead.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FAST-MUL--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FAST_MUL()</title>
+<indexterm zone="COGL-FIXED-FAST-MUL--CAPS" role="1.0"><primary sortas="FIXED_FAST_MUL">COGL_FIXED_FAST_MUL</primary></indexterm><programlisting>#define COGL_FIXED_FAST_MUL(a,b)        ((a) &gt;&gt; 8) * ((b) &gt;&gt; 8)
+</programlisting>
+<para>
+Fast version of <link linkend="COGL-FIXED-MUL--CAPS"><literal>COGL_FIXED_MUL</literal></link>, implemented as a macro.
+</para>
+<para>
+<note>This macro might lose precision. If the precision of the result
+is important use <link linkend="COGL-FIXED-MUL--CAPS"><literal>COGL_FIXED_MUL</literal></link> instead.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FRACTION--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FRACTION()</title>
+<indexterm zone="COGL-FIXED-FRACTION--CAPS" role="1.0"><primary sortas="FIXED_FRACTION">COGL_FIXED_FRACTION</primary></indexterm><programlisting>#define COGL_FIXED_FRACTION(x)          ((x) &amp; ((1 &lt;&lt; COGL_FIXED_Q) - 1))
+</programlisting>
+<para>
+Retrieves the fractionary part of <parameter>x</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-FLOOR--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_FLOOR()</title>
+<indexterm zone="COGL-FIXED-FLOOR--CAPS" role="1.0"><primary sortas="FIXED_FLOOR">COGL_FIXED_FLOOR</primary></indexterm><programlisting>#define             COGL_FIXED_FLOOR(x)</programlisting>
+<para>
+Rounds down a fixed point number to the previous integer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-CEIL--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_CEIL()</title>
+<indexterm zone="COGL-FIXED-CEIL--CAPS" role="1.0"><primary sortas="FIXED_CEIL">COGL_FIXED_CEIL</primary></indexterm><programlisting>#define COGL_FIXED_CEIL(x)              (COGL_FIXED_FLOOR ((x) + 0xffff))
+</programlisting>
+<para>
+Rounds up a fixed point number to the next integer.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-2-PI--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_2_PI</title>
+<indexterm zone="COGL-FIXED-2-PI--CAPS" role="1.0"><primary sortas="FIXED_2_PI">COGL_FIXED_2_PI</primary></indexterm><programlisting>#define COGL_FIXED_2_PI         (0x0006487f)
+</programlisting>
+<para>
+Two times pi, expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-PI--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_PI</title>
+<indexterm zone="COGL-FIXED-PI--CAPS" role="1.0"><primary sortas="FIXED_PI">COGL_FIXED_PI</primary></indexterm><programlisting>#define COGL_FIXED_PI           (0x0003243f)
+</programlisting>
+<para>
+The number pi, expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-PI-2--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_PI_2</title>
+<indexterm zone="COGL-FIXED-PI-2--CAPS" role="1.0"><primary sortas="FIXED_PI_2">COGL_FIXED_PI_2</primary></indexterm><programlisting>#define COGL_FIXED_PI_2         (0x00019220)
+</programlisting>
+<para>
+Half pi, expressed as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-FIXED-PI-4--CAPS" role="macro" condition="since:1.0">
+<title>COGL_FIXED_PI_4</title>
+<indexterm zone="COGL-FIXED-PI-4--CAPS" role="1.0"><primary sortas="FIXED_PI_4">COGL_FIXED_PI_4</primary></indexterm><programlisting>#define COGL_FIXED_PI_4         (0x0000c910)
+</programlisting>
+<para>
+pi / 4, expressed as <link linkend="CoglFixed"><type>CoglFixed</type></link> number.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-RADIANS-TO-DEGREES--CAPS" role="macro" condition="since:1.0">
+<title>COGL_RADIANS_TO_DEGREES</title>
+<indexterm zone="COGL-RADIANS-TO-DEGREES--CAPS" role="1.0"><primary sortas="RADIANS_TO_DEGREES">COGL_RADIANS_TO_DEGREES</primary></indexterm><programlisting>#define COGL_RADIANS_TO_DEGREES (0x394bb8)
+</programlisting>
+<para>
+Evaluates to 180 / pi in fixed point notation.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-SQRTI-ARG-10-PERCENT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_SQRTI_ARG_10_PERCENT</title>
+<indexterm zone="COGL-SQRTI-ARG-10-PERCENT--CAPS" role="1.0"><primary sortas="SQRTI_ARG_10_PERCENT">COGL_SQRTI_ARG_10_PERCENT</primary></indexterm><programlisting>#define             COGL_SQRTI_ARG_10_PERCENT</programlisting>
+<para>
+Maximum argument that can be passed to <link linkend="cogl-sqrti"><function>cogl_sqrti()</function></link> for which the
+resulting error is &lt; 10%</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-SQRTI-ARG-5-PERCENT--CAPS" role="macro" condition="since:1.0">
+<title>COGL_SQRTI_ARG_5_PERCENT</title>
+<indexterm zone="COGL-SQRTI-ARG-5-PERCENT--CAPS" role="1.0"><primary sortas="SQRTI_ARG_5_PERCENT">COGL_SQRTI_ARG_5_PERCENT</primary></indexterm><programlisting>#define             COGL_SQRTI_ARG_5_PERCENT</programlisting>
+<para>
+Maximum argument that can be passed to <link linkend="cogl-sqrti"><function>cogl_sqrti()</function></link> for which the
+resulting error is &lt; 5%</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-SQRTI-ARG-MAX--CAPS" role="macro" condition="since:1.0">
+<title>COGL_SQRTI_ARG_MAX</title>
+<indexterm zone="COGL-SQRTI-ARG-MAX--CAPS" role="1.0"><primary sortas="SQRTI_ARG_MAX">COGL_SQRTI_ARG_MAX</primary></indexterm><programlisting>#define             COGL_SQRTI_ARG_MAX</programlisting>
+<para>
+Maximum argument that can be passed to <link linkend="cogl-sqrti"><function>cogl_sqrti()</function></link> function.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-sqrti" role="function" condition="since:0.2">
+<title>cogl_sqrti ()</title>
+<indexterm zone="cogl-sqrti" role="0.2"><primary sortas="sqrti">cogl_sqrti</primary></indexterm><programlisting><link linkend="gint">gint</link>                cogl_sqrti                          (<link linkend="gint">gint</link> x);</programlisting>
+<para>
+Very fast fixed point implementation of square root for integers.
+</para>
+<para>
+This function is at least 6x faster than clib <link linkend="sqrt"><function>sqrt()</function></link> on x86, and (this is
+not a typo!) about 500x faster on ARM without FPU. It's error is &lt; 5%
+for arguments &lt; <link linkend="COGL-SQRTI-ARG-5-PERCENT--CAPS"><type>COGL_SQRTI_ARG_5_PERCENT</type></link> and &lt; 10% for arguments &lt;
+<link linkend="COGL-SQRTI-ARG-10-PERCENT--CAPS"><type>COGL_SQRTI_ARG_10_PERCENT</type></link>. The maximum argument that can be passed to
+this function is COGL_SQRTI_ARG_MAX.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> integer value
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> integer square root.
+
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.2</para></refsect2>
+<refsect2 id="cogl-fixed-atan2" role="function" condition="since:1.0">
+<title>cogl_fixed_atan2 ()</title>
+<indexterm zone="cogl-fixed-atan2" role="1.0"><primary sortas="fixed_atan2">cogl_fixed_atan2</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_atan2                    (<link linkend="CoglFixed">CoglFixed</link> a,
+                                                         <link linkend="CoglFixed">CoglFixed</link> b);</programlisting>
+<para>
+Computes the arc tangent of <parameter>a</parameter> / <parameter>b</parameter> but uses the sign of both
+arguments to return the angle in right quadrant.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> the numerator as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara> the denominator as a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the arc tangent of the passed fraction, in fixed point
+  notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-atani" role="function" condition="since:1.0">
+<title>cogl_fixed_atani ()</title>
+<indexterm zone="cogl-fixed-atani" role="1.0"><primary sortas="fixed_atani">cogl_fixed_atani</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_atani                    (<link linkend="CoglFixed">CoglFixed</link> a);</programlisting>
+<para>
+Computes the arc tangent of <parameter>a</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the arc tangent of the passed value, in fixed point notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-cos" role="function" condition="since:1.0">
+<title>cogl_fixed_cos ()</title>
+<indexterm zone="cogl-fixed-cos" role="1.0"><primary sortas="fixed_cos">cogl_fixed_cos</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_cos                      (<link linkend="CoglFixed">CoglFixed</link> angle);</programlisting>
+<para>
+Computes the cosine of <parameter>angle</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the cosine of the passed angle, in fixed point notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-log2" role="function" condition="since:1.0">
+<title>cogl_fixed_log2 ()</title>
+<indexterm zone="cogl-fixed-log2" role="1.0"><primary sortas="fixed_log2">cogl_fixed_log2</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_log2                     (<link linkend="guint">guint</link> x);</programlisting>
+<para>
+Calculates base 2 logarithm.
+</para>
+<para>
+This function is some 2.5 times faster on x86, and over 12 times faster on
+fpu-less arm, than using libc <link linkend="log"><function>log()</function></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> value to calculate base 2 logarithm from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> base 2 logarithm.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-pow" role="function" condition="since:1.0">
+<title>cogl_fixed_pow ()</title>
+<indexterm zone="cogl-fixed-pow" role="1.0"><primary sortas="fixed_pow">cogl_fixed_pow</primary></indexterm><programlisting><link linkend="guint">guint</link>               cogl_fixed_pow                      (<link linkend="guint">guint</link> x,
+                                                         <link linkend="CoglFixed">CoglFixed</link> y);</programlisting>
+<para>
+Calculates <parameter>x</parameter> to the <parameter>y</parameter> power.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> base
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="CoglFixed"><type>CoglFixed</type></link> exponent
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the power of <parameter>x</parameter> to the <parameter>y</parameter>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-pow2" role="function" condition="since:1.0">
+<title>cogl_fixed_pow2 ()</title>
+<indexterm zone="cogl-fixed-pow2" role="1.0"><primary sortas="fixed_pow2">cogl_fixed_pow2</primary></indexterm><programlisting><link linkend="guint">guint</link>               cogl_fixed_pow2                     (<link linkend="CoglFixed">CoglFixed</link> x);</programlisting>
+<para>
+Calculates 2 to the <parameter>x</parameter> power.
+</para>
+<para>
+This function is around 11 times faster on x86, and around 22 times faster
+on fpu-less arm than libc pow(2, x).</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the power of 2 to the passed value
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-sin" role="function" condition="since:1.0">
+<title>cogl_fixed_sin ()</title>
+<indexterm zone="cogl-fixed-sin" role="1.0"><primary sortas="fixed_sin">cogl_fixed_sin</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_sin                      (<link linkend="CoglFixed">CoglFixed</link> angle);</programlisting>
+<para>
+Computes the sine of <parameter>angle</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the sine of the passed angle, in fixed point notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-sqrt" role="function" condition="since:1.0">
+<title>cogl_fixed_sqrt ()</title>
+<indexterm zone="cogl-fixed-sqrt" role="1.0"><primary sortas="fixed_sqrt">cogl_fixed_sqrt</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_sqrt                     (<link linkend="CoglFixed">CoglFixed</link> x);</programlisting>
+<para>
+Computes the square root of <parameter>x</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the square root of the passed value, in floating point
+  notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-fixed-tan" role="function" condition="since:1.0">
+<title>cogl_fixed_tan ()</title>
+<indexterm zone="cogl-fixed-tan" role="1.0"><primary sortas="fixed_tan">cogl_fixed_tan</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_fixed_tan                      (<link linkend="CoglFixed">CoglFixed</link> angle);</programlisting>
+<para>
+Computes the tangent of <parameter>angle</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglFixed"><type>CoglFixed</type></link> number
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the tangent of the passed angle, in fixed point notation
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CoglAngle" role="typedef" condition="since:1.0">
+<title>CoglAngle</title>
+<indexterm zone="CoglAngle" role="1.0"><primary sortas="Angle">CoglAngle</primary></indexterm><programlisting>typedef gint32 CoglAngle;
+</programlisting>
+<para>
+Integer representation of an angle such that 1024 corresponds to
+full circle (i.e., 2 * pi).</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-ANGLE-FROM-DEG--CAPS" role="macro" condition="since:1.0">
+<title>COGL_ANGLE_FROM_DEG()</title>
+<indexterm zone="COGL-ANGLE-FROM-DEG--CAPS" role="1.0"><primary sortas="ANGLE_FROM_DEG">COGL_ANGLE_FROM_DEG</primary></indexterm><programlisting>#define COGL_ANGLE_FROM_DEG(x)  (COGL_FLOAT_TO_INT (((float)(x) * 1024.0f) / 360.0f))
+</programlisting>
+<para>
+Converts an angle in degrees into a <link linkend="CoglAngle"><type>CoglAngle</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> an angle in degrees in floating point notation
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-ANGLE-FROM-DEGX--CAPS" role="macro" condition="since:1.0">
+<title>COGL_ANGLE_FROM_DEGX()</title>
+<indexterm zone="COGL-ANGLE-FROM-DEGX--CAPS" role="1.0"><primary sortas="ANGLE_FROM_DEGX">COGL_ANGLE_FROM_DEGX</primary></indexterm><programlisting>#define COGL_ANGLE_FROM_DEGX(x) (COGL_FIXED_TO_INT ((((x) / 360) * 1024) + COGL_FIXED_0_5))
+</programlisting>
+<para>
+Converts an angle in degrees into a <link linkend="CoglAngle"><type>CoglAngle</type></link>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> an angle in degrees in fixed point notation
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-ANGLE-TO-DEG--CAPS" role="macro" condition="since:1.0">
+<title>COGL_ANGLE_TO_DEG()</title>
+<indexterm zone="COGL-ANGLE-TO-DEG--CAPS" role="1.0"><primary sortas="ANGLE_TO_DEG">COGL_ANGLE_TO_DEG</primary></indexterm><programlisting>#define COGL_ANGLE_TO_DEG(x)    (((float)(x) * 360.0) / 1024.0)
+</programlisting>
+<para>
+Converts a <link linkend="CoglAngle"><type>CoglAngle</type></link> into an angle in degrees, using floatint point
+notation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglAngle"><type>CoglAngle</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="COGL-ANGLE-TO-DEGX--CAPS" role="macro" condition="since:1.0">
+<title>COGL_ANGLE_TO_DEGX()</title>
+<indexterm zone="COGL-ANGLE-TO-DEGX--CAPS" role="1.0"><primary sortas="ANGLE_TO_DEGX">COGL_ANGLE_TO_DEGX</primary></indexterm><programlisting>#define COGL_ANGLE_TO_DEGX(x)   (COGL_FIXED_FROM_INT ((x) * 45) / 128)
+</programlisting>
+<para>
+Converts a <link linkend="CoglAngle"><type>CoglAngle</type></link> into an angle in degrees, using fixed point notation</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglAngle"><type>CoglAngle</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-angle-cos" role="function" condition="since:1.0">
+<title>cogl_angle_cos ()</title>
+<indexterm zone="cogl-angle-cos" role="1.0"><primary sortas="angle_cos">cogl_angle_cos</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_angle_cos                      (<link linkend="CoglAngle">CoglAngle</link> angle);</programlisting>
+<para>
+Computes the cosine of <parameter>angle</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> an angle expressed using <link linkend="CoglAngle"><type>CoglAngle</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the cosine of the passed angle
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-angle-sin" role="function" condition="since:1.0">
+<title>cogl_angle_sin ()</title>
+<indexterm zone="cogl-angle-sin" role="1.0"><primary sortas="angle_sin">cogl_angle_sin</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_angle_sin                      (<link linkend="CoglAngle">CoglAngle</link> angle);</programlisting>
+<para>
+Computes the sine of <parameter>angle</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> an angle expressed using <link linkend="CoglAngle"><type>CoglAngle</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the sine of the passed angle
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-angle-tan" role="function" condition="since:1.0">
+<title>cogl_angle_tan ()</title>
+<indexterm zone="cogl-angle-tan" role="1.0"><primary sortas="angle_tan">cogl_angle_tan</primary></indexterm><programlisting><link linkend="CoglFixed">CoglFixed</link>           cogl_angle_tan                      (<link linkend="CoglAngle">CoglAngle</link> angle);</programlisting>
+<para>
+Computes the tangent of <parameter>angle</parameter></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> an angle expressed using <link linkend="CoglAngle"><type>CoglAngle</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the tangent of the passed angle
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

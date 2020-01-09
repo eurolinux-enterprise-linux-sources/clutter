@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-Material-Internals">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-Material-Internals.top_of_page">Material Internals</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Material Internals</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-Material-Internals.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+const <link linkend="GList">GList</link> *       <link linkend="cogl-material-get-layers">cogl_material_get_layers</link>            (<link linkend="CoglHandle">CoglHandle</link> material);
+enum                <link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link>;
+<link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link>  <link linkend="cogl-material-layer-get-type">cogl_material_layer_get_type</link>     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-material-layer-get-texture">cogl_material_layer_get_texture</link>     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-Material-Internals.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-Material-Internals.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cogl-material-get-layers" role="function">
+<title>cogl_material_get_layers ()</title>
+<indexterm zone="cogl-material-get-layers"><primary sortas="material_get_layers">cogl_material_get_layers</primary></indexterm><programlisting>const <link linkend="GList">GList</link> *       cogl_material_get_layers            (<link linkend="CoglHandle">CoglHandle</link> material);</programlisting>
+<para>
+This function lets you access a materials internal list of layers
+for iteration.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglMaterialLayerType" role="enum" condition="since:1.0">
+<title>enum CoglMaterialLayerType</title>
+<indexterm zone="CoglMaterialLayerType" role="1.0"><primary sortas="MaterialLayerType">CoglMaterialLayerType</primary></indexterm><programlisting>typedef enum { /*&lt; prefix=COGL_MATERIAL_LAYER_TYPE &gt;*/
+  COGL_MATERIAL_LAYER_TYPE_TEXTURE
+} CoglMaterialLayerType;
+</programlisting>
+<para>
+Available types of layers for a <link linkend="CoglMaterial"><type>CoglMaterial</type></link>. This enumeration
+might be expanded in later versions.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-MATERIAL-LAYER-TYPE-TEXTURE--CAPS" role="constant">
+<term><literal>COGL_MATERIAL_LAYER_TYPE_TEXTURE</literal></term>
+<listitem><simpara> The layer represents a
+<link linkend="cogl-Textures">Cogl texture</link>
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-material-layer-get-type" role="function">
+<title>cogl_material_layer_get_type ()</title>
+<indexterm zone="cogl-material-layer-get-type"><primary sortas="material_layer_get_type">cogl_material_layer_get_type</primary></indexterm><programlisting><link linkend="CoglMaterialLayerType">CoglMaterialLayerType</link>  cogl_material_layer_get_type     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+Retrieves the type of the layer
+</para>
+<para>
+Currently there is only one type of layer defined:
+<link linkend="COGL-MATERIAL-LAYER-TYPE-TEXTURE--CAPS"><literal>COGL_MATERIAL_LAYER_TYPE_TEXTURE</literal></link>, but considering we may add purely GLSL
+based layers in the future, you should write code that checks the type
+first.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-material-layer-get-texture" role="function">
+<title>cogl_material_layer_get_texture ()</title>
+<indexterm zone="cogl-material-layer-get-texture"><primary sortas="material_layer_get_texture">cogl_material_layer_get_texture</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_material_layer_get_texture     (<link linkend="CoglHandle">CoglHandle</link> layer_handle);</programlisting>
+<para>
+This lets you extract a CoglTexture handle for a specific layer.
+</para>
+<para>
+<note>In the future, we may support purely GLSL based layers which will
+likely return <link linkend="COGL-INVALID-HANDLE--CAPS"><literal>COGL_INVALID_HANDLE</literal></link> if you try to get the texture.
+Considering this, you can call cogl_material_layer_get_type first,
+to check it is of type <link linkend="COGL-MATERIAL-LAYER-TYPE-TEXTURE--CAPS"><literal>COGL_MATERIAL_LAYER_TYPE_TEXTURE</literal></link>.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer_handle</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

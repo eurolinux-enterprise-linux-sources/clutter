@@ -1,0 +1,720 @@
+<!-- ##### SECTION Title ##### -->
+ClutterText
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterText ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL ClutterText::activate ##### -->
+<para>
+
+</para>
+
+@cluttertext: the object which received the signal.
+
+<!-- ##### SIGNAL ClutterText::cursor-event ##### -->
+<para>
+
+</para>
+
+@cluttertext: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL ClutterText::text-changed ##### -->
+<para>
+
+</para>
+
+@cluttertext: the object which received the signal.
+
+<!-- ##### ARG ClutterText:activatable ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:attributes ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:color ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:cursor-color ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:cursor-color-set ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:cursor-size ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:cursor-visible ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:editable ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:ellipsize ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:font-name ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:justify ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:line-alignment ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:line-wrap ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:line-wrap-mode ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:max-length ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:password-char ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:position ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:selectable ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:selection-bound ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:selection-color ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:selection-color-set ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:single-line-mode ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:text ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterText:use-markup ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterTextClass ##### -->
+<para>
+
+</para>
+
+@text_changed: 
+@activate: 
+@cursor_event: 
+
+<!-- ##### FUNCTION clutter_text_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_new_full ##### -->
+<para>
+
+</para>
+
+@font_name: 
+@text: 
+@color: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_new_with_text ##### -->
+<para>
+
+</para>
+
+@font_name: 
+@text: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_text ##### -->
+<para>
+
+</para>
+
+@self: 
+@text: 
+
+
+<!-- ##### FUNCTION clutter_text_set_markup ##### -->
+<para>
+
+</para>
+
+@self: 
+@markup: 
+
+
+<!-- ##### FUNCTION clutter_text_get_text ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_activatable ##### -->
+<para>
+
+</para>
+
+@self: 
+@activatable: 
+
+
+<!-- ##### FUNCTION clutter_text_get_activatable ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_attributes ##### -->
+<para>
+
+</para>
+
+@self: 
+@attrs: 
+
+
+<!-- ##### FUNCTION clutter_text_get_attributes ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_get_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_set_ellipsize ##### -->
+<para>
+
+</para>
+
+@self: 
+@mode: 
+
+
+<!-- ##### FUNCTION clutter_text_get_ellipsize ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_font_name ##### -->
+<para>
+
+</para>
+
+@self: 
+@font_name: 
+
+
+<!-- ##### FUNCTION clutter_text_get_font_name ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_password_char ##### -->
+<para>
+
+</para>
+
+@self: 
+@wc: 
+
+
+<!-- ##### FUNCTION clutter_text_get_password_char ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_justify ##### -->
+<para>
+
+</para>
+
+@self: 
+@justify: 
+
+
+<!-- ##### FUNCTION clutter_text_get_justify ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_get_layout ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_line_alignment ##### -->
+<para>
+
+</para>
+
+@self: 
+@alignment: 
+
+
+<!-- ##### FUNCTION clutter_text_get_line_alignment ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_line_wrap ##### -->
+<para>
+
+</para>
+
+@self: 
+@line_wrap: 
+
+
+<!-- ##### FUNCTION clutter_text_get_line_wrap ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_line_wrap_mode ##### -->
+<para>
+
+</para>
+
+@self: 
+@wrap_mode: 
+
+
+<!-- ##### FUNCTION clutter_text_get_line_wrap_mode ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_max_length ##### -->
+<para>
+
+</para>
+
+@self: 
+@max: 
+
+
+<!-- ##### FUNCTION clutter_text_get_max_length ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_selectable ##### -->
+<para>
+
+</para>
+
+@self: 
+@selectable: 
+
+
+<!-- ##### FUNCTION clutter_text_get_selectable ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_selection ##### -->
+<para>
+
+</para>
+
+@self: 
+@start_pos: 
+@end_pos: 
+
+
+<!-- ##### FUNCTION clutter_text_get_selection ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_selection_bound ##### -->
+<para>
+
+</para>
+
+@self: 
+@selection_bound: 
+
+
+<!-- ##### FUNCTION clutter_text_get_selection_bound ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_single_line_mode ##### -->
+<para>
+
+</para>
+
+@self: 
+@single_line: 
+
+
+<!-- ##### FUNCTION clutter_text_get_single_line_mode ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_use_markup ##### -->
+<para>
+
+</para>
+
+@self: 
+@setting: 
+
+
+<!-- ##### FUNCTION clutter_text_get_use_markup ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_editable ##### -->
+<para>
+
+</para>
+
+@self: 
+@editable: 
+
+
+<!-- ##### FUNCTION clutter_text_get_editable ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_insert_text ##### -->
+<para>
+
+</para>
+
+@self: 
+@text: 
+@position: 
+
+
+<!-- ##### FUNCTION clutter_text_insert_unichar ##### -->
+<para>
+
+</para>
+
+@self: 
+@wc: 
+
+
+<!-- ##### FUNCTION clutter_text_delete_chars ##### -->
+<para>
+
+</para>
+
+@self: 
+@n_chars: 
+
+
+<!-- ##### FUNCTION clutter_text_delete_text ##### -->
+<para>
+
+</para>
+
+@self: 
+@start_pos: 
+@end_pos: 
+
+
+<!-- ##### FUNCTION clutter_text_delete_selection ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_get_chars ##### -->
+<para>
+
+</para>
+
+@self: 
+@start_pos: 
+@end_pos: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_cursor_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_get_cursor_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_set_selection_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_get_selection_color ##### -->
+<para>
+
+</para>
+
+@self: 
+@color: 
+
+
+<!-- ##### FUNCTION clutter_text_set_cursor_position ##### -->
+<para>
+
+</para>
+
+@self: 
+@position: 
+
+
+<!-- ##### FUNCTION clutter_text_get_cursor_position ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_cursor_visible ##### -->
+<para>
+
+</para>
+
+@self: 
+@cursor_visible: 
+
+
+<!-- ##### FUNCTION clutter_text_get_cursor_visible ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_set_cursor_size ##### -->
+<para>
+
+</para>
+
+@self: 
+@size: 
+
+
+<!-- ##### FUNCTION clutter_text_get_cursor_size ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_activate ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_text_position_to_coords ##### -->
+<para>
+
+</para>
+
+@self: 
+@position: 
+@x: 
+@y: 
+@line_height: 
+@Returns: 
+
+

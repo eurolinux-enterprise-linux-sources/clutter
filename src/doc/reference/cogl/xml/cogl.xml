@@ -1,0 +1,1362 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+<refentry id="cogl-General-API">
+<refmeta>
+<refentrytitle role="top_of_page" id="cogl-General-API.top_of_page">General API</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>COGL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>General API</refname>
+<refpurpose>General purpose API</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cogl-General-API.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+#define             <link linkend="COGL-INVALID-HANDLE--CAPS">COGL_INVALID_HANDLE</link>
+typedef             <link linkend="CoglHandle">CoglHandle</link>;
+<link linkend="CoglHandle">CoglHandle</link>          <link linkend="cogl-handle-ref">cogl_handle_ref</link>                     (<link linkend="CoglHandle">CoglHandle</link> handle);
+<link linkend="void">void</link>                <link linkend="cogl-handle-unref">cogl_handle_unref</link>                   (<link linkend="CoglHandle">CoglHandle</link> Handle);
+
+<link linkend="void">void</link>                (<link linkend="CoglFuncPtr">*CoglFuncPtr</link>)                      (void);
+#define             <link linkend="COGL-PIXEL-FORMAT-24--CAPS">COGL_PIXEL_FORMAT_24</link>
+#define             <link linkend="COGL-PIXEL-FORMAT-32--CAPS">COGL_PIXEL_FORMAT_32</link>
+#define             <link linkend="COGL-A-BIT--CAPS">COGL_A_BIT</link>
+#define             <link linkend="COGL-BGR-BIT--CAPS">COGL_BGR_BIT</link>
+#define             <link linkend="COGL-AFIRST-BIT--CAPS">COGL_AFIRST_BIT</link>
+#define             <link linkend="COGL-PREMULT-BIT--CAPS">COGL_PREMULT_BIT</link>
+#define             <link linkend="COGL-UNORDERED-MASK--CAPS">COGL_UNORDERED_MASK</link>
+#define             <link linkend="COGL-UNPREMULT-MASK--CAPS">COGL_UNPREMULT_MASK</link>
+enum                <link linkend="CoglPixelFormat">CoglPixelFormat</link>;
+enum                <link linkend="CoglBufferTarget">CoglBufferTarget</link>;
+enum                <link linkend="CoglBufferBit">CoglBufferBit</link>;
+enum                <link linkend="CoglAttributeType">CoglAttributeType</link>;
+
+enum                <link linkend="CoglFeatureFlags">CoglFeatureFlags</link>;
+<link linkend="CoglFeatureFlags">CoglFeatureFlags</link>    <link linkend="cogl-get-features">cogl_get_features</link>                   (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-features-available">cogl_features_available</link>             (<link linkend="CoglFeatureFlags">CoglFeatureFlags</link> features);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-check-extension">cogl_check_extension</link>                (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *ext);
+<link linkend="CoglFuncPtr">CoglFuncPtr</link>         <link linkend="cogl-get-proc-address">cogl_get_proc_address</link>               (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GOptionGroup">GOptionGroup</link> *      <link linkend="cogl-get-option-group">cogl_get_option_group</link>               (void);
+
+<link linkend="void">void</link>                <link linkend="cogl-push-matrix">cogl_push_matrix</link>                    (void);
+<link linkend="void">void</link>                <link linkend="cogl-pop-matrix">cogl_pop_matrix</link>                     (void);
+<link linkend="void">void</link>                <link linkend="cogl-scale">cogl_scale</link>                          (<link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);
+<link linkend="void">void</link>                <link linkend="cogl-translate">cogl_translate</link>                      (<link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);
+<link linkend="void">void</link>                <link linkend="cogl-rotate">cogl_rotate</link>                         (<link linkend="float">float</link> angle,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);
+<link linkend="void">void</link>                <link linkend="cogl-frustum">cogl_frustum</link>                        (<link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-perspective">cogl_perspective</link>                    (<link linkend="float">float</link> fovy,
+                                                         <link linkend="float">float</link> aspect,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-ortho">cogl_ortho</link>                          (<link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> near,
+                                                         <link linkend="float">float</link> far);
+
+<link linkend="void">void</link>                <link linkend="cogl-get-modelview-matrix">cogl_get_modelview_matrix</link>           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+<link linkend="void">void</link>                <link linkend="cogl-set-modelview-matrix">cogl_set_modelview_matrix</link>           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+<link linkend="void">void</link>                <link linkend="cogl-get-projection-matrix">cogl_get_projection_matrix</link>          (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+<link linkend="void">void</link>                <link linkend="cogl-set-projection-matrix">cogl_set_projection_matrix</link>          (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);
+<link linkend="void">void</link>                <link linkend="cogl-viewport">cogl_viewport</link>                       (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);
+<link linkend="void">void</link>                <link linkend="cogl-get-viewport">cogl_get_viewport</link>                   (<link linkend="float">float</link> v[4]);
+
+<link linkend="void">void</link>                <link linkend="cogl-clear">cogl_clear</link>                          (const <link linkend="CoglColor">CoglColor</link> *color,
+                                                         <link linkend="gulong">gulong</link> buffers);
+<link linkend="void">void</link>                <link linkend="cogl-get-bitmasks">cogl_get_bitmasks</link>                   (<link linkend="gint">gint</link> *red,
+                                                         <link linkend="gint">gint</link> *green,
+                                                         <link linkend="gint">gint</link> *blue,
+                                                         <link linkend="gint">gint</link> *alpha);
+<link linkend="void">void</link>                <link linkend="cogl-set-depth-test-enabled">cogl_set_depth_test_enabled</link>         (<link linkend="gboolean">gboolean</link> setting);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-get-depth-test-enabled">cogl_get_depth_test_enabled</link>         (void);
+<link linkend="void">void</link>                <link linkend="cogl-set-backface-culling-enabled">cogl_set_backface_culling_enabled</link>   (<link linkend="gboolean">gboolean</link> setting);
+<link linkend="gboolean">gboolean</link>            <link linkend="cogl-get-backface-culling-enabled">cogl_get_backface_culling_enabled</link>   (void);
+
+enum                <link linkend="CoglFogMode">CoglFogMode</link>;
+<link linkend="void">void</link>                <link linkend="cogl-set-fog">cogl_set_fog</link>                        (const <link linkend="CoglColor">CoglColor</link> *fog_color,
+                                                         <link linkend="CoglFogMode">CoglFogMode</link> mode,
+                                                         <link linkend="float">float</link> density,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);
+<link linkend="void">void</link>                <link linkend="cogl-disable-fog">cogl_disable_fog</link>                    (void);
+
+<link linkend="void">void</link>                <link linkend="cogl-set-source">cogl_set_source</link>                     (<link linkend="CoglHandle">CoglHandle</link> material);
+<link linkend="void">void</link>                <link linkend="cogl-set-source-color">cogl_set_source_color</link>               (const <link linkend="CoglColor">CoglColor</link> *color);
+<link linkend="void">void</link>                <link linkend="cogl-set-source-color4ub">cogl_set_source_color4ub</link>            (<link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);
+<link linkend="void">void</link>                <link linkend="cogl-set-source-color4f">cogl_set_source_color4f</link>             (<link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);
+<link linkend="void">void</link>                <link linkend="cogl-set-source-texture">cogl_set_source_texture</link>             (<link linkend="CoglHandle">CoglHandle</link> texture_handle);
+
+enum                <link linkend="CoglReadPixelsFlags">CoglReadPixelsFlags</link>;
+<link linkend="void">void</link>                <link linkend="cogl-read-pixels">cogl_read_pixels</link>                    (<link linkend="int">int</link> x,
+                                                         <link linkend="int">int</link> y,
+                                                         <link linkend="int">int</link> width,
+                                                         <link linkend="int">int</link> height,
+                                                         <link linkend="CoglReadPixelsFlags">CoglReadPixelsFlags</link> source,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint8">guint8</link> *pixels);
+
+<link linkend="void">void</link>                <link linkend="cogl-flush">cogl_flush</link>                          (void);
+<link linkend="void">void</link>                <link linkend="cogl-begin-gl">cogl_begin_gl</link>                       (void);
+<link linkend="void">void</link>                <link linkend="cogl-end-gl">cogl_end_gl</link>                         (void);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="cogl-General-API.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+General utility functions for COGL.</para>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="cogl-General-API.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="COGL-INVALID-HANDLE--CAPS" role="macro">
+<title>COGL_INVALID_HANDLE</title>
+<indexterm zone="COGL-INVALID-HANDLE--CAPS"><primary sortas="INVALID_HANDLE">COGL_INVALID_HANDLE</primary></indexterm><programlisting>#define COGL_INVALID_HANDLE NULL
+</programlisting>
+<para>
+A COGL handle that is not valid, used for unitialized handles as well as
+error conditions.</para>
+<para>
+</para></refsect2>
+<refsect2 id="CoglHandle" role="typedef">
+<title>CoglHandle</title>
+<indexterm zone="CoglHandle"><primary sortas="Handle">CoglHandle</primary></indexterm><programlisting>typedef gpointer CoglHandle;
+</programlisting>
+<para>
+Type used for storing references to cogl objects, the CoglHandle is
+a fully opaque type without any public data members.</para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-handle-ref" role="function">
+<title>cogl_handle_ref ()</title>
+<indexterm zone="cogl-handle-ref"><primary sortas="handle_ref">cogl_handle_ref</primary></indexterm><programlisting><link linkend="CoglHandle">CoglHandle</link>          cogl_handle_ref                     (<link linkend="CoglHandle">CoglHandle</link> handle);</programlisting>
+<para>
+Increases the reference count of <parameter>handle</parameter> by 1</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the handle, with its reference count increased
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-handle-unref" role="function">
+<title>cogl_handle_unref ()</title>
+<indexterm zone="cogl-handle-unref"><primary sortas="handle_unref">cogl_handle_unref</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_handle_unref                   (<link linkend="CoglHandle">CoglHandle</link> Handle);</programlisting>
+<para>
+Drecreases the reference count of <parameter>handle</parameter> by 1; if the reference
+count reaches 0, the resources allocated by <parameter>handle</parameter> will be freed</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>Handle</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglHandle"><type>CoglHandle</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglFuncPtr" role="function">
+<title>CoglFuncPtr ()</title>
+<indexterm zone="CoglFuncPtr"><primary sortas="FuncPtr">CoglFuncPtr</primary></indexterm><programlisting><link linkend="void">void</link>                (*CoglFuncPtr)                      (void);</programlisting>
+<para>
+The type used by cogl for function pointers, note that this type
+is used as a generic catch-all cast for function pointers and the
+actual arguments and return type may be different.</para>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-PIXEL-FORMAT-24--CAPS" role="macro">
+<title>COGL_PIXEL_FORMAT_24</title>
+<indexterm zone="COGL-PIXEL-FORMAT-24--CAPS"><primary sortas="PIXEL_FORMAT_24">COGL_PIXEL_FORMAT_24</primary></indexterm><programlisting>#define COGL_PIXEL_FORMAT_24    2
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-PIXEL-FORMAT-32--CAPS" role="macro">
+<title>COGL_PIXEL_FORMAT_32</title>
+<indexterm zone="COGL-PIXEL-FORMAT-32--CAPS"><primary sortas="PIXEL_FORMAT_32">COGL_PIXEL_FORMAT_32</primary></indexterm><programlisting>#define COGL_PIXEL_FORMAT_32    3
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-A-BIT--CAPS" role="macro">
+<title>COGL_A_BIT</title>
+<indexterm zone="COGL-A-BIT--CAPS"><primary sortas="A_BIT">COGL_A_BIT</primary></indexterm><programlisting>#define COGL_A_BIT              (1 &lt;&lt; 4)
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-BGR-BIT--CAPS" role="macro">
+<title>COGL_BGR_BIT</title>
+<indexterm zone="COGL-BGR-BIT--CAPS"><primary sortas="BGR_BIT">COGL_BGR_BIT</primary></indexterm><programlisting>#define COGL_BGR_BIT            (1 &lt;&lt; 5)
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-AFIRST-BIT--CAPS" role="macro">
+<title>COGL_AFIRST_BIT</title>
+<indexterm zone="COGL-AFIRST-BIT--CAPS"><primary sortas="AFIRST_BIT">COGL_AFIRST_BIT</primary></indexterm><programlisting>#define COGL_AFIRST_BIT         (1 &lt;&lt; 6)
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-PREMULT-BIT--CAPS" role="macro">
+<title>COGL_PREMULT_BIT</title>
+<indexterm zone="COGL-PREMULT-BIT--CAPS"><primary sortas="PREMULT_BIT">COGL_PREMULT_BIT</primary></indexterm><programlisting>#define COGL_PREMULT_BIT        (1 &lt;&lt; 7)
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-UNORDERED-MASK--CAPS" role="macro">
+<title>COGL_UNORDERED_MASK</title>
+<indexterm zone="COGL-UNORDERED-MASK--CAPS"><primary sortas="UNORDERED_MASK">COGL_UNORDERED_MASK</primary></indexterm><programlisting>#define COGL_UNORDERED_MASK     0x0F
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="COGL-UNPREMULT-MASK--CAPS" role="macro">
+<title>COGL_UNPREMULT_MASK</title>
+<indexterm zone="COGL-UNPREMULT-MASK--CAPS"><primary sortas="UNPREMULT_MASK">COGL_UNPREMULT_MASK</primary></indexterm><programlisting>#define COGL_UNPREMULT_MASK     0x7F
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CoglPixelFormat" role="enum" condition="since:0.8">
+<title>enum CoglPixelFormat</title>
+<indexterm zone="CoglPixelFormat" role="0.8"><primary sortas="PixelFormat">CoglPixelFormat</primary></indexterm><programlisting>typedef enum { /*&lt; prefix=COGL_PIXEL_FORMAT &gt;*/
+  COGL_PIXEL_FORMAT_ANY           = 0,
+  COGL_PIXEL_FORMAT_A_8           = 1 | COGL_A_BIT,
+
+  COGL_PIXEL_FORMAT_RGB_565       = 4,
+  COGL_PIXEL_FORMAT_RGBA_4444     = 5 | COGL_A_BIT,
+  COGL_PIXEL_FORMAT_RGBA_5551     = 6 | COGL_A_BIT,
+  COGL_PIXEL_FORMAT_YUV           = 7,
+  COGL_PIXEL_FORMAT_G_8           = 8,
+
+  COGL_PIXEL_FORMAT_RGB_888       =  COGL_PIXEL_FORMAT_24,
+  COGL_PIXEL_FORMAT_BGR_888       = (COGL_PIXEL_FORMAT_24 | COGL_BGR_BIT),
+
+  COGL_PIXEL_FORMAT_RGBA_8888     = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT),
+  COGL_PIXEL_FORMAT_BGRA_8888     = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_BGR_BIT),
+  COGL_PIXEL_FORMAT_ARGB_8888     = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_AFIRST_BIT),
+  COGL_PIXEL_FORMAT_ABGR_8888     = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_BGR_BIT | COGL_AFIRST_BIT),
+
+  COGL_PIXEL_FORMAT_RGBA_8888_PRE = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_PREMULT_BIT),
+  COGL_PIXEL_FORMAT_BGRA_8888_PRE = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_PREMULT_BIT | COGL_BGR_BIT),
+  COGL_PIXEL_FORMAT_ARGB_8888_PRE = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_PREMULT_BIT | COGL_AFIRST_BIT),
+  COGL_PIXEL_FORMAT_ABGR_8888_PRE = (COGL_PIXEL_FORMAT_32 | COGL_A_BIT | COGL_PREMULT_BIT | COGL_BGR_BIT | COGL_AFIRST_BIT),
+  COGL_PIXEL_FORMAT_RGBA_4444_PRE = (COGL_PIXEL_FORMAT_RGBA_4444 | COGL_A_BIT | COGL_PREMULT_BIT),
+  COGL_PIXEL_FORMAT_RGBA_5551_PRE = (COGL_PIXEL_FORMAT_RGBA_5551 | COGL_A_BIT | COGL_PREMULT_BIT),
+} CoglPixelFormat;
+</programlisting>
+<para>
+Pixel formats used by COGL.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-PIXEL-FORMAT-ANY--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_ANY</literal></term>
+<listitem><simpara> Any format
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-A-8--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_A_8</literal></term>
+<listitem><simpara> 8 bits alpha mask
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGB-565--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGB_565</literal></term>
+<listitem><simpara> RGB, 16 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-4444--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_4444</literal></term>
+<listitem><simpara> RGBA, 16 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-5551--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_5551</literal></term>
+<listitem><simpara> RGBA, 16 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-YUV--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_YUV</literal></term>
+<listitem><simpara> FIXME
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-G-8--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_G_8</literal></term>
+<listitem><simpara> FIXME
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGB-888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGB_888</literal></term>
+<listitem><simpara> RGB, 24 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-BGR-888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_BGR_888</literal></term>
+<listitem><simpara> BGR, 24 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-8888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_8888</literal></term>
+<listitem><simpara> RGBA, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-BGRA-8888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_BGRA_8888</literal></term>
+<listitem><simpara> BGRA, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-ARGB-8888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_ARGB_8888</literal></term>
+<listitem><simpara> ARGB, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-ABGR-8888--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_ABGR_8888</literal></term>
+<listitem><simpara> ABGR, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-8888-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_8888_PRE</literal></term>
+<listitem><simpara> Premultiplied RGBA, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-BGRA-8888-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_BGRA_8888_PRE</literal></term>
+<listitem><simpara> Premultiplied BGRA, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-ARGB-8888-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_ARGB_8888_PRE</literal></term>
+<listitem><simpara> Premultiplied ARGB, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-ABGR-8888-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_ABGR_8888_PRE</literal></term>
+<listitem><simpara> Premultiplied ABGR, 32 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-4444-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_4444_PRE</literal></term>
+<listitem><simpara> Premultiplied RGBA, 16 bits
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-PIXEL-FORMAT-RGBA-5551-PRE--CAPS" role="constant">
+<term><literal>COGL_PIXEL_FORMAT_RGBA_5551_PRE</literal></term>
+<listitem><simpara> Premultiplied RGBA, 16 bits
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="CoglBufferTarget" role="enum" condition="since:0.8">
+<title>enum CoglBufferTarget</title>
+<indexterm zone="CoglBufferTarget" role="0.8"><primary sortas="BufferTarget">CoglBufferTarget</primary></indexterm><programlisting>typedef enum
+{
+  COGL_WINDOW_BUFFER      = (1 &lt;&lt; 1),
+  COGL_OFFSCREEN_BUFFER   = (1 &lt;&lt; 2)
+} CoglBufferTarget;
+</programlisting>
+<para>
+Target flags for FBOs.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-WINDOW-BUFFER--CAPS" role="constant">
+<term><literal>COGL_WINDOW_BUFFER</literal></term>
+<listitem><simpara> FIXME
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-OFFSCREEN-BUFFER--CAPS" role="constant">
+<term><literal>COGL_OFFSCREEN_BUFFER</literal></term>
+<listitem><simpara> FIXME
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="CoglBufferBit" role="enum" condition="since:1.0">
+<title>enum CoglBufferBit</title>
+<indexterm zone="CoglBufferBit" role="1.0"><primary sortas="BufferBit">CoglBufferBit</primary></indexterm><programlisting>typedef enum {
+  COGL_BUFFER_BIT_COLOR   = 1L&lt;&lt;0,
+  COGL_BUFFER_BIT_DEPTH   = 1L&lt;&lt;1,
+  COGL_BUFFER_BIT_STENCIL = 1L&lt;&lt;2
+} CoglBufferBit;
+</programlisting>
+<para>
+Types of auxiliary buffers</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-BUFFER-BIT-COLOR--CAPS" role="constant">
+<term><literal>COGL_BUFFER_BIT_COLOR</literal></term>
+<listitem><simpara> Selects the primary color buffer
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-BUFFER-BIT-DEPTH--CAPS" role="constant">
+<term><literal>COGL_BUFFER_BIT_DEPTH</literal></term>
+<listitem><simpara> Selects the depth buffer
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-BUFFER-BIT-STENCIL--CAPS" role="constant">
+<term><literal>COGL_BUFFER_BIT_STENCIL</literal></term>
+<listitem><simpara> Selects the stencil buffer
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CoglAttributeType" role="enum" condition="since:1.0">
+<title>enum CoglAttributeType</title>
+<indexterm zone="CoglAttributeType" role="1.0"><primary sortas="AttributeType">CoglAttributeType</primary></indexterm><programlisting>typedef enum _CoglAttributeType
+{
+  COGL_ATTRIBUTE_TYPE_BYTE = GL_BYTE,
+  COGL_ATTRIBUTE_TYPE_UNSIGNED_BYTE = GL_UNSIGNED_BYTE,
+  COGL_ATTRIBUTE_TYPE_SHORT = GL_SHORT,
+  COGL_ATTRIBUTE_TYPE_UNSIGNED_SHORT = GL_UNSIGNED_SHORT,
+  COGL_ATTRIBUTE_TYPE_FLOAT = GL_FLOAT
+} CoglAttributeType;
+</programlisting>
+<para>
+Data types for the components of <link linkend="cogl-vertex-buffer-add"><function>cogl_vertex_buffer_add()</function></link></para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-ATTRIBUTE-TYPE-BYTE--CAPS" role="constant">
+<term><literal>COGL_ATTRIBUTE_TYPE_BYTE</literal></term>
+<listitem><simpara> Data is the same size of a byte
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-ATTRIBUTE-TYPE-UNSIGNED-BYTE--CAPS" role="constant">
+<term><literal>COGL_ATTRIBUTE_TYPE_UNSIGNED_BYTE</literal></term>
+<listitem><simpara> Data is the same size of an
+  unsigned byte
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-ATTRIBUTE-TYPE-SHORT--CAPS" role="constant">
+<term><literal>COGL_ATTRIBUTE_TYPE_SHORT</literal></term>
+<listitem><simpara> Data is the same size of a short integer
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-ATTRIBUTE-TYPE-UNSIGNED-SHORT--CAPS" role="constant">
+<term><literal>COGL_ATTRIBUTE_TYPE_UNSIGNED_SHORT</literal></term>
+<listitem><simpara> Data is the same size of
+  an unsigned short integer
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-ATTRIBUTE-TYPE-FLOAT--CAPS" role="constant">
+<term><literal>COGL_ATTRIBUTE_TYPE_FLOAT</literal></term>
+<listitem><simpara> Data is the same size of a float
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CoglFeatureFlags" role="enum" condition="since:0.8">
+<title>enum CoglFeatureFlags</title>
+<indexterm zone="CoglFeatureFlags" role="0.8"><primary sortas="FeatureFlags">CoglFeatureFlags</primary></indexterm><programlisting>typedef enum
+{
+  COGL_FEATURE_TEXTURE_RECTANGLE      = (1 &lt;&lt; 1),
+  COGL_FEATURE_TEXTURE_NPOT           = (1 &lt;&lt; 2),
+  COGL_FEATURE_TEXTURE_YUV            = (1 &lt;&lt; 3),
+  COGL_FEATURE_TEXTURE_READ_PIXELS    = (1 &lt;&lt; 4),
+  COGL_FEATURE_SHADERS_GLSL           = (1 &lt;&lt; 5),
+  COGL_FEATURE_OFFSCREEN              = (1 &lt;&lt; 6),
+  COGL_FEATURE_OFFSCREEN_MULTISAMPLE  = (1 &lt;&lt; 7),
+  COGL_FEATURE_OFFSCREEN_BLIT         = (1 &lt;&lt; 8),
+  COGL_FEATURE_FOUR_CLIP_PLANES       = (1 &lt;&lt; 9),
+  COGL_FEATURE_STENCIL_BUFFER         = (1 &lt;&lt; 10),
+  COGL_FEATURE_VBOS		      = (1 &lt;&lt; 11)
+} CoglFeatureFlags;
+</programlisting>
+<para>
+Flags for the supported features.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-FEATURE-TEXTURE-RECTANGLE--CAPS" role="constant">
+<term><literal>COGL_FEATURE_TEXTURE_RECTANGLE</literal></term>
+<listitem><simpara> ARB_texture_rectangle support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-TEXTURE-NPOT--CAPS" role="constant">
+<term><literal>COGL_FEATURE_TEXTURE_NPOT</literal></term>
+<listitem><simpara> ARB_texture_non_power_of_two support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-TEXTURE-YUV--CAPS" role="constant">
+<term><literal>COGL_FEATURE_TEXTURE_YUV</literal></term>
+<listitem><simpara> ycbcr conversion support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-TEXTURE-READ-PIXELS--CAPS" role="constant">
+<term><literal>COGL_FEATURE_TEXTURE_READ_PIXELS</literal></term>
+<listitem><simpara> <link linkend="glReadPixels"><function>glReadPixels()</function></link> support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-SHADERS-GLSL--CAPS" role="constant">
+<term><literal>COGL_FEATURE_SHADERS_GLSL</literal></term>
+<listitem><simpara> GLSL support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-OFFSCREEN--CAPS" role="constant">
+<term><literal>COGL_FEATURE_OFFSCREEN</literal></term>
+<listitem><simpara> FBO support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-OFFSCREEN-MULTISAMPLE--CAPS" role="constant">
+<term><literal>COGL_FEATURE_OFFSCREEN_MULTISAMPLE</literal></term>
+<listitem><simpara> Multisample support on FBOs
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-OFFSCREEN-BLIT--CAPS" role="constant">
+<term><literal>COGL_FEATURE_OFFSCREEN_BLIT</literal></term>
+<listitem><simpara> Blit support on FBOs
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-FOUR-CLIP-PLANES--CAPS" role="constant">
+<term><literal>COGL_FEATURE_FOUR_CLIP_PLANES</literal></term>
+<listitem><simpara> At least 4 clip planes available
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-STENCIL-BUFFER--CAPS" role="constant">
+<term><literal>COGL_FEATURE_STENCIL_BUFFER</literal></term>
+<listitem><simpara> Stencil buffer support
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FEATURE-VBOS--CAPS" role="constant">
+<term><literal>COGL_FEATURE_VBOS</literal></term>
+<listitem><simpara> VBO support
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-get-features" role="function" condition="since:0.8">
+<title>cogl_get_features ()</title>
+<indexterm zone="cogl-get-features" role="0.8"><primary sortas="get_features">cogl_get_features</primary></indexterm><programlisting><link linkend="CoglFeatureFlags">CoglFeatureFlags</link>    cogl_get_features                   (void);</programlisting>
+<para>
+Returns all of the features supported by COGL.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A logical OR of all the supported COGL features.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8</para></refsect2>
+<refsect2 id="cogl-features-available" role="function">
+<title>cogl_features_available ()</title>
+<indexterm zone="cogl-features-available"><primary sortas="features_available">cogl_features_available</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_features_available             (<link linkend="CoglFeatureFlags">CoglFeatureFlags</link> features);</programlisting>
+<para>
+Checks whether the given COGL features are available. Multiple
+features can be checked for by or-ing them together with the '|'
+operator. <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> is only returned if all of the requested features
+are available.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>features</parameter>&#160;:</term>
+<listitem><simpara> A bitmask of features to check for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the features are available, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-check-extension" role="function">
+<title>cogl_check_extension ()</title>
+<indexterm zone="cogl-check-extension"><primary sortas="check_extension">cogl_check_extension</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_check_extension                (const <link linkend="gchar">gchar</link> *name,
+                                                         const <link linkend="gchar">gchar</link> *ext);</programlisting>
+<para>
+Check whether <parameter>name</parameter> occurs in list of extensions in <parameter>ext</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> extension to check for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ext</parameter>&#160;:</term>
+<listitem><simpara> list of extensions
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if the extension occurs in the list, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwize.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-proc-address" role="function">
+<title>cogl_get_proc_address ()</title>
+<indexterm zone="cogl-get-proc-address"><primary sortas="get_proc_address">cogl_get_proc_address</primary></indexterm><programlisting><link linkend="CoglFuncPtr">CoglFuncPtr</link>         cogl_get_proc_address               (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Gets a pointer to a given GL or GL ES extension function. This acts
+as a wrapper around <link linkend="glXGetProcAddress"><function>glXGetProcAddress()</function></link> or whatever is the
+appropriate function for the current backend.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara> the name of the function.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a pointer to the requested function or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the
+function is not available.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-option-group" role="function" condition="since:1.0">
+<title>cogl_get_option_group ()</title>
+<indexterm zone="cogl-get-option-group" role="1.0"><primary sortas="get_option_group">cogl_get_option_group</primary></indexterm><programlisting><link linkend="GOptionGroup">GOptionGroup</link> *      cogl_get_option_group               (void);</programlisting>
+<para>
+Retrieves the <link linkend="GOptionGroup"><type>GOptionGroup</type></link> used by COGL to parse the command
+line options. Clutter uses this to handle the COGL command line
+options during its initialization process.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a <link linkend="GOptionGroup"><type>GOptionGroup</type></link>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-push-matrix" role="function">
+<title>cogl_push_matrix ()</title>
+<indexterm zone="cogl-push-matrix"><primary sortas="push_matrix">cogl_push_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_push_matrix                    (void);</programlisting>
+<para>
+Store the current model-view matrix on the matrix stack. The matrix
+can later be restored with <link linkend="cogl-pop-matrix"><function>cogl_pop_matrix()</function></link>.</para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-pop-matrix" role="function">
+<title>cogl_pop_matrix ()</title>
+<indexterm zone="cogl-pop-matrix"><primary sortas="pop_matrix">cogl_pop_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_pop_matrix                     (void);</programlisting>
+<para>
+Restore the current model-view matrix from the matrix stack.</para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-scale" role="function">
+<title>cogl_scale ()</title>
+<indexterm zone="cogl-scale"><primary sortas="scale">cogl_scale</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_scale                          (<link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);</programlisting>
+<para>
+Multiplies the current model-view matrix by one that scales the x,
+y and z axes by the given values.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> Amount to scale along the x-axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> Amount to scale along the y-axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara> Amount to scale along the z-axis
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-translate" role="function">
+<title>cogl_translate ()</title>
+<indexterm zone="cogl-translate"><primary sortas="translate">cogl_translate</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_translate                      (<link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);</programlisting>
+<para>
+Multiplies the current model-view matrix by one that translates the
+model along all three axes according to the given values.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> Distance to translate along the x-axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> Distance to translate along the y-axis
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara> Distance to translate along the z-axis
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-rotate" role="function">
+<title>cogl_rotate ()</title>
+<indexterm zone="cogl-rotate"><primary sortas="rotate">cogl_rotate</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_rotate                         (<link linkend="float">float</link> angle,
+                                                         <link linkend="float">float</link> x,
+                                                         <link linkend="float">float</link> y,
+                                                         <link linkend="float">float</link> z);</programlisting>
+<para>
+Multiplies the current model-view matrix by one that rotates the
+model around the vertex specified by <parameter>x</parameter>, <parameter>y</parameter> and <parameter>z</parameter>. The rotation
+follows the right-hand thumb rule so for example rotating by 10
+degrees about the vertex (0, 0, 1) causes a small counter-clockwise
+rotation.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>angle</parameter>&#160;:</term>
+<listitem><simpara> Angle in degrees to rotate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> X-component of vertex to rotate around.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> Y-component of vertex to rotate around.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z</parameter>&#160;:</term>
+<listitem><simpara> Z-component of vertex to rotate around.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-frustum" role="function" condition="since:0.8.2">
+<title>cogl_frustum ()</title>
+<indexterm zone="cogl-frustum" role="0.8.2"><primary sortas="frustum">cogl_frustum</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_frustum                        (<link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Replaces the current projection matrix with a perspective matrix
+for the given viewing frustum.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>left</parameter>&#160;:</term>
+<listitem><simpara> Left clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>right</parameter>&#160;:</term>
+<listitem><simpara> Right clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bottom</parameter>&#160;:</term>
+<listitem><simpara> Bottom clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>top</parameter>&#160;:</term>
+<listitem><simpara> Top clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> Nearest visible point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> Furthest visible point along the z-axis
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.2</para></refsect2>
+<refsect2 id="cogl-perspective" role="function">
+<title>cogl_perspective ()</title>
+<indexterm zone="cogl-perspective"><primary sortas="perspective">cogl_perspective</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_perspective                    (<link linkend="float">float</link> fovy,
+                                                         <link linkend="float">float</link> aspect,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Replaces the current projection matrix with a perspective matrix
+based on the provided values.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fovy</parameter>&#160;:</term>
+<listitem><simpara> Vertical of view angle in degrees.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>aspect</parameter>&#160;:</term>
+<listitem><simpara> Aspect ratio of diesplay
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> Nearest visible point
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> Furthest visible point along the z-axis
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-ortho" role="function" condition="since:1.0">
+<title>cogl_ortho ()</title>
+<indexterm zone="cogl-ortho" role="1.0"><primary sortas="ortho">cogl_ortho</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_ortho                          (<link linkend="float">float</link> left,
+                                                         <link linkend="float">float</link> right,
+                                                         <link linkend="float">float</link> bottom,
+                                                         <link linkend="float">float</link> top,
+                                                         <link linkend="float">float</link> near,
+                                                         <link linkend="float">float</link> far);</programlisting>
+<para>
+Replaces the current projection matrix with a parallel projection
+matrix.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>left</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the left clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>right</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the right clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bottom</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the bottom clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>top</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the top clipping plane
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>near</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the near clipping plane (may be negative if
+       the plane is behind the viewer)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>far</parameter>&#160;:</term>
+<listitem><simpara> The coordinate for the far clipping plane (may be negative if
+      the plane is behind the viewer)
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-get-modelview-matrix" role="function">
+<title>cogl_get_modelview_matrix ()</title>
+<indexterm zone="cogl-get-modelview-matrix"><primary sortas="get_modelview_matrix">cogl_get_modelview_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_get_modelview_matrix           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+Stores the current model-view matrix in <parameter>matrix</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> pointer to a CoglMatrix to recieve the matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-modelview-matrix" role="function">
+<title>cogl_set_modelview_matrix ()</title>
+<indexterm zone="cogl-set-modelview-matrix"><primary sortas="set_modelview_matrix">cogl_set_modelview_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_modelview_matrix           (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+Loads matrix as the new model-view matrix.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> pointer to a CoglMatrix to set as the new model-view matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-projection-matrix" role="function">
+<title>cogl_get_projection_matrix ()</title>
+<indexterm zone="cogl-get-projection-matrix"><primary sortas="get_projection_matrix">cogl_get_projection_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_get_projection_matrix          (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+Stores the current projection matrix in <parameter>matrix</parameter>.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> pointer to a CoglMatrix to recieve the matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-projection-matrix" role="function">
+<title>cogl_set_projection_matrix ()</title>
+<indexterm zone="cogl-set-projection-matrix"><primary sortas="set_projection_matrix">cogl_set_projection_matrix</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_projection_matrix          (<link linkend="CoglMatrix">CoglMatrix</link> *matrix);</programlisting>
+<para>
+Loads matrix as the new projection matrix.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>matrix</parameter>&#160;:</term>
+<listitem><simpara> pointer to a CoglMatrix to set as the new projection matrix
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-viewport" role="function" condition="since:0.8.2">
+<title>cogl_viewport ()</title>
+<indexterm zone="cogl-viewport" role="0.8.2"><primary sortas="viewport">cogl_viewport</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_viewport                       (<link linkend="guint">guint</link> width,
+                                                         <link linkend="guint">guint</link> height);</programlisting>
+<para>
+Replace the current viewport with the given values.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> Width of the viewport
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> Height of the viewport
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 0.8.2</para></refsect2>
+<refsect2 id="cogl-get-viewport" role="function">
+<title>cogl_get_viewport ()</title>
+<indexterm zone="cogl-get-viewport"><primary sortas="get_viewport">cogl_get_viewport</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_get_viewport                   (<link linkend="float">float</link> v[4]);</programlisting>
+<para>
+Stores the current viewport in <parameter>v</parameter>. <parameter>v</parameter>[0] and <parameter>v</parameter>[1] get the x and y
+position of the viewport and <parameter>v</parameter>[2] and <parameter>v</parameter>[3] get the width and
+height.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>v</parameter>&#160;:</term>
+<listitem><simpara> pointer to a 4 element array of <link linkend="float"><type>float</type></link><!-- -->s to
+receive the viewport dimensions.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-clear" role="function">
+<title>cogl_clear ()</title>
+<indexterm zone="cogl-clear"><primary sortas="clear">cogl_clear</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_clear                          (const <link linkend="CoglColor">CoglColor</link> *color,
+                                                         <link linkend="gulong">gulong</link> buffers);</programlisting>
+<para>
+Clears all the auxiliary buffers identified in the <parameter>buffers</parameter> mask, and if
+that includes the color buffer then the specified <parameter>color</parameter> is used.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> Background color to clear to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buffers</parameter>&#160;:</term>
+<listitem><simpara> A mask of <link linkend="CoglBufferBit"><type>CoglBufferBit</type></link><!-- -->'s identifying which auxiliary
+  buffers to clear
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-bitmasks" role="function">
+<title>cogl_get_bitmasks ()</title>
+<indexterm zone="cogl-get-bitmasks"><primary sortas="get_bitmasks">cogl_get_bitmasks</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_get_bitmasks                   (<link linkend="gint">gint</link> *red,
+                                                         <link linkend="gint">gint</link> *green,
+                                                         <link linkend="gint">gint</link> *blue,
+                                                         <link linkend="gint">gint</link> *alpha);</programlisting>
+<para>
+Gets the number of bitplanes used for each of the color components
+in the color buffer. Pass <link linkend="NULL--CAPS"><literal>NULL</literal></link> for any of the arguments if the
+value is not required.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> Return location for the number of red bits or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> Return location for the number of green bits or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> Return location for the number of blue bits or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> Return location for the number of alpha bits or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-depth-test-enabled" role="function">
+<title>cogl_set_depth_test_enabled ()</title>
+<indexterm zone="cogl-set-depth-test-enabled"><primary sortas="set_depth_test_enabled">cogl_set_depth_test_enabled</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_depth_test_enabled         (<link linkend="gboolean">gboolean</link> setting);</programlisting>
+<para>
+Sets whether depth testing is enabled. If it is disabled then the
+order that actors are layered on the screen depends solely on the
+order specified using <link linkend="clutter-actor-raise"><function>clutter_actor_raise()</function></link> and
+<link linkend="clutter-actor-lower"><function>clutter_actor_lower()</function></link>, otherwise it will also take into account the
+actor's depth. Depth testing is disabled by default.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>setting</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> to enable depth testing or <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> to disable.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-depth-test-enabled" role="function">
+<title>cogl_get_depth_test_enabled ()</title>
+<indexterm zone="cogl-get-depth-test-enabled"><primary sortas="get_depth_test_enabled">cogl_get_depth_test_enabled</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_get_depth_test_enabled         (void);</programlisting>
+<para>
+Queries if depth testing has been enabled via <link linkend="cogl-set-depth-test-enable"><function>cogl_set_depth_test_enable()</function></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if depth testing is enabled, and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-backface-culling-enabled" role="function">
+<title>cogl_set_backface_culling_enabled ()</title>
+<indexterm zone="cogl-set-backface-culling-enabled"><primary sortas="set_backface_culling_enabled">cogl_set_backface_culling_enabled</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_backface_culling_enabled   (<link linkend="gboolean">gboolean</link> setting);</programlisting>
+<para>
+Sets whether textures positioned so that their backface is showing
+should be hidden. This can be used to efficiently draw two-sided
+textures or fully closed cubes without enabling depth testing. This
+only affects calls to the cogl_rectangle* family of functions and
+cogl_vertex_buffer_draw*. Backface culling is disabled by default.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>setting</parameter>&#160;:</term>
+<listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> to enable backface culling or <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> to disable.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-get-backface-culling-enabled" role="function">
+<title>cogl_get_backface_culling_enabled ()</title>
+<indexterm zone="cogl-get-backface-culling-enabled"><primary sortas="get_backface_culling_enabled">cogl_get_backface_culling_enabled</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            cogl_get_backface_culling_enabled   (void);</programlisting>
+<para>
+Queries if backface culling has been enabled via
+<link linkend="cogl-set-backface-culling-enabled"><function>cogl_set_backface_culling_enabled()</function></link></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE--CAPS"><literal>TRUE</literal></link> if backface culling is enabled, and <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglFogMode" role="enum" condition="since:1.0">
+<title>enum CoglFogMode</title>
+<indexterm zone="CoglFogMode" role="1.0"><primary sortas="FogMode">CoglFogMode</primary></indexterm><programlisting>typedef enum {
+  COGL_FOG_MODE_LINEAR,
+  COGL_FOG_MODE_EXPONENTIAL,
+  COGL_FOG_MODE_EXPONENTIAL_SQUARED
+} CoglFogMode;
+</programlisting>
+<para>
+The fog mode determines the equation used to calculate the fogging blend
+factor while fogging is enabled. The simplest <link linkend="COGL-FOG-MODE-LINEAR--CAPS"><literal>COGL_FOG_MODE_LINEAR</literal></link> mode
+determines f as:
+</para>
+<para>
+<informalexample><programlisting>
+  f = end - eye_distance / end - start
+</programlisting></informalexample>
+</para>
+<para>
+Where eye_distance is the distance of the current fragment in eye
+coordinates from the origin.</para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-FOG-MODE-LINEAR--CAPS" role="constant">
+<term><literal>COGL_FOG_MODE_LINEAR</literal></term>
+<listitem><simpara> Calculates the fog blend factor as:
+<informalexample><programlisting>
+  f = end - eye_distance / end - start
+</programlisting></informalexample>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FOG-MODE-EXPONENTIAL--CAPS" role="constant">
+<term><literal>COGL_FOG_MODE_EXPONENTIAL</literal></term>
+<listitem><simpara> Calculates the fog blend factor as:
+<informalexample><programlisting>
+  f = e ^ -(density * eye_distance)
+</programlisting></informalexample>
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="COGL-FOG-MODE-EXPONENTIAL-SQUARED--CAPS" role="constant">
+<term><literal>COGL_FOG_MODE_EXPONENTIAL_SQUARED</literal></term>
+<listitem><simpara> Calculates the fog blend factor as:
+<informalexample><programlisting>
+  f = e ^ -(density * eye_distance)^2
+</programlisting></informalexample>
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-set-fog" role="function">
+<title>cogl_set_fog ()</title>
+<indexterm zone="cogl-set-fog"><primary sortas="set_fog">cogl_set_fog</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_fog                        (const <link linkend="CoglColor">CoglColor</link> *fog_color,
+                                                         <link linkend="CoglFogMode">CoglFogMode</link> mode,
+                                                         <link linkend="float">float</link> density,
+                                                         <link linkend="float">float</link> z_near,
+                                                         <link linkend="float">float</link> z_far);</programlisting>
+<para>
+Enables fogging. Fogging causes vertices that are further away from the eye
+to be rendered with a different color. The color is determined according to
+the chosen fog mode; at it's simplest the color is linearly interpolated so
+that vertices at <parameter>z_near</parameter> are drawn fully with their original color and
+vertices at <parameter>z_far</parameter> are drawn fully with <parameter>fog_color</parameter>. Fogging will remain
+enabled until you call <link linkend="cogl-disable-fog"><function>cogl_disable_fog()</function></link>.
+</para>
+<para>
+<note>The fogging functions only work correctly when primitives use
+unmultiplied alpha colors. By default Cogl will premultiply textures
+and <link linkend="cogl-set-source-color"><function>cogl_set_source_color()</function></link> will premultiply colors, so unless you
+explicitly load your textures requesting an unmultiplied internal format
+and use <link linkend="cogl-material-set-color"><function>cogl_material_set_color()</function></link> you can only use fogging with fully
+opaque primitives. This might improve in the future when we can depend
+on fragment shaders.</note></para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fog_color</parameter>&#160;:</term>
+<listitem><simpara> The color of the fog
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara> A CoglFogMode that determines the equation used to calculate the
+       fogging blend factor.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>density</parameter>&#160;:</term>
+<listitem><simpara> Used by the EXPONENTIAL and EXPONENTIAL_SQUARED CoglFogMode
+          equations.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_near</parameter>&#160;:</term>
+<listitem><simpara> Position along z-axis where no fogging should be applied
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>z_far</parameter>&#160;:</term>
+<listitem><simpara> Position along z-axes where full fogging should be applied
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-disable-fog" role="function">
+<title>cogl_disable_fog ()</title>
+<indexterm zone="cogl-disable-fog"><primary sortas="disable_fog">cogl_disable_fog</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_disable_fog                    (void);</programlisting>
+<para>
+This function disables fogging, so primitives drawn afterwards will not be
+blended with any previously set fog color.</para>
+<para>
+</para></refsect2>
+<refsect2 id="cogl-set-source" role="function">
+<title>cogl_set_source ()</title>
+<indexterm zone="cogl-set-source"><primary sortas="set_source">cogl_set_source</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_source                     (<link linkend="CoglHandle">CoglHandle</link> material);</programlisting>
+<para>
+This function sets the source material that will be used to fill subsequent
+geometry emitted via the cogl API.
+</para>
+<para>
+Note: in the future we may add the ability to set a front facing material,
+and a back facing material, in which case this function will set both to the
+same.
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>material</parameter>&#160;:</term>
+<listitem><simpara> A CoglMaterial object
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-set-source-color" role="function" condition="since:1.0">
+<title>cogl_set_source_color ()</title>
+<indexterm zone="cogl-set-source-color" role="1.0"><primary sortas="set_source_color">cogl_set_source_color</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_source_color               (const <link linkend="CoglColor">CoglColor</link> *color);</programlisting>
+<para>
+This is a convenience function for creating a solid fill source material
+from the given color. This color will be used for any subsequent drawing
+operation.
+</para>
+<para>
+The color will be premultiplied by Cogl, so the color should be
+non-premultiplied. For example: use (1.0, 0.0, 0.0, 0.5) for
+semi-transparent red.
+</para>
+<para>
+See also <link linkend="cogl-set-source-color4ub"><function>cogl_set_source_color4ub()</function></link> and <link linkend="cogl-set-source-color4f"><function>cogl_set_source_color4f()</function></link>
+if you already have the color components.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara> a <link linkend="CoglColor"><type>CoglColor</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-set-source-color4ub" role="function" condition="since:1.0">
+<title>cogl_set_source_color4ub ()</title>
+<indexterm zone="cogl-set-source-color4ub" role="1.0"><primary sortas="set_source_color4ub">cogl_set_source_color4ub</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_source_color4ub            (<link linkend="guint8">guint8</link> red,
+                                                         <link linkend="guint8">guint8</link> green,
+                                                         <link linkend="guint8">guint8</link> blue,
+                                                         <link linkend="guint8">guint8</link> alpha);</programlisting>
+<para>
+This is a convenience function for creating a solid fill source material
+from the given color using unsigned bytes for each component. This
+color will be used for any subsequent drawing operation.
+</para>
+<para>
+The value for each component is an unsigned byte in the range
+between 0 and 255.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> value of the red channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> value of the green channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> value of the blue channel, between 0 and 255
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> value of the alpha channel, between 0 and 255
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-set-source-color4f" role="function" condition="since:1.0">
+<title>cogl_set_source_color4f ()</title>
+<indexterm zone="cogl-set-source-color4f" role="1.0"><primary sortas="set_source_color4f">cogl_set_source_color4f</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_source_color4f             (<link linkend="float">float</link> red,
+                                                         <link linkend="float">float</link> green,
+                                                         <link linkend="float">float</link> blue,
+                                                         <link linkend="float">float</link> alpha);</programlisting>
+<para>
+This is a convenience function for creating a solid fill source material
+from the given color using normalized values for each component. This color
+will be used for any subsequent drawing operation.
+</para>
+<para>
+The value for each component is a fixed point number in the range
+between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0. If the values passed in are outside that
+range, they will be clamped.</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>red</parameter>&#160;:</term>
+<listitem><simpara> value of the red channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>green</parameter>&#160;:</term>
+<listitem><simpara> value of the green channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blue</parameter>&#160;:</term>
+<listitem><simpara> value of the blue channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alpha</parameter>&#160;:</term>
+<listitem><simpara> value of the alpha channel, between 0 and <link linkend="1--CAPS"><literal>1</literal></link>.0
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-set-source-texture" role="function">
+<title>cogl_set_source_texture ()</title>
+<indexterm zone="cogl-set-source-texture"><primary sortas="set_source_texture">cogl_set_source_texture</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_set_source_texture             (<link linkend="CoglHandle">CoglHandle</link> texture_handle);</programlisting>
+<para>
+This is a convenience function for creating a material with the first
+layer set to <link linkend="texture-handle"><type>texture_handle</type></link> and setting that material as the source with
+cogl_set_source.
+</para>
+<para>
+Note: There is no interaction between calls to cogl_set_source_color
+and cogl_set_source_texture. If you need to blend a texture with a color then
+you can create a simple material like this:
+<programlisting>
+material = cogl_material_new ();
+cogl_material_set_color4ub (material, 0xff, 0x00, 0x00, 0x80);
+cogl_material_set_layer (material, 0, tex_handle);
+cogl_set_source (material);
+</programlisting>
+</para>
+<para>
+Since 1.0</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>texture_handle</parameter>&#160;:</term>
+<listitem><simpara> The Cogl texture you want as your source
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CoglReadPixelsFlags" role="enum" condition="since:1.0">
+<title>enum CoglReadPixelsFlags</title>
+<indexterm zone="CoglReadPixelsFlags" role="1.0"><primary sortas="ReadPixelsFlags">CoglReadPixelsFlags</primary></indexterm><programlisting>typedef enum { /*&lt; prefix=COGL_READ_PIXELS &gt;*/
+  COGL_READ_PIXELS_COLOR_BUFFER = 1L &lt;&lt; 0
+} CoglReadPixelsFlags;
+</programlisting>
+<para>
+Flags for <link linkend="cogl-read-pixels"><function>cogl_read_pixels()</function></link></para>
+<para>
+</para><variablelist role="enum">
+<varlistentry id="COGL-READ-PIXELS-COLOR-BUFFER--CAPS" role="constant">
+<term><literal>COGL_READ_PIXELS_COLOR_BUFFER</literal></term>
+<listitem><simpara> Read from the color buffer
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-read-pixels" role="function">
+<title>cogl_read_pixels ()</title>
+<indexterm zone="cogl-read-pixels"><primary sortas="read_pixels">cogl_read_pixels</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_read_pixels                    (<link linkend="int">int</link> x,
+                                                         <link linkend="int">int</link> y,
+                                                         <link linkend="int">int</link> width,
+                                                         <link linkend="int">int</link> height,
+                                                         <link linkend="CoglReadPixelsFlags">CoglReadPixelsFlags</link> source,
+                                                         <link linkend="CoglPixelFormat">CoglPixelFormat</link> format,
+                                                         <link linkend="guint8">guint8</link> *pixels);</programlisting>
+<para>
+This reads a rectangle of pixels from the current draw buffer where
+position (0, 0) is the top left. The pixel at (x, y) is the first
+read, and the data is returned with a rowstride of (width * 4)</para>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara> The window x position to start reading from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara> The window y position to start reading from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara> The width of the rectangle you want to read
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara> The height of the rectangle you want to read
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara> Identifies which auxillary buffer you want to read
+         (only COGL_READ_PIXELS_COLOR_BUFFER supported currently)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara> The pixel format you want the result in
+         (only COGL_PIXEL_FORMAT_RGBA_8888 supported currently)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixels</parameter>&#160;:</term>
+<listitem><simpara> The location to write the pixel data.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cogl-flush" role="function" condition="since:1.0">
+<title>cogl_flush ()</title>
+<indexterm zone="cogl-flush" role="1.0"><primary sortas="flush">cogl_flush</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_flush                          (void);</programlisting>
+<para>
+This function should only need to be called in exceptional circumstances.
+</para>
+<para>
+As an optimization Cogl drawing functions may batch up primitives
+internally, so if you are trying to use raw GL outside of Cogl you stand a
+better chance of being successful if you ask Cogl to flush any batched
+geometry before making your state changes.
+</para>
+<para>
+It only ensure that the underlying driver is issued all the commands
+necessary to draw the batched primitives. It provides no guarantees about
+when the driver will complete the rendering.
+</para>
+<para>
+This provides no guarantees about the GL state upon returning and to avoid
+confusing Cogl you should aim to restore any changes you make before
+resuming use of Cogl.
+</para>
+<para>
+If you are making state changes with the intention of affecting Cogl drawing
+primitives you are 100% on your own since you stand a good chance of
+conflicting with Cogl internals. For example clutter-gst which currently
+uses direct GL calls to bind ARBfp programs will very likely break when Cogl
+starts to use ARBfb programs itself for the material API.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-begin-gl" role="function" condition="since:1.0">
+<title>cogl_begin_gl ()</title>
+<indexterm zone="cogl-begin-gl" role="1.0"><primary sortas="begin_gl">cogl_begin_gl</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_begin_gl                       (void);</programlisting>
+<para>
+We do not advise nor reliably support the interleaving of raw GL drawing and
+Cogl drawing functions, but if you insist, <link linkend="cogl-begin-gl"><function>cogl_begin_gl()</function></link> and <link linkend="cogl-end-gl"><function>cogl_end_gl()</function></link>
+provide a simple mechanism that may at least give you a fighting chance of
+succeeding.
+</para>
+<para>
+Note: this doesn't help you modify the behaviour of Cogl drawing functions
+through the modification of GL state; that will never be reliably supported,
+but if you are trying to do something like:
+<programlisting>
+{
+   - setup some OpenGL state.
+   - draw using OpenGL (e.g. glDrawArrays() )
+   - reset modified OpenGL state.
+   - continue using Cogl to draw
+}
+</programlisting>
+You should surround blocks of drawing using raw GL with <link linkend="cogl-begin-gl"><function>cogl_begin_gl()</function></link>
+and <link linkend="cogl-end-gl"><function>cogl_end_gl()</function></link>:
+<programlisting>
+{
+   cogl_begin_gl ();
+   - setup some OpenGL state.
+   - draw using OpenGL (e.g. glDrawArrays() )
+   - reset modified OpenGL state.
+   cogl_end_gl ();
+   - continue using Cogl to draw
+}
+</programlisting>
+</para>
+<para>
+Don't ever try and do:
+<programlisting>
+{
+   - setup some OpenGL state.
+   - use Cogl to draw
+   - reset modified OpenGL state.
+}
+</programlisting>
+When the internals of Cogl evolves, this is very liable to break.
+</para>
+<para>
+This function will flush all batched primitives, and subsequently flush
+all internal Cogl state to OpenGL as if it were going to draw something
+itself.
+</para>
+<para>
+The result is that the OpenGL modelview matrix will be setup; the state
+corresponding to the current source material will be set up and other world
+state such as backface culling, depth and fogging enabledness will be sent
+to OpenGL.
+</para>
+<para>
+Note: no special material state is flushed, so if you want Cogl to setup a
+simplified material state it is your responsibility to set a simple source
+material before calling cogl_begin_gl. E.g. by calling
+<link linkend="cogl-set-source-color4ub"><function>cogl_set_source_color4ub()</function></link>.
+</para>
+<para>
+Note: It is your responsibility to restore any OpenGL state that you modify
+to how it was after calling <link linkend="cogl-begin-gl"><function>cogl_begin_gl()</function></link> if you don't do this then the
+result of further Cogl calls is undefined.
+</para>
+<para>
+Note: You can not nest begin/end blocks.
+</para>
+<para>
+Again we would like to stress, we do not advise the use of this API and if
+possible we would prefer to improve Cogl than have developers require raw
+OpenGL.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cogl-end-gl" role="function" condition="since:1.0">
+<title>cogl_end_gl ()</title>
+<indexterm zone="cogl-end-gl" role="1.0"><primary sortas="end_gl">cogl_end_gl</primary></indexterm><programlisting><link linkend="void">void</link>                cogl_end_gl                         (void);</programlisting>
+<para>
+This is the counterpart to <link linkend="cogl-begin-gl"><function>cogl_begin_gl()</function></link> used to delimit blocks of drawing
+code using raw OpenGL. Please refer to <link linkend="cogl-begin-gl"><function>cogl_begin_gl()</function></link> for full details.</para>
+<para>
+</para><para role="since">Since 1.0</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

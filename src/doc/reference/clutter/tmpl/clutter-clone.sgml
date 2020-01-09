@@ -1,0 +1,65 @@
+<!-- ##### SECTION Title ##### -->
+ClutterClone
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterClone ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG ClutterClone:source ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterCloneClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION clutter_clone_new ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_clone_set_source ##### -->
+<para>
+
+</para>
+
+@clone: 
+@source: 
+
+
+<!-- ##### FUNCTION clutter_clone_get_source ##### -->
+<para>
+
+</para>
+
+@clone: 
+@Returns: 
+
+

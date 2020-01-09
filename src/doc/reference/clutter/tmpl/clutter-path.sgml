@@ -1,0 +1,344 @@
+<!-- ##### SECTION Title ##### -->
+ClutterPath
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterPath ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG ClutterPath:description ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ClutterPath:length ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ClutterPathClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### USER_FUNCTION ClutterPathCallback ##### -->
+<para>
+
+</para>
+
+@node: 
+@data: 
+
+
+<!-- ##### ENUM ClutterPathNodeType ##### -->
+<para>
+
+</para>
+
+@CLUTTER_PATH_MOVE_TO: 
+@CLUTTER_PATH_LINE_TO: 
+@CLUTTER_PATH_CURVE_TO: 
+@CLUTTER_PATH_CLOSE: 
+@CLUTTER_PATH_REL_MOVE_TO: 
+@CLUTTER_PATH_REL_LINE_TO: 
+@CLUTTER_PATH_REL_CURVE_TO: 
+
+<!-- ##### FUNCTION clutter_path_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_new_with_description ##### -->
+<para>
+
+</para>
+
+@desc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_add_move_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION clutter_path_add_rel_move_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION clutter_path_add_line_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION clutter_path_add_rel_line_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION clutter_path_add_curve_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+@x_3: 
+@y_3: 
+
+
+<!-- ##### FUNCTION clutter_path_add_rel_curve_to ##### -->
+<para>
+
+</para>
+
+@path: 
+@x_1: 
+@y_1: 
+@x_2: 
+@y_2: 
+@x_3: 
+@y_3: 
+
+
+<!-- ##### FUNCTION clutter_path_add_close ##### -->
+<para>
+
+</para>
+
+@path: 
+
+
+<!-- ##### FUNCTION clutter_path_add_string ##### -->
+<para>
+
+</para>
+
+@path: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_add_node ##### -->
+<para>
+
+</para>
+
+@path: 
+@node: 
+
+
+<!-- ##### FUNCTION clutter_path_add_cairo_path ##### -->
+<para>
+
+</para>
+
+@path: 
+@cpath: 
+
+
+<!-- ##### FUNCTION clutter_path_get_n_nodes ##### -->
+<para>
+
+</para>
+
+@path: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_get_node ##### -->
+<para>
+
+</para>
+
+@path: 
+@index_: 
+@node: 
+
+
+<!-- ##### FUNCTION clutter_path_get_nodes ##### -->
+<para>
+
+</para>
+
+@path: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_foreach ##### -->
+<para>
+
+</para>
+
+@path: 
+@callback: 
+@user_data: 
+
+
+<!-- ##### FUNCTION clutter_path_insert_node ##### -->
+<para>
+
+</para>
+
+@path: 
+@index_: 
+@node: 
+
+
+<!-- ##### FUNCTION clutter_path_remove_node ##### -->
+<para>
+
+</para>
+
+@path: 
+@index_: 
+
+
+<!-- ##### FUNCTION clutter_path_replace_node ##### -->
+<para>
+
+</para>
+
+@path: 
+@index_: 
+@node: 
+
+
+<!-- ##### FUNCTION clutter_path_get_description ##### -->
+<para>
+
+</para>
+
+@path: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_set_description ##### -->
+<para>
+
+</para>
+
+@path: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_to_cairo_path ##### -->
+<para>
+
+</para>
+
+@path: 
+@cr: 
+
+
+<!-- ##### FUNCTION clutter_path_clear ##### -->
+<para>
+
+</para>
+
+@path: 
+
+
+<!-- ##### FUNCTION clutter_path_get_position ##### -->
+<para>
+
+</para>
+
+@path: 
+@progress: 
+@position: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_get_length ##### -->
+<para>
+
+</para>
+
+@path: 
+@Returns: 
+
+
+<!-- ##### STRUCT ClutterPathNode ##### -->
+<para>
+
+</para>
+
+@type: 
+@points: 
+
+<!-- ##### FUNCTION clutter_path_node_copy ##### -->
+<para>
+
+</para>
+
+@node: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_path_node_free ##### -->
+<para>
+
+</para>
+
+@node: 
+
+
+<!-- ##### FUNCTION clutter_path_node_equal ##### -->
+<para>
+
+</para>
+
+@node_a: 
+@node_b: 
+@Returns: 
+
+

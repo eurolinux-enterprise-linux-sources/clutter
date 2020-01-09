@@ -1,0 +1,68 @@
+<!-- ##### SECTION Title ##### -->
+ClutterGroup
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT ClutterGroup ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT ClutterGroupClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION clutter_group_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_group_remove_all ##### -->
+<para>
+
+</para>
+
+@group: 
+
+
+<!-- ##### FUNCTION clutter_group_get_n_children ##### -->
+<para>
+
+</para>
+
+@self: 
+@Returns: 
+
+
+<!-- ##### FUNCTION clutter_group_get_nth_child ##### -->
+<para>
+
+</para>
+
+@self: 
+@index_: 
+@Returns: 
+
+

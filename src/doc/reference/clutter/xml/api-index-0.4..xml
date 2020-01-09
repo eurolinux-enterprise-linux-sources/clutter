@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version "1.0.6">
+]>
+
+<indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="clutter-texture-set-from-rgb-data"><link linkend="clutter-texture-set-from-rgb-data">clutter_texture_set_from_rgb_data</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>
