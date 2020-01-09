@@ -19,12 +19,12 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __CLUTTER_ENUMS_H__
+#define __CLUTTER_ENUMS_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_ENUMS_H__
-#define __CLUTTER_ENUMS_H__
 
 #include <glib-object.h>
 
@@ -48,6 +48,8 @@ G_BEGIN_DECLS
  * of the specified portion at the same coordinates.
  *
  * Since: 0.2
+ *
+ * Deprecated: 1.22: Use the normalized #ClutterActor pivot point instead
  */
 typedef enum { /*< prefix=CLUTTER_GRAVITY >*/
   CLUTTER_GRAVITY_NONE       = 0,
@@ -86,6 +88,8 @@ typedef enum { /*< prefix=CLUTTER >*/
  * Direction of a rotation.
  *
  * Since: 0.4
+ *
+ * Deprecated: 1.22
  */
 typedef enum { /*< prefix=CLUTTER_ROTATE >*/
   CLUTTER_ROTATE_CW,
@@ -96,6 +100,8 @@ typedef enum { /*< prefix=CLUTTER_ROTATE >*/
  * ClutterRequestMode:
  * @CLUTTER_REQUEST_HEIGHT_FOR_WIDTH: Height for width requests
  * @CLUTTER_REQUEST_WIDTH_FOR_HEIGHT: Width for height requests
+ * @CLUTTER_REQUEST_CONTENT_SIZE: Use the preferred size of the
+ *   #ClutterContent, if it has any (available since 1.22)
  *
  * Specifies the type of requests for a #ClutterActor.
  *
@@ -103,7 +109,8 @@ typedef enum { /*< prefix=CLUTTER_ROTATE >*/
  */
 typedef enum { /*< prefix=CLUTTER_REQUEST >*/
   CLUTTER_REQUEST_HEIGHT_FOR_WIDTH,
-  CLUTTER_REQUEST_WIDTH_FOR_HEIGHT
+  CLUTTER_REQUEST_WIDTH_FOR_HEIGHT,
+  CLUTTER_REQUEST_CONTENT_SIZE
 } ClutterRequestMode;
 
 /**
@@ -274,6 +281,8 @@ typedef enum {
  * clutter_set_font_flags().
  *
  * Since: 1.0
+ *
+ * Deprecated: 1.22: Use #cairo_font_options_t instead
  */
 typedef enum { /*< prefix=CLUTTER_FONT >*/
   CLUTTER_FONT_MIPMAPPING = (1 << 0),
@@ -477,6 +486,8 @@ typedef enum { /*< prefix=CLUTTER_ALIGN >*/
  * The mode of interpolation between key frames
  *
  * Since: 1.2
+ *
+ * Deprecated: 1.22
  */
 typedef enum {
   CLUTTER_INTERPOLATION_LINEAR,
@@ -746,6 +757,10 @@ typedef enum { /*< flags prefix=CLUTTER_EVENT >*/
  *   event added in 1.10
  * @CLUTTER_TOUCH_CANCEL: A touch event sequence has been canceled;
  *   event added in 1.10
+ * @CLUTTER_TOUCHPAD_PINCH: A pinch gesture event, the current state is
+ *   determined by its phase field; event added in 1.24
+ * @CLUTTER_TOUCHPAD_SWIPE: A swipe gesture event, the current state is
+ *   determined by its phase field; event added in 1.24
  * @CLUTTER_EVENT_LAST: Marks the end of the #ClutterEventType enumeration;
  *   added in 1.10
  *
@@ -771,6 +786,8 @@ typedef enum { /*< prefix=CLUTTER >*/
   CLUTTER_TOUCH_UPDATE,
   CLUTTER_TOUCH_END,
   CLUTTER_TOUCH_CANCEL,
+  CLUTTER_TOUCHPAD_PINCH,
+  CLUTTER_TOUCHPAD_SWIPE,
 
   CLUTTER_EVENT_LAST            /* helper */
 } ClutterEventType;
@@ -829,7 +846,7 @@ typedef enum {
  * @CLUTTER_FEATURE_SWAP_EVENTS: Set if the GLX_INTEL_swap_event is supported.
  *
  * Runtime flags indicating specific features available via Clutter window
- * sysytem and graphics backend.
+ * system and graphics backend.
  *
  * Since: 0.4
  */
@@ -1007,6 +1024,8 @@ typedef enum { /*< prefix=CLUTTER_SWIPE_DIRECTION >*/
  * @CLUTTER_PAN_AXIS_NONE: No constraint
  * @CLUTTER_PAN_X_AXIS: Set a constraint on the X axis
  * @CLUTTER_PAN_Y_AXIS: Set a constraint on the Y axis
+ * @CLUTTER_PAN_AXIS_AUTO: Constrain panning automatically based on initial
+ *   movement (available since 1.24)
  *
  * The axis of the constraint that should be applied on the
  * panning action
@@ -1017,7 +1036,9 @@ typedef enum { /*< prefix=CLUTTER_PAN >*/
   CLUTTER_PAN_AXIS_NONE = 0,
 
   CLUTTER_PAN_X_AXIS,
-  CLUTTER_PAN_Y_AXIS
+  CLUTTER_PAN_Y_AXIS,
+
+  CLUTTER_PAN_AXIS_AUTO
 } ClutterPanAxis;
 
 
@@ -1033,6 +1054,8 @@ typedef enum { /*< prefix=CLUTTER_PAN >*/
  * The alignment policies available on each axis of the #ClutterTableLayout
  *
  * Since: 1.4
+ *
+ * Deprecated: 1.22: Use the alignment properties of #ClutterActor
  */
 typedef enum {
   CLUTTER_TABLE_ALIGNMENT_START,
@@ -1043,22 +1066,23 @@ typedef enum {
 /**
  * ClutterTextureFlags:
  * @CLUTTER_TEXTURE_NONE: No flags
- * @CLUTTER_TEXTURE_RGB_FLAG_BGR: FIXME
- * @CLUTTER_TEXTURE_RGB_FLAG_PREMULT: FIXME
- * @CLUTTER_TEXTURE_YUV_FLAG_YUV2: FIXME
+ * @CLUTTER_TEXTURE_RGB_FLAG_BGR: Unused flag
+ * @CLUTTER_TEXTURE_RGB_FLAG_PREMULT: Unused flag
+ * @CLUTTER_TEXTURE_YUV_FLAG_YUV2: Unused flag
  *
  * Flags for clutter_texture_set_from_rgb_data() and
  * clutter_texture_set_from_yuv_data().
  *
  * Since: 0.4
+ *
+ * Deprecated: 1.22: The #ClutterTexture class was the only user of
+ *   this API
  */
 typedef enum { /*< prefix=CLUTTER_TEXTURE >*/
   CLUTTER_TEXTURE_NONE             = 0,
   CLUTTER_TEXTURE_RGB_FLAG_BGR     = 1 << 1,
   CLUTTER_TEXTURE_RGB_FLAG_PREMULT = 1 << 2, /* FIXME: not handled */
   CLUTTER_TEXTURE_YUV_FLAG_YUV2    = 1 << 3
-
-  /* FIXME: add compressed types ? */
 } ClutterTextureFlags;
 
 /**
@@ -1073,6 +1097,10 @@ typedef enum { /*< prefix=CLUTTER_TEXTURE >*/
  * Enumaration controlling the texture quality.
  *
  * Since: 0.8
+ *
+ * Deprecated: 1.22: The #ClutterTexture class was the only used ot
+ *   this API; use #ClutterImage and clutter_actor_set_content_scaling_filters()
+ *   instead.
  */
 typedef enum { /*< prefix=CLUTTER_TEXTURE_QUALITY >*/
   CLUTTER_TEXTURE_QUALITY_LOW,
@@ -1379,6 +1407,82 @@ typedef enum {
   CLUTTER_GESTURE_TRIGGER_EDGE_AFTER,
   CLUTTER_GESTURE_TRIGGER_EDGE_BEFORE
 } ClutterGestureTriggerEdge;
+
+/**
+ * ClutterTouchpadGesturePhase:
+ * @CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN: The gesture has begun.
+ * @CLUTTER_TOUCHPAD_GESTURE_PHASE_UPDATE: The gesture has been updated.
+ * @CLUTTER_TOUCHPAD_GESTURE_PHASE_END: The gesture was finished, changes
+ *   should be permanently applied.
+ * @CLUTTER_TOUCHPAD_GESTURE_PHASE_CANCEL: The gesture was cancelled, all
+ *   changes should be undone.
+ *
+ * The phase of a touchpad gesture event. All gestures are guaranteed to
+ * begin with an event of type %CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN,
+ * followed by a number of %CLUTTER_TOUCHPAD_GESTURE_PHASE_UPDATE (possibly 0).
+ *
+ * A finished gesture may have 2 possible outcomes, an event with phase
+ * %CLUTTER_TOUCHPAD_GESTURE_PHASE_END will be emitted when the gesture is
+ * considered successful, this should be used as the hint to perform any
+ * permanent changes.
+
+ * Cancelled gestures may be so for a variety of reasons, due to hardware,
+ * or due to the gesture recognition layers hinting the gesture did not
+ * finish resolutely (eg. a 3rd finger being added during a pinch gesture).
+ * In these cases, the last event with report the phase
+ * %CLUTTER_TOUCHPAD_GESTURE_PHASE_CANCEL, this should be used as a hint
+ * to undo any visible/permanent changes that were done throughout the
+ * progress of the gesture.
+ *
+ * See also #ClutterTouchpadPinchEvent and #ClutterTouchpadPinchEvent.
+ *
+ * Since: 1.24
+ */
+typedef enum {
+  CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN,
+  CLUTTER_TOUCHPAD_GESTURE_PHASE_UPDATE,
+  CLUTTER_TOUCHPAD_GESTURE_PHASE_END,
+  CLUTTER_TOUCHPAD_GESTURE_PHASE_CANCEL
+} ClutterTouchpadGesturePhase;
+
+/**
+ * ClutterScrollSource:
+ * @CLUTTER_SCROLL_SOURCE_UNKNOWN: Source of scroll events is unknown.
+ * @CLUTTER_SCROLL_SOURCE_WHEEL: The scroll event is originated by a mouse wheel.
+ * @CLUTTER_SCROLL_SOURCE_FINGER: The scroll event is originated by one or more
+ *   fingers on the device (eg. touchpads).
+ * @CLUTTER_SCROLL_SOURCE_CONTINUOUS: The scroll event is originated by the
+ *   motion of some device (eg. a scroll button is set).
+ *
+ * The scroll source determines the source of the scroll event. Keep in mind
+ * that the source device #ClutterInputDeviceType is not enough to infer
+ * the scroll source.
+ *
+ * Since: 1.26
+ */
+typedef enum {
+  CLUTTER_SCROLL_SOURCE_UNKNOWN,
+  CLUTTER_SCROLL_SOURCE_WHEEL,
+  CLUTTER_SCROLL_SOURCE_FINGER,
+  CLUTTER_SCROLL_SOURCE_CONTINUOUS
+} ClutterScrollSource;
+
+/**
+ * ClutterScrollFinishFlags:
+ * @CLUTTER_SCROLL_FINISHED_NONE: no axis was stopped.
+ * @CLUTTER_SCROLL_FINISHED_HORIZONTAL: The horizontal axis stopped.
+ * @CLUTTER_SCROLL_FINISHED_VERTICAL: The vertical axis stopped.
+ *
+ * Flags used to notify the axes that were stopped in a #ClutterScrollEvent.
+ * These can be used to trigger post-scroll effects like kinetic scrolling.
+ *
+ * Since: 1.26
+ */
+typedef enum {
+  CLUTTER_SCROLL_FINISHED_NONE       = 0,
+  CLUTTER_SCROLL_FINISHED_HORIZONTAL = 1 << 0,
+  CLUTTER_SCROLL_FINISHED_VERTICAL   = 1 << 1
+} ClutterScrollFinishFlags;
 
 G_END_DECLS
 

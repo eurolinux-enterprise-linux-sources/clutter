@@ -65,9 +65,30 @@
 #include "clutter-private.h"
 #include "clutter-settings-private.h"
 
-#define clutter_backend_x11_get_type    _clutter_backend_x11_get_type
+G_DEFINE_TYPE (ClutterBackendX11, clutter_backend_x11, CLUTTER_TYPE_BACKEND)
 
-G_DEFINE_TYPE (ClutterBackendX11, clutter_backend_x11, CLUTTER_TYPE_BACKEND);
+GType
+clutter_x11_filter_return_get_type (void)
+{
+  static volatile gsize g_define_type__volatile;
+
+  if (g_once_init_enter (&g_define_type__volatile))
+    {
+      static const GEnumValue values[] = {
+        { CLUTTER_X11_FILTER_CONTINUE, "CLUTTER_X11_FILTER_CONTINUE", "continue" },
+        { CLUTTER_X11_FILTER_TRANSLATE, "CLUTTER_X11_FILTER_TRANSLATE", "translate" },
+        { CLUTTER_X11_FILTER_REMOVE, "CLUTTER_X11_FILTER_REMOVE", "remove" },
+        { 0, NULL, NULL },
+      };
+
+      GType g_define_type =
+        g_enum_register_static (g_intern_static_string ("ClutterX11FilterReturn"), values);
+
+      g_once_init_leave (&g_define_type__volatile, g_define_type);
+    }
+
+  return g_define_type__volatile;
+}
 
 /* atoms; remember to add the code that assigns the atom value to
  * the member of the ClutterBackendX11 structure if you add an
@@ -93,6 +114,7 @@ static const gchar *atom_names[] = {
 static gboolean _no_xevent_retrieval = FALSE;
 static gboolean clutter_enable_xinput = TRUE;
 static gboolean clutter_enable_argb = FALSE;
+static gboolean clutter_enable_stereo = FALSE;
 static Display  *_foreign_dpy = NULL;
 
 /* options */
@@ -552,29 +574,6 @@ clutter_backend_x11_get_features (ClutterBackend *backend)
 }
 
 static void
-clutter_backend_x11_copy_event_data (ClutterBackend     *backend,
-                                     const ClutterEvent *src,
-                                     ClutterEvent       *dest)
-{
-  gpointer event_x11;
-
-  event_x11 = _clutter_event_get_platform_data (src);
-  if (event_x11 != NULL)
-    _clutter_event_set_platform_data (dest, _clutter_event_x11_copy (event_x11));
-}
-
-static void
-clutter_backend_x11_free_event_data (ClutterBackend *backend,
-                                     ClutterEvent   *event)
-{
-  gpointer event_x11;
-
-  event_x11 = _clutter_event_get_platform_data (event);
-  if (event_x11 != NULL)
-    _clutter_event_x11_free (event_x11);
-}
-
-static void
 update_last_event_time (ClutterBackendX11 *backend_x11,
                         XEvent            *xevent)
 {
@@ -688,6 +687,59 @@ clutter_backend_x11_get_renderer (ClutterBackend  *backend,
   return renderer;
 }
 
+static gboolean
+check_onscreen_template (CoglRenderer         *renderer,
+                         CoglSwapChain        *swap_chain,
+                         CoglOnscreenTemplate *onscreen_template,
+                         CoglBool              enable_argb,
+                         CoglBool              enable_stereo,
+                         GError              **error)
+{
+  GError *internal_error = NULL;
+
+  cogl_swap_chain_set_has_alpha (swap_chain, enable_argb);
+  cogl_onscreen_template_set_stereo_enabled (onscreen_template,
+					     clutter_enable_stereo);
+
+  /* cogl_renderer_check_onscreen_template() is actually just a
+   * shorthand for creating a CoglDisplay, and calling
+   * cogl_display_setup() on it, then throwing the display away. If we
+   * could just return that display, then it would be more efficient
+   * not to use cogl_renderer_check_onscreen_template(). However, the
+   * backend API requires that we return an CoglDisplay that has not
+   * yet been setup, so one way or the other we'll have to discard the
+   * first display and make a new fresh one.
+   */
+  if (cogl_renderer_check_onscreen_template (renderer, onscreen_template, &internal_error))
+    {
+      clutter_enable_argb = enable_argb;
+      clutter_enable_stereo = enable_stereo;
+
+      return TRUE;
+    }
+  else
+    {
+      if (enable_argb || enable_stereo) /* More possibilities to try */
+        CLUTTER_NOTE (BACKEND,
+                      "Creation of a CoglDisplay with alpha=%s, stereo=%s failed: %s",
+                      enable_argb ? "enabled" : "disabled",
+                      enable_stereo ? "enabled" : "disabled",
+                      internal_error != NULL
+                        ?  internal_error->message
+                        : "Unknown reason");
+      else
+        g_set_error_literal (error, CLUTTER_INIT_ERROR,
+                             CLUTTER_INIT_ERROR_BACKEND,
+                             internal_error != NULL
+                               ? internal_error->message
+                               : "Creation of a CoglDisplay failed");
+
+      g_clear_error (&internal_error);
+
+      return FALSE;
+    }
+}
+
 static CoglDisplay *
 clutter_backend_x11_get_display (ClutterBackend  *backend,
                                  CoglRenderer    *renderer,
@@ -695,56 +747,38 @@ clutter_backend_x11_get_display (ClutterBackend  *backend,
                                  GError         **error)
 {
   CoglOnscreenTemplate *onscreen_template;
-  GError *internal_error = NULL;
-  CoglDisplay *display;
-  gboolean res;
+  CoglDisplay *display = NULL;
+  gboolean res = FALSE;
 
-  CLUTTER_NOTE (BACKEND, "Alpha on Cogl swap chain: %s",
-                clutter_enable_argb ? "enabled" : "disabled");
-
-  cogl_swap_chain_set_has_alpha (swap_chain, clutter_enable_argb);
+  CLUTTER_NOTE (BACKEND, "Creating CoglDisplay, alpha=%s, stereo=%s",
+                clutter_enable_argb ? "enabled" : "disabled",
+                clutter_enable_stereo ? "enabled" : "disabled");
 
   onscreen_template = cogl_onscreen_template_new (swap_chain);
 
-  res = cogl_renderer_check_onscreen_template (renderer,
-                                               onscreen_template,
-                                               &internal_error);
+  /* It's possible that the current renderer doesn't support transparency
+   * or doesn't support stereo, so we try the different combinations.
+   */
+  if (clutter_enable_argb && clutter_enable_stereo)
+    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
+                                  TRUE, TRUE, error);
+
+  /* Prioritize stereo over alpha */
+  if (!res && clutter_enable_stereo)
+    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
+                                  FALSE, TRUE, error);
+
   if (!res && clutter_enable_argb)
-    {
-      CLUTTER_NOTE (BACKEND,
-                    "Creation of a context with a ARGB visual failed: %s",
-                    internal_error != NULL ? internal_error->message
-                                           : "Unknown reason");
-
-      g_clear_error (&internal_error);
-
-      /* It's possible that the current renderer doesn't support transparency
-       * in a swap_chain so lets see if we can fallback to not having any
-       * transparency...
-       *
-       * XXX: It might be nice to have a CoglRenderer feature we could
-       * explicitly check for ahead of time.
-       */
-      clutter_enable_argb = FALSE;
-      cogl_swap_chain_set_has_alpha (swap_chain, FALSE);
-      res = cogl_renderer_check_onscreen_template (renderer,
-                                                   onscreen_template,
-                                                   &internal_error);
-    }
+    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
+                                  TRUE, FALSE, error);
 
   if (!res)
-    {
-      g_set_error_literal (error, CLUTTER_INIT_ERROR,
-                           CLUTTER_INIT_ERROR_BACKEND,
-                           internal_error->message);
+    res = check_onscreen_template (renderer, swap_chain, onscreen_template,
+                                  FALSE, FALSE, error);
 
-      g_error_free (internal_error);
-      cogl_object_unref (onscreen_template);
+  if (res)
+    display = cogl_display_new (renderer, onscreen_template);
 
-      return NULL;
-    }
-
-  display = cogl_display_new (renderer, onscreen_template);
   cogl_object_unref (onscreen_template);
 
   return display;
@@ -767,7 +801,7 @@ clutter_backend_x11_create_stage (ClutterBackend  *backend,
   translator = CLUTTER_EVENT_TRANSLATOR (stage);
   _clutter_backend_add_event_translator (backend, translator);
 
-  CLUTTER_NOTE (MISC, "X11 stage created (display:%p, screen:%d, root:%u)",
+  CLUTTER_NOTE (BACKEND, "X11 stage created (display:%p, screen:%d, root:%u)",
                 CLUTTER_BACKEND_X11 (backend)->xdpy,
                 CLUTTER_BACKEND_X11 (backend)->xscreen_num,
                 (unsigned int) CLUTTER_BACKEND_X11 (backend)->xwin_root);
@@ -802,8 +836,6 @@ clutter_backend_x11_class_init (ClutterBackendX11Class *klass)
   backend_class->add_options = clutter_backend_x11_add_options;
   backend_class->get_features = clutter_backend_x11_get_features;
 
-  backend_class->copy_event_data = clutter_backend_x11_copy_event_data;
-  backend_class->free_event_data = clutter_backend_x11_free_event_data;
   backend_class->translate_event = clutter_backend_x11_translate_event;
 
   backend_class->get_renderer = clutter_backend_x11_get_renderer;
@@ -817,6 +849,12 @@ static void
 clutter_backend_x11_init (ClutterBackendX11 *backend_x11)
 {
   backend_x11->last_event_time = CurrentTime;
+}
+
+ClutterBackend *
+clutter_backend_x11_new (void)
+{
+  return g_object_new (CLUTTER_TYPE_BACKEND_X11, NULL);
 }
 
 static int
@@ -1303,6 +1341,60 @@ clutter_x11_get_use_argb_visual (void)
   return clutter_enable_argb;
 }
 
+/**
+ * clutter_x11_set_use_stereo_stage:
+ * @use_stereo: %TRUE if the stereo stages should be used if possible.
+ *
+ * Sets whether the backend object for Clutter stages, will,
+ * if possible, be created with the ability to support stereo drawing
+ * (drawing separate images for the left and right eyes).
+ *
+ * This function must be called before clutter_init() is called.
+ * During paint callbacks, cogl_framebuffer_is_stereo() can be called
+ * on the framebuffer retrieved by cogl_get_draw_framebuffer() to
+ * determine if stereo support was successfully enabled, and
+ * cogl_framebuffer_set_stereo_mode() to determine which buffers
+ * will be drawn to.
+ *
+ * Note that this function *does not* cause the stage to be drawn
+ * multiple times with different perspective transformations and thus
+ * appear in 3D, it simply enables individual ClutterActors to paint
+ * different images for the left and and right eye.
+ *
+ * Since: 1.22
+ */
+void
+clutter_x11_set_use_stereo_stage (gboolean use_stereo)
+{
+  if (_clutter_context_is_initialized ())
+    {
+      g_warning ("%s() can only be used before calling clutter_init()",
+                 G_STRFUNC);
+      return;
+    }
+
+  CLUTTER_NOTE (BACKEND, "STEREO stages are %s",
+                use_stereo ? "enabled" : "disabled");
+
+  clutter_enable_stereo = use_stereo;
+}
+
+/**
+ * clutter_x11_get_use_stereo_stage:
+ *
+ * Retrieves whether the Clutter X11 backend will create stereo
+ * stages if possible.
+ *
+ * Return value: %TRUE if stereo stages are used if possible
+ *
+ * Since: 1.22
+ */
+gboolean
+clutter_x11_get_use_stereo_stage (void)
+{
+  return clutter_enable_stereo;
+}
+
 XVisualInfo *
 _clutter_backend_x11_get_visual_info (ClutterBackendX11 *backend_x11)
 {
@@ -1312,12 +1404,10 @@ _clutter_backend_x11_get_visual_info (ClutterBackendX11 *backend_x11)
 /**
  * clutter_x11_get_visual_info: (skip)
  *
- * Retrieves the <structname>XVisualInfo</structname> used by the Clutter X11
- * backend.
+ * Retrieves the `XVisualInfo` used by the Clutter X11 backend.
  *
- * Return value: (transfer full): a <structname>XVisualInfo</structname>, or
- *   <varname>None</varname>. The returned value should be freed using XFree()
- *   when done
+ * Return value: (transfer full): a `XVisualInfo`, or `None`.
+ *   The returned value should be freed using `XFree()` when done
  *
  * Since: 1.2
  */

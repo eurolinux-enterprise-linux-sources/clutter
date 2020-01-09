@@ -22,12 +22,12 @@
  *   Emmanuele Bassi <ebassi@linux.intel.com>
  */
 
+#ifndef __CLUTTER_CONSTRAINT_H__
+#define __CLUTTER_CONSTRAINT_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_CONSTRAINT_H__
-#define __CLUTTER_CONSTRAINT_H__
 
 #include <clutter/clutter-actor-meta.h>
 
@@ -60,6 +60,9 @@ struct _ClutterConstraint
  * ClutterConstraintClass:
  * @update_allocation: virtual function used to update the allocation
  *   of the #ClutterActor using the #ClutterConstraint
+ * @update_preferred_size: virtual function used to update the preferred
+ *   size of the #ClutterActor using the #ClutterConstraint; optional,
+ *   since 1.22
  *
  * The #ClutterConstraintClass structure contains
  * only private data
@@ -76,6 +79,13 @@ struct _ClutterConstraintClass
                               ClutterActor      *actor,
                               ClutterActorBox   *allocation);
 
+  void (* update_preferred_size) (ClutterConstraint  *constraint,
+                                  ClutterActor       *actor,
+                                  ClutterOrientation  direction,
+                                  float               for_size,
+                                  float              *minimum_size,
+                                  float              *natural_size);
+
   /*< private >*/
   void (* _clutter_constraint1) (void);
   void (* _clutter_constraint2) (void);
@@ -84,7 +94,6 @@ struct _ClutterConstraintClass
   void (* _clutter_constraint5) (void);
   void (* _clutter_constraint6) (void);
   void (* _clutter_constraint7) (void);
-  void (* _clutter_constraint8) (void);
 };
 
 CLUTTER_AVAILABLE_IN_1_4
@@ -113,7 +122,7 @@ CLUTTER_AVAILABLE_IN_1_4
 void               clutter_actor_clear_constraints         (ClutterActor      *self);
 
 CLUTTER_AVAILABLE_IN_1_10
-gboolean           clutter_actor_has_constraints           (ClutterActor *self);
+gboolean           clutter_actor_has_constraints           (ClutterActor      *self);
 
 G_END_DECLS
 

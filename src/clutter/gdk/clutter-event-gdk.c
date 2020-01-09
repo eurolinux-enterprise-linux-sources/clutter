@@ -30,6 +30,7 @@
 #include "clutter-gdk.h"
 #include "clutter-backend-gdk.h"
 #include "clutter-device-manager-gdk.h"
+#include "clutter-stage-gdk.h"
 
 #include "clutter-actor-private.h"
 #include "clutter-backend-private.h"
@@ -248,7 +249,10 @@ clutter_gdk_handle_event (GdkEvent *gdk_event)
       clutter_event_set_source_device (event, source_device);
       if (gdk_event->type == GDK_ENTER_NOTIFY)
         _clutter_input_device_set_stage (clutter_event_get_device (event), stage);
-      else
+      else if (gdk_event->type == GDK_LEAVE_NOTIFY &&
+               gdk_event->crossing.mode != GDK_CROSSING_TOUCH_BEGIN &&
+               gdk_event->crossing.mode != GDK_CROSSING_TOUCH_END &&
+               gdk_event->crossing.mode != GDK_CROSSING_DEVICE_SWITCH)
         _clutter_input_device_set_stage (clutter_event_get_device (event), NULL);
       CLUTTER_NOTE (EVENT, "Crossing %s [%.2f, %.2f]",
                     event->type == CLUTTER_ENTER ? "enter" : "leave",
@@ -269,8 +273,16 @@ clutter_gdk_handle_event (GdkEvent *gdk_event)
 
         clutter_actor_get_size (CLUTTER_ACTOR (stage), &w, &h);
 
-        if (w != gdk_event->configure.width ||
-            h != gdk_event->configure.height)
+        /* Notify gdk stage backend of the new position. This is used
+           by foreign stages to reposition themselves on wayland. */
+        _clutter_stage_gdk_notify_configure (CLUTTER_STAGE_GDK (_clutter_stage_get_window (stage)),
+                                             gdk_event->configure.x,
+                                             gdk_event->configure.y,
+                                             gdk_event->configure.width,
+                                             gdk_event->configure.height);
+
+        if ((int) w != gdk_event->configure.width ||
+            (int) h != gdk_event->configure.height)
           {
             clutter_actor_set_size (CLUTTER_ACTOR (stage),
                                     gdk_event->configure.width,

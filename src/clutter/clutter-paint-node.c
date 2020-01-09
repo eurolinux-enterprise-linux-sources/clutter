@@ -42,15 +42,10 @@
  */
 
 /**
- * ClutterPaintNode:
+ * ClutterPaintNode: (ref-func clutter_paint_node_ref) (unref-func clutter_paint_node_unref) (set-value-func clutter_value_set_paint_node) (get-value-func clutter_value_get_paint_node)
  *
- * The <structname>ClutterPaintNode</structname> structure contains only
- * private data and it should be accessed using the provided API.
- *
- * Ref Func: clutter_paint_node_ref
- * Unref Func: clutter_paint_node_unref
- * Set Value Func: clutter_value_set_paint_node
- * Get Value Func: clutter_value_get_paint_node
+ * The `ClutterPaintNode` structure contains only private data
+ * and it should be accessed using the provided API.
  *
  * Since: 1.10
  */
@@ -58,8 +53,7 @@
 /**
  * ClutterPaintNodeClass:
  *
- * The <structname>ClutterPaintNodeClass</structname> structure contains
- * only private data.
+ * The `ClutterPaintNodeClass` structure contains only private data.
  *
  * Since: 1.10
  */

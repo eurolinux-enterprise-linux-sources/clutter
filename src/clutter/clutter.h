@@ -76,10 +76,8 @@
 #include "clutter-keysyms.h"
 #include "clutter-layout-manager.h"
 #include "clutter-layout-meta.h"
-#include "clutter-list-model.h"
 #include "clutter-macros.h"
 #include "clutter-main.h"
-#include "clutter-model.h"
 #include "clutter-offscreen-effect.h"
 #include "clutter-page-turn-effect.h"
 #include "clutter-paint-nodes.h"
@@ -111,6 +109,8 @@
 #include "clutter-zoom-action.h"
 
 #include "clutter-deprecated.h"
+
+#include "clutter-autocleanups.h"
 
 #undef __CLUTTER_H_INSIDE__
 

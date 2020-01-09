@@ -30,7 +30,7 @@
  * and it encapsulates the position, size, and transformations of a node in
  * the graph.
  *
- * ## Actor transformations
+ * ## Actor transformations ## {#clutter-actor-transformations}
  *
  * Each actor can be transformed using methods like clutter_actor_set_scale()
  * or clutter_actor_set_rotation(). The order in which the transformations are
@@ -46,7 +46,7 @@
  *  8. negative translation by the #ClutterActor:anchor-x and #ClutterActor:anchor-y point.
  *  9. negative translation by the actor's #ClutterActor:pivot-point
  *
- * ## Modifying an actor's geometry
+ * ## Modifying an actor's geometry ## {#clutter-actor-geometry}
  *
  * Each actor has a bounding box, called #ClutterActor:allocation
  * which is either set by its parent or explicitly through the
@@ -63,7 +63,7 @@
  * clutter_actor_set_x() and clutter_actor_set_y(); the coordinates are
  * relative to the origin of the actor’s parent.
  *
- * ## Managing actor children
+ * ## Managing actor children ## {#clutter-actor-children}
  *
  * Each actor can have multiple children, by calling
  * clutter_actor_add_child() to add a new child actor, and
@@ -110,7 +110,7 @@
  *
  * See [basic-actor.c](https://git.gnome.org/browse/clutter/tree/examples/basic-actor.c?h=clutter-1.18).
  *
- * ## Painting an actor
+ * ## Painting an actor ## {#clutter-actor-painting}
  *
  * There are three ways to paint an actor:
  *
@@ -179,7 +179,7 @@
  * signal. These hooks into the paint sequence are considered legacy, and
  * will be removed when the Clutter API changes.
  *
- * ## Handling events on an actor
+ * ## Handling events on an actor ## {#clutter-actor-event-handling}
  *
  * A #ClutterActor can receive and handle input device events, for
  * instance pointer events and key events, as long as its
@@ -199,7 +199,7 @@
  * through the scene graph by returning %CLUTTER_EVENT_STOP; otherwise, they can
  * continue the propagation by returning %CLUTTER_EVENT_PROPAGATE.
  *
- * ## Animation
+ * ## Animation ## {#clutter-actor-animation}
  *
  * Animation is a core concept of modern user interfaces; Clutter provides a
  * complete and powerful animation framework that automatically tweens the
@@ -366,7 +366,7 @@
  * clutter_actor_add_transition (actor, "opacityAnimation", transition);
  * ]|
  *
- * ## Implementing an actor
+ * ## Implementing an actor ## {#clutter-actor-implementing}
  *
  * Careful consideration should be given when deciding to implement
  * a #ClutterActor sub-class. It is generally recommended to implement a
@@ -391,7 +391,7 @@
  * In general, it is strongly encouraged to use delegation and composition
  * instead of direct subclassing.
  *
- * ## ClutterActor custom properties for ClutterScript
+ * ## ClutterActor custom properties for ClutterScript ## {#clutter-actor-custom-script}
  *
  * #ClutterActor defines a custom "rotation" property which allows a short-hand
  * description of the rotations to be applied to an actor.
@@ -544,6 +544,9 @@
  * unnecessary (and potentially expensive) state changes.
  *
  * Since: 0.2
+ *
+ * Deprecated: 1.24: Use clutter_actor_is_mapped() or the #ClutterActor:mapped
+ *   property instead of this macro.
  */
 
 /**
@@ -566,6 +569,9 @@
  * must be realized.
  *
  * Since: 0.2
+ *
+ * Deprecated: 1.24: Use clutter_actor_is_realized() or the #ClutterActor:realized
+ *   property instead of this macro.
  */
 
 /**
@@ -580,6 +586,9 @@
  * parents is a toplevel stage; see also %CLUTTER_ACTOR_IS_MAPPED.
  *
  * Since: 0.2
+ *
+ * Deprecated: 1.24: Use clutter_actor_is_visible() or the #ClutterActor:visible
+ *   property instead of this macro.
  */
 
 /**
@@ -591,6 +600,9 @@
  * Only reactive actors will receive event-related signals.
  *
  * Since: 0.6
+ *
+ * Deprecated: 1.24: Use clutter_actor_get_reactive() or the
+ *   #ClutterActor:reactive property instead of this macro.
  */
 
 #include "config.h"
@@ -611,7 +623,7 @@
 #include "clutter-animatable.h"
 #include "clutter-color-static.h"
 #include "clutter-color.h"
-#include "clutter-constraint.h"
+#include "clutter-constraint-private.h"
 #include "clutter-container.h"
 #include "clutter-content-private.h"
 #include "clutter-debug.h"
@@ -627,7 +639,6 @@
 #include "clutter-paint-node-private.h"
 #include "clutter-paint-volume-private.h"
 #include "clutter-private.h"
-#include "clutter-profile.h"
 #include "clutter-property-transition.h"
 #include "clutter-scriptable.h"
 #include "clutter-script-private.h"
@@ -713,7 +724,6 @@ struct _ClutterActorPrivate
   gint age;
 
   gchar *name; /* a non-unique name, used for debugging */
-  guint32 id; /* unique id, used for backward compatibility */
 
   gint32 pick_id; /* per-stage unique id, used for picking */
 
@@ -787,6 +797,11 @@ struct _ClutterActorPrivate
    * value is propagated to all the actor's children
    */
   gulong in_cloned_branch;
+
+  GListModel *child_model;
+  ClutterActorCreateChildFunc create_child_func;
+  gpointer create_child_data;
+  GDestroyNotify create_child_notify;
 
   /* bitfields: KEEP AT THE END */
 
@@ -1409,10 +1424,6 @@ clutter_actor_update_map_state (ClutterActor  *self,
            */
           if (priv->enable_paint_unmapped)
             {
-              if (priv->parent == NULL)
-                g_warning ("Attempting to map an unparented actor '%s'",
-                           _clutter_actor_get_debug_name (self));
-
               should_be_mapped = TRUE;
               must_be_realized = TRUE;
             }
@@ -1542,6 +1553,26 @@ clutter_actor_map (ClutterActor *self)
     return;
 
   clutter_actor_update_map_state (self, MAP_STATE_MAKE_MAPPED);
+}
+
+/**
+ * clutter_actor_is_mapped:
+ * @self: a #ClutterActor
+ *
+ * Checks whether a #ClutterActor has been set as mapped.
+ *
+ * See also %CLUTTER_ACTOR_IS_MAPPED and #ClutterActor:mapped
+ *
+ * Returns: %TRUE if the actor is mapped
+ *
+ * Since: 1.24
+ */
+gboolean
+clutter_actor_is_mapped (ClutterActor *self)
+{
+  g_return_val_if_fail (CLUTTER_IS_ACTOR (self), FALSE);
+
+  return CLUTTER_ACTOR_IS_MAPPED (self);
 }
 
 static void
@@ -1743,6 +1774,26 @@ clutter_actor_show (ClutterActor *self)
 }
 
 /**
+ * clutter_actor_is_visible:
+ * @self: a #ClutterActor
+ *
+ * Checks whether an actor is marked as visible.
+ *
+ * See also %CLUTTER_ACTOR_IS_VISIBLE and #ClutterActor:visible.
+ *
+ * Returns: %TRUE if the actor visible
+ *
+ * Since: 1.24
+ */
+gboolean
+clutter_actor_is_visible (ClutterActor *self)
+{
+  g_return_val_if_fail (CLUTTER_IS_ACTOR (self), FALSE);
+
+  return CLUTTER_ACTOR_IS_VISIBLE (self);
+}
+
+/**
  * clutter_actor_show_all:
  * @self: a #ClutterActor
  *
@@ -1900,6 +1951,26 @@ clutter_actor_realize (ClutterActor *self)
   g_return_if_fail (CLUTTER_IS_ACTOR (self));
 
   clutter_actor_realize_internal (self);
+}
+
+/**
+ * clutter_actor_is_realized:
+ * @self: a #ClutterActor
+ *
+ * Checks whether a #ClutterActor is realized.
+ *
+ * See also %CLUTTER_ACTOR_IS_REALIZED and #ClutterActor:realized.
+ *
+ * Returns: %TRUE if the actor is realized
+ *
+ * Since: 1.24
+ */
+gboolean
+clutter_actor_is_realized (ClutterActor *self)
+{
+  g_return_val_if_fail (CLUTTER_IS_ACTOR (self), FALSE);
+
+  return CLUTTER_ACTOR_IS_REALIZED (self);
 }
 
 static void
@@ -3595,12 +3666,18 @@ clutter_actor_paint_node (ClutterActor     *actor,
 
       if (clutter_stage_get_use_alpha (CLUTTER_STAGE (actor)))
         {
-          bg_color.alpha = clutter_actor_get_paint_opacity_internal (actor)
+          bg_color.alpha = priv->opacity
                          * priv->bg_color.alpha
                          / 255;
         }
       else
         bg_color.alpha = 255;
+
+      CLUTTER_NOTE (PAINT, "Stage clear color: (%d, %d, %d, %d)",
+                    bg_color.red,
+                    bg_color.green,
+                    bg_color.blue,
+                    bg_color.alpha);
 
       clear_flags = COGL_BUFFER_BIT_DEPTH;
       if (!clutter_stage_get_no_clear_hint (CLUTTER_STAGE (actor)))
@@ -3676,16 +3753,6 @@ clutter_actor_paint (ClutterActor *self)
   gboolean clip_set = FALSE;
   gboolean shader_applied = FALSE;
   ClutterStage *stage;
-
-  CLUTTER_STATIC_COUNTER (actor_paint_counter,
-                          "Actor real-paint counter",
-                          "Increments each time any actor is painted",
-                          0 /* no application private data */);
-  CLUTTER_STATIC_COUNTER (actor_pick_counter,
-                          "Actor pick-paint counter",
-                          "Increments each time any actor is painted "
-                          "for picking",
-                          0 /* no application private data */);
 
   g_return_if_fail (CLUTTER_IS_ACTOR (self));
 
@@ -3797,16 +3864,12 @@ clutter_actor_paint (ClutterActor *self)
 
   if (pick_mode == CLUTTER_PICK_NONE)
     {
-      CLUTTER_COUNTER_INC (_clutter_uprof_context, actor_paint_counter);
-
       /* We check whether we need to add the flatten effect before
          each paint so that we can avoid having a mechanism for
          applications to notify when the value of the
          has_overlaps virtual changes. */
       add_or_remove_flatten_effect (self);
     }
-  else
-    CLUTTER_COUNTER_INC (_clutter_uprof_context, actor_pick_counter);
 
   /* We save the current paint volume so that the next time the
    * actor queues a redraw we can constrain the redraw to just
@@ -5825,10 +5888,10 @@ clutter_actor_dispose (GObject *object)
   ClutterActor *self = CLUTTER_ACTOR (object);
   ClutterActorPrivate *priv = self->priv;
 
-  CLUTTER_NOTE (MISC, "Disposing of object (id=%d) of type '%s' (ref_count:%d)",
-		priv->id,
-		g_type_name (G_OBJECT_TYPE (self)),
-                object->ref_count);
+  CLUTTER_NOTE (MISC, "Dispose actor (name='%s', ref_count:%d) of type '%s'",
+		_clutter_actor_get_debug_name (self),
+                object->ref_count,
+		g_type_name (G_OBJECT_TYPE (self)));
 
   g_signal_emit (self, actor_signals[DESTROY], 0);
 
@@ -5866,6 +5929,18 @@ clutter_actor_dispose (GObject *object)
   g_clear_object (&priv->effects);
   g_clear_object (&priv->flatten_effect);
 
+  if (priv->child_model != NULL)
+    {
+      if (priv->create_child_notify != NULL)
+        priv->create_child_notify (priv->create_child_data);
+
+      priv->create_child_func = NULL;
+      priv->create_child_data = NULL;
+      priv->create_child_notify = NULL;
+
+      g_clear_object (&priv->child_model);
+    }
+
   if (priv->layout_manager != NULL)
     {
       clutter_layout_manager_set_container (priv->layout_manager, NULL);
@@ -5892,14 +5967,9 @@ clutter_actor_finalize (GObject *object)
 {
   ClutterActorPrivate *priv = CLUTTER_ACTOR (object)->priv;
 
-  CLUTTER_NOTE (MISC, "Finalize actor (name='%s', id=%d) of type '%s'",
-                priv->name != NULL ? priv->name : "<none>",
-		priv->id,
-		g_type_name (G_OBJECT_TYPE (object)));
-
-  clutter_actor_restore_easing_state (CLUTTER_ACTOR (object));
-
-  _clutter_context_release_id (priv->id);
+  CLUTTER_NOTE (MISC, "Finalize actor (name='%s') of type '%s'",
+                _clutter_actor_get_debug_name ((ClutterActor *) object),
+                g_type_name (G_OBJECT_TYPE (object)));
 
   g_free (priv->name);
 
@@ -6578,7 +6648,7 @@ clutter_actor_class_init (ClutterActorClass *klass)
    *                                           &min_height,
    *                                           &natural_height);
    *     }
-   *   else
+   *   else if (mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
    *     {
    *       clutter_actor_get_preferred_height (child, -1,
    *                                           &min_height,
@@ -6586,6 +6656,16 @@ clutter_actor_class_init (ClutterActorClass *klass)
    *       clutter_actor_get_preferred_width (child, natural_height,
    *                                          &min_width,
    *                                          &natural_width);
+   *     }
+   *   else if (mode == CLUTTER_REQUEST_CONTENT_SIZE)
+   *     {
+   *       ClutterContent *content = clutter_actor_get_content (child);
+   *
+   *       min_width, min_height = 0;
+   *       natural_width = natural_height = 0;
+   *
+   *       if (content != NULL)
+   *         clutter_content_get_preferred_size (content, &natural_width, &natural_height);
    *     }
    * ]|
    *
@@ -8407,7 +8487,6 @@ clutter_actor_init (ClutterActor *self)
 
   self->priv = priv = clutter_actor_get_instance_private (self);
 
-  priv->id = _clutter_context_acquire_id (self);
   priv->pick_id = -1;
 
   priv->opacity = 0xff;
@@ -8446,6 +8525,9 @@ clutter_actor_init (ClutterActor *self)
    */
   priv->needs_compute_expand = FALSE;
 
+  /* we start with an easing state with duration forcibly set
+   * to 0, for backward compatibility.
+   */
   clutter_actor_save_easing_state (self);
   clutter_actor_set_easing_duration (self, 0);
 }
@@ -8704,7 +8786,7 @@ _clutter_actor_queue_redraw_full (ClutterActor       *self,
       CLUTTER_NOTE (PAINT,
                     "Skipping queue_redraw('%s'): mapped=%s, "
                     "mapped_clones=%s, "
-                    "in_cloned_branch=%s\n",
+                    "in_cloned_branch=%s",
                     _clutter_actor_get_debug_name (self),
                     CLUTTER_ACTOR_IS_MAPPED (self) ? "yes" : "no",
                     clutter_actor_has_mapped_clones (self) ? "yes" : "no",
@@ -9038,7 +9120,7 @@ clutter_actor_get_preferred_size (ClutterActor *self,
                                           &min_height,
                                           &natural_height);
     }
-  else
+  else if (priv->request_mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
     {
       CLUTTER_NOTE (LAYOUT, "Preferred size (width-for-height)");
       clutter_actor_get_preferred_height (self, -1,
@@ -9047,6 +9129,17 @@ clutter_actor_get_preferred_size (ClutterActor *self,
       clutter_actor_get_preferred_width (self, natural_height,
                                          &min_width,
                                          &natural_width);
+    }
+  else if (priv->request_mode == CLUTTER_REQUEST_CONTENT_SIZE)
+    {
+      CLUTTER_NOTE (LAYOUT, "Preferred size (content-size)");
+
+      if (priv->content != NULL)
+        clutter_content_get_preferred_size (priv->content, &natural_width, &natural_height);
+    }
+  else
+    {
+      CLUTTER_NOTE (LAYOUT, "Unknown request mode");
     }
 
   if (min_width_p)
@@ -9123,10 +9216,25 @@ adjust_for_margin (float  margin_start,
                    float *allocated_start,
                    float *allocated_end)
 {
-  *minimum_size -= (margin_start + margin_end);
-  *natural_size -= (margin_start + margin_end);
-  *allocated_start += margin_start;
-  *allocated_end -= margin_end;
+  float min_size = *minimum_size;
+  float nat_size = *natural_size;
+  float start = *allocated_start;
+  float end = *allocated_end;
+
+  min_size = MAX (min_size - (margin_start + margin_end), 0);
+  nat_size = MAX (nat_size - (margin_start + margin_end), 0);
+
+  *minimum_size = min_size;
+  *natural_size = nat_size;
+
+  start += margin_start;
+  end -= margin_end;
+
+  if (end - start >= 0)
+    {
+      *allocated_start = start;
+      *allocated_end = end;
+    }
 }
 
 static inline void
@@ -9136,6 +9244,9 @@ adjust_for_alignment (ClutterActorAlign  alignment,
                       float             *allocated_end)
 {
   float allocated_size = *allocated_end - *allocated_start;
+
+  if (allocated_size <= 0.f)
+    return;
 
   switch (alignment)
     {
@@ -9285,6 +9396,46 @@ _clutter_actor_get_cached_size_request (gfloat         for_size,
   return FALSE;
 }
 
+static void
+clutter_actor_update_preferred_size_for_constraints (ClutterActor *self,
+                                                     ClutterOrientation direction,
+                                                     float for_size,
+                                                     float *minimum_size,
+                                                     float *natural_size)
+{
+  ClutterActorPrivate *priv = self->priv;
+  const GList *constraints, *l;
+
+  if (priv->constraints == NULL)
+    return;
+
+  constraints = _clutter_meta_group_peek_metas (priv->constraints);
+  for (l = constraints; l != NULL; l = l->next)
+    {
+      ClutterConstraint *constraint = l->data;
+      ClutterActorMeta *meta = l->data;
+
+      if (!clutter_actor_meta_get_enabled (meta))
+        continue;
+
+      clutter_constraint_update_preferred_size (constraint, self,
+                                                direction,
+                                                for_size,
+                                                minimum_size,
+                                                natural_size);
+
+      CLUTTER_NOTE (LAYOUT,
+                    "Preferred %s of '%s' after constraint '%s': "
+                    "{ min:%.2f, nat:%.2f }",
+                    direction == CLUTTER_ORIENTATION_HORIZONTAL
+                      ? "width"
+                      : "height",
+                    _clutter_actor_get_debug_name (self),
+                    _clutter_actor_meta_get_debug_name (meta),
+                    *minimum_size, *natural_size);
+    }
+}
+
 /**
  * clutter_actor_get_preferred_width:
  * @self: A #ClutterActor
@@ -9382,6 +9533,13 @@ clutter_actor_get_preferred_width (ClutterActor *self,
       klass->get_preferred_width (self, for_height,
                                   &minimum_width,
                                   &natural_width);
+
+      /* adjust for constraints */
+      clutter_actor_update_preferred_size_for_constraints (self,
+                                                           CLUTTER_ORIENTATION_HORIZONTAL,
+                                                           for_height,
+                                                           &minimum_width,
+                                                           &natural_width);
 
       /* adjust for the margin */
       minimum_width += (info->margin.left + info->margin.right);
@@ -9519,6 +9677,13 @@ clutter_actor_get_preferred_height (ClutterActor *self,
                                    &minimum_height,
                                    &natural_height);
 
+      /* adjust for constraints */
+      clutter_actor_update_preferred_size_for_constraints (self,
+                                                           CLUTTER_ORIENTATION_VERTICAL,
+                                                           for_width,
+                                                           &minimum_height,
+                                                           &natural_height);
+
       /* adjust for margin */
       minimum_height += (info->margin.top + info->margin.bottom);
       natural_height += (info->margin.top + info->margin.bottom);
@@ -9626,22 +9791,25 @@ clutter_actor_update_constraints (ClutterActor    *self,
     {
       ClutterConstraint *constraint = l->data;
       ClutterActorMeta *meta = l->data;
+      gboolean changed = FALSE;
 
       if (clutter_actor_meta_get_enabled (meta))
         {
-          _clutter_constraint_update_allocation (constraint,
-                                                 self,
-                                                 allocation);
+          changed |=
+            clutter_constraint_update_allocation (constraint,
+                                                  self,
+                                                  allocation);
 
           CLUTTER_NOTE (LAYOUT,
                         "Allocation of '%s' after constraint '%s': "
-                        "{ %.2f, %.2f, %.2f, %.2f }",
+                        "{ %.2f, %.2f, %.2f, %.2f } (changed:%s)",
                         _clutter_actor_get_debug_name (self),
                         _clutter_actor_meta_get_debug_name (meta),
                         allocation->x1,
                         allocation->y1,
                         allocation->x2,
-                        allocation->y2);
+                        allocation->y2,
+                        changed ? "yes" : "no");
         }
     }
 }
@@ -9668,6 +9836,10 @@ clutter_actor_adjust_allocation (ClutterActor    *self,
 
   clutter_actor_box_get_size (allocation, &alloc_width, &alloc_height);
 
+  /* There's no point in trying to adjust a zero-sized actor */
+  if (alloc_width == 0.f && alloc_height == 0.f)
+    return;
+
   /* we want to hit the cache, so we use the public API */
   req_mode = clutter_actor_get_request_mode (self);
 
@@ -9688,6 +9860,14 @@ clutter_actor_adjust_allocation (ClutterActor    *self,
       clutter_actor_get_preferred_width (self, alloc_height,
                                          &min_width,
                                          &nat_width);
+    }
+  else if (req_mode == CLUTTER_REQUEST_CONTENT_SIZE)
+    {
+      min_width = min_height = 0;
+      nat_width = nat_height = 0;
+
+      if (self->priv->content != NULL)
+        clutter_content_get_preferred_size (self->priv->content, &nat_width, &nat_height);
     }
 
 #ifdef CLUTTER_ENABLE_DEBUG
@@ -10791,9 +10971,11 @@ clutter_actor_get_width (ClutterActor *self)
     {
       gfloat natural_width = 0;
 
-      if (self->priv->request_mode == CLUTTER_REQUEST_HEIGHT_FOR_WIDTH)
-        clutter_actor_get_preferred_width (self, -1, NULL, &natural_width);
-      else
+      if (priv->request_mode == CLUTTER_REQUEST_HEIGHT_FOR_WIDTH)
+        {
+          clutter_actor_get_preferred_width (self, -1, NULL, &natural_width);
+        }
+      else if (priv->request_mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
         {
           gfloat natural_height = 0;
 
@@ -10801,6 +10983,10 @@ clutter_actor_get_width (ClutterActor *self)
           clutter_actor_get_preferred_width (self, natural_height,
                                              NULL,
                                              &natural_width);
+        }
+      else if (priv->request_mode == CLUTTER_REQUEST_CONTENT_SIZE && priv->content != NULL)
+        {
+          clutter_content_get_preferred_size (priv->content, &natural_width, NULL);
         }
 
       return natural_width;
@@ -10855,8 +11041,14 @@ clutter_actor_get_height (ClutterActor *self)
           clutter_actor_get_preferred_height (self, natural_width,
                                               NULL, &natural_height);
         }
-      else
-        clutter_actor_get_preferred_height (self, -1, NULL, &natural_height);
+      else if (priv->request_mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
+        {
+          clutter_actor_get_preferred_height (self, -1, NULL, &natural_height);
+        }
+      else if (priv->request_mode == CLUTTER_REQUEST_CONTENT_SIZE && priv->content != NULL)
+        {
+          clutter_content_get_preferred_size (priv->content, NULL, &natural_height);
+        }
 
       return natural_height;
     }
@@ -11709,14 +11901,15 @@ clutter_actor_get_name (ClutterActor *self)
  *
  * Since: 0.6
  *
- * Deprecated: 1.8: The id is not used any longer.
+ * Deprecated: 1.8: The id is not used any longer, and this function
+ *   always returns 0.
  */
 guint32
 clutter_actor_get_gid (ClutterActor *self)
 {
   g_return_val_if_fail (CLUTTER_IS_ACTOR (self), 0);
 
-  return self->priv->id;
+  return 0;
 }
 
 static inline void
@@ -12221,7 +12414,7 @@ clutter_actor_remove_clip (ClutterActor *self)
  *
  * Return value: %TRUE if the actor has a clip area set.
  *
- * Since: 0.1.1
+ * Since: 0.2
  */
 gboolean
 clutter_actor_has_clip (ClutterActor *self)
@@ -12988,7 +13181,7 @@ clutter_actor_get_parent (ClutterActor *self)
  *
  * Return Value: %TRUE if the actor is visibile and will be painted.
  *
- * Since: 0.8.4
+ * Since: 0.8
  */
 gboolean
 clutter_actor_get_paint_visibility (ClutterActor *actor)
@@ -13203,7 +13396,7 @@ clutter_actor_replace_child (ClutterActor *self,
  * This function should only be called by legacy #ClutterActor<!-- -->s
  * implementing the #ClutterContainer interface.
  *
- * Since: 0.1.1
+ * Since: 0.2
  *
  * Deprecated: 1.10: Use clutter_actor_remove_child() instead.
  */
@@ -13884,7 +14077,8 @@ clutter_actor_get_anchor_point_gravity (ClutterActor *self)
  *
  * Since: 0.6
  *
- * Deprecated: 1.12: Use #ClutterActor:pivot-point instead.
+ * Deprecated: 1.12: Use #ClutterActor:pivot-point and 
+ * clutter_actor_set_translation() instead.
  */
 void
 clutter_actor_move_anchor_point (ClutterActor *self,
@@ -13931,7 +14125,8 @@ clutter_actor_move_anchor_point (ClutterActor *self,
  *
  * Since: 0.6
  *
- * Deprecated: 1.12: Use #ClutterActor:pivot-point instead.
+ * Deprecated: 1.12: Use #ClutterActor:pivot-point and 
+ * clutter_actor_set_translation() instead.
  */
 void
 clutter_actor_move_anchor_point_from_gravity (ClutterActor   *self,
@@ -13982,7 +14177,9 @@ clutter_actor_move_anchor_point_from_gravity (ClutterActor   *self,
  *
  * Since: 0.6
  *
- * Deprecated: 1.12: Use #ClutterActor:pivot-point instead.
+ * Deprecated: 1.12: Use #ClutterActor:pivot-point and 
+ * clutter_actor_set_translation() instead. E.g. For %CLUTTER_GRAVITY_CENTER set
+ * pivot_point to (0.5,0.5) and the translation to (width/2,height/2).
  */
 void
 clutter_actor_set_anchor_point_from_gravity (ClutterActor   *self,
@@ -14859,13 +15056,16 @@ clutter_actor_set_final_state (ClutterAnimatable *animatable,
 
       pspec = g_object_class_find_property (obj_class, property_name);
 
-      if ((pspec->flags & CLUTTER_PARAM_ANIMATABLE) != 0)
+      if (pspec != NULL)
         {
-          /* XXX - I'm going to the special hell for this */
-          clutter_actor_set_animatable_property (actor, pspec->param_id, final, pspec);
+          if ((pspec->flags & CLUTTER_PARAM_ANIMATABLE) != 0)
+            {
+              /* XXX - I'm going to the special hell for this */
+              clutter_actor_set_animatable_property (actor, pspec->param_id, final, pspec);
+            }
+          else
+            g_object_set_property (G_OBJECT (animatable), pspec->name, final);
         }
-      else
-        g_object_set_property (G_OBJECT (animatable), pspec->name, final);
     }
 
   g_free (p_name);
@@ -14915,11 +15115,12 @@ clutter_actor_transform_stage_point (ClutterActor *self,
 				     gfloat       *y_out)
 {
   ClutterVertex v[4];
-  float ST[3][3];
-  float RQ[3][3];
-  int du, dv, xi, yi;
-  float px, py;
-  float xf, yf, wf, det;
+  double ST[3][3];
+  double RQ[3][3];
+  int du, dv;
+  double px, py;
+  double det;
+  float xf, yf, wf;
   ClutterActorPrivate *priv;
 
   g_return_val_if_fail (CLUTTER_IS_ACTOR (self), FALSE);
@@ -14940,20 +15141,18 @@ clutter_actor_transform_stage_point (ClutterActor *self,
    * function calls have been unrolled, and most of the math is done in fixed
    * point.
    */
-
   clutter_actor_get_abs_allocation_vertices (self, v);
 
   /* Keeping these as ints simplifies the multiplication (no significant
    * loss of precision here).
    */
-  du = (int) (priv->allocation.x2 - priv->allocation.x1);
-  dv = (int) (priv->allocation.y2 - priv->allocation.y1);
+  du = ceilf (priv->allocation.x2 - priv->allocation.x1);
+  dv = ceilf (priv->allocation.y2 - priv->allocation.y1);
 
-  if (!du || !dv)
+  if (du == 0 || dv == 0)
     return FALSE;
 
-#define UX2FP(x)        (x)
-#define DET2FP(a,b,c,d) (((a) * (d)) - ((b) * (c)))
+#define DET(a,b,c,d)    (((a) * (d)) - ((b) * (c)))
 
   /* First, find mapping from unit uv square to xy quadrilateral; this
    * equivalent to the pmap_square_quad() functions in the sample
@@ -14963,47 +15162,43 @@ clutter_actor_transform_stage_point (ClutterActor *self,
   px = v[0].x - v[1].x + v[3].x - v[2].x;
   py = v[0].y - v[1].y + v[3].y - v[2].y;
 
-  if (!px && !py)
+  if ((int) px == 0 && (int) py == 0)
     {
       /* affine transform */
-      RQ[0][0] = UX2FP (v[1].x - v[0].x);
-      RQ[1][0] = UX2FP (v[3].x - v[1].x);
-      RQ[2][0] = UX2FP (v[0].x);
-      RQ[0][1] = UX2FP (v[1].y - v[0].y);
-      RQ[1][1] = UX2FP (v[3].y - v[1].y);
-      RQ[2][1] = UX2FP (v[0].y);
-      RQ[0][2] = 0;
-      RQ[1][2] = 0;
+      RQ[0][0] = v[1].x - v[0].x;
+      RQ[1][0] = v[3].x - v[1].x;
+      RQ[2][0] = v[0].x;
+      RQ[0][1] = v[1].y - v[0].y;
+      RQ[1][1] = v[3].y - v[1].y;
+      RQ[2][1] = v[0].y;
+      RQ[0][2] = 0.0;
+      RQ[1][2] = 0.0;
       RQ[2][2] = 1.0;
     }
   else
     {
       /* projective transform */
-      double dx1, dx2, dy1, dy2, del;
+      double dx1, dx2, dy1, dy2;
 
-      dx1 = UX2FP (v[1].x - v[3].x);
-      dx2 = UX2FP (v[2].x - v[3].x);
-      dy1 = UX2FP (v[1].y - v[3].y);
-      dy2 = UX2FP (v[2].y - v[3].y);
+      dx1 = v[1].x - v[3].x;
+      dx2 = v[2].x - v[3].x;
+      dy1 = v[1].y - v[3].y;
+      dy2 = v[2].y - v[3].y;
 
-      del = DET2FP (dx1, dx2, dy1, dy2);
-      if (!del)
-	return FALSE;
+      det = DET (dx1, dx2, dy1, dy2);
+      if (fabs (det) <= DBL_EPSILON)
+        return FALSE;
 
-      /*
-       * The division here needs to be done in floating point for
-       * precisions reasons.
-       */
-      RQ[0][2] = (DET2FP (UX2FP (px), dx2, UX2FP (py), dy2) / del);
-      RQ[1][2] = (DET2FP (dx1, UX2FP (px), dy1, UX2FP (py)) / del);
-      RQ[1][2] = (DET2FP (dx1, UX2FP (px), dy1, UX2FP (py)) / del);
+      RQ[0][2] = DET (px, dx2, py, dy2) / det;
+      RQ[1][2] = DET (dx1, px, dy1, py) / det;
+      RQ[1][2] = DET (dx1, px, dy1, py) / det;
       RQ[2][2] = 1.0;
-      RQ[0][0] = UX2FP (v[1].x - v[0].x) + (RQ[0][2] * UX2FP (v[1].x));
-      RQ[1][0] = UX2FP (v[2].x - v[0].x) + (RQ[1][2] * UX2FP (v[2].x));
-      RQ[2][0] = UX2FP (v[0].x);
-      RQ[0][1] = UX2FP (v[1].y - v[0].y) + (RQ[0][2] * UX2FP (v[1].y));
-      RQ[1][1] = UX2FP (v[2].y - v[0].y) + (RQ[1][2] * UX2FP (v[2].y));
-      RQ[2][1] = UX2FP (v[0].y);
+      RQ[0][0] = v[1].x - v[0].x + (RQ[0][2] * v[1].x);
+      RQ[1][0] = v[2].x - v[0].x + (RQ[1][2] * v[2].x);
+      RQ[2][0] = v[0].x;
+      RQ[0][1] = v[1].y - v[0].y + (RQ[0][2] * v[1].y);
+      RQ[1][1] = v[2].y - v[0].y + (RQ[1][2] * v[2].y);
+      RQ[2][1] = v[0].y;
     }
 
   /*
@@ -15021,15 +15216,15 @@ clutter_actor_transform_stage_point (ClutterActor *self,
    * Now RQ is transform from uv rectangle to xy quadrilateral; we need an
    * inverse of that.
    */
-  ST[0][0] = DET2FP (RQ[1][1], RQ[1][2], RQ[2][1], RQ[2][2]);
-  ST[1][0] = DET2FP (RQ[1][2], RQ[1][0], RQ[2][2], RQ[2][0]);
-  ST[2][0] = DET2FP (RQ[1][0], RQ[1][1], RQ[2][0], RQ[2][1]);
-  ST[0][1] = DET2FP (RQ[2][1], RQ[2][2], RQ[0][1], RQ[0][2]);
-  ST[1][1] = DET2FP (RQ[2][2], RQ[2][0], RQ[0][2], RQ[0][0]);
-  ST[2][1] = DET2FP (RQ[2][0], RQ[2][1], RQ[0][0], RQ[0][1]);
-  ST[0][2] = DET2FP (RQ[0][1], RQ[0][2], RQ[1][1], RQ[1][2]);
-  ST[1][2] = DET2FP (RQ[0][2], RQ[0][0], RQ[1][2], RQ[1][0]);
-  ST[2][2] = DET2FP (RQ[0][0], RQ[0][1], RQ[1][0], RQ[1][1]);
+  ST[0][0] = DET (RQ[1][1], RQ[1][2], RQ[2][1], RQ[2][2]);
+  ST[1][0] = DET (RQ[1][2], RQ[1][0], RQ[2][2], RQ[2][0]);
+  ST[2][0] = DET (RQ[1][0], RQ[1][1], RQ[2][0], RQ[2][1]);
+  ST[0][1] = DET (RQ[2][1], RQ[2][2], RQ[0][1], RQ[0][2]);
+  ST[1][1] = DET (RQ[2][2], RQ[2][0], RQ[0][2], RQ[0][0]);
+  ST[2][1] = DET (RQ[2][0], RQ[2][1], RQ[0][0], RQ[0][1]);
+  ST[0][2] = DET (RQ[0][1], RQ[0][2], RQ[1][1], RQ[1][2]);
+  ST[1][2] = DET (RQ[0][2], RQ[0][0], RQ[1][2], RQ[1][0]);
+  ST[2][2] = DET (RQ[0][0], RQ[0][1], RQ[1][0], RQ[1][1]);
 
   /*
    * Check the resulting matrix is OK.
@@ -15037,19 +15232,16 @@ clutter_actor_transform_stage_point (ClutterActor *self,
   det = (RQ[0][0] * ST[0][0])
       + (RQ[0][1] * ST[0][1])
       + (RQ[0][2] * ST[0][2]);
-  if (!det)
+  if (fabs (det) <= DBL_EPSILON)
     return FALSE;
 
   /*
    * Now transform our point with the ST matrix; the notional w
    * coordinate is 1, hence the last part is simply added.
    */
-  xi = (int) x;
-  yi = (int) y;
-
-  xf = xi * ST[0][0] + yi * ST[1][0] + ST[2][0];
-  yf = xi * ST[0][1] + yi * ST[1][1] + ST[2][1];
-  wf = xi * ST[0][2] + yi * ST[1][2] + ST[2][2];
+  xf = x * ST[0][0] + y * ST[1][0] + ST[2][0];
+  yf = x * ST[0][1] + y * ST[1][1] + ST[2][1];
+  wf = x * ST[0][2] + y * ST[1][2] + ST[2][2];
 
   if (x_out)
     *x_out = xf / wf;
@@ -15057,8 +15249,7 @@ clutter_actor_transform_stage_point (ClutterActor *self,
   if (y_out)
     *y_out = yf / wf;
 
-#undef UX2FP
-#undef DET2FP
+#undef DET
 
   return TRUE;
 }
@@ -15174,7 +15365,7 @@ clutter_actor_get_stage (ClutterActor *actor)
  *                                           &natural_height);
  *       height = CLAMP (natural_height, min_height, available_height);
  *     }
- *   else
+ *   else if (request_mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
  *     {
  *       clutter_actor_get_preferred_height (self, available_width,
  *                                           &min_height,
@@ -15185,6 +15376,13 @@ clutter_actor_get_stage (ClutterActor *actor)
  *                                          &min_width,
  *                                          &natural_width);
  *       width = CLAMP (natural_width, min_width, available_width);
+ *     }
+ *   else if (request_mode == CLUTTER_REQUEST_CONTENT_SIZE)
+ *     {
+ *       clutter_content_get_preferred_size (content, &natural_width, &natural_height);
+ *
+ *       width = CLAMP (natural_width, 0, available_width);
+ *       height = CLAMP (natural_height, 0, available_height);
  *     }
  *
  *   box.x1 = x; box.y1 = y;
@@ -15243,6 +15441,16 @@ clutter_actor_allocate_available_size (ClutterActor           *self,
                                          &min_width,
                                          &natural_width);
       width  = CLAMP (natural_width, min_width, available_width);
+      break;
+
+    case CLUTTER_REQUEST_CONTENT_SIZE:
+      if (priv->content != NULL)
+        {
+          clutter_content_get_preferred_size (priv->content, &natural_width, &natural_height);
+
+          width = CLAMP (natural_width, 0, available_width);
+          height = CLAMP (natural_height, 0, available_height);
+        }
       break;
     }
 
@@ -15367,14 +15575,17 @@ clutter_actor_allocate_align_fill (ClutterActor           *self,
   clutter_actor_box_get_origin (box, &x_offset, &y_offset);
   clutter_actor_box_get_size (box, &available_width, &available_height);
 
-  if (available_width < 0)
-    available_width = 0;
+  if (available_width <= 0)
+    available_width = 0.f;
 
-  if (available_height < 0)
-    available_height = 0;
+  if (available_height <= 0)
+    available_height = 0.f;
 
   allocation.x1 = x_offset;
   allocation.y1 = y_offset;
+
+  if (available_width == 0.f && available_height == 0.f)
+    goto out;
 
   if (x_fill)
     child_width = available_width;
@@ -15409,7 +15620,7 @@ clutter_actor_allocate_align_fill (ClutterActor           *self,
           child_height = CLAMP (natural_height, min_height, available_height);
         }
     }
-  else
+  else if (priv->request_mode == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
     {
       gfloat min_width, natural_width;
       gfloat min_height, natural_height;
@@ -15432,6 +15643,18 @@ clutter_actor_allocate_align_fill (ClutterActor           *self,
           child_width = CLAMP (natural_width, min_width, available_width);
         }
     }
+  else if (priv->request_mode == CLUTTER_REQUEST_CONTENT_SIZE && priv->content != NULL)
+    {
+      gfloat natural_width, natural_height;
+
+      clutter_content_get_preferred_size (priv->content, &natural_width, &natural_height);
+
+      if (!x_fill)
+        child_width = CLAMP (natural_width, 0, available_width);
+
+      if (!y_fill)
+        child_height = CLAMP (natural_height, 0, available_height);
+    }
 
   /* invert the horizontal alignment for RTL languages */
   if (priv->text_direction == CLUTTER_TEXT_DIRECTION_RTL)
@@ -15447,8 +15670,8 @@ out:
 
   allocation.x1 = floorf (allocation.x1);
   allocation.y1 = floorf (allocation.y1);
-  allocation.x2 = ceilf (allocation.x1 + child_width);
-  allocation.y2 = ceilf (allocation.y1 + child_height);
+  allocation.x2 = ceilf (allocation.x1 + MAX (child_width, 0));
+  allocation.y2 = ceilf (allocation.y1 + MAX (child_height, 0));
 
   clutter_actor_allocate (self, &allocation, flags);
 }
@@ -15472,6 +15695,46 @@ clutter_actor_grab_key_focus (ClutterActor *self)
   stage = _clutter_actor_get_stage_internal (self);
   if (stage != NULL)
     clutter_stage_set_key_focus (CLUTTER_STAGE (stage), self);
+}
+
+static void
+update_pango_context (ClutterBackend *backend,
+                      PangoContext   *context)
+{
+  ClutterSettings *settings;
+  PangoFontDescription *font_desc;
+  const cairo_font_options_t *font_options;
+  gchar *font_name;
+  PangoDirection pango_dir;
+  gdouble resolution;
+
+  settings = clutter_settings_get_default ();
+
+  /* update the text direction */
+  if (clutter_get_default_text_direction () == CLUTTER_TEXT_DIRECTION_RTL)
+    pango_dir = PANGO_DIRECTION_RTL;
+  else
+    pango_dir = PANGO_DIRECTION_LTR;
+
+  pango_context_set_base_dir (context, pango_dir);
+
+  g_object_get (settings, "font-name", &font_name, NULL);
+
+  /* get the configuration for the PangoContext from the backend */
+  font_options = clutter_backend_get_font_options (backend);
+  resolution = clutter_backend_get_resolution (backend);
+
+  font_desc = pango_font_description_from_string (font_name);
+
+  if (resolution < 0)
+    resolution = 96.0; /* fall back */
+
+  pango_context_set_font_description (context, font_desc);
+  pango_cairo_context_set_font_options (context, font_options);
+  pango_cairo_context_set_resolution (context, resolution);
+
+  pango_font_description_free (font_desc);
+  g_free (font_name);
 }
 
 /**
@@ -15500,16 +15763,23 @@ PangoContext *
 clutter_actor_get_pango_context (ClutterActor *self)
 {
   ClutterActorPrivate *priv;
+  ClutterBackend *backend = clutter_get_default_backend ();
 
   g_return_val_if_fail (CLUTTER_IS_ACTOR (self), NULL);
 
   priv = self->priv;
 
-  if (priv->pango_context != NULL)
-    return priv->pango_context;
+  if (G_UNLIKELY (priv->pango_context == NULL))
+    {
+      priv->pango_context = clutter_actor_create_pango_context (self);
 
-  priv->pango_context = _clutter_context_get_pango_context ();
-  g_object_ref (priv->pango_context);
+      g_signal_connect_object (backend, "resolution-changed",
+                               G_CALLBACK (update_pango_context), priv->pango_context, 0);
+      g_signal_connect_object (backend, "font-changed",
+                               G_CALLBACK (update_pango_context), priv->pango_context, 0);
+    }
+  else
+    update_pango_context (backend, priv->pango_context);
 
   return priv->pango_context;
 }
@@ -15533,9 +15803,16 @@ clutter_actor_get_pango_context (ClutterActor *self)
 PangoContext *
 clutter_actor_create_pango_context (ClutterActor *self)
 {
-  g_return_val_if_fail (CLUTTER_IS_ACTOR (self), NULL);
+  CoglPangoFontMap *font_map;
+  PangoContext *context;
 
-  return _clutter_context_create_pango_context ();
+  font_map = COGL_PANGO_FONT_MAP (clutter_get_font_map ());
+
+  context = cogl_pango_font_map_create_context (font_map);
+  update_pango_context (clutter_get_default_backend (), context);
+  pango_context_set_language (context, pango_language_get_default ());
+
+  return context;
 }
 
 /**
@@ -15576,20 +15853,50 @@ clutter_actor_create_pango_layout (ClutterActor *self,
   return layout;
 }
 
-/* Allows overriding the calculated paint opacity. Used by ClutterClone and
- * ClutterOffscreenEffect.
+/**
+ * clutter_actor_set_opacity_override:
+ * @self: a #ClutterActor
+ * @opacity: the override opacity value, or -1 to reset
+ *
+ * Allows overriding the calculated paint opacity (as returned by
+ * clutter_actor_get_paint_opacity()). This is used internally by
+ * ClutterClone and ClutterOffscreenEffect, and should be used by
+ * actors that need to mimick those.
+ *
+ * In almost all cases this should not used by applications.
+ *
+ * Stability: unstable
  */
 void
-_clutter_actor_set_opacity_override (ClutterActor *self,
+clutter_actor_set_opacity_override (ClutterActor *self,
                                      gint          opacity)
 {
   g_return_if_fail (CLUTTER_IS_ACTOR (self));
 
+  /* ensure bounds */
+  if (opacity >= 0)
+    opacity = CLAMP (opacity, 0, 255);
+  else
+    opacity = -1;
+
   self->priv->opacity_override = opacity;
 }
 
+/**
+ * clutter_actor_get_opacity_override:
+ * @self: a #ClutterActor
+ *
+ * See clutter_actor_set_opacity_override()
+ *
+ * Returns: the override value for the actor's opacity, or -1 if no override
+ *   is set.
+ *
+ * Since: 1.22
+ *
+ * Stability: unstable
+ */
 gint
-_clutter_actor_get_opacity_override (ClutterActor *self)
+clutter_actor_get_opacity_override (ClutterActor *self)
 {
   g_return_val_if_fail (CLUTTER_IS_ACTOR (self), -1);
 
@@ -15627,11 +15934,15 @@ _clutter_actor_set_enable_paint_unmapped (ClutterActor *self,
        */
       clutter_actor_realize (self);
 
-      clutter_actor_update_map_state (self, MAP_STATE_MAKE_MAPPED);
+      /* If the actor isn't ultimately connected to a toplevel, it can't be
+       * realized or painted.
+       */
+      if (CLUTTER_ACTOR_IS_REALIZED (self))
+          clutter_actor_update_map_state (self, MAP_STATE_MAKE_MAPPED);
     }
   else
     {
-      clutter_actor_update_map_state (self, MAP_STATE_MAKE_UNMAPPED);
+      clutter_actor_update_map_state (self, MAP_STATE_CHECK);
     }
 }
 
@@ -16065,9 +16376,29 @@ _clutter_actor_set_in_clone_paint (ClutterActor *self,
 gboolean
 clutter_actor_is_in_clone_paint (ClutterActor *self)
 {
+  ClutterActor *parent;
+
   g_return_val_if_fail (CLUTTER_IS_ACTOR (self), FALSE);
 
-  return self->priv->in_clone_paint;
+  if (self->priv->in_clone_paint)
+    return TRUE;
+
+  if (self->priv->in_cloned_branch == 0)
+    return FALSE;
+
+  parent = self->priv->parent;
+  while (parent != NULL)
+    {
+      if (parent->priv->in_cloned_branch == 0)
+        break;
+
+      if (parent->priv->in_clone_paint)
+        return TRUE;
+
+      parent = parent->priv->parent;
+    }
+
+  return FALSE;
 }
 
 static gboolean
@@ -18736,14 +19067,6 @@ on_transition_stopped (ClutterTransition *transition,
 
       g_signal_emit (actor, actor_signals[TRANSITIONS_COMPLETED], 0);
     }
-
-  if (clos->is_implicit ||
-      clutter_transition_get_remove_on_complete (transition))
-    {
-      /* release the reference we acquired above */
-      g_object_unref (transition);
-    }
-
 }
 
 static void
@@ -19459,6 +19782,9 @@ clutter_actor_set_content (ClutterActor   *self,
 
   priv = self->priv;
 
+  if (priv->content == content)
+    return;
+
   if (priv->content != NULL)
     {
       _clutter_content_detached (priv->content, self);
@@ -19473,9 +19799,12 @@ clutter_actor_set_content (ClutterActor   *self,
       _clutter_content_attached (priv->content, self);
     }
 
-  /* given that the content is always painted within the allocation,
-   * we only need to queue a redraw here
+  /* if the actor's preferred size is the content's preferred size,
+   * then we need to conditionally queue a relayout here...
    */
+  if (priv->request_mode == CLUTTER_REQUEST_CONTENT_SIZE)
+    _clutter_actor_queue_only_relayout (self);
+
   clutter_actor_queue_redraw (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), obj_props[PROP_CONTENT]);
@@ -19487,7 +19816,25 @@ clutter_actor_set_content (ClutterActor   *self,
    * do.
    */
   if (priv->content_gravity != CLUTTER_CONTENT_GRAVITY_RESIZE_FILL)
-    g_object_notify_by_pspec (G_OBJECT (self), obj_props[PROP_CONTENT_BOX]);
+    {
+      if (priv->content_box_valid)
+        {
+          ClutterActorBox from_box, to_box;
+
+          clutter_actor_get_content_box (self, &from_box);
+
+          /* invalidate the cached content box */
+          priv->content_box_valid = FALSE;
+          clutter_actor_get_content_box (self, &to_box);
+
+          if (!clutter_actor_box_equal (&from_box, &to_box))
+            _clutter_actor_create_transition (self, obj_props[PROP_CONTENT_BOX],
+                                              &from_box,
+                                              &to_box);
+        }
+
+      g_object_notify_by_pspec (G_OBJECT (self), obj_props[PROP_CONTENT_BOX]);
+   }
 }
 
 /**
@@ -20463,4 +20810,313 @@ _clutter_actor_get_active_framebuffer (ClutterActor *self)
     }
 
   return _clutter_stage_get_active_framebuffer (stage);
+}
+
+static void
+clutter_actor_child_model__items_changed (GListModel *model,
+                                          guint       position,
+                                          guint       removed,
+                                          guint       added,
+                                          gpointer    user_data)
+{
+  ClutterActor *parent = user_data;
+  ClutterActorPrivate *priv = parent->priv;
+  guint i;
+
+  while (removed--)
+    {
+      ClutterActor *child = clutter_actor_get_child_at_index (parent, position);
+      clutter_actor_destroy (child);
+    }
+
+  for (i = 0; i < added; i++)
+    {
+      GObject *item = g_list_model_get_item (model, position + i);
+      ClutterActor *child = priv->create_child_func (item, priv->create_child_data);
+
+      /* The actor returned by the function can have a floating reference,
+       * if the implementation is in pure C, or have a full reference, usually
+       * the case for language bindings. To avoid leaking references, we
+       * try to assume ownership of the instance, and release the reference
+       * at the end unconditionally, leaving the only reference to the actor
+       * itself.
+       */
+      if (g_object_is_floating (child))
+        g_object_ref_sink (child);
+
+      clutter_actor_insert_child_at_index (parent, child, position + i);
+
+      g_object_unref (child);
+      g_object_unref (item);
+    }
+}
+
+/**
+ * clutter_actor_bind_model:
+ * @self: a #ClutterActor
+ * @model: (nullable): a #GListModel
+ * @create_child_func: a function that creates #ClutterActor instances
+ *   from the contents of the @model
+ * @user_data: user data passed to @create_child_func
+ * @notify: function called when unsetting the @model
+ *
+ * Binds a #GListModel to a #ClutterActor.
+ *
+ * If the #ClutterActor was already bound to a #GListModel, the previous
+ * binding is destroyed.
+ *
+ * The existing children of #ClutterActor are destroyed when setting a
+ * model, and new children are created and added, representing the contents
+ * of the @model. The #ClutterActor is updated whenever the @model changes.
+ * If @model is %NULL, the #ClutterActor is left empty.
+ *
+ * When a #ClutterActor is bound to a model, adding and removing children
+ * directly is undefined behaviour.
+ *
+ * Since: 1.24
+ */
+void
+clutter_actor_bind_model (ClutterActor                *self,
+                          GListModel                  *model,
+                          ClutterActorCreateChildFunc  create_child_func,
+                          gpointer                     user_data,
+                          GDestroyNotify               notify)
+{
+  ClutterActorPrivate *priv = clutter_actor_get_instance_private (self);
+
+  g_return_if_fail (CLUTTER_IS_ACTOR (self));
+  g_return_if_fail (model == NULL || G_IS_LIST_MODEL (model));
+  g_return_if_fail (model == NULL || create_child_func != NULL);
+
+  if (priv->child_model != NULL)
+    {
+      if (priv->create_child_notify != NULL)
+        priv->create_child_notify (priv->create_child_data);
+
+      g_signal_handlers_disconnect_by_func (priv->child_model,
+                                            clutter_actor_child_model__items_changed,
+                                            self);
+      g_clear_object (&priv->child_model);
+      priv->create_child_func = NULL;
+      priv->create_child_data = NULL;
+      priv->create_child_notify = NULL;
+    }
+
+  clutter_actor_destroy_all_children (self);
+
+  if (model == NULL)
+    return;
+
+  priv->child_model = g_object_ref (model);
+  priv->create_child_func = create_child_func;
+  priv->create_child_data = user_data;
+  priv->create_child_notify = notify;
+
+  g_signal_connect (priv->child_model, "items-changed",
+                    G_CALLBACK (clutter_actor_child_model__items_changed),
+                    self);
+
+  clutter_actor_child_model__items_changed (priv->child_model,
+                                            0,
+                                            0,
+                                            g_list_model_get_n_items (priv->child_model),
+                                            self);
+}
+
+typedef struct {
+  GType child_type;
+  GArray *props;
+} BindClosure;
+
+typedef struct {
+  const char *model_property;
+  const char *child_property;
+  GBindingFlags flags;
+} BindProperty;
+
+static void
+bind_closure_free (gpointer data_)
+{
+  BindClosure *data = data_;
+
+  if (data == NULL)
+    return;
+
+  g_array_unref (data->props);
+  g_slice_free (BindClosure, data);
+}
+
+static ClutterActor *
+bind_child_with_properties (gpointer item,
+                            gpointer data_)
+{
+  BindClosure *data = data_;
+  ClutterActor *res;
+  guint i;
+
+  res = g_object_new (data->child_type, NULL);
+
+  for (i = 0; i < data->props->len; i++)
+    {
+      const BindProperty *prop = &g_array_index (data->props, BindProperty, i);
+
+      g_object_bind_property (item, prop->model_property,
+                              res, prop->child_property,
+                              prop->flags);
+    }
+
+  return res;
+}
+
+/**
+ * clutter_actor_bind_model_with_properties:
+ * @self: a #ClutterActor
+ * @model: a #GListModel
+ * @child_type: the type of #ClutterActor to use when creating
+ *   children mapping to items inside the @model
+ * @first_model_property: the first property of @model to bind
+ * @...: tuples of property names on the @model, on the child, and the
+ *   #GBindingFlags used to bind them, terminated by %NULL
+ *
+ * Binds a #GListModel to a #ClutterActor.
+ *
+ * Unlike clutter_actor_bind_model(), this function automatically creates
+ * a child #ClutterActor of type @child_type, and binds properties on the
+ * items inside the @model to the corresponding properties on the child,
+ * for instance:
+ *
+ * |[<!-- language="C" -->
+ *   clutter_actor_bind_model_with_properties (actor, model,
+ *                                             MY_TYPE_CHILD_VIEW,
+ *                                             "label", "text", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE,
+ *                                             "icon", "image", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE,
+ *                                             "selected", "selected", G_BINDING_BIDIRECTIONAL,
+ *                                             "active", "active", G_BINDING_BIDIRECTIONAL,
+ *                                             NULL);
+ * ]|
+ *
+ * is the equivalent of calling clutter_actor_bind_model() with a
+ * #ClutterActorCreateChildFunc of:
+ *
+ * |[<!-- language="C" -->
+ *   ClutterActor *res = g_object_new (MY_TYPE_CHILD_VIEW, NULL);
+ *
+ *   g_object_bind_property (item, "label", res, "text", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+ *   g_object_bind_property (item, "icon", res, "image", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+ *   g_object_bind_property (item, "selected", res, "selected", G_BINDING_BIDIRECTIONAL);
+ *   g_object_bind_property (item, "active", res, "active", G_BINDING_BIDIRECTIONAL);
+ *
+ *   return res;
+ * ]|
+ *
+ * If the #ClutterActor was already bound to a #GListModel, the previous
+ * binding is destroyed.
+ *
+ * When a #ClutterActor is bound to a model, adding and removing children
+ * directly is undefined behaviour.
+ *
+ * See also: clutter_actor_bind_model()
+ *
+ * Since: 1.24
+ */
+void
+clutter_actor_bind_model_with_properties (ClutterActor *self,
+                                          GListModel   *model,
+                                          GType         child_type,
+                                          const char   *first_model_property,
+                                          ...)
+{
+  va_list args;
+  BindClosure *clos;
+  const char *model_property;
+
+  g_return_if_fail (CLUTTER_IS_ACTOR (self));
+  g_return_if_fail (G_IS_LIST_MODEL (model));
+  g_return_if_fail (g_type_is_a (child_type, CLUTTER_TYPE_ACTOR));
+
+  clos = g_slice_new0 (BindClosure);
+  clos->child_type = child_type;
+  clos->props = g_array_new (FALSE, FALSE, sizeof (BindProperty));
+
+  va_start (args, first_model_property);
+  model_property = first_model_property;
+  while (model_property != NULL)
+    {
+      const char *child_property = va_arg (args, char *);
+      GBindingFlags binding_flags = va_arg (args, guint);
+      BindProperty bind;
+
+      bind.model_property = g_intern_string (model_property);
+      bind.child_property = g_intern_string (child_property);
+      bind.flags = binding_flags;
+
+      g_array_append_val (clos->props, bind);
+
+      model_property = va_arg (args, char *);
+    }
+
+  clutter_actor_bind_model (self, model, bind_child_with_properties, clos, bind_closure_free);
+}
+
+/*< private >
+ * clutter_actor_create_texture_paint_node:
+ * @self: a #ClutterActor
+ * @texture: a #CoglTexture
+ *
+ * Creates a #ClutterPaintNode initialized using the state of the
+ * given #ClutterActor, ready to be used inside the implementation
+ * of the #ClutterActorClass.paint_node virtual function.
+ *
+ * The returned paint node has the geometry set to the size of the
+ * #ClutterActor:content-box property; it uses the filters specified
+ * in the #ClutterActor:minification-filter and #ClutterActor:magnification-filter
+ * properties; and respects the #ClutterActor:content-repeat property.
+ *
+ * Returns: (transfer full): The newly created #ClutterPaintNode
+ *
+ * Since: 1.24
+ */
+ClutterPaintNode *
+clutter_actor_create_texture_paint_node (ClutterActor *self,
+                                         CoglTexture  *texture)
+{
+  ClutterActorPrivate *priv = clutter_actor_get_instance_private (self);
+  ClutterPaintNode *node;
+  ClutterActorBox box;
+  ClutterColor color;
+
+  g_return_val_if_fail (CLUTTER_IS_ACTOR (self), NULL);
+  g_return_val_if_fail (texture != NULL, NULL);
+
+  clutter_actor_get_content_box (self, &box);
+
+  /* ClutterTextureNode will premultiply the blend color, so we
+   * want it to be white with the paint opacity
+   */
+  color.red = 255;
+  color.green = 255;
+  color.blue = 255;
+  color.alpha = clutter_actor_get_paint_opacity_internal (self);
+
+  node = clutter_texture_node_new (texture, &color, priv->min_filter, priv->mag_filter);
+  clutter_paint_node_set_name (node, "Texture");
+
+  if (priv->content_repeat == CLUTTER_REPEAT_NONE)
+    clutter_paint_node_add_rectangle (node, &box);
+  else
+    {
+      float t_w = 1.f, t_h = 1.f;
+
+      if ((priv->content_repeat & CLUTTER_REPEAT_X_AXIS) != FALSE)
+        t_w = (box.x2 - box.x1) / cogl_texture_get_width (texture);
+
+      if ((priv->content_repeat & CLUTTER_REPEAT_Y_AXIS) != FALSE)
+        t_h = (box.y2 - box.y1) / cogl_texture_get_height (texture);
+
+      clutter_paint_node_add_texture_rectangle (node, &box,
+                                                0.f, 0.f,
+                                                t_w, t_h);
+    }
+
+  return node;
 }

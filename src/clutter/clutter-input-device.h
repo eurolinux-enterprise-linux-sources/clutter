@@ -21,12 +21,12 @@
  * Author: Emmanuele Bassi <ebassi@linux.intel.com>
  */
 
+#ifndef __CLUTTER_INPUT_DEVICE_H__
+#define __CLUTTER_INPUT_DEVICE_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_INPUT_DEVICE_H__
-#define __CLUTTER_INPUT_DEVICE_H__
 
 #include <clutter/clutter-types.h>
 
@@ -134,6 +134,11 @@ CLUTTER_AVAILABLE_IN_1_10
 gboolean                clutter_input_device_keycode_to_evdev   (ClutterInputDevice *device,
                                                                  guint               hardware_keycode,
                                                                  guint              *evdev_keycode);
+
+CLUTTER_AVAILABLE_IN_1_22
+const gchar *           clutter_input_device_get_vendor_id      (ClutterInputDevice *device);
+CLUTTER_AVAILABLE_IN_1_22
+const gchar *           clutter_input_device_get_product_id     (ClutterInputDevice *device);
 
 G_END_DECLS
 

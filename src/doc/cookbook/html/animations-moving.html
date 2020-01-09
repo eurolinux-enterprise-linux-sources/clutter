@@ -1,21 +1,21 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>7. Moving actors</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-reuse.html" title="6. Reusing a complex animation on different actors"><link rel="next" href="animations-looping.html" title="8. Looping an animation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7. Moving actors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-reuse.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-looping.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-moving"></a>7. Moving actors</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909837056"></a>7.1. Problem</h3></div></div></div><p>You want to animate the movement of one or more actors.
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>7. Moving actors</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-reuse.html" title="6. Reusing a complex animation on different actors"><link rel="next" href="animations-looping.html" title="8. Looping an animation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7. Moving actors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-reuse.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-looping.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-moving"></a>7. Moving actors</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790504828976"></a>7.1. Problem</h3></div></div></div><p>You want to animate the movement of one or more actors.
       For example:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>To move user interface elements in response to user input
           (e.g. keyboard control of a character in a game).</p></li><li class="listitem"><p>To move a group of actors "off stage" to make way
           for another group of actors (e.g. paging through
           thumbnails in a photo viewer).</p></li><li class="listitem"><p>To move an actor to a different position in the
           interface (e.g. moving an icon for a trashed file into
-          a wastebin).</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909832688"></a>7.2. Solutions</h3></div></div></div><p>Animate the actors movement on one or more axes
+          a wastebin).</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790504824608"></a>7.2. Solutions</h3></div></div></div><p>Animate the actors movement on one or more axes
       (<code class="varname">x</code>, <code class="varname">y</code>,
       <code class="varname">z/depth</code>) using one or more of the approaches
       available in the Clutter API (implicit animations,
-      <span class="type">ClutterState</span>, <span class="type">ClutterAnimator</span>).</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909829632"></a>7.2.1. Solution 1: Implicit animations</h4></div></div></div><p>This works well for simple movement of a single actor to
+      <span class="type">ClutterState</span>, <span class="type">ClutterAnimator</span>).</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504821552"></a>7.2.1. Solution 1: Implicit animations</h4></div></div></div><p>This works well for simple movement of a single actor to
         a single set of coordinates. Here is an example of how to animate
         movement of a <span class="type">ClutterActor</span> <code class="varname">actor</code>
         to position <code class="code">100.0</code> on <code class="varname">x</code> axis:</p><div class="informalexample"><pre class="programlisting">clutter_actor_animate (actor, CLUTTER_LINEAR, 500,
                        "x", 100.0,
                        NULL);</pre></div><p>See <a class="link" href="animations-moving.html#animations-moving-example-1" title="Example 5.8. Simple movement using implicit animations">this
         example</a> which demonstrates movement in each axis,
-        in response to (mouse) button presses.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909824496"></a>7.2.2. Solution 2: <span class="type">ClutterState</span></h4></div></div></div><p>This suits simple, repeated movement of one or more actors
+        in response to (mouse) button presses.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504816416"></a>7.2.2. Solution 2: <span class="type">ClutterState</span></h4></div></div></div><p>This suits simple, repeated movement of one or more actors
         between sets of coordinates. Here is an example of how to
         create two states for a <span class="type">ClutterState</span> instance to
         move two actors, <code class="varname">actor1</code> and
@@ -42,7 +42,7 @@ clutter_state_set (transitions, "move-down");</pre></div><p>This <a class="link"
         scale two actors. When a button is pressed on one actor, it is
         moved and scaled to occupy the right-hand side of the stage;
         the other actor is simultaneously moved back to the left-hand
-        side of the stage and scaled down.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909818624"></a>7.2.3. Solution 3: <span class="type">ClutterAnimator</span></h4></div></div></div><p>This is a good way to implement complex movement of
+        side of the stage and scaled down.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504810544"></a>7.2.3. Solution 3: <span class="type">ClutterAnimator</span></h4></div></div></div><p>This is a good way to implement complex movement of
         one or more actors between sets of coordinates.</p><div class="informalexample"><pre class="programlisting">ClutterAnimator *animator = clutter_animator_new ();
 
 /* the animation takes 500ms */
@@ -85,7 +85,7 @@ clutter_animator_start (animator);</pre></div><p>The <a class="link" href="anima
           actors, rather than different movements for each actor,
           it's often better to put the actors into a container
           of some kind and move that instead of moving the actors
-          individually.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236909811024"></a>7.3. Discussion</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909810384"></a>7.3.1. Movement can take an actor "outside" its container</h4></div></div></div><p>Actor movement in the <code class="varname">x</code> and
+          individually.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790504802944"></a>7.3. Discussion</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504802304"></a>7.3.1. Movement can take an actor "outside" its container</h4></div></div></div><p>Actor movement in the <code class="varname">x</code> and
         <code class="varname">y</code> axes is relative to the actor's parent
         container. There is nothing to stop you animating an actor
         until it falls outside the bounds of its container. This
@@ -94,7 +94,7 @@ clutter_animator_start (animator);</pre></div><p>The <a class="link" href="anima
         if this happens.</p><p>To ensure that an actor remains visible, its position
         should remain within the visible area of the container. In practice,
         this means either anywhere in the container, if no clip area
-        has been set; or within the container's clip area, if set.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909807440"></a>7.3.2. Anchor points can affect movement</h4></div></div></div><p>An actor's anchor point is defined as an <code class="code">x,y</code>
+        has been set; or within the container's clip area, if set.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504799360"></a>7.3.2. Anchor points can affect movement</h4></div></div></div><p>An actor's anchor point is defined as an <code class="code">x,y</code>
         coordinate relative to the top-left of the actor. The default
         anchor point for an actor is in its top-left
         corner. However, it is possible to set this to some other
@@ -139,7 +139,7 @@ clutter_actor_set_anchor_point (actor, 50.0, 0.0);</pre></div><div class="note" 
         <code class="varname">x</code> axis, it's actually the anchor points
         which are at the same position. These all align on the
         <code class="varname">x</code> axis with the left-hand edge of the green
-        rectangle.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909785920"></a>7.3.3. Actors can move in the <code class="varname">z</code> axis</h4></div></div></div><p>The examples so far have shown how to move actors in
+        rectangle.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504777840"></a>7.3.3. Actors can move in the <code class="varname">z</code> axis</h4></div></div></div><p>The examples so far have shown how to move actors in
         the <code class="varname">x</code> and <code class="varname">y</code> axes; but it
         is also possible to move actors in the <code class="varname">z</code>
         axis (i.e. move them closer or further away from the view point).
@@ -163,7 +163,7 @@ clutter_actor_set_anchor_point (actor, 50.0, 0.0);</pre></div><div class="note" 
         Note how the actors converge on the center of the stage,
         as well as appearing to change position and scale; also note
         that they appear to move outside the bounds of their parent containers
-        (the four yellow <span class="type">ClutterBoxes</span>).</p><p><video controls="controls" src="videos/animations-moving-depth.ogv"><a href="videos/animations-moving-depth.ogv"></a></video></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236909775120"></a>7.3.4. Movement is affected by constraints</h4></div></div></div><p>An actor can have its x,y position constrained by
+        (the four yellow <span class="type">ClutterBoxes</span>).</p><p><video controls="controls" src="videos/animations-moving-depth.ogv"><a href="videos/animations-moving-depth.ogv"></a></video></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790504767040"></a>7.3.4. Movement is affected by constraints</h4></div></div></div><p>An actor can have its x,y position constrained by
         the position of other actors through <span class="type">ClutterBindConstraints</span>.
         This can affect movement in two ways:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>If an actor has its <code class="varname">x</code> and/or
             <code class="varname">y</code> properties

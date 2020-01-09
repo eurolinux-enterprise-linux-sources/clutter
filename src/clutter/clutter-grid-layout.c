@@ -541,7 +541,7 @@ clutter_grid_request_non_spanning (ClutterGridRequest *request,
   clutter_actor_iter_init (&iter, CLUTTER_ACTOR (priv->container));
   while (clutter_actor_iter_next (&iter, &child))
     {
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       grid_child = GET_GRID_CHILD (request->grid, child);
@@ -626,7 +626,7 @@ clutter_grid_request_spanning (ClutterGridRequest *request,
   clutter_actor_iter_init (&iter, CLUTTER_ACTOR (priv->container));
   while (clutter_actor_iter_next (&iter, &child))
     {
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       grid_child = GET_GRID_CHILD (request->grid, child);
@@ -763,7 +763,7 @@ clutter_grid_request_compute_expand (ClutterGridRequest *request,
   clutter_actor_iter_init (&iter, CLUTTER_ACTOR (priv->container));
   while (clutter_actor_iter_next (&iter, &child))
     {
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       grid_child = GET_GRID_CHILD (request->grid, child);
@@ -782,7 +782,7 @@ clutter_grid_request_compute_expand (ClutterGridRequest *request,
   clutter_actor_iter_init (&iter, CLUTTER_ACTOR (priv->container));
   while (clutter_actor_iter_next (&iter, &child))
     {
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       grid_child = GET_GRID_CHILD (request->grid, child);
@@ -1289,59 +1289,72 @@ clutter_grid_layout_set_container (ClutterLayoutManager *self,
 }
 
 static void
-clutter_grid_layout_get_preferred_width (ClutterLayoutManager *self,
+clutter_grid_layout_get_size_for_size (ClutterGridLayout  *self,
+                                       ClutterOrientation  orientation,
+                                       float               size,
+                                       float              *minimum,
+                                       float              *natural)
+{
+  ClutterGridRequest request;
+  ClutterGridLines *lines;
+  float min_size, nat_size;
+
+  request.grid = self;
+  clutter_grid_request_update_attach (&request);
+  clutter_grid_request_count_lines (&request);
+
+  lines = &request.lines[0];
+  lines->lines = g_newa (ClutterGridLine, lines->max - lines->min);
+  memset (lines->lines, 0, (lines->max - lines->min) * sizeof (ClutterGridLine));
+
+  lines = &request.lines[1];
+  lines->lines = g_newa (ClutterGridLine, lines->max - lines->min);
+  memset (lines->lines, 0, (lines->max - lines->min) * sizeof (ClutterGridLine));
+
+  clutter_grid_request_run (&request, 1 - orientation, FALSE);
+  clutter_grid_request_sum (&request, 1 - orientation, &min_size, &nat_size);
+  clutter_grid_request_allocate (&request, 1 - orientation, MAX (size, nat_size));
+
+  clutter_grid_request_run (&request, orientation, TRUE);
+  clutter_grid_request_sum (&request, orientation, minimum, natural);
+}
+
+static void
+clutter_grid_layout_get_preferred_width (ClutterLayoutManager *manager,
                                          ClutterContainer     *container,
                                          gfloat                for_height,
                                          gfloat               *min_width_p,
                                          gfloat               *nat_width_p)
 {
-  ClutterGridLayoutPrivate *priv = CLUTTER_GRID_LAYOUT (self)->priv;
-  ClutterGridRequest request;
-  ClutterGridLines *lines;
+  ClutterGridLayout *self = CLUTTER_GRID_LAYOUT (manager);
 
   if (min_width_p)
     *min_width_p = 0.0f;
   if (nat_width_p)
     *nat_width_p = 0.0f;
 
-  request.grid = CLUTTER_GRID_LAYOUT (self);
-  clutter_grid_request_update_attach (&request);
-  clutter_grid_request_count_lines (&request);
-  lines = &request.lines[priv->orientation];
-  lines->lines = g_newa (ClutterGridLine, lines->max - lines->min);
-  memset (lines->lines, 0, (lines->max - lines->min) * sizeof (ClutterGridLine));
-
-  clutter_grid_request_run (&request, priv->orientation, FALSE);
-  clutter_grid_request_sum (&request, priv->orientation,
-                            min_width_p, nat_width_p);
+  clutter_grid_layout_get_size_for_size (self, CLUTTER_ORIENTATION_HORIZONTAL,
+                                         for_height,
+                                         min_width_p, nat_width_p);
 }
 
 static void
-clutter_grid_layout_get_preferred_height (ClutterLayoutManager *self,
+clutter_grid_layout_get_preferred_height (ClutterLayoutManager *manager,
                                           ClutterContainer     *container,
                                           gfloat                for_width,
                                           gfloat               *min_height_p,
                                           gfloat               *nat_height_p)
 {
-  ClutterGridLayoutPrivate *priv = CLUTTER_GRID_LAYOUT (self)->priv;
-  ClutterGridRequest request;
-  ClutterGridLines *lines;
+  ClutterGridLayout *self = CLUTTER_GRID_LAYOUT (manager);
 
   if (min_height_p)
     *min_height_p = 0.0f;
   if (nat_height_p)
     *nat_height_p = 0.0f;
 
-  request.grid = CLUTTER_GRID_LAYOUT (self);
-  clutter_grid_request_update_attach (&request);
-  clutter_grid_request_count_lines (&request);
-  lines = &request.lines[priv->orientation];
-  lines->lines = g_newa (ClutterGridLine, lines->max - lines->min);
-  memset (lines->lines, 0, (lines->max - lines->min) * sizeof (ClutterGridLine));
-
-  clutter_grid_request_run (&request, priv->orientation, FALSE);
-  clutter_grid_request_sum (&request, priv->orientation,
-                            min_height_p, nat_height_p);
+  clutter_grid_layout_get_size_for_size (self, CLUTTER_ORIENTATION_VERTICAL,
+                                         for_width,
+                                         min_height_p, nat_height_p);
 }
 
 static void
@@ -1384,7 +1397,7 @@ clutter_grid_layout_allocate (ClutterLayoutManager   *layout,
                               ClutterAllocationFlags  flags)
 {
   ClutterGridLayout *self = CLUTTER_GRID_LAYOUT (layout);
-  ClutterGridLayoutPrivate *priv = self->priv;
+  ClutterOrientation orientation;
   ClutterGridRequest request;
   ClutterGridLines *lines;
   ClutterActorIter iter;
@@ -1401,10 +1414,16 @@ clutter_grid_layout_allocate (ClutterLayoutManager   *layout,
   lines->lines = g_newa (ClutterGridLine, lines->max - lines->min);
   memset (lines->lines, 0, (lines->max - lines->min) * sizeof (ClutterGridLine));
 
-  clutter_grid_request_run (&request, 1 - priv->orientation, FALSE);
-  clutter_grid_request_allocate (&request, 1 - priv->orientation, GET_SIZE (allocation, 1 - priv->orientation));
-  clutter_grid_request_run (&request, priv->orientation, TRUE);
-  clutter_grid_request_allocate (&request, priv->orientation, GET_SIZE (allocation, priv->orientation));
+  if (clutter_actor_get_request_mode (CLUTTER_ACTOR (container)) == CLUTTER_REQUEST_WIDTH_FOR_HEIGHT)
+    orientation = CLUTTER_ORIENTATION_HORIZONTAL;
+  else
+    orientation = CLUTTER_ORIENTATION_VERTICAL;
+
+  clutter_grid_request_run (&request, 1 - orientation, FALSE);
+  clutter_grid_request_allocate (&request, 1 - orientation, GET_SIZE (allocation, 1 - orientation));
+  clutter_grid_request_run (&request, orientation, TRUE);
+
+  clutter_grid_request_allocate (&request, orientation, GET_SIZE (allocation, orientation));
 
   clutter_grid_request_position (&request, 0);
   clutter_grid_request_position (&request, 1);
@@ -1416,7 +1435,7 @@ clutter_grid_layout_allocate (ClutterLayoutManager   *layout,
       gfloat x, y, width, height;
       ClutterGridChild *grid_child;
 
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       grid_child = GET_GRID_CHILD (self, child);
@@ -1730,7 +1749,12 @@ clutter_grid_layout_attach_next_to (ClutterGridLayout   *layout,
  * @layout: a #ClutterGridLayout
  * @orientation: the orientation of the #ClutterGridLayout
  *
- * Sets the orientation of the @layout
+ * Sets the orientation of the @layout.
+ *
+ * #ClutterGridLayout uses the orientation as a hint when adding
+ * children to the #ClutterActor using it as a layout manager via
+ * clutter_actor_add_child(); changing this value will not have
+ * any effect on children that are already part of the layout.
  *
  * Since: 1.12
  */

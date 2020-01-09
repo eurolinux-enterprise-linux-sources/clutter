@@ -1,5 +1,5 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Loading image data into a texture</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="textures.html" title="Chapter 4. Textures"><link rel="prev" href="textures-aspect-ratio.html" title="3. Maintaining the aspect ratio when loading an image into a texture"><link rel="next" href="textures-sub-textures.html" title="5. Creating sub-textures from an existing texture"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Loading image data into a texture</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="textures-aspect-ratio.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Textures</th><td width="20%" align="right"> <a accesskey="n" href="textures-sub-textures.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="textures-image-loading"></a>4. Loading image data into a texture</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236916294784"></a>4.1. Problem</h3></div></div></div><p>You want to display an image inside a Clutter
-      application.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236916293472"></a>4.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterTexture</span> directly from an
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Loading image data into a texture</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="textures.html" title="Chapter 4. Textures"><link rel="prev" href="textures-aspect-ratio.html" title="3. Maintaining the aspect ratio when loading an image into a texture"><link rel="next" href="textures-sub-textures.html" title="5. Creating sub-textures from an existing texture"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Loading image data into a texture</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="textures-aspect-ratio.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Textures</th><td width="20%" align="right"> <a accesskey="n" href="textures-sub-textures.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="textures-image-loading"></a>4. Loading image data into a texture</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790506005840"></a>4.1. Problem</h3></div></div></div><p>You want to display an image inside a Clutter
+      application.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790506004528"></a>4.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterTexture</span> directly from an
       image file:</p><div class="informalexample"><pre class="programlisting">ClutterActor *texture;
 GError *error = NULL;
 gchar *image_path = "/path/to/image";
@@ -28,7 +28,7 @@ loaded = clutter_texture_set_from_file (CLUTTER_TEXTURE (texture),
 if (error != NULL)
   {
     // handle error
-  }</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236916288256"></a>4.3. Discussion</h3></div></div></div><p>Bear the following in mind when loading images into a
+  }</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790509401520"></a>4.3. Discussion</h3></div></div></div><p>Bear the following in mind when loading images into a
       texture:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>An image load may fail if:
             </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>The file does not exist.</p></li><li class="listitem"><p>The image format is unsupported: most of the
                 common bitmap formats (PNG, JPEG, BMP, GIF, TIFF, XPM)
@@ -36,7 +36,7 @@ if (error != NULL)
           </p></li><li class="listitem"><p>Whether you're creating a texture from an image file,
           or loading an image from a file into an existing texture,
           you should specify the filesystem path to the file, rather
-          than a URI.</p></li></ul></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236912331024"></a>4.3.1. Synchronous vs. asynchronous image loading</h4></div></div></div><p>The code examples above show the simplest approach:
+          than a URI.</p></li></ul></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790509395504"></a>4.3.1. Synchronous vs. asynchronous image loading</h4></div></div></div><p>The code examples above show the simplest approach:
         loading an image into a texture synchronously. This means that
         the application waits for each image to be loaded before continuing;
         which is acceptable in this case, but may not be when
@@ -96,7 +96,7 @@ main (int argc, char *argv[])
                                  &amp;error);
 
   /* ... clutter_main () etc. */
-}</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236912321344"></a>4.3.2. Other ways to load image data into a texture</h4></div></div></div><p>While it's useful to load image data into a texture directly
+}</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790509385872"></a>4.3.2. Other ways to load image data into a texture</h4></div></div></div><p>While it's useful to load image data into a texture directly
         from a file, there are occasions where you may have image data
         in some other (non-file) format:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Various GNOME libraries provide image data in
             <span class="type">GdkPixbuf</span> structures; clutter-gtk has

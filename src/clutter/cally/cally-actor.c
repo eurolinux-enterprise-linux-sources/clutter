@@ -74,7 +74,7 @@
 #include <glib.h>
 #include <clutter/clutter.h>
 
-#ifdef HAVE_CLUTTER_GLX
+#ifdef CLUTTER_WINDOWING_X11
 #include <clutter/x11/clutter-x11.h>
 #endif
 
@@ -441,13 +441,13 @@ cally_actor_ref_state_set (AtkObject *obj)
     }
   else
     {
-      if (CLUTTER_ACTOR_IS_REACTIVE (actor))
+      if (clutter_actor_get_reactive (actor))
         {
           atk_state_set_add_state (state_set, ATK_STATE_SENSITIVE);
           atk_state_set_add_state (state_set, ATK_STATE_ENABLED);
         }
 
-      if (CLUTTER_ACTOR_IS_VISIBLE (actor))
+      if (clutter_actor_is_visible (actor))
         {
           atk_state_set_add_state (state_set, ATK_STATE_VISIBLE);
 
@@ -754,51 +754,52 @@ _cally_actor_get_top_level_origin (ClutterActor *actor,
   gint x = 0;
   gint y = 0;
 
-#ifdef HAVE_CLUTTER_GLX
-  {
-    ClutterActor *stage      = NULL;
-    Display      *display    = NULL;
-    Window        root_window;
-    Window        stage_window;
-    Window        child;
-    gint          return_val = 0;
+#ifdef CLUTTER_WINDOWING_X11
+  if (clutter_check_windowing_backend (CLUTTER_WINDOWING_X11))
+    {
+      ClutterActor *stage      = NULL;
+      Display *display    = NULL;
+      Window root_window;
+      Window stage_window;
+      Window child;
+      gint return_val = 0;
 
-    stage = clutter_actor_get_stage (actor);
+      stage = clutter_actor_get_stage (actor);
 
-    /* FIXME: what happens if you use another display with
-       clutter_backend_x11_set_display ?*/
-    display = clutter_x11_get_default_display ();
-    root_window = clutter_x11_get_root_window ();
-    stage_window = clutter_x11_get_stage_window (CLUTTER_STAGE (stage));
+      /* FIXME: what happens if you use another display with
+         clutter_backend_x11_set_display ?*/
+      display = clutter_x11_get_default_display ();
+      root_window = clutter_x11_get_root_window ();
+      stage_window = clutter_x11_get_stage_window (CLUTTER_STAGE (stage));
 
-    return_val = XTranslateCoordinates (display, stage_window, root_window,
-                                        0, 0, &x, &y,
-                                        &child);
+      return_val = XTranslateCoordinates (display, stage_window, root_window,
+                                          0, 0, &x, &y,
+                                          &child);
 
-    if (!return_val)
-      g_warning ("[x11] We were not able to get proper absolute "
-                 "position of the stage");
-  }
+      if (!return_val)
+        g_warning ("[x11] We were not able to get proper absolute "
+                   "position of the stage");
+    }
+  else
 #else
-  {
-    static gboolean yet_warned = FALSE;
+    {
+      static gboolean yet_warned = FALSE;
 
-    if (!yet_warned)
-      {
-        yet_warned = TRUE;
+      if (!yet_warned)
+        {
+          yet_warned = TRUE;
 
-        g_warning ("Using a clutter backend not supported. "
-                   "atk_component_get_extents using ATK_XY_SCREEN "
-                   "could return a wrong screen position");
-      }
-  }
+          g_warning ("The current Clutter backend does not support using "
+                     "atk_component_get_extents() with ATK_XY_SCREEN.");
+        }
+    }
 #endif
 
   if (xp)
-      *xp = x;
+    *xp = x;
 
   if (yp)
-      *yp = y;
+    *yp = y;
 }
 
 /* AtkAction implementation */
@@ -1012,17 +1013,24 @@ cally_actor_real_notify_clutter (GObject    *obj,
   if (g_strcmp0 (pspec->name, "visible") == 0)
     {
       state = ATK_STATE_VISIBLE;
-      value = CLUTTER_ACTOR_IS_VISIBLE (actor);
+      value = clutter_actor_is_visible (actor);
     }
   else if (g_strcmp0 (pspec->name, "mapped") == 0)
     {
+      /* Clones may temporarily map an actor in order to
+       * paint it; we don't want this to generate an ATK
+       * state change
+       */
+      if (clutter_actor_is_in_clone_paint (actor))
+        return;
+
       state = ATK_STATE_SHOWING;
-      value = CLUTTER_ACTOR_IS_MAPPED (actor);
+      value = clutter_actor_is_mapped (actor);
     }
   else if (g_strcmp0 (pspec->name, "reactive") == 0)
     {
       state = ATK_STATE_SENSITIVE;
-      value = CLUTTER_ACTOR_IS_REACTIVE (actor);
+      value = clutter_actor_get_reactive (actor);
     }
   else
     return;
@@ -1099,7 +1107,7 @@ cally_actor_add_action (CallyActor      *cally_actor,
 }
 
 /**
- * cally_actor_add_action_full:
+ * cally_actor_add_action_full: (rename-to cally_actor_add_action)
  * @cally_actor: a #CallyActor
  * @action_name: the action name
  * @action_description: the action description
@@ -1111,8 +1119,6 @@ cally_actor_add_action (CallyActor      *cally_actor,
  * Adds a new action to be accessed with the #AtkAction interface.
  *
  * Return value: added action id, or -1 if failure
- *
- * Rename to: cally_actor_add_action
  *
  * Since: 1.6
  */

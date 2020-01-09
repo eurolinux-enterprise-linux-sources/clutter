@@ -64,17 +64,8 @@ typedef enum {
   CLUTTER_X11_FILTER_REMOVE
 } ClutterX11FilterReturn;
 
-/*
- * This is an internal only enumeration; it should really be private
- */
-typedef enum {
-  CLUTTER_X11_XINPUT_KEY_PRESS_EVENT = 0,
-  CLUTTER_X11_XINPUT_KEY_RELEASE_EVENT,
-  CLUTTER_X11_XINPUT_BUTTON_PRESS_EVENT,
-  CLUTTER_X11_XINPUT_BUTTON_RELEASE_EVENT,
-  CLUTTER_X11_XINPUT_MOTION_NOTIFY_EVENT,
-  CLUTTER_X11_XINPUT_LAST_EVENT
-} ClutterX11XInputEventTypes;
+CLUTTER_AVAILABLE_IN_ALL
+GType clutter_x11_filter_return_get_type (void) G_GNUC_CONST;
 
 /*
  * This is not used any more
@@ -85,7 +76,7 @@ typedef struct _ClutterX11XInputDevice ClutterX11XInputDevice;
  * ClutterX11FilterFunc:
  * @xev: Native X11 event structure
  * @cev: Clutter event structure
- * @data: user data passed to the filter function
+ * @data: (closure): user data passed to the filter function
  *
  * Filter function for X11 native events.
  *
@@ -155,6 +146,11 @@ CLUTTER_AVAILABLE_IN_ALL
 void     clutter_x11_set_use_argb_visual (gboolean use_argb);
 CLUTTER_AVAILABLE_IN_ALL
 gboolean clutter_x11_get_use_argb_visual (void);
+
+CLUTTER_AVAILABLE_IN_1_22
+void     clutter_x11_set_use_stereo_stage (gboolean use_stereo);
+CLUTTER_AVAILABLE_IN_1_22
+gboolean clutter_x11_get_use_stereo_stage (void);
 
 CLUTTER_AVAILABLE_IN_ALL
 Time clutter_x11_get_current_event_time (void);

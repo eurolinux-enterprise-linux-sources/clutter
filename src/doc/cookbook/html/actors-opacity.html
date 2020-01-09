@@ -1,5 +1,5 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>5. Making an actor transparent by changing its opacity</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="actors.html" title="Chapter 2. Actors"><link rel="prev" href="actors-paint-wrappers.html" title="4. Overriding the paint sequence"><link rel="next" href="actors-non-rectangular.html" title="6. Creating an actor with a non-rectangular shape"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. Making an actor transparent by changing its opacity</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="actors-paint-wrappers.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actors</th><td width="20%" align="right"> <a accesskey="n" href="actors-non-rectangular.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="actors-opacity"></a>5. Making an actor transparent by changing its opacity</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236912684880"></a>5.1. Problem</h3></div></div></div><p>You want an actor to be transparent so that other
-      actors are visible through it.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236912683568"></a>5.2. Solution</h3></div></div></div><p>Change the actor's <span class="emphasis"><em>opacity</em></span> so that
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>5. Making an actor transparent by changing its opacity</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="actors.html" title="Chapter 2. Actors"><link rel="prev" href="actors-paint-wrappers.html" title="4. Overriding the paint sequence"><link rel="next" href="actors-non-rectangular.html" title="6. Creating an actor with a non-rectangular shape"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. Making an actor transparent by changing its opacity</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="actors-paint-wrappers.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actors</th><td width="20%" align="right"> <a accesskey="n" href="actors-non-rectangular.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="actors-opacity"></a>5. Making an actor transparent by changing its opacity</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790511252976"></a>5.1. Problem</h3></div></div></div><p>You want an actor to be transparent so that other
+      actors are visible through it.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790511251568"></a>5.2. Solution</h3></div></div></div><p>Change the actor's <span class="emphasis"><em>opacity</em></span> so that
       it is partially (or even fully) transparent:</p><div class="informalexample"><pre class="programlisting">/* 25% transparency */
 clutter_actor_set_opacity (actor, 191);
 
@@ -10,7 +10,7 @@ clutter_actor_set_opacity (actor, 122);
 clutter_actor_set_opacity (actor, 0);</pre></div><p>Any actor covered or overlapped by the transparent actor
       should be visible through it; the Discussion section gives
       some examples of how visible you can expect the covered or
-      overlapped actor to be.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm236912679712"></a>5.3. Discussion</h3></div></div></div><p>Opacity is a property of every <span class="type">ClutterActor</span>.
+      overlapped actor to be.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790511247712"></a>5.3. Discussion</h3></div></div></div><p>Opacity is a property of every <span class="type">ClutterActor</span>.
       It is a float on a scale from 0 (invisible) to 255 (completely
       opaque). Actors with <code class="code">0 &lt; opacity &lt; 255</code> will
       have a varying amount of solidity on the stage, so other actors
@@ -19,7 +19,7 @@ clutter_actor_set_opacity (actor, 0);</pre></div><p>Any actor covered or overlap
       visible through the yellow rectangles.</p><p>As opacity is a property of every actor, it can
       be animated like any other GObject property, using any of
       the approaches in the animation API.</p><p>The following sections cover some other considerations
-      when working with actor opacity.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236912665968"></a>5.3.1. Container and color opacity</h4></div></div></div><p>If a container has its opacity set, any children of the
+      when working with actor opacity.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790511233872"></a>5.3.1. Container and color opacity</h4></div></div></div><p>If a container has its opacity set, any children of the
         container have their opacity combined with their parent's opacity.
         For example, if a parent has an opacity of <code class="code">122</code>
         (50% transparent) and the child also has an opacity of
@@ -51,7 +51,7 @@ clutter_actor_set_opacity (actor, 122);
 
 /* rectangle will be 25% opaque/75% transparent */
 clutter_rectangle_set_color (CLUTTER_RECTANGLE (actor),
-                           &amp;half_transparent_color);</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm236912647936"></a>5.3.2. Depth and depth order</h4></div></div></div><p>Each actor has two more aspects which affect its
+                           &amp;half_transparent_color);</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790511215648"></a>5.3.2. Depth and depth order</h4></div></div></div><p>Each actor has two more aspects which affect its
         apparent opacity:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>An actor's <span class="emphasis"><em>depth</em></span> can have an
             effect if the stage has fog (a depth cueing effect) turned on.
             As an actor's depth increases, the actor apparently "recedes" from

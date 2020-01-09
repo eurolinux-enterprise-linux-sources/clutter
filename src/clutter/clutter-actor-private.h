@@ -263,9 +263,6 @@ void                            _clutter_actor_rerealize                        
                                                                                          ClutterCallback  callback,
                                                                                          gpointer         data);
 
-void                            _clutter_actor_set_opacity_override                     (ClutterActor *self,
-                                                                                         gint          opacity);
-gint                            _clutter_actor_get_opacity_override                     (ClutterActor *self);
 void                            _clutter_actor_set_in_clone_paint                       (ClutterActor *self,
                                                                                          gboolean      is_in_clone_paint);
 
@@ -321,6 +318,9 @@ void                            _clutter_actor_queue_relayout_on_clones         
 void                            _clutter_actor_queue_only_relayout                      (ClutterActor *actor);
 
 CoglFramebuffer *               _clutter_actor_get_active_framebuffer                   (ClutterActor *actor);
+
+ClutterPaintNode *              clutter_actor_create_texture_paint_node                 (ClutterActor *self,
+                                                                                         CoglTexture  *texture);
 
 G_END_DECLS
 

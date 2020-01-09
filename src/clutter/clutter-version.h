@@ -23,12 +23,12 @@
  *
  */
 
+#ifndef __CLUTTER_VERSION_H__
+#define __CLUTTER_VERSION_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_VERSION_H__
-#define __CLUTTER_VERSION_H__
 
 /**
  * SECTION:clutter-version
@@ -89,7 +89,7 @@ G_BEGIN_DECLS
  *
  * The minor version of the Clutter library (2, if %CLUTTER_VERSION is 1.2.3)
  */
-#define CLUTTER_MINOR_VERSION   (20)
+#define CLUTTER_MINOR_VERSION   (26)
 
 /**
  * CLUTTER_MICRO_VERSION:
@@ -103,7 +103,7 @@ G_BEGIN_DECLS
  *
  * The full version of the Clutter library, like 1.2.3
  */
-#define CLUTTER_VERSION         1.20.0
+#define CLUTTER_VERSION         1.26.0
 
 /**
  * CLUTTER_VERSION_S:
@@ -111,7 +111,7 @@ G_BEGIN_DECLS
  * The full version of the Clutter library, in string form (suited for
  * string concatenation)
  */
-#define CLUTTER_VERSION_S       "1.20.0"
+#define CLUTTER_VERSION_S       "1.26.0"
 
 /**
  * CLUTTER_VERSION_HEX:
@@ -227,12 +227,42 @@ G_BEGIN_DECLS
 /**
  * CLUTTER_VERSION_1_20:
  *
- * A macro that evaluates to the 1.18 version of Clutter, in a format
+ * A macro that evaluates to the 1.20 version of Clutter, in a format
  * that can be used by the C pre-processor.
  *
  * Since: 1.20
  */
 #define CLUTTER_VERSION_1_20    (G_ENCODE_VERSION (1, 20))
+
+/**
+ * CLUTTER_VERSION_1_22:
+ *
+ * A macro that evaluates to the 1.22 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.22
+ */
+#define CLUTTER_VERSION_1_22    (G_ENCODE_VERSION (1, 22))
+
+/**
+ * CLUTTER_VERSION_1_24:
+ *
+ * A macro that evaluates to the 1.24 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.24
+ */
+#define CLUTTER_VERSION_1_24    (G_ENCODE_VERSION (1, 24))
+
+/**
+ * CLUTTER_VERSION_1_26:
+ *
+ * A macro that evaluates to the 1.26 version of Clutter, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.26
+ */
+#define CLUTTER_VERSION_1_26    (G_ENCODE_VERSION (1, 26))
 
 /* evaluates to the current stable version; for development cycles,
  * this means the next stable target

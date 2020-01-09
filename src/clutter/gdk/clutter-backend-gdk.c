@@ -23,6 +23,8 @@
 #include "config.h"
 #endif
 
+#define CLUTTER_ENABLE_EXPERIMENTAL_API
+
 #include <glib/gi18n-lib.h>
 
 #include <string.h>
@@ -45,8 +47,16 @@
 #include <cogl/cogl-xlib.h>
 #endif
 
+#if defined(GDK_WINDOWING_WAYLAND) && defined(COGL_HAS_EGL_PLATFORM_WAYLAND_SUPPORT)
+#include <cogl/cogl-wayland-client.h>
+#endif
+
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
+
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
 #endif
 
 #ifdef GDK_WINDOWING_WIN32
@@ -67,7 +77,6 @@
 #include "clutter-private.h"
 #include "clutter-settings-private.h"
 
-#define clutter_backend_gdk_get_type _clutter_backend_gdk_get_type
 G_DEFINE_TYPE (ClutterBackendGdk, clutter_backend_gdk, CLUTTER_TYPE_BACKEND);
 
 /* global for pre init setup calls */
@@ -86,12 +95,14 @@ clutter_backend_gdk_init_settings (ClutterBackendGdk *backend_gdk)
       GValue val = G_VALUE_INIT;
 
       g_value_init (&val, CLUTTER_SETTING_TYPE(i));
-      gdk_screen_get_setting (backend_gdk->screen,
-			      CLUTTER_SETTING_GDK_NAME(i),
-			      &val);
-      clutter_settings_set_property_internal (settings,
-                                              CLUTTER_SETTING_PROPERTY (i),
-                                              &val);
+      if (gdk_screen_get_setting (backend_gdk->screen,
+                                  CLUTTER_SETTING_GDK_NAME (i),
+                                  &val))
+        {
+          clutter_settings_set_property_internal (settings,
+                                                  CLUTTER_SETTING_PROPERTY (i),
+                                                  &val);
+        }
       g_value_unset (&val);
     }
 }
@@ -158,7 +169,11 @@ _clutter_backend_gdk_post_parse (ClutterBackend  *backend,
 
   /* Init Gdk, if outside code did not already */
   if (!gdk_init_check (NULL, NULL))
-    return FALSE;
+    {
+      g_set_error (error, CLUTTER_INIT_ERROR, CLUTTER_INIT_ERROR_BACKEND,
+                   _("Could not initialize Gdk"));
+      return FALSE;
+    }
 
   /*
    * Only open connection if not already set by prior call to
@@ -236,29 +251,6 @@ clutter_backend_gdk_get_features (ClutterBackend *backend)
         | CLUTTER_FEATURE_STAGE_CURSOR;
 }
 
-static void
-clutter_backend_gdk_copy_event_data (ClutterBackend     *backend,
-                                     const ClutterEvent *src,
-                                     ClutterEvent       *dest)
-{
-  GdkEvent *gdk_event;
-
-  gdk_event = _clutter_event_get_platform_data (src);
-  if (gdk_event != NULL)
-    _clutter_event_set_platform_data (dest, gdk_event_copy (gdk_event));
-}
-
-static void
-clutter_backend_gdk_free_event_data (ClutterBackend *backend,
-                                     ClutterEvent   *event)
-{
-  GdkEvent *gdk_event;
-
-  gdk_event = _clutter_event_get_platform_data (event);
-  if (gdk_event != NULL)
-    gdk_event_free (gdk_event);
-}
-
 static CoglRenderer *
 clutter_backend_gdk_get_renderer (ClutterBackend  *backend,
                                   GError         **error)
@@ -272,6 +264,18 @@ clutter_backend_gdk_get_renderer (ClutterBackend  *backend,
       Display *xdisplay = gdk_x11_display_get_xdisplay (backend_gdk->display);
 
       cogl_xlib_renderer_set_foreign_display (renderer, xdisplay);
+    }
+  else
+#endif
+#if defined(GDK_WINDOWING_WAYLAND) && defined(COGL_HAS_EGL_PLATFORM_WAYLAND_SUPPORT)
+  if (GDK_IS_WAYLAND_DISPLAY (backend_gdk->display))
+    {
+      struct wl_display *display = gdk_wayland_display_get_wl_display (backend_gdk->display);
+
+      /* Force a Wayland winsys */
+      cogl_renderer_set_winsys_id (renderer, COGL_WINSYS_ID_EGL_WAYLAND);
+      cogl_wayland_renderer_set_foreign_display (renderer, display);
+      cogl_wayland_renderer_set_event_dispatch_enabled (renderer, !disable_event_retrieval);
     }
   else
 #endif
@@ -310,7 +314,8 @@ clutter_backend_gdk_get_display (ClutterBackend  *backend,
   gboolean has_rgba_visual;
   gboolean res;
 
-  has_rgba_visual = gdk_screen_get_rgba_visual (backend_gdk->screen) == NULL;
+  /* We default to an RGBA visual if there is one */
+  has_rgba_visual = gdk_screen_get_rgba_visual (backend_gdk->screen) != NULL;
 
   CLUTTER_NOTE (BACKEND, "Alpha on Cogl swap chain: %s",
                 has_rgba_visual ? "enabled" : "disabled");
@@ -376,8 +381,6 @@ clutter_backend_gdk_class_init (ClutterBackendGdkClass *klass)
   backend_class->post_parse = _clutter_backend_gdk_post_parse;
 
   backend_class->get_features = clutter_backend_gdk_get_features;
-  backend_class->copy_event_data = clutter_backend_gdk_copy_event_data;
-  backend_class->free_event_data = clutter_backend_gdk_free_event_data;
 
   backend_class->get_renderer = clutter_backend_gdk_get_renderer;
   backend_class->get_display = clutter_backend_gdk_get_display;
@@ -386,7 +389,16 @@ clutter_backend_gdk_class_init (ClutterBackendGdkClass *klass)
 static void
 clutter_backend_gdk_init (ClutterBackendGdk *backend_gdk)
 {
-  /* nothing to do here */
+  /* Deactivate sync to vblank since we have the GdkFrameClock to
+   * drive us from the compositor.
+   */
+  _clutter_set_sync_to_vblank (FALSE);
+}
+
+ClutterBackend *
+clutter_backend_gdk_new (void)
+{
+  return g_object_new (CLUTTER_TYPE_BACKEND_GDK, NULL);
 }
 
 /**
@@ -470,4 +482,53 @@ clutter_gdk_disable_event_retrieval (void)
     }
 
   disable_event_retrieval = TRUE;
+}
+
+/**
+ * clutter_gdk_get_visual:
+ *
+ * Retrieves the #GdkVisual used by Clutter.
+ *
+ * This function should be used when embedding Clutter inside GDK-based
+ * foreign toolkits, to ensure that the visual applied to the #GdkWindow
+ * used to render the #ClutterStage is the correct one.
+ *
+ * Returns: (transfer none): a #GdkVisual instance
+ *
+ * Since: 1.22
+ */
+GdkVisual *
+clutter_gdk_get_visual (void)
+{
+  ClutterBackend *backend = clutter_get_default_backend ();
+  GdkScreen *screen;
+
+  if (backend == NULL)
+    {
+      g_critical ("The Clutter backend has not been initialised");
+      return NULL;
+    }
+
+  if (!CLUTTER_IS_BACKEND_GDK (backend))
+    {
+      g_critical ("The Clutter backend is not a GDK backend");
+      return NULL;
+    }
+
+  screen = CLUTTER_BACKEND_GDK (backend)->screen;
+  g_assert (screen != NULL);
+
+#if defined(GDK_WINDOWING_X11) && defined(COGL_HAS_XLIB_SUPPORT)
+  if (GDK_IS_X11_SCREEN (screen))
+    {
+      XVisualInfo *xvisinfo = cogl_xlib_renderer_get_visual_info (backend->cogl_renderer);
+      if (xvisinfo != NULL)
+        return gdk_x11_screen_lookup_visual (screen, xvisinfo->visualid);
+    }
+#endif
+
+  if (gdk_screen_get_rgba_visual (screen) != NULL)
+    return gdk_screen_get_rgba_visual (screen);
+
+  return gdk_screen_get_system_visual (screen);
 }

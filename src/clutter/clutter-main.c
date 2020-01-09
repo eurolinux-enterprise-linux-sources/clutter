@@ -65,7 +65,6 @@
 #include "clutter-main.h"
 #include "clutter-master-clock.h"
 #include "clutter-private.h"
-#include "clutter-profile.h"
 #include "clutter-settings-private.h"
 #include "clutter-stage-manager.h"
 #include "clutter-stage-private.h"
@@ -88,6 +87,9 @@
 #endif
 #ifdef CLUTTER_WINDOWING_WAYLAND
 #include "wayland/clutter-backend-wayland.h"
+#endif
+#ifdef CLUTTER_WINDOWING_MIR
+#include "mir/clutter-backend-mir.h"
 #endif
 
 #include <cogl/cogl.h>
@@ -124,9 +126,6 @@ static GSList *main_loops                    = NULL;
 guint clutter_debug_flags       = 0;
 guint clutter_paint_debug_flags = 0;
 guint clutter_pick_debug_flags  = 0;
-
-/* profile flags */
-guint clutter_profile_flags     = 0;
 
 const guint clutter_major_version = CLUTTER_MAJOR_VERSION;
 const guint clutter_minor_version = CLUTTER_MINOR_VERSION;
@@ -167,13 +166,6 @@ static const GDebugKey clutter_paint_debug_keys[] = {
   { "continuous-redraw", CLUTTER_DEBUG_CONTINUOUS_REDRAW },
   { "paint-deform-tiles", CLUTTER_DEBUG_PAINT_DEFORM_TILES },
 };
-
-#ifdef CLUTTER_ENABLE_PROFILE
-static const GDebugKey clutter_profile_keys[] = {
-  {"picking-only", CLUTTER_PROFILE_PICKING_ONLY },
-  {"disable-report", CLUTTER_PROFILE_DISABLE_REPORT }
-};
-#endif /* CLUTTER_ENABLE_DEBUG */
 
 static void
 clutter_threads_impl_lock (void)
@@ -228,6 +220,28 @@ clutter_config_read_from_key_file (GKeyFile *keyfile)
 
   if (!g_key_file_has_group (keyfile, ENVIRONMENT_GROUP))
     return;
+
+  str_value =
+    g_key_file_get_string (keyfile, ENVIRONMENT_GROUP,
+                           "Backends",
+                           &key_error);
+  if (key_error != NULL)
+    g_clear_error (&key_error);
+  else
+    clutter_try_set_windowing_backend (str_value);
+
+  g_free (str_value);
+
+  str_value =
+    g_key_file_get_string (keyfile, ENVIRONMENT_GROUP,
+                           "Drivers",
+                           &key_error);
+  if (key_error != NULL)
+    g_clear_error (&key_error);
+  else
+    clutter_set_allowed_drivers (str_value);
+
+  g_free (str_value);
 
   bool_value =
     g_key_file_get_boolean (keyfile, ENVIRONMENT_GROUP,
@@ -567,20 +581,6 @@ clutter_get_motion_events_enabled (void)
   return _clutter_context_get_motion_events_enabled ();
 }
 
-ClutterActor *
-_clutter_get_actor_by_id (ClutterStage *stage,
-                          guint32       actor_id)
-{
-  if (stage == NULL)
-    {
-      ClutterMainContext *context = _clutter_context_get_default ();
-
-      return _clutter_id_pool_lookup (context->id_pool, actor_id);
-    }
-
-  return _clutter_stage_get_actor_by_pick_id (stage, actor_id);
-}
-
 void
 _clutter_id_to_color (guint         id_,
                       ClutterColor *col)
@@ -764,86 +764,6 @@ clutter_get_text_direction (void)
   return dir;
 }
 
-static void
-update_pango_context (ClutterBackend *backend,
-                      PangoContext   *context)
-{
-  ClutterSettings *settings;
-  PangoFontDescription *font_desc;
-  const cairo_font_options_t *font_options;
-  gchar *font_name;
-  PangoDirection pango_dir;
-  gdouble resolution;
-
-  settings = clutter_settings_get_default ();
-
-  /* update the text direction */
-  if (clutter_text_direction == CLUTTER_TEXT_DIRECTION_RTL)
-    pango_dir = PANGO_DIRECTION_RTL;
-  else
-    pango_dir = PANGO_DIRECTION_LTR;
-
-  pango_context_set_base_dir (context, pango_dir);
-
-  g_object_get (settings, "font-name", &font_name, NULL);
-
-  /* get the configuration for the PangoContext from the backend */
-  font_options = clutter_backend_get_font_options (backend);
-  resolution = clutter_backend_get_resolution (backend);
-
-  font_desc = pango_font_description_from_string (font_name);
-
-  if (resolution < 0)
-    resolution = 96.0; /* fall back */
-
-  pango_context_set_font_description (context, font_desc);
-  pango_cairo_context_set_font_options (context, font_options);
-  pango_cairo_context_set_resolution (context, resolution);
-
-  pango_font_description_free (font_desc);
-  g_free (font_name);
-}
-
-PangoContext *
-_clutter_context_get_pango_context (void)
-{
-  ClutterMainContext *self = _clutter_context_get_default ();
-
-  if (G_UNLIKELY (self->pango_context == NULL))
-    {
-      PangoContext *context;
-
-      context = _clutter_context_create_pango_context ();
-      self->pango_context = context;
-
-      g_signal_connect (self->backend, "resolution-changed",
-                        G_CALLBACK (update_pango_context),
-                        self->pango_context);
-      g_signal_connect (self->backend, "font-changed",
-                        G_CALLBACK (update_pango_context),
-                        self->pango_context);
-    }
-  else
-    update_pango_context (self->backend, self->pango_context);
-
-  return self->pango_context;
-}
-
-PangoContext *
-_clutter_context_create_pango_context (void)
-{
-  CoglPangoFontMap *font_map;
-  PangoContext *context;
-
-  font_map = clutter_context_get_pango_fontmap ();
-
-  context = cogl_pango_font_map_create_context (font_map);
-  update_pango_context (clutter_get_default_backend (), context);
-  pango_context_set_language (context, pango_language_get_default ());
-
-  return context;
-}
-
 /**
  * clutter_main_quit:
  *
@@ -852,7 +772,15 @@ _clutter_context_create_pango_context (void)
 void
 clutter_main_quit (void)
 {
-  g_return_if_fail (main_loops != NULL);
+  if (main_loops == NULL)
+    {
+      g_critical ("Calling clutter_main_quit() without calling clutter_main() "
+                  "is not allowed. If you are using another main loop, use the "
+                  "appropriate API to terminate it.");
+      return;
+    }
+
+  CLUTTER_NOTE (MISC, "Terminating main loop level %d", clutter_main_loop_level);
 
   g_main_loop_quit (main_loops->data);
 }
@@ -869,28 +797,6 @@ clutter_main_level (void)
 {
   return clutter_main_loop_level;
 }
-
-#ifdef CLUTTER_ENABLE_PROFILE
-static gint (*prev_poll) (GPollFD *ufds, guint nfsd, gint timeout_) = NULL;
-
-static gint
-timed_poll (GPollFD *ufds,
-            guint nfsd,
-            gint timeout_)
-{
-  gint ret;
-  CLUTTER_STATIC_TIMER (poll_timer,
-                        "Mainloop", /* parent */
-                        "Mainloop Idle",
-                        "The time spent idle in poll()",
-                        0 /* no application private data */);
-
-  CLUTTER_TIMER_START (uprof_get_mainloop_context (), poll_timer);
-  ret = prev_poll (ufds, nfsd, timeout_);
-  CLUTTER_TIMER_STOP (uprof_get_mainloop_context (), poll_timer);
-  return ret;
-}
-#endif
 
 /**
  * clutter_main:
@@ -911,13 +817,7 @@ clutter_main (void)
 
   clutter_main_loop_level++;
 
-#ifdef CLUTTER_ENABLE_PROFILE
-  if (!prev_poll)
-    {
-      prev_poll = g_main_context_get_poll_func (NULL);
-      g_main_context_set_poll_func (NULL, timed_poll);
-    }
-#endif
+  CLUTTER_NOTE (MISC, "Entering main loop level %d", clutter_main_loop_level);
 
   loop = g_main_loop_new (NULL, TRUE);
   main_loops = g_slist_prepend (main_loops, loop);
@@ -932,6 +832,8 @@ clutter_main (void)
   main_loops = g_slist_remove (main_loops, loop);
 
   g_main_loop_unref (loop);
+
+  CLUTTER_NOTE (MISC, "Leaving main loop level %d", clutter_main_loop_level);
 
   clutter_main_loop_level--;
 }
@@ -1033,7 +935,7 @@ _clutter_threads_dispatch_free (gpointer data)
 }
 
 /**
- * clutter_threads_add_idle_full:
+ * clutter_threads_add_idle_full: (rename-to clutter_threads_add_idle)
  * @priority: the priority of the timeout source. Typically this will be in the
  *    range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE
  * @func: function to call
@@ -1121,8 +1023,6 @@ _clutter_threads_dispatch_free (gpointer data)
  *                                  NULL);
  * ]|
  *
- * Rename to: clutter_threads_add_idle
- *
  * Return value: the ID (greater than 0) of the event source.
  *
  * Since: 0.4
@@ -1171,7 +1071,7 @@ clutter_threads_add_idle (GSourceFunc func,
 }
 
 /**
- * clutter_threads_add_timeout_full:
+ * clutter_threads_add_timeout_full: (rename-to clutter_threads_add_timeout)
  * @priority: the priority of the timeout source. Typically this will be in the
  *            range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.
  * @interval: the time between calls to the function, in milliseconds
@@ -1192,8 +1092,6 @@ clutter_threads_add_idle (GSourceFunc func,
  * "keep up" with the interval.
  *
  * See also clutter_threads_add_idle_full().
- *
- * Rename to: clutter_threads_add_timeout
  *
  * Return value: the ID (greater than 0) of the event source.
  *
@@ -1342,6 +1240,12 @@ clutter_context_get_default_unlocked (void)
     {
       ClutterMainContext *ctx;
 
+      /* Read the configuration file, if any, before we set up the
+       * whole thing, so that we can override things like the backend
+       * and the driver
+       */
+      clutter_config_read ();
+
       ClutterCntx = ctx = g_new0 (ClutterMainContext, 1);
 
       ctx->is_initialized = FALSE;
@@ -1444,32 +1348,6 @@ clutter_arg_no_debug_cb (const char *key,
 }
 #endif /* CLUTTER_ENABLE_DEBUG */
 
-#ifdef CLUTTER_ENABLE_PROFILE
-static gboolean
-clutter_arg_profile_cb (const char *key,
-                        const char *value,
-                        gpointer    user_data)
-{
-  clutter_profile_flags |=
-    g_parse_debug_string (value,
-                          clutter_profile_keys,
-                          G_N_ELEMENTS (clutter_profile_keys));
-  return TRUE;
-}
-
-static gboolean
-clutter_arg_no_profile_cb (const char *key,
-                           const char *value,
-                           gpointer    user_data)
-{
-  clutter_profile_flags &=
-    ~g_parse_debug_string (value,
-                           clutter_profile_keys,
-                           G_N_ELEMENTS (clutter_profile_keys));
-  return TRUE;
-}
-#endif /* CLUTTER_ENABLE_PROFILE */
-
 GQuark
 clutter_init_error_quark (void)
 {
@@ -1481,14 +1359,6 @@ clutter_init_real (GError **error)
 {
   ClutterMainContext *ctx;
   ClutterBackend *backend;
-
-#ifdef CLUTTER_ENABLE_PROFILE
-  CLUTTER_STATIC_TIMER (mainloop_timer,
-                        NULL, /* no parent */
-                        "Mainloop",
-                        "The time spent in the clutter mainloop",
-                        0 /* no application private data */);
-#endif
 
   /* Note, creates backend if not already existing, though parse args will
    * have likely created it
@@ -1536,27 +1406,6 @@ clutter_init_real (GError **error)
   if (!_clutter_feature_init (error))
     return CLUTTER_INIT_ERROR_BACKEND;
 
-#ifdef CLUTTER_ENABLE_PROFILE
-  /* We need to be absolutely sure that uprof has been initialized
-   * before calling _clutter_uprof_init. uprof_init (NULL, NULL)
-   * will be a NOP if it has been initialized but it will also
-   * mean subsequent parsing of the UProf GOptionGroup will have no
-   * affect.
-   *
-   * Sadly GOptionGroup based library initialization is extremly
-   * fragile by design because GOptionGroups have no notion of
-   * dependencies and our post_parse_hook may be called before
-   * the cogl or uprof groups get parsed.
-   */
-  uprof_init (NULL, NULL);
-  _clutter_uprof_init ();
-
-  CLUTTER_TIMER_START (uprof_get_mainloop_context (), mainloop_timer);
-
-  if (clutter_profile_flags & CLUTTER_PROFILE_PICKING_ONLY)
-    _clutter_profile_suspend ();
-#endif
-
   clutter_text_direction = clutter_get_text_direction ();
 
   /* Initiate event collection */
@@ -1594,12 +1443,6 @@ static GOptionEntry clutter_args[] = {
   { "clutter-no-debug", 0, 0, G_OPTION_ARG_CALLBACK, clutter_arg_no_debug_cb,
     N_("Clutter debugging flags to unset"), "FLAGS" },
 #endif /* CLUTTER_ENABLE_DEBUG */
-#ifdef CLUTTER_ENABLE_PROFILE
-  { "clutter-profile", 0, 0, G_OPTION_ARG_CALLBACK, clutter_arg_profile_cb,
-    N_("Clutter profiling flags to set"), "FLAGS" },
-  { "clutter-no-profile", 0, 0, G_OPTION_ARG_CALLBACK, clutter_arg_no_profile_cb,
-    N_("Clutter profiling flags to unset"), "FLAGS" },
-#endif /* CLUTTER_ENABLE_PROFILE */
   { "clutter-enable-accessibility", 0, 0, G_OPTION_ARG_NONE, &clutter_enable_accessibility,
     N_("Enable accessibility"), NULL },
   { NULL, },
@@ -1626,15 +1469,7 @@ pre_parse_hook (GOptionContext  *context,
     g_warning ("Locale not supported by C library.\n"
                "Using the fallback 'C' locale.");
 
-  /* read the configuration file, if it exists; the configuration file
-   * determines the initial state of the settings, so that command line
-   * arguments can override them.
-   */
-  clutter_config_read ();
-
   clutter_context = _clutter_context_get_default ();
-
-  clutter_context->id_pool = _clutter_id_pool_new (256);
 
   backend = clutter_context->backend;
   g_assert (CLUTTER_IS_BACKEND (backend));
@@ -1650,18 +1485,6 @@ pre_parse_hook (GOptionContext  *context,
       env_string = NULL;
     }
 #endif /* CLUTTER_ENABLE_DEBUG */
-
-#ifdef CLUTTER_ENABLE_PROFILE
-  env_string = g_getenv ("CLUTTER_PROFILE");
-  if (env_string != NULL)
-    {
-      clutter_profile_flags =
-        g_parse_debug_string (env_string,
-                              clutter_profile_keys,
-                              G_N_ELEMENTS (clutter_profile_keys));
-      env_string = NULL;
-    }
-#endif /* CLUTTER_ENABLE_PROFILE */
 
   env_string = g_getenv ("CLUTTER_PICK");
   if (env_string != NULL)
@@ -1825,7 +1648,7 @@ clutter_get_option_group (void)
  * Return value: (transfer full): a #GOptionGroup for the commandline arguments
  *   recognized by Clutter
  *
- * Since: 0.8.2
+ * Since: 0.8
  */
 GOptionGroup *
 clutter_get_option_group_without_init (void)
@@ -1916,14 +1739,6 @@ clutter_init_with_args (int            *argc,
       group = cogl_get_option_group ();
       g_option_context_add_group (context, group);
 
-      /* Note: That due to the implementation details of glib's goption
-       * parsing; cogl and uprof will not actually have there arguments
-       * parsed before the post_parse_hook is called! */
-#ifdef CLUTTER_ENABLE_PROFILE
-      group = uprof_get_option_group ();
-      g_option_context_add_group (context, group);
-#endif
-
       if (entries)
 	g_option_context_add_main_entries (context, entries, translation_domain);
 
@@ -1957,9 +1772,6 @@ clutter_parse_args (int      *argc,
 {
   GOptionContext *option_context;
   GOptionGroup *clutter_group, *cogl_group;
-#ifdef CLUTTER_ENABLE_PROFILE
-  GOptionGroup *uprof_group;
-#endif
   GError *internal_error = NULL;
   gboolean ret = TRUE;
 
@@ -1976,11 +1788,6 @@ clutter_parse_args (int      *argc,
 
   cogl_group = cogl_get_option_group ();
   g_option_context_add_group (option_context, cogl_group);
-
-#ifdef CLUTTER_ENABLE_PROFILE
-  uprof_group = uprof_get_option_group ();
-  g_option_context_add_group (option_context, uprof_group);
-#endif
 
   if (!g_option_context_parse (option_context, argc, argv, &internal_error))
     {
@@ -2505,6 +2312,8 @@ _clutter_process_event_details (ClutterActor        *stage,
       case CLUTTER_BUTTON_PRESS:
       case CLUTTER_BUTTON_RELEASE:
       case CLUTTER_SCROLL:
+      case CLUTTER_TOUCHPAD_PINCH:
+      case CLUTTER_TOUCHPAD_SWIPE:
         {
           ClutterActor *actor;
           gfloat x, y;
@@ -2765,12 +2574,14 @@ _clutter_process_event (ClutterEvent *event)
  *
  * Since: 0.6
  *
- * Deprecated: 1.8: The id is not used any longer.
+ * Deprecated: 1.8: The id is deprecated, and this function always returns
+ *   %NULL. Use the proper scene graph API in #ClutterActor to find a child
+ *   of the stage.
  */
 ClutterActor *
 clutter_get_actor_by_gid (guint32 id_)
 {
-  return _clutter_get_actor_by_id (NULL, id_);
+  return NULL;
 }
 
 void
@@ -3276,7 +3087,6 @@ clutter_clear_glyph_cache (void)
 void
 clutter_set_font_flags (ClutterFontFlags flags)
 {
-  ClutterMainContext *context = _clutter_context_get_default ();
   CoglPangoFontMap *font_map;
   ClutterFontFlags old_flags, changed_flags;
   const cairo_font_options_t *font_options;
@@ -3326,10 +3136,6 @@ clutter_set_font_flags (ClutterFontFlags flags)
   clutter_backend_set_font_options (backend, new_font_options);
 
   cairo_font_options_destroy (new_font_options);
-
-  /* update the default pango context, if any */
-  if (context->pango_context != NULL)
-    update_pango_context (backend, context->pango_context);
 }
 
 /**
@@ -3698,7 +3504,7 @@ clutter_check_version (guint major,
  * clutter_get_default_text_direction:
  *
  * Retrieves the default direction for the text. The text direction is
- * determined by the locale and/or by the <varname>CLUTTER_TEXT_DIRECTION</varname>
+ * determined by the locale and/or by the `CLUTTER_TEXT_DIRECTION`
  * environment variable.
  *
  * The default text direction can be overridden on a per-actor basis by using
@@ -3732,22 +3538,6 @@ _clutter_clear_events_queue (void)
       g_queue_free (context->events_queue);
       context->events_queue = NULL;
     }
-}
-
-guint32
-_clutter_context_acquire_id (gpointer key)
-{
-  ClutterMainContext *context = _clutter_context_get_default ();
-
-  return _clutter_id_pool_add (context->id_pool, key);
-}
-
-void
-_clutter_context_release_id (guint32 id_)
-{
-  ClutterMainContext *context = _clutter_context_get_default ();
-
-  _clutter_id_pool_remove (context->id_pool, id_);
 }
 
 void
@@ -3888,6 +3678,12 @@ clutter_check_windowing_backend (const char *backend_type)
     return TRUE;
   else
 #endif
+#ifdef CLUTTER_WINDOWING_MIR
+  if (backend_type == I_(CLUTTER_WINDOWING_MIR) &&
+      CLUTTER_IS_BACKEND_MIR (context->backend))
+    return TRUE;
+  else
+#endif
 #ifdef CLUTTER_WINDOWING_GDK
   if (backend_type == I_(CLUTTER_WINDOWING_GDK) &&
       CLUTTER_IS_BACKEND_GDK (context->backend))
@@ -3947,11 +3743,6 @@ _clutter_debug_messagev (const char *format,
   g_free (stamp);
 
   g_logv (G_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE, fmt, var_args);
-
-#ifdef CLUTTER_ENABLE_PROFILE
-  if (_clutter_uprof_context != NULL)
-    uprof_context_vtrace_message (_clutter_uprof_context, format, var_args);
-#endif
 
   g_free (fmt);
 }

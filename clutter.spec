@@ -6,38 +6,53 @@
 
 %global with_tests 1
 
+%global glib2_version 2.44.0
+%global cogl_version 1.21.2
+%global json_glib_version 0.12.0
+%global cairo_version 1.14.0
+%global libinput_version 0.19.0
+
 Name:          clutter
-Version:       1.20.0
-Release:       4%{?dist}
+Version:       1.26.0
+Release:       1%{?dist}
 Summary:       Open Source software library for creating rich graphical user interfaces
 
 Group:         Development/Libraries
 License:       LGPLv2+
 URL:           http://www.clutter-project.org/
-Source0:       http://download.gnome.org/sources/clutter/1.20/clutter-%{version}.tar.xz
-# https://bugzilla.gnome.org/show_bug.cgi?id=732706
-Patch7:        Allow-setting-up-quad-buffer-stereo-output.patch
+Source0:       https://download.gnome.org/sources/%{name}/1.26/%{name}-%{version}.tar.xz
 
-BuildRequires: glib2-devel mesa-libGL-devel pkgconfig pango-devel
-BuildRequires: cairo-gobject-devel gdk-pixbuf2-devel atk-devel
-BuildRequires: cogl-devel >= 1.15.1
-BuildRequires: gobject-introspection-devel >= 0.9.6
-BuildRequires: gtk3-devel
-BuildRequires: json-glib-devel >= 0.12.0
-BuildRequires: libXcomposite-devel
-BuildRequires: libXdamage-devel
-BuildRequires: libXi-devel
-BuildRequires: gettext-devel
+BuildRequires: gettext
+BuildRequires: pkgconfig(atk)
+BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
+BuildRequires: pkgconfig(cogl-1.0) >= %{cogl_version}
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
+BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.39.0
+BuildRequires: pkgconfig(gdk-3.0)
+BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
+BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xdamage)
+BuildRequires: pkgconfig(xi)
+BuildRequires: mesa-libGL-devel
 %if 0%{?with_wayland}
-BuildRequires: libgudev1-devel
-BuildRequires: libwayland-client-devel
-BuildRequires: libwayland-cursor-devel
-BuildRequires: libwayland-server-devel
-BuildRequires: libxkbcommon-devel
-BuildRequires: libinput-devel
+BuildRequires: pkgconfig(gudev-1.0)
+BuildRequires: pkgconfig(libinput) >= %{libinput_version}
+BuildRequires: pkgconfig(wayland-client)
+BuildRequires: pkgconfig(wayland-cursor)
+BuildRequires: pkgconfig(wayland-server)
+BuildRequires: pkgconfig(xkbcommon)
 %endif
 
+Requires:      cairo%{?_isa} >= %{cairo_version}
+Requires:      cogl%{?_isa} >= %{cogl_version}
+Requires:      glib2%{?_isa} >= %{glib2_version}
 Requires:      gobject-introspection
+Requires:      json-glib%{?_isa} >= %{json_glib_version}
+%if 0%{?with_wayland}
+Requires:      libinput%{?_isa} >= %{libinput_version}
+%endif
 
 %description
 Clutter is an open source software library for creating fast,
@@ -80,10 +95,8 @@ the functionality of the installed clutter package.
 
 %prep
 %setup -q
-%patch7 -p1 -b .quadbuffer-stereo
 
 %build
-autoreconf
 %configure \
 	--enable-xinput \
         --enable-gdk-backend \
@@ -98,22 +111,20 @@ autoreconf
 make %{?_smp_mflags} V=1
 
 %install
-make install DESTDIR=%{buildroot} INSTALL='install -p'
+%make_install
 
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -delete
 
 %find_lang clutter-1.0
 
-%check
-make check %{?_smp_mflags} V=1
-
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files -f clutter-1.0.lang
-%doc COPYING NEWS README
+%doc NEWS README
+%license COPYING
 %{_libdir}/*.so.0
 %{_libdir}/*.so.0.*
 %{_libdir}/girepository-1.0/*.typelib
@@ -126,7 +137,6 @@ make check %{?_smp_mflags} V=1
 
 %files doc
 %{_datadir}/gtk-doc/html/clutter
-%{_datadir}/gtk-doc/html/cally
 
 %if 0%{?with_tests}
 %files tests
@@ -135,7 +145,40 @@ make check %{?_smp_mflags} V=1
 %endif
 
 %changelog
-* Fri Jul 17 2015 Florian Müllner <fmuelner@redhat.com> - 1.20.0-4
+* Mon Feb 06 2017 Kalev Lember <klember@redhat.com> - 1.26.0-1
+- Update to 1.26.0
+- Resolves: #1386832
+
+* Thu Aug 11 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-10
+- Add patches to make the backend driver selection explicit instead of
+  changing the default to gl3
+  Resolves: #1361251
+
+* Mon Jul 18 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-9
+- Require a cogl version that provides all the new APIs
+  Related: rhbz#1330488
+
+* Wed Jun 29 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-8
+- Add a patch that adds clutter_x11_enable_threaded_swap_wait(),
+  enabling proper waiting for frame completion on NVIDIA.
+- Add a patch to fix Cogl Glib source added multiple times.
+  See https://bugzilla.gnome.org/show_bug.cgi?id=768243
+  Resolves: #1306801
+
+* Fri Jun 17 2016 Rui Matos <rmatos@redhat.com> - 1.20.0-7
+- Add patches to support NV_robustness_video_memory_purge
+  Related: rhbz#1330488
+
+* Tue May 10 2016 Owen Taylor <otaylor@redhat.com> - 1.20.0-6
+- Fix problem with stereo patch (missing export declarations) that resulted
+  in added symbols not being exported.
+  Resolves: #1306801
+
+* Fri Mar 04 2016 Florian Müllner <fmuellner@redhat.com> - 1.20.0-5
+- Request a minimum libXi version
+  Related: #1290446
+
+* Fri Jul 17 2015 Florian Müllner <fmuellner@redhat.com> - 1.20.0-4
 - Rebuild with update gobject-introspection
   Resolves: #1236735
 

@@ -21,12 +21,12 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __CLUTTER_GROUP_H__
+#define __CLUTTER_GROUP_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_GROUP_H__
-#define __CLUTTER_GROUP_H__
 
 #include <glib-object.h>
 #include <clutter/clutter-types.h>
@@ -57,7 +57,7 @@ typedef struct _ClutterGroupPrivate     ClutterGroupPrivate;
  * The #ClutterGroup structure contains only private data
  * and should be accessed using the provided API
  *
- * Since: 0.1
+ * Since: 0.2
  */
 struct _ClutterGroup
 {
@@ -72,7 +72,7 @@ struct _ClutterGroup
  *
  * The #ClutterGroupClass structure contains only private data
  *
- * Since: 0.1
+ * Since: 0.2
  */
 struct _ClutterGroupClass
 {

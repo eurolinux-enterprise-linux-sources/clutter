@@ -1,3 +1,488 @@
+Clutter 1.26.0                                                       2016-03-21
+===============================================================================
+
+  • List of changes since Clutter 1.25.6
+
+    - Avoid spamming accessibility state changes in clones
+    Clones of unmapped actors will cause a temporary mapping of their source,
+    which will result in spurious accessibility events.
+
+    - Ignore GDK deprecation compiler warnings
+
+    - Resync build configuration for Windows
+
+    - Translation updates
+    Serbian, Swedish, Catalan, Occitan, Greek, Latvian, Russian, Danish
+
+  • List of bugs fixed since Clutter 1.25.6
+
+    #756371 - Accessible event spam in Overview
+
+Many thanks to:
+
+  Jordi Mas, Anders Jonsson, Ask Hjorth Larsen, Chun-wei Fan, Cédric Valmary,
+  Efstathios Iosifidis, Rūdolfs Mazurs, Stas Solovey, Марко Костић,
+  Мирослав Николић
+
+Clutter 1.25.6                                                       2016-02-18
+===============================================================================
+
+  • List of changes since Clutter 1.25.4
+
+    - Enable swap throttling for fullscreen windows with GDK
+    Avoids performance penalties with the GDK backend on constrained devices
+    running full screen Clutter and Clutter-GTK applications.
+
+    - Add platform-specific data for the libinput input backend
+    This allows implementing high level functionality when writing Wayland
+    compositors based on Clutter.
+
+    - Translation updates
+    Hungarian, Bulgarian, Polish, Slovak, French, Chinese (Taiwan), Galician,
+    Italian
+
+  • List of bugs fixed since Clutter 1.25.4
+
+    #752752 - Patches needed for relative pointer and pointer confinement
+              in mutter
+    #755849 - evdev: Recycle device ids after devices are removed
+
+Many thanks to:
+
+  Jonas Ådahl, Alexander Shopov, Alexandre Franke, Chao-Hsiung Liao,
+  Dušan Kazik, Fran Dieguez, Gábor Kelemen, Milo Casagrande, Piotr Drąg
+
+Clutter 1.25.4                                                       2016-01-21
+===============================================================================
+
+  • List of changes since Clutter 1.25.2
+
+    - Add more scrolling information inside ClutterScrollEvent
+    This allows to receive the type of device that generate the scroll event,
+    as well as the notification that a scroll motion finished; we can use this
+    information to implement kinetic scrolling. Currently, only libinput
+    provides us with these fields.
+
+    - Translation updates
+    Spanish, Lithuanian, Czech, German, Hebrew, Brazilian Portuguese
+
+  • List of bugs fixed since Clutter 1.25.2
+
+     #757026 - Add scroll source / axis stop information to scroll events
+
+Many thanks to:
+
+  Aurimas Černius, Carlos Garnacho, Daniel Mustieles, Marek Černocký,
+  Mario Blättermann, Rafael Fontenelle, Yosef Or Boczko
+
+Clutter 1.25.2                                                       2015-12-17
+===============================================================================
+
+  • List of changes since Clutter 1.24
+
+    - Set event code on button and key events in the evdev input backend
+    This allows users of the evdev input backend to retrieve the event
+    code without doing ad hoc calculations based on event-specific fields.
+
+    - Take scaling factor into account on Wayland with GDK
+    This brings the Wayland support inside the GDK backend on par to the X11
+    side.
+
+    - Decouple selectability from editability in ClutterText
+    It's possible to create selectable ClutterText actors without enabling
+    editability; this may cause unexpected cursors to appear in reactive
+    label-like actors using non-editable ClutterText, so feedback from users
+    is appreciated.
+
+    - Allow overriding the Cogl driver used by Clutter
+    On systems with multiple OpenGL and OpenGL ES implementations available,
+    it should be possible to explicitly set the Cogl driver (OpenGL 3.2 core
+    profile context; OpenGL legacy context; OpenGL ES 2.0 context) used by
+    Clutter when creating its drawing context. It's also possible to define
+    a list of drivers to try sequentially until one succeeds.
+
+    - Rework the windowing system backend selection
+    The windowing system backend initialization has been reworked to allow
+    setting the default windowing system backend using the configuration
+    file under $XDG_CONFIG_DIRS/clutter-1.0/settings.ini. The selection of
+    the backend also supports the ability to specify a list of backends to
+    try sequentially until one succeeds, for systems with multiple windowing
+    systems available.
+
+    - Documentation fixes
+
+    - Translation updates
+    Portuguese, Slovenian
+
+  • List of bugs fixed since Clutter 1.24
+
+    #758238 - [evdev] Add evdev-specific API to get event codes from
+              ClutterEvents
+    #755245 - only shows a 4th of the screen under wayland
+    #757470 - Allow selectability without editability
+    #752752 - Patches needed for relative pointer and pointer confinement
+              in mutter
+    #759074 - Port cairo test to ClutterCanvas
+    #759191 - should use pkg-config for GL
+    #742678 - gl: Prefer gl3 over the gl driver
+
+Many thanks to:
+
+  Carlos Garnacho, Lionel Landwerlin, Jonas Ådahl, Pedro Albuquerque,
+  Matej Urbančič
+
+Clutter 1.24.2                                                       2015-10-12
+===============================================================================
+
+  • List of changes since Clutter 1.24.0
+
+    - Emulate discrete scrolling on evdev
+
+    - Improve animation smoothness under the GDK backend
+
+    - Updated translations
+    Russian, Latvian, Danish, Swedish, Brazilian Portuguese, Serbian,
+    Serbian Latin, Ukrainian, Hindi, Kannada, Finnish, Portuguese.
+
+  • List of bugs fixed since Clutter 1.24.0
+
+    #755357 - timeline: Minor fixes for debuggability with
+              ClutterMasterClockGdk
+    #745517 - gnome-shell crashed with SIGABRT in g_assertion_message()
+    #756284 - Unable to use two finger scroll on Wayland
+
+Many thanks to:
+
+  Philip Withnall, Owen W. Taylor, Piotr Drąg, Милош Поповић, Anders Jonsson,
+  Ask Hjorth Larsen, Carlos Garnacho, Jiri Grönroos, Lionel Landwerlin,
+  Pedro Albuquerque, Rafael Fontenelle, Rūdolfs Mazurs, Stas Solovey
+
+Clutter 1.24.0                                                       2015-09-15
+===============================================================================
+
+  • List of changes since Clutter 1.23.6
+
+    - Fix ClutterGridLayout's preferred size computation
+    The preferred height of the ClutterGridLayout is correctly taking into
+    account the height and span of each cell.
+
+    - Improve embeddability of Clutter in foreign toolkits
+    Embedding Clutter inside other toolkits, like GTK+, on Wayland and X11
+    has been fixed.
+
+    - Updated translations
+    French, Portuguese, Spanish, Galician, Chinese (Taiwan), Polish,
+    Indonesian, Greek, Slovak, Hebrew, Hungarian, Lithuanian, Italian,
+    Slovenian, German, Czech.
+
+  • List of bugs fixed since Clutter 1.23.6
+
+    #755014 - Fix Clutter-Gtk on x11
+    #754993 - notify Cogl immediately of a foreign window resize in GDK/X11
+              backend
+    #754938 - Setup sync_to_vblank before ClutterStage creation
+    #754890 - Fix Mesa warning when unrealizing/rerealizing foreign stage
+              windows
+    #754889 - Fix compositor synchronization in GDK backend
+    #754766 - "actor: Clean up transform_stage_point()" broke HiDPI mutter
+    #754697 - Use a wayland subsurface when dealing with foreign windows
+              on GDK/wayland
+    #754671 - Improve dealing with foreign stages on GDK
+    #754134 - A few gdk backend fixes
+
+Many thanks to:
+
+  Lionel Landwerlin, Dušan Kazik, Alexandre Franke, Andika Triwidada,
+  Aurimas Černius, Balázs Úr, Bernd Homuth, Chao-Hsiung Liao,
+  Daniel Mustieles, Fran Dieguez, Jonas Ådahl, Marek Černocký,
+  Matej Urbančič, Milo Casagrande, Pedro Albuquerque, Piotr Drąg,
+  Tom Tryfonidis, Yosef Or Boczko
+
+Clutter 1.23.6                                                       2015-08-21
+===============================================================================
+
+  • List of changes since Clutter 1.23.4
+
+    - Require Cogl 1.21.2
+
+    - Prefer the OpenGL 3.x Cogl driver
+    The GL3 driver drops legacy API, and should bring a slight performance
+    improvement, as well as lower memory overhead. If GL3 is not supported,
+    Clutter falls back to the older GL driver transparently.
+
+    - Updated translations
+   Catalan, Indonesian, Portuguese, Lithuanian, Spanish, French, Galician
+
+  • List of bugs fixed since Clutter 1.23.4
+
+    #742678 - gl: Prefer gl3 over the gl driver
+    #746279 - Typo (textues) in translatable string
+    #753895 - Incorrect plural form of child
+
+Many thanks to:
+
+  Adel Gadllah, Alexandre Franke, Anders Jonsson, Andika Triwidada,
+  Aurimas Černius, Carlos Garnacho, Daniel Mustieles, Fran Dieguez,
+  Jordi Mas, Pedro Albuquerque, Sebastian Rasmussen
+
+Clutter 1.23.4                                                       2015-07-22
+===============================================================================
+
+  • List of changes since Clutter 1.23.2
+
+    - Add functions for binding a GListModel to a ClutterActor
+    The bind_model() and bind_model_with_propertis() methods on ClutterActor
+    allow binding objects inside a GListModel implementation to children or
+    an actor.
+
+    - Add event types for touchpad gestures
+    Currently, the libinput input backend is the only one that will generate
+    the touchpad events for swipe and pinch/zoom/rotate, but support for other
+    backends is planned in the future.
+
+    - Documentation fixes
+
+  • List of bugs fixed since Clutter 1.23.2
+
+    #752272 - _CLUTTER_DEPRECATED_MACRO_FOR is not defined when not compiling
+              with gcc
+    #752056 - Check for NULL pointer for pspec returned by
+              g_object_class_find_property, before dereferencing
+    #752104 - Automatic wayland detect support causes error when wayland is
+              not installed
+    #751472 - Don't create libinput properties
+
+Many thanks to:
+
+  Carlos Garnacho, Ting-Wei Lan, Kalev Lember, Nitin Sharma,
+  Pedro Albuquerque, Peter Hutterer, Stefan Sauer
+
+Clutter 1.23.2                                                       2015-06-18
+===============================================================================
+
+  • List of changes since Clutter 1.22
+
+    - Add accessor functions for ClutterActor state
+    Currently, actor state is accessible only via GObject properties and via
+    pre-processor macros; the former are not very friendly for C developers,
+    while the latter are not usable from language bindings. New functions have
+    been added to fill in the gap; the macros have a "soft" deprecation, since
+    compiler warnings cannot be used to detect their use.
+
+    - Merge the Cally API reference into Clutter's
+    The Cally API is part of the Clutter shared library; it makes sense to
+    have the API references merged.
+
+    - Improve visual handling with the GDK backend running on X11
+    Cogl has its own visual, based on its preferred GLXFBConfig; this means
+    that Clutter should use and expose the correct GdkVisual instance when
+    creating the GdkWindow used for drawing the contents of the stage.
+
+    - Improve input device handling in the GDK backend
+    Properly detect touchpad devices; translate touch events.
+
+  • List of bugs fixed since Clutter 1.22
+
+    #707982 - Add PanAxis mode that automatically pins scroll based on initial
+              movement
+    #750496 - Touch events not correctly propagated through gdk backend
+    #747489 - No access to the Visual used to build the CoglOnscreen
+    #747951 - Tablet calibration targets do not respond to clicks
+    #749739 - prepare ClutterSwipeAction for multi-finger swipes
+    #749482 - x11: Fix touchpad detection
+    #749256 - clutter-backend-gdk: Only set setting on successful
+              gdk_screen_get_setting call
+    #747436 - Clutter should use the same heuristics as gtk+ to determine
+              touchpads
+
+Many thanks to:
+
+  Carlos Garnacho, Dima Ryazanov, Gustavo Noronha Silva, Jasper St. Pierre,
+  Marek Černocký, Matthieu Bouron, Rui Matos
+
+Clutter 1.22.0                                                       2015-03-23
+===============================================================================
+
+  • List of changes since Clutter 1.21.8
+
+    - Improve pointer tracking in the evdev input backend
+    Do not use the events after the queue processing, to avoid dropping events
+    due to compression.
+
+    - Fix handling of multiple stages with the GDK backend
+    A regression introduced when the GDK backend implemented its own master
+    clock using GdkFrameClock prevented applications with multiple stages to
+    be updated properly.
+
+    - Updated translations
+    Kazakh, Aragonese, Indonesian, Danish, Turkish.
+
+  • List of bugs fixed since Clutter 1.21.8
+
+    #746575 - cally-actor: Don't assume X11 backend is used when supported
+    #746328 - evdev: Keep track of the pointer coordinate ourself
+
+Many thanks to:
+
+  Muhammet Kara, Andika Triwidada, Ask H. Larsen, Baurzhan Muftakhidinov,
+  Daniel Martinez, Florian Müllner, Jonas Ådahl
+
+Clutter 1.21.8                                                       2015-03-15
+===============================================================================
+
+  • List of changes since Clutter 1.21.6
+
+    - Documentation updates
+    The messages for most of the deprecated API list the intended replacement
+    classes or approaches to be used when porting code.
+
+    - Update the MSVC build files
+
+    - Improve damage tracking on ClutterStage
+    This should improve performance, especially when paired with the
+    buffer_age extension.
+
+    - Updated translations
+    Greek, Polish, Ukrainian, Italian, Slovak, Latvian, Bosnian.
+
+  • List of bugs fixed since Clutter 1.21.6
+
+    #745512 - Improve damage tracking and use swap_buffers_with_damage
+
+Many thanks to:
+
+  Chun-wei Fan, Chris Wilson, Daniel Korostil, Dušan Kazik, Milo Casagrande,
+  Piotr Drąg, Rūdolfs Mazurs, Samir Ribic, Tom Tryfonidis.
+
+Clutter 1.21.6                                                       2015-03-03
+===============================================================================
+
+  • List of changes since Clutter 1.21.4
+
+    - Support quad-buffer stereo displays on X11/GLX
+    This allows using Clutter to draw on GLX framebuffers with the stereo
+    bit set.
+
+    - Add a Mir windowing system backend
+    This allows using Clutter applications natively on systems using the
+    Mir display server.
+
+    - Depend on Cogl ≥ 1.19 and Cairo ≥ 1.12
+    Cogl 1.19 is needed for the newly added Mir windowing system backend,
+    as well as the quad-buffer stereo display on X11. Cairo 1.12 is needed
+    for dropping the ad hoc check for the device scale parameter used with
+    ClutterStage implementations as well as the ClutterCanvas content.
+
+    - Improvements in the evdev input backend
+
+    - Use the GdkFrameClock to drive the ClutterMasterClock
+    When using the GDK backend, we want the ClutterMasterClock to be driven
+    by the GdkFrameClock, as the latter is automatically frame limited by
+    the compositor, which gives better results for client applications.
+
+    - Updated translations
+    Spanish, Hebrew, Hungarian, Czech, Basque, Russian, Slovenian, Galician,
+    Chinese (Taiwan), French, Brazilian Portuguese, Lithuanian, Serbian.
+
+  • List of bugs fixed since Clutter 1.21.4
+
+    #743355 - gdk: report an error when initialization fails
+    #743615 - evdev: Ignore non seat wide button or key events
+    #744058 - gdk: Disable cogl wayland event dispatching if requested
+    #743865 - MetaSurfaceActorWayland: unset the surface when it goes away
+    #744604 - stage: Process state update event immediately
+    #744668 - GDK: integrate the MasterClock mechanism with GdkFrameClock
+    #732706 - Allow setting up quad-buffer stereo output
+
+Many thanks to:
+
+  Lionel Landwerlin, Jonas Ådahl, Alexandre Franke, Aurimas Černius,
+  Balázs Úr, Chao-Hsiung Liao, Daniel Mustieles, Fran Dieguez,
+  Giovanni Campagna, Inaki Larranaga Murgoitio, Jasper St. Pierre,
+  Marco Trevisan (Treviño), Marek Černocký, Matej Urbančič, Owen W. Taylor,
+  Rafael Ferreira, Rui Matos, Yosef Or Boczko, Yuri Myasoedov,
+  Мирослав Николић
+
+Clutter 1.21.4                                                       2015-01-22
+===============================================================================
+
+  • List of changes since Clutter 1.21.2
+
+    - Use the GDK backend by default when possible
+    Instead of using the X11 or the Wayland backend by default, Clutter now
+    uses the GDK backend for both input and output. This improves the
+    integration with the windowing system. Backends can still be selected
+    programmatically, or via environment variables. On Windows and MacOS, we
+    still prefer the native backend, if available, because of asymmetries in
+    the GDK API.
+
+    - Use libinput 0.8
+    For the evdev input backend, the dependency for libinput has been bumped
+    to the newly released 0.8, which improves wheel and scroll events.
+
+    - Allow access to vendor and product ID for input devices
+
+    - Allow ClutterConstraint implementations to change the preferred size
+    ClutterConstraint classes can now update an actor's preferred size,
+    along with its allocation; this means that querying the preferred size
+    of actors using constraints will take constraints into consideration, and
+    improves the integration of constraints inside the layout system.
+
+    - Improve the GDK backend
+    Properly support high DPI displays, as well as Wayland.
+
+    - Updated translations
+    Czech, Basque, Spanish, Hungarian.
+
+  • List of bugs fixed since Clutter 1.21.2
+
+    #730815 - Mouse events limited to upper left rectangle
+    #740759 - Add getters for input device vendor/product IDs
+    #734587 - Position gdk backend before x11/wayland/egl ones
+    #742829 - Update to new libinput API for pointer_axis events
+
+Many thanks to:
+
+  Jonas Danielsson, Carlos Garnacho, Peter Hutterer, Marek Černocký,
+  Inaki Larranaga Murgoitio, Daniel Mustieles, Balázs Úr.
+
+Clutter 1.21.2                                                       2014-12-15
+===============================================================================
+
+  • List of changes since Clutter 1.20.0
+
+    - Improve input device handling
+    Both on the evdev input backend, and the XInput2 backend for X11.
+
+    - Allow content implementations to drive actors preferred size
+    If a ClutterActor is only used to paint a ClutterContent implementation,
+    it should be possible to allow the actor to have the same preferred size
+    of its content. We use a ClutterRequestMode to specify this behaviour.
+
+    - Documentation fixes
+
+  • List of bugs fixed since Clutter 1.20.0
+
+    #738520 - evdev: Flush event queue before removing device(s)
+    #739050 - Fix some weird graphical glitches in RTL
+    #741350 - Improve touchpad detection on libinput
+    #740997 - Easing modes are not used when computing the value of a
+              KeyframeTransition
+    #676326 - actor: Add a :request-content-size property
+    #711182 - Incorrect drawing behaviour with clutter content centered
+    #709252 - ensure that all deprecated symbols are correctly annotated for
+              gtk-doc
+    #669743 - ObjectInfo property is_actor not correctly set when updating
+              existing actor using ClutterScriptParser
+    #719962 - clutter/osx: add clutter_osx_disable_event_retrieval
+    #681300 - Miss CLUTTER_INPUT_BACKEND description in doc
+    #729462 - DeviceManagerXi2: Update cached core pointer in getter if NULL
+
+Many thanks to:
+
+  Carlos Garnacho, Jasper St. Pierre, Jonas Ådahl, Rico Tzschichholz,
+  Samuel Degrande, Sjoerd Simons, cee1.
+
 Clutter 1.20.0                                                       2014-09-22
 ===============================================================================
 

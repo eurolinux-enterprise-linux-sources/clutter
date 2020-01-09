@@ -21,12 +21,12 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __CLUTTER_EVENT_H__
+#define __CLUTTER_EVENT_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_EVENT_H__
-#define __CLUTTER_EVENT_H__
 
 #include <clutter/clutter-types.h>
 #include <clutter/clutter-input-device.h>
@@ -115,6 +115,8 @@ typedef struct _ClutterScrollEvent      ClutterScrollEvent;
 typedef struct _ClutterStageStateEvent  ClutterStageStateEvent;
 typedef struct _ClutterCrossingEvent    ClutterCrossingEvent;
 typedef struct _ClutterTouchEvent       ClutterTouchEvent;
+typedef struct _ClutterTouchpadPinchEvent ClutterTouchpadPinchEvent;
+typedef struct _ClutterTouchpadSwipeEvent ClutterTouchpadSwipeEvent;
 
 /**
  * ClutterAnyEvent:
@@ -289,6 +291,8 @@ struct _ClutterMotionEvent
  * @axes: reserved for future use
  * @device: the device that originated the event. If you want the physical
  * device the event originated from, use clutter_event_get_source_device()
+ * @scroll_source: the source of scroll events. This field is available since 1.26
+ * @finish_flags: the axes that were stopped in this event. This field is available since 1.26
  *
  * Scroll wheel (or similar device) event
  *
@@ -308,6 +312,8 @@ struct _ClutterScrollEvent
   ClutterModifierType modifier_state;
   gdouble *axes; /* future use */
   ClutterInputDevice *device;
+  ClutterScrollSource scroll_source;
+  ClutterScrollFinishFlags finish_flags;
 };
 
 /**
@@ -385,6 +391,84 @@ struct _ClutterTouchEvent
 };
 
 /**
+ * ClutterTouchpadPinchEvent:
+ * @type: event type
+ * @time: event time
+ * @flags: event flags
+ * @stage: event source stage
+ * @source: event source actor (unused)
+ * @phase: the current phase of the gesture
+ * @x: the X coordinate of the pointer, relative to the stage
+ * @y: the Y coordinate of the pointer, relative to the stage
+ * @dx: movement delta of the pinch focal point in the X axis
+ * @dy: movement delta of the pinch focal point in the Y axis
+ * @angle_delta: angle delta in degrees, clockwise rotations are
+ *   represented by positive deltas
+ * @scale: the current scale
+ *
+ * Used for touchpad pinch gesture events. The current state of the
+ * gesture will be determined by the @phase field.
+ *
+ * Each event with phase %CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN
+ * will report a @scale of 1.0, all later phases in the gesture
+ * report the current scale relative to the initial 1.0 value
+ * (eg. 0.5 being half the size, 2.0 twice as big).
+ *
+ * Since: 1.24
+ */
+struct _ClutterTouchpadPinchEvent
+{
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  ClutterTouchpadGesturePhase phase;
+  gfloat x;
+  gfloat y;
+  gfloat dx;
+  gfloat dy;
+  gfloat angle_delta;
+  gfloat scale;
+};
+
+/**
+ * ClutterTouchpadSwipeEvent
+ * @type: event type
+ * @time: event time
+ * @flags: event flags
+ * @stage: event source stage
+ * @source: event source actor (unused)
+ * @phase: the current phase of the gesture
+ * @n_fingers: the number of fingers triggering the swipe
+ * @x: the X coordinate of the pointer, relative to the stage
+ * @y: the Y coordinate of the pointer, relative to the stage
+ * @dx: movement delta of the pinch focal point in the X axis
+ * @dy: movement delta of the pinch focal point in the Y axis
+ *
+ * Used for touchpad swipe gesture events. The current state of the
+ * gesture will be determined by the @phase field.
+ *
+ * Since: 1.24
+ */
+struct _ClutterTouchpadSwipeEvent
+{
+  ClutterEventType type;
+  guint32 time;
+  ClutterEventFlags flags;
+  ClutterStage *stage;
+  ClutterActor *source;
+
+  ClutterTouchpadGesturePhase phase;
+  guint n_fingers;
+  gfloat x;
+  gfloat y;
+  gfloat dx;
+  gfloat dy;
+};
+
+/**
  * ClutterEvent:
  *
  * Generic event wrapper.
@@ -404,6 +488,8 @@ union _ClutterEvent
   ClutterStageStateEvent stage_state;
   ClutterCrossingEvent crossing;
   ClutterTouchEvent touch;
+  ClutterTouchpadPinchEvent touchpad_pinch;
+  ClutterTouchpadSwipeEvent touchpad_swipe;
 };
 
 /**
@@ -582,6 +668,26 @@ CLUTTER_AVAILABLE_IN_1_0
 guint32                 clutter_get_current_event_time          (void);
 CLUTTER_AVAILABLE_IN_1_2
 const ClutterEvent *    clutter_get_current_event               (void);
+
+CLUTTER_AVAILABLE_IN_1_24
+guint                   clutter_event_get_gesture_swipe_finger_count (const ClutterEvent     *event);
+
+CLUTTER_AVAILABLE_IN_1_24
+gdouble                 clutter_event_get_gesture_pinch_angle_delta  (const ClutterEvent     *event);
+
+CLUTTER_AVAILABLE_IN_1_24
+gdouble                 clutter_event_get_gesture_pinch_scale        (const ClutterEvent     *event);
+
+CLUTTER_AVAILABLE_IN_1_24
+ClutterTouchpadGesturePhase clutter_event_get_gesture_phase          (const ClutterEvent     *event);
+
+CLUTTER_AVAILABLE_IN_1_24
+void                    clutter_event_get_gesture_motion_delta       (const ClutterEvent     *event,
+                                                                      gdouble                *dx,
+                                                                      gdouble                *dy);
+
+ClutterScrollSource      clutter_event_get_scroll_source             (const ClutterEvent     *event);
+ClutterScrollFinishFlags clutter_event_get_scroll_finish_flags       (const ClutterEvent     *event);
 
 G_END_DECLS
 

@@ -44,6 +44,7 @@
 
 #include "clutter-image.h"
 
+#include "clutter-actor-private.h"
 #include "clutter-color.h"
 #include "clutter-content-private.h"
 #include "clutter-debug.h"
@@ -101,49 +102,13 @@ clutter_image_paint_content (ClutterContent   *content,
                              ClutterPaintNode *root)
 {
   ClutterImagePrivate *priv = CLUTTER_IMAGE (content)->priv;
-  ClutterScalingFilter min_f, mag_f;
-  ClutterContentRepeat repeat;
   ClutterPaintNode *node;
-  ClutterActorBox box;
-  ClutterColor color;
-  guint8 paint_opacity;
 
   if (priv->texture == NULL)
     return;
 
-  clutter_actor_get_content_box (actor, &box);
-  paint_opacity = clutter_actor_get_paint_opacity (actor);
-  clutter_actor_get_content_scaling_filters (actor, &min_f, &mag_f);
-  repeat = clutter_actor_get_content_repeat (actor);
-
-  /* ClutterTextureNode will premultiply the blend color, so we
-   * want it to be white with the paint opacity
-   */
-  color.red = 255;
-  color.green = 255;
-  color.blue = 255;
-  color.alpha = paint_opacity;
-
-  node = clutter_texture_node_new (priv->texture, &color, min_f, mag_f);
-  clutter_paint_node_set_name (node, "Image");
-
-  if (repeat == CLUTTER_REPEAT_NONE)
-    clutter_paint_node_add_rectangle (node, &box);
-  else
-    {
-      float t_w = 1.f, t_h = 1.f;
-
-      if ((repeat & CLUTTER_REPEAT_X_AXIS) != FALSE)
-        t_w = (box.x2 - box.x1) / cogl_texture_get_width (priv->texture);
-
-      if ((repeat & CLUTTER_REPEAT_Y_AXIS) != FALSE)
-        t_h = (box.y2 - box.y1) / cogl_texture_get_height (priv->texture);
-
-      clutter_paint_node_add_texture_rectangle (node, &box,
-                                                0.f, 0.f,
-                                                t_w, t_h);
-    }
-
+  node = clutter_actor_create_texture_paint_node (actor, priv->texture);
+  clutter_paint_node_set_name (node, "Image Content");
   clutter_paint_node_add_child (root, node);
   clutter_paint_node_unref (node);
 }
@@ -220,7 +185,7 @@ clutter_image_new (void)
  *
  *   clutter_image_set_data (CLUTTER_IMAGE (image),
  *                           gdk_pixbuf_get_pixels (pixbuf),
- *                           gdk_pixbuf_has_alpha (pixbuf)
+ *                           gdk_pixbuf_get_has_alpha (pixbuf)
  *                             ? COGL_PIXEL_FORMAT_RGBA_8888
  *                             : COGL_PIXEL_FORMAT_RGB_888,
  *                           gdk_pixbuf_get_width (pixbuf),
@@ -246,6 +211,7 @@ clutter_image_set_data (ClutterImage     *image,
                         GError          **error)
 {
   ClutterImagePrivate *priv;
+  CoglTextureFlags flags;
 
   g_return_val_if_fail (CLUTTER_IS_IMAGE (image), FALSE);
   g_return_val_if_fail (data != NULL, FALSE);
@@ -255,8 +221,12 @@ clutter_image_set_data (ClutterImage     *image,
   if (priv->texture != NULL)
     cogl_object_unref (priv->texture);
 
+  flags = COGL_TEXTURE_NONE;
+  if (width >= 512 && height >= 512)
+    flags |= COGL_TEXTURE_NO_ATLAS;
+
   priv->texture = cogl_texture_new_from_data (width, height,
-                                              COGL_TEXTURE_NONE,
+                                              flags,
                                               pixel_format,
                                               COGL_PIXEL_FORMAT_ANY,
                                               row_stride,
@@ -309,6 +279,7 @@ clutter_image_set_bytes (ClutterImage     *image,
                          GError          **error)
 {
   ClutterImagePrivate *priv;
+  CoglTextureFlags flags;
 
   g_return_val_if_fail (CLUTTER_IS_IMAGE (image), FALSE);
   g_return_val_if_fail (data != NULL, FALSE);
@@ -318,8 +289,12 @@ clutter_image_set_bytes (ClutterImage     *image,
   if (priv->texture != NULL)
     cogl_object_unref (priv->texture);
 
+  flags = COGL_TEXTURE_NONE;
+  if (width >= 512 && height >= 512)
+    flags |= COGL_TEXTURE_NO_ATLAS;
+
   priv->texture = cogl_texture_new_from_data (width, height,
-                                              COGL_TEXTURE_NONE,
+                                              flags,
                                               pixel_format,
                                               COGL_PIXEL_FORMAT_ANY,
                                               row_stride,
@@ -384,9 +359,14 @@ clutter_image_set_area (ClutterImage                 *image,
 
   if (priv->texture == NULL)
     {
+      CoglTextureFlags flags = COGL_TEXTURE_NONE;
+
+      if (area->width >= 512 && area->height >= 512)
+        flags |= COGL_TEXTURE_NO_ATLAS;
+
       priv->texture = cogl_texture_new_from_data (area->width,
                                                   area->height,
-                                                  COGL_TEXTURE_NONE,
+                                                  flags,
                                                   pixel_format,
                                                   COGL_PIXEL_FORMAT_ANY,
                                                   row_stride,

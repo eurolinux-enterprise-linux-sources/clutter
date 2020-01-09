@@ -49,18 +49,18 @@
 #include "clutter-event-private.h"
 #include "clutter-marshal.h"
 #include "clutter-private.h"
-#include "clutter-profile.h"
 #include "clutter-stage-manager-private.h"
 #include "clutter-stage-private.h"
 #include "clutter-stage-window.h"
 #include "clutter-version.h"
+#include "clutter-device-manager-private.h"
 
 #define CLUTTER_DISABLE_DEPRECATION_WARNINGS
 #include "deprecated/clutter-backend.h"
 
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
 #include "wayland/clutter-wayland-compositor.h"
-#endif /* HAVE_CLUTTER_WAYLAND_COMPOSITOR */
+#endif
 
 #include <cogl/cogl.h>
 
@@ -89,26 +89,20 @@
 #ifdef CLUTTER_INPUT_WAYLAND
 #include "wayland/clutter-device-manager-wayland.h"
 #endif
+#ifdef CLUTTER_WINDOWING_MIR
+#include "mir/clutter-backend-mir.h"
+#endif
+#ifdef CLUTTER_INPUT_MIR
+#include "mir/clutter-device-manager-mir.h"
+#endif
 
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
 #include <cogl/cogl-wayland-server.h>
 #include <wayland-server.h>
 #include "wayland/clutter-wayland-compositor.h"
 #endif
 
 #define DEFAULT_FONT_NAME       "Sans 10"
-
-struct _ClutterBackendPrivate
-{
-  cairo_font_options_t *font_options;
-
-  gchar *font_name;
-
-  gfloat units_per_em;
-  gint32 units_serial;
-
-  GList *event_translators;
-};
 
 enum
 {
@@ -119,32 +113,28 @@ enum
   LAST_SIGNAL
 };
 
-G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (ClutterBackend, clutter_backend, G_TYPE_OBJECT)
+G_DEFINE_ABSTRACT_TYPE (ClutterBackend, clutter_backend, G_TYPE_OBJECT)
 
 static guint backend_signals[LAST_SIGNAL] = { 0, };
 
 /* Global for being able to specify a compositor side wayland display
  * pointer before clutter initialization */
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
 static struct wl_display *_wayland_compositor_display;
 #endif
-
-static const char *allowed_backend;
 
 static void
 clutter_backend_dispose (GObject *gobject)
 {
-  ClutterBackendPrivate *priv = CLUTTER_BACKEND (gobject)->priv;
+  ClutterBackend *backend = CLUTTER_BACKEND (gobject);
 
   /* clear the events still in the queue of the main context */
   _clutter_clear_events_queue ();
 
   /* remove all event translators */
-  if (priv->event_translators != NULL)
-    {
-      g_list_free (priv->event_translators);
-      priv->event_translators = NULL;
-    }
+  g_clear_pointer (&backend->event_translators, g_list_free);
+
+  g_clear_pointer (&backend->dummy_onscreen, cogl_object_unref);
 
   G_OBJECT_CLASS (clutter_backend_parent_class)->dispose (gobject);
 }
@@ -156,7 +146,7 @@ clutter_backend_finalize (GObject *gobject)
 
   g_source_destroy (backend->cogl_source);
 
-  g_free (backend->priv->font_name);
+  g_free (backend->font_name);
   clutter_backend_set_font_options (backend, NULL);
 
   G_OBJECT_CLASS (clutter_backend_parent_class)->finalize (gobject);
@@ -221,7 +211,6 @@ get_units_per_em (ClutterBackend       *backend,
 static void
 clutter_backend_real_resolution_changed (ClutterBackend *backend)
 {
-  ClutterBackendPrivate *priv = backend->priv;
   ClutterMainContext *context;
   ClutterSettings *settings;
   gdouble resolution;
@@ -239,26 +228,25 @@ clutter_backend_real_resolution_changed (ClutterBackend *backend)
   if (context->font_map != NULL)
     cogl_pango_font_map_set_resolution (context->font_map, resolution);
 
-  priv->units_per_em = get_units_per_em (backend, NULL);
-  priv->units_serial += 1;
+  backend->units_per_em = get_units_per_em (backend, NULL);
+  backend->units_serial += 1;
 
-  CLUTTER_NOTE (BACKEND, "Units per em: %.2f", priv->units_per_em);
+  CLUTTER_NOTE (BACKEND, "Units per em: %.2f", backend->units_per_em);
 }
 
 static void
 clutter_backend_real_font_changed (ClutterBackend *backend)
 {
-  ClutterBackendPrivate *priv = backend->priv;
+  backend->units_per_em = get_units_per_em (backend, NULL);
+  backend->units_serial += 1;
 
-  priv->units_per_em = get_units_per_em (backend, NULL);
-  priv->units_serial += 1;
-
-  CLUTTER_NOTE (BACKEND, "Units per em: %.2f", priv->units_per_em);
+  CLUTTER_NOTE (BACKEND, "Units per em: %.2f", backend->units_per_em);
 }
 
 static gboolean
-clutter_backend_real_create_context (ClutterBackend  *backend,
-                                     GError         **error)
+clutter_backend_do_real_create_context (ClutterBackend  *backend,
+                                        CoglDriver       driver_id,
+                                        GError         **error)
 {
   ClutterBackendClass *klass;
   CoglSwapChain *swap_chain;
@@ -281,7 +269,7 @@ clutter_backend_real_create_context (ClutterBackend  *backend,
   if (backend->cogl_renderer == NULL)
     goto error;
 
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
   /* If the application is trying to act as a Wayland compositor then
      it needs to have an EGL-based renderer backend */
   if (_wayland_compositor_display)
@@ -290,6 +278,7 @@ clutter_backend_real_create_context (ClutterBackend  *backend,
 #endif
 
   CLUTTER_NOTE (BACKEND, "Connecting the renderer");
+  cogl_renderer_set_driver (backend->cogl_renderer, driver_id);
   if (!cogl_renderer_connect (backend->cogl_renderer, &internal_error))
     goto error;
 
@@ -332,7 +321,7 @@ clutter_backend_real_create_context (ClutterBackend  *backend,
   if (backend->cogl_display == NULL)
     goto error;
 
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
   cogl_wayland_display_set_compositor_display (backend->cogl_display,
                                                _wayland_compositor_display);
 #endif
@@ -345,10 +334,6 @@ clutter_backend_real_create_context (ClutterBackend  *backend,
   backend->cogl_context = cogl_context_new (backend->cogl_display, &internal_error);
   if (backend->cogl_context == NULL)
     goto error;
-
-  backend->cogl_source = cogl_glib_source_new (backend->cogl_context,
-                                               G_PRIORITY_DEFAULT);
-  g_source_attach (backend->cogl_source, NULL);
 
   /* the display owns the renderer and the swap chain */
   cogl_object_unref (backend->cogl_renderer);
@@ -372,14 +357,92 @@ error:
   if (swap_chain != NULL)
     cogl_object_unref (swap_chain);
 
-  if (internal_error != NULL)
-    g_propagate_error (error, internal_error);
-  else
-    g_set_error_literal (error, CLUTTER_INIT_ERROR,
-                         CLUTTER_INIT_ERROR_BACKEND,
-                         _("Unable to initialize the Clutter backend"));
-
   return FALSE;
+}
+
+static const struct {
+  const char *driver_name;
+  const char *driver_desc;
+  CoglDriver driver_id;
+} all_known_drivers[] = {
+  { "gl3", "OpenGL 3.2 core profile", COGL_DRIVER_GL3 },
+  { "gl", "OpenGL legacy profile", COGL_DRIVER_GL },
+  { "gles2", "OpenGL ES 2.0", COGL_DRIVER_GLES2 },
+  { "any", "Default Cogl driver", COGL_DRIVER_ANY },
+};
+
+static const char *allowed_drivers;
+
+static gboolean
+clutter_backend_real_create_context (ClutterBackend  *backend,
+                                     GError         **error)
+{
+  GError *internal_error = NULL;
+  const char *drivers_list;
+  char **known_drivers;
+  gboolean allow_any;
+  int i;
+
+  if (allowed_drivers == NULL)
+    allowed_drivers = CLUTTER_DRIVERS;
+
+  allow_any = strstr (allowed_drivers, "*") != NULL;
+
+  drivers_list = g_getenv ("CLUTTER_DRIVER");
+  if (drivers_list == NULL)
+    drivers_list = allowed_drivers;
+
+  known_drivers = g_strsplit (drivers_list, ",", 0);
+
+  for (i = 0; backend->cogl_context == NULL && known_drivers[i] != NULL; i++)
+    {
+      const char *driver_name = known_drivers[i];
+      gboolean is_any = g_str_equal (driver_name, "*");
+      int j;
+
+      for (j = 0; j < G_N_ELEMENTS (all_known_drivers); j++)
+        {
+          if (!allow_any && !is_any && !strstr (driver_name, all_known_drivers[j].driver_name))
+            continue;
+
+          if ((allow_any && is_any) ||
+              (is_any && strstr (allowed_drivers, all_known_drivers[j].driver_name)) ||
+              g_str_equal (all_known_drivers[j].driver_name, driver_name))
+            {
+              CLUTTER_NOTE (BACKEND, "Checking for the %s driver", all_known_drivers[j].driver_desc);
+
+              if (clutter_backend_do_real_create_context (backend, all_known_drivers[j].driver_id, &internal_error))
+                break;
+
+              if (internal_error)
+                {
+                  CLUTTER_NOTE (BACKEND, "Unable to use the %s driver: %s",
+                                all_known_drivers[j].driver_desc,
+                                internal_error->message);
+                  g_clear_error (&internal_error);
+                }
+            }
+        }
+    }
+
+  g_strfreev (known_drivers);
+
+  if (backend->cogl_context == NULL)
+    {
+      if (internal_error != NULL)
+        g_propagate_error (error, internal_error);
+      else
+        g_set_error_literal (error, CLUTTER_INIT_ERROR,
+                             CLUTTER_INIT_ERROR_BACKEND,
+                            _("Unable to initialize the Clutter backend: no available drivers found."));
+
+      return FALSE;
+    }
+
+  backend->cogl_source = cogl_glib_source_new (backend->cogl_context, G_PRIORITY_DEFAULT);
+  g_source_attach (backend->cogl_source, NULL);
+
+  return TRUE;
 }
 
 static void
@@ -467,54 +530,81 @@ clutter_backend_real_create_stage (ClutterBackend  *backend,
                        NULL);
 }
 
+static const char *allowed_backends;
+
+static const struct {
+  const char *name;
+  ClutterBackend * (* create_backend) (void);
+} available_backends[] = {
+#ifdef CLUTTER_WINDOWING_OSX
+  { CLUTTER_WINDOWING_OSX, clutter_backend_osx_new },
+#endif
+#ifdef CLUTTER_WINDOWING_WIN32
+  { CLUTTER_WINDOWING_WIN32, clutter_backend_win32_new },
+#endif
+#ifdef CLUTTER_WINDOWING_GDK
+  { CLUTTER_WINDOWING_GDK, clutter_backend_gdk_new },
+#endif
+#ifdef CLUTTER_WINDOWING_X11
+  { CLUTTER_WINDOWING_X11, clutter_backend_x11_new },
+#endif
+#ifdef CLUTTER_WINDOWING_WAYLAND
+  { CLUTTER_WINDOWING_WAYLAND, clutter_backend_wayland_new },
+#endif
+#ifdef CLUTTER_WINDOWING_EGL
+  { CLUTTER_WINDOWING_EGL, clutter_backend_egl_native_new },
+#endif
+#ifdef CLUTTER_WINDOWING_MIR
+  { CLUTTER_WINDOWING_MIR, clutter_backend_mir_new },
+#endif
+  { NULL, NULL },
+};
+
 ClutterBackend *
 _clutter_create_backend (void)
 {
-  const char *backend = allowed_backend;
-  ClutterBackend *retval = NULL;
+  const char *backends_list;
+  ClutterBackend *retval;
+  gboolean allow_any;
+  char **backends;
+  int i;
 
-  if (backend == NULL)
+  if (allowed_backends == NULL)
+    allowed_backends = "*";
+
+  allow_any = strstr (allowed_backends, "*") != NULL;
+
+  backends_list = g_getenv ("CLUTTER_BACKEND");
+  if (backends_list == NULL)
+    backends_list = allowed_backends;
+
+  backends = g_strsplit (backends_list, ",", 0);
+
+  retval = NULL;
+
+  for (i = 0; retval == NULL && backends[i] != NULL; i++)
     {
-      const char *backend_env = g_getenv ("CLUTTER_BACKEND");
+      const char *backend = backends[i];
+      gboolean is_any = g_str_equal (backend, "*");
+      int j;
 
-      if (backend_env != NULL)
-	backend = g_intern_string (backend_env);
+      for (j = 0; available_backends[j].name != NULL; j++)
+        {
+          if ((is_any && allow_any) ||
+              (is_any && strstr (allowed_backends, available_backends[j].name)) ||
+              g_str_equal (backend, available_backends[j].name))
+            {
+              retval = available_backends[j].create_backend ();
+              if (retval != NULL)
+                break;
+            }
+        }
     }
 
-#ifdef CLUTTER_WINDOWING_OSX
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_OSX))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_OSX, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_WIN32
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_WIN32))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_WIN32, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_X11
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_X11))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_X11, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_WAYLAND
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_WAYLAND))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_WAYLAND, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_EGL
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_EGL))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_EGL_NATIVE, NULL);
-  else
-#endif
-#ifdef CLUTTER_WINDOWING_GDK
-  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_GDK))
-    retval = g_object_new (CLUTTER_TYPE_BACKEND_GDK, NULL);
-  else
-#endif
-  if (backend == NULL)
+  g_strfreev (backends);
+
+  if (retval == NULL)
     g_error ("No default Clutter backend found.");
-  else
-    g_error ("Unsupported Clutter backend: '%s'", backend);
 
   return retval;
 }
@@ -590,6 +680,14 @@ clutter_backend_real_init_events (ClutterBackend *backend)
     }
   else
 #endif
+#ifdef CLUTTER_INPUT_MIR
+  if (clutter_check_windowing_backend (CLUTTER_WINDOWING_MIR) &&
+      (input_backend == NULL || input_backend == I_(CLUTTER_INPUT_MIR)))
+    {
+      _clutter_events_mir_init (backend);
+    }
+  else
+#endif
   if (input_backend != NULL)
     {
       if (input_backend != I_(CLUTTER_INPUT_NULL))
@@ -616,10 +714,9 @@ clutter_backend_real_translate_event (ClutterBackend *backend,
                                       gpointer        native,
                                       ClutterEvent   *event)
 {
-  ClutterBackendPrivate *priv = backend->priv;
   GList *l;
 
-  for (l = priv->event_translators;
+  for (l = backend->event_translators;
        l != NULL;
        l = l->next)
     {
@@ -719,9 +816,10 @@ clutter_backend_class_init (ClutterBackendClass *klass)
 static void
 clutter_backend_init (ClutterBackend *self)
 {
-  self->priv = clutter_backend_get_instance_private (self);
-  self->priv->units_per_em = -1.0;
-  self->priv->units_serial = 1;
+  self->units_per_em = -1.0;
+  self->units_serial = 1;
+
+  self->dummy_onscreen = COGL_INVALID_HANDLE;
 }
 
 void
@@ -821,11 +919,12 @@ _clutter_backend_ensure_context (ClutterBackend *backend,
   g_assert (CLUTTER_IS_BACKEND (backend));
   g_assert (CLUTTER_IS_STAGE (stage));
 
-  if (current_context_stage != stage || !CLUTTER_ACTOR_IS_REALIZED (stage))
+  if (current_context_stage != stage ||
+      !clutter_actor_is_realized (CLUTTER_ACTOR (stage)))
     {
       ClutterStage *new_stage = NULL;
 
-      if (!CLUTTER_ACTOR_IS_REALIZED (stage))
+      if (!clutter_actor_is_realized (CLUTTER_ACTOR (stage)))
         {
           new_stage = NULL;
 
@@ -938,18 +1037,14 @@ gfloat
 _clutter_backend_get_units_per_em (ClutterBackend       *backend,
                                    PangoFontDescription *font_desc)
 {
-  ClutterBackendPrivate *priv;
-
-  priv = backend->priv;
-
   /* recompute for the font description, but do not cache the result */
   if (font_desc != NULL)
     return get_units_per_em (backend, font_desc);
 
-  if (priv->units_per_em < 0)
-    priv->units_per_em = get_units_per_em (backend, NULL);
+  if (backend->units_per_em < 0)
+    backend->units_per_em = get_units_per_em (backend, NULL);
 
-  return priv->units_per_em;
+  return backend->units_per_em;
 }
 
 void
@@ -957,10 +1052,17 @@ _clutter_backend_copy_event_data (ClutterBackend     *backend,
                                   const ClutterEvent *src,
                                   ClutterEvent       *dest)
 {
+  ClutterEventExtenderInterface *iface;
   ClutterBackendClass *klass;
 
   klass = CLUTTER_BACKEND_GET_CLASS (backend);
-  if (klass->copy_event_data != NULL)
+  if (CLUTTER_IS_EVENT_EXTENDER (backend->device_manager))
+    {
+      iface = CLUTTER_EVENT_EXTENDER_GET_IFACE (backend->device_manager);
+      iface->copy_event_data (CLUTTER_EVENT_EXTENDER (backend->device_manager),
+                              src, dest);
+    }
+  else if (klass->copy_event_data != NULL)
     klass->copy_event_data (backend, src, dest);
 }
 
@@ -968,10 +1070,18 @@ void
 _clutter_backend_free_event_data (ClutterBackend *backend,
                                   ClutterEvent   *event)
 {
+  ClutterEventExtenderInterface *iface;
   ClutterBackendClass *klass;
 
   klass = CLUTTER_BACKEND_GET_CLASS (backend);
-  if (klass->free_event_data != NULL)
+
+  if (CLUTTER_IS_EVENT_EXTENDER (backend->device_manager))
+    {
+      iface = CLUTTER_EVENT_EXTENDER_GET_IFACE (backend->device_manager);
+      iface->free_event_data (CLUTTER_EVENT_EXTENDER (backend->device_manager),
+                              event);
+    }
+  else if (klass->free_event_data != NULL)
     klass->free_event_data (backend, event);
 }
 
@@ -1178,21 +1288,17 @@ void
 clutter_backend_set_font_options (ClutterBackend             *backend,
                                   const cairo_font_options_t *options)
 {
-  ClutterBackendPrivate *priv;
-
   g_return_if_fail (CLUTTER_IS_BACKEND (backend));
 
-  priv = backend->priv;
-
-  if (priv->font_options != options)
+  if (backend->font_options != options)
     {
-      if (priv->font_options)
-        cairo_font_options_destroy (priv->font_options);
+      if (backend->font_options)
+        cairo_font_options_destroy (backend->font_options);
 
       if (options)
-        priv->font_options = cairo_font_options_copy (options);
+        backend->font_options = cairo_font_options_copy (options);
       else
-        priv->font_options = NULL;
+        backend->font_options = NULL;
 
       g_signal_emit (backend, backend_signals[FONT_CHANGED], 0);
     }
@@ -1213,27 +1319,20 @@ clutter_backend_set_font_options (ClutterBackend             *backend,
 const cairo_font_options_t *
 clutter_backend_get_font_options (ClutterBackend *backend)
 {
-  ClutterBackendPrivate *priv;
-
   g_return_val_if_fail (CLUTTER_IS_BACKEND (backend), NULL);
 
-  priv = backend->priv;
+  if (G_LIKELY (backend->font_options))
+    return backend->font_options;
 
-  if (G_LIKELY (priv->font_options))
-    return priv->font_options;
+  backend->font_options = cairo_font_options_create ();
 
-  priv->font_options = cairo_font_options_create ();
-
-  cairo_font_options_set_hint_style (priv->font_options,
-                                     CAIRO_HINT_STYLE_NONE);
-  cairo_font_options_set_subpixel_order (priv->font_options,
-                                         CAIRO_SUBPIXEL_ORDER_DEFAULT);
-  cairo_font_options_set_antialias (priv->font_options,
-                                    CAIRO_ANTIALIAS_DEFAULT);
+  cairo_font_options_set_hint_style (backend->font_options, CAIRO_HINT_STYLE_NONE);
+  cairo_font_options_set_subpixel_order (backend->font_options, CAIRO_SUBPIXEL_ORDER_DEFAULT);
+  cairo_font_options_set_antialias (backend->font_options, CAIRO_ANTIALIAS_DEFAULT);
 
   g_signal_emit (backend, backend_signals[FONT_CHANGED], 0);
 
-  return priv->font_options;
+  return backend->font_options;
 }
 
 /**
@@ -1276,28 +1375,25 @@ clutter_backend_set_font_name (ClutterBackend *backend,
 const gchar *
 clutter_backend_get_font_name (ClutterBackend *backend)
 {
-  ClutterBackendPrivate *priv;
   ClutterSettings *settings;
 
   g_return_val_if_fail (CLUTTER_IS_BACKEND (backend), NULL);
-
-  priv = backend->priv;
 
   settings = clutter_settings_get_default ();
 
   /* XXX yuck. but we return a const pointer, so we need to
    * store it in the backend
    */
-  g_free (priv->font_name);
-  g_object_get (settings, "font-name", &priv->font_name, NULL);
+  g_free (backend->font_name);
+  g_object_get (settings, "font-name", &backend->font_name, NULL);
 
-  return priv->font_name;
+  return backend->font_name;
 }
 
 gint32
 _clutter_backend_get_units_serial (ClutterBackend *backend)
 {
-  return backend->priv->units_serial;
+  return backend->units_serial;
 }
 
 gboolean
@@ -1314,26 +1410,22 @@ void
 _clutter_backend_add_event_translator (ClutterBackend         *backend,
                                        ClutterEventTranslator *translator)
 {
-  ClutterBackendPrivate *priv = backend->priv;
-
-  if (g_list_find (priv->event_translators, translator) != NULL)
+  if (g_list_find (backend->event_translators, translator) != NULL)
     return;
 
-  priv->event_translators =
-    g_list_prepend (priv->event_translators, translator);
+  backend->event_translators =
+    g_list_prepend (backend->event_translators, translator);
 }
 
 void
 _clutter_backend_remove_event_translator (ClutterBackend         *backend,
                                           ClutterEventTranslator *translator)
 {
-  ClutterBackendPrivate *priv = backend->priv;
-
-  if (g_list_find (priv->event_translators, translator) == NULL)
+  if (g_list_find (backend->event_translators, translator) == NULL)
     return;
 
-  priv->event_translators =
-    g_list_remove (priv->event_translators, translator);
+  backend->event_translators =
+    g_list_remove (backend->event_translators, translator);
 }
 
 /**
@@ -1362,7 +1454,7 @@ clutter_backend_get_cogl_context (ClutterBackend *backend)
   return backend->cogl_context;
 }
 
-#ifdef HAVE_CLUTTER_WAYLAND_COMPOSITOR
+#ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
 /**
  * clutter_wayland_set_compositor_display:
  * @display: A compositor side struct wl_display pointer
@@ -1389,10 +1481,40 @@ clutter_wayland_set_compositor_display (void *display)
 
 /**
  * clutter_set_windowing_backend:
- * @backend_type: the name of a clutter window backend
+ * @backend_type: a comma separated list of windowing backends
  *
- * Restricts clutter to only use the specified backend.
- * This must be called before the first API call to clutter, including
+ * Restricts Clutter to only use the specified backend or list of backends.
+ *
+ * You can use one of the `CLUTTER_WINDOWING_*` symbols, e.g.
+ *
+ * |[<!-- language="C" -->
+ *   clutter_set_windowing_backend (CLUTTER_WINDOWING_X11);
+ * ]|
+ *
+ * Will force Clutter to use the X11 windowing and input backend, and terminate
+ * if the X11 backend could not be initialized successfully.
+ *
+ * Since Clutter 1.26, you can also use a comma-separated list of windowing
+ * system backends to provide a fallback in case backends are not available or
+ * enabled, e.g.:
+ *
+ * |[<!-- language="C" -->
+ *   clutter_set_windowing_backend ("gdk,wayland,x11");
+ * ]|
+ *
+ * Will make Clutter test for the GDK, Wayland, and X11 backends in that order.
+ *
+ * You can use the `*` special value to ask Clutter to use the internally
+ * defined list of backends. For instance:
+ *
+ * |[<!-- language="C" -->
+ *   clutter_set_windowing_backend ("x11,wayland,*");
+ * ]|
+ *
+ * Will make Clutter test the X11 and Wayland backends, and then fall back
+ * to the internal list of available backends.
+ *
+ * This function must be called before the first API call to Clutter, including
  * clutter_get_option_context()
  *
  * Since: 1.16
@@ -1402,7 +1524,14 @@ clutter_set_windowing_backend (const char *backend_type)
 {
   g_return_if_fail (backend_type != NULL);
 
-  allowed_backend = g_intern_string (backend_type);
+  allowed_backends = g_strdup (backend_type);
+}
+
+void
+clutter_try_set_windowing_backend (const char *backend_type)
+{
+  if (allowed_backends == NULL)
+    clutter_set_windowing_backend (backend_type);
 }
 
 PangoDirection
@@ -1415,4 +1544,37 @@ _clutter_backend_get_keymap_direction (ClutterBackend *backend)
     return klass->get_keymap_direction (backend);
 
   return PANGO_DIRECTION_NEUTRAL;
+}
+
+void
+_clutter_backend_reset_cogl_framebuffer (ClutterBackend *backend)
+{
+  if (backend->dummy_onscreen == COGL_INVALID_HANDLE)
+    {
+      CoglError *internal_error = NULL;
+
+      backend->dummy_onscreen = cogl_onscreen_new (backend->cogl_context, 1, 1);
+
+      if (!cogl_framebuffer_allocate (COGL_FRAMEBUFFER (backend->dummy_onscreen),
+                                      &internal_error))
+        {
+          g_critical ("Unable to create dummy onscreen: %s", internal_error->message);
+          cogl_error_free (internal_error);
+          return;
+        }
+    }
+
+  cogl_set_framebuffer (COGL_FRAMEBUFFER (backend->dummy_onscreen));
+}
+
+void
+clutter_set_allowed_drivers (const char *drivers)
+{
+  if (_clutter_context_is_initialized ())
+    {
+      g_warning ("Clutter has already been initialized.\n");
+      return;
+    }
+
+  allowed_drivers = g_strdup (drivers);
 }

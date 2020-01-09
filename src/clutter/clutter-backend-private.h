@@ -46,9 +46,18 @@ struct _ClutterBackend
   CoglContext *cogl_context;
   GSource *cogl_source;
 
+  CoglOnscreen *dummy_onscreen;
+
   ClutterDeviceManager *device_manager;
 
-  ClutterBackendPrivate *priv;
+  cairo_font_options_t *font_options;
+
+  gchar *font_name;
+
+  gfloat units_per_em;
+  gint32 units_serial;
+
+  GList *event_translators;
 };
 
 struct _ClutterBackendClass
@@ -141,6 +150,12 @@ gfloat                  _clutter_backend_get_units_per_em               (Clutter
 gint32                  _clutter_backend_get_units_serial               (ClutterBackend         *backend);
 
 PangoDirection          _clutter_backend_get_keymap_direction           (ClutterBackend         *backend);
+
+void                    _clutter_backend_reset_cogl_framebuffer         (ClutterBackend         *backend);
+
+void                    clutter_set_allowed_drivers                     (const char             *drivers);
+
+void                    clutter_try_set_windowing_backend               (const char             *drivers);
 
 G_END_DECLS
 

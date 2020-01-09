@@ -67,6 +67,7 @@ static const char *clutter_input_axis_atom_names[] = {
 static Atom clutter_input_axis_atoms[N_AXIS_ATOMS] = { 0, };
 
 static void clutter_event_translator_iface_init (ClutterEventTranslatorIface *iface);
+static void clutter_event_extender_iface_init   (ClutterEventExtenderInterface *iface);
 
 #define clutter_device_manager_xi2_get_type     _clutter_device_manager_xi2_get_type
 
@@ -74,7 +75,39 @@ G_DEFINE_TYPE_WITH_CODE (ClutterDeviceManagerXI2,
                          clutter_device_manager_xi2,
                          CLUTTER_TYPE_DEVICE_MANAGER,
                          G_IMPLEMENT_INTERFACE (CLUTTER_TYPE_EVENT_TRANSLATOR,
-                                                clutter_event_translator_iface_init));
+                                                clutter_event_translator_iface_init)
+                         G_IMPLEMENT_INTERFACE (CLUTTER_TYPE_EVENT_EXTENDER,
+                                                clutter_event_extender_iface_init))
+
+static void
+clutter_device_manager_x11_copy_event_data (ClutterEventExtender *event_extender,
+                                            const ClutterEvent   *src,
+                                            ClutterEvent         *dest)
+{
+  gpointer event_x11;
+
+  event_x11 = _clutter_event_get_platform_data (src);
+  if (event_x11 != NULL)
+    _clutter_event_set_platform_data (dest, _clutter_event_x11_copy (event_x11));
+}
+
+static void
+clutter_device_manager_x11_free_event_data (ClutterEventExtender *event_extender,
+                                            ClutterEvent         *event)
+{
+  gpointer event_x11;
+
+  event_x11 = _clutter_event_get_platform_data (event);
+  if (event_x11 != NULL)
+    _clutter_event_x11_free (event_x11);
+}
+
+static void
+clutter_event_extender_iface_init (ClutterEventExtenderInterface *iface)
+{
+  iface->copy_event_data = clutter_device_manager_x11_copy_event_data;
+  iface->free_event_data = clutter_device_manager_x11_free_event_data;
+}
 
 static void
 translate_valuator_class (Display             *xdisplay,
@@ -222,19 +255,70 @@ is_touch_device (XIAnyClassInfo         **classes,
   return FALSE;
 }
 
-static void
-update_client_pointer (ClutterDeviceManagerXI2 *manager_xi2)
+static gboolean
+is_touchpad_device (ClutterBackendX11 *backend_x11,
+                    XIDeviceInfo      *info)
 {
-  ClutterBackendX11 *backend_x11;
-  int device_id;
+  gulong nitems, bytes_after;
+  guint32 *data = NULL;
+  int rc, format;
+  Atom type;
+  Atom prop;
 
-  backend_x11 =
-    CLUTTER_BACKEND_X11 (_clutter_device_manager_get_backend (CLUTTER_DEVICE_MANAGER (manager_xi2)));
+  prop = XInternAtom (backend_x11->xdpy, "libinput Tapping Enabled", True);
+  if (prop == None)
+    return FALSE;
 
-  XIGetClientPointer (backend_x11->xdpy, None, &device_id);
+  clutter_x11_trap_x_errors ();
+  rc = XIGetProperty (backend_x11->xdpy,
+                      info->deviceid,
+                      prop,
+                      0, 1, False, XA_INTEGER, &type, &format, &nitems, &bytes_after,
+                      (guchar **) &data);
+  clutter_x11_untrap_x_errors ();
 
-  manager_xi2->client_pointer = g_hash_table_lookup (manager_xi2->devices_by_id,
-                                                     GINT_TO_POINTER (device_id));
+  /* We don't care about the data */
+  XFree (data);
+
+  if (rc != Success || type != XA_INTEGER || format != 8 || nitems != 1)
+    return FALSE;
+
+  return TRUE;
+}
+
+static gboolean
+get_device_ids (ClutterBackendX11  *backend_x11,
+                XIDeviceInfo       *info,
+                gchar             **vendor_id,
+                gchar             **product_id)
+{
+  gulong nitems, bytes_after;
+  guint32 *data = NULL;
+  int rc, format;
+  Atom type;
+
+  clutter_x11_trap_x_errors ();
+  rc = XIGetProperty (backend_x11->xdpy,
+                      info->deviceid,
+                      XInternAtom (backend_x11->xdpy, "Device Product ID", False),
+                      0, 2, False, XA_INTEGER, &type, &format, &nitems, &bytes_after,
+                      (guchar **) &data);
+  clutter_x11_untrap_x_errors ();
+
+  if (rc != Success || type != XA_INTEGER || format != 32 || nitems != 2)
+    {
+      XFree (data);
+      return FALSE;
+    }
+
+  if (vendor_id)
+    *vendor_id = g_strdup_printf ("%.4x", data[0]);
+  if (product_id)
+    *product_id = g_strdup_printf ("%.4x", data[1]);
+
+  XFree (data);
+
+  return TRUE;
 }
 
 static ClutterInputDevice *
@@ -247,9 +331,16 @@ create_device (ClutterDeviceManagerXI2 *manager_xi2,
   ClutterInputMode mode;
   gboolean is_enabled;
   guint num_touches = 0;
+  gchar *vendor_id = NULL, *product_id = NULL;
 
   if (info->use == XIMasterKeyboard || info->use == XISlaveKeyboard)
-    source = CLUTTER_KEYBOARD_DEVICE;
+    {
+      source = CLUTTER_KEYBOARD_DEVICE;
+    }
+  else if (is_touchpad_device (backend_x11, info))
+    {
+      source = CLUTTER_TOUCHPAD_DEVICE;
+    }
   else if (info->use == XISlavePointer &&
            is_touch_device (info->classes, info->num_classes,
                             &touch_source,
@@ -269,6 +360,8 @@ create_device (ClutterDeviceManagerXI2 *manager_xi2,
         source = CLUTTER_CURSOR_DEVICE;
       else if (strstr (name, "wacom") != NULL || strstr (name, "pen") != NULL)
         source = CLUTTER_PEN_DEVICE;
+      else if (strstr (name, "touchpad") != NULL)
+        source = CLUTTER_TOUCHPAD_DEVICE;
       else
         source = CLUTTER_POINTER_DEVICE;
 
@@ -296,6 +389,10 @@ create_device (ClutterDeviceManagerXI2 *manager_xi2,
       break;
     }
 
+  if (info->use != XIMasterKeyboard &&
+      info->use != XIMasterPointer)
+    get_device_ids (backend_x11, info, &vendor_id, &product_id);
+
   retval = g_object_new (CLUTTER_TYPE_INPUT_DEVICE_XI2,
                          "name", info->name,
                          "id", info->deviceid,
@@ -305,11 +402,15 @@ create_device (ClutterDeviceManagerXI2 *manager_xi2,
                          "device-mode", mode,
                          "backend", backend_x11,
                          "enabled", is_enabled,
+                         "vendor-id", vendor_id,
+                         "product-id", product_id,
                          NULL);
 
   translate_device_classes (backend_x11->xdpy, retval,
                             info->classes,
                             info->num_classes);
+  g_free (vendor_id);
+  g_free (product_id);
 
   CLUTTER_NOTE (BACKEND, "Created device '%s' (id: %d, has-cursor: %s)",
                 info->name,
@@ -673,8 +774,8 @@ translate_coords (ClutterStageX11 *stage_x11,
 
   clutter_actor_get_size (stage, &stage_width, &stage_height);
 
-  *x_out = CLAMP (event_x, 0, stage_width)  / stage_x11->scale_factor;
-  *y_out = CLAMP (event_y, 0, stage_height) / stage_x11->scale_factor;
+  *x_out = CLAMP (event_x / stage_x11->scale_factor, 0, stage_width);
+  *y_out = CLAMP (event_y / stage_x11->scale_factor, 0, stage_height);
 }
 
 static gdouble
@@ -814,7 +915,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
         XIHierarchyEvent *xev = (XIHierarchyEvent *) xi_event;
 
         translate_hierarchy_event (backend_x11, manager_xi2, xev);
-        update_client_pointer (manager_xi2);
       }
       retval = CLUTTER_TRANSLATE_REMOVE;
       break;
@@ -838,8 +938,6 @@ clutter_device_manager_xi2_translate_event (ClutterEventTranslator *translator,
 
         if (source_device)
           _clutter_input_device_reset_scroll_info (source_device);
-
-        update_client_pointer (manager_xi2);
       }
       retval = CLUTTER_TRANSLATE_REMOVE;
       break;
@@ -1389,14 +1487,29 @@ clutter_device_manager_xi2_get_core_device (ClutterDeviceManager   *manager,
                                             ClutterInputDeviceType  device_type)
 {
   ClutterDeviceManagerXI2 *manager_xi2 = CLUTTER_DEVICE_MANAGER_XI2 (manager);
+  ClutterInputDevice *pointer = NULL;
+  GList *l;
+
+  for (l = manager_xi2->master_devices; l != NULL ; l = l->next)
+    {
+      ClutterInputDevice *device = l->data;
+      if (clutter_input_device_get_device_type (device) == CLUTTER_POINTER_DEVICE)
+        {
+          pointer = device;
+          break;
+        }
+    }
+
+  if (pointer == NULL)
+    return NULL;
 
   switch (device_type)
     {
     case CLUTTER_POINTER_DEVICE:
-      return manager_xi2->client_pointer;
+      return pointer;
 
     case CLUTTER_KEYBOARD_DEVICE:
-      return clutter_input_device_get_associated_device (manager_xi2->client_pointer);
+      return clutter_input_device_get_associated_device (pointer);
 
     default:
       break;
@@ -1500,7 +1613,6 @@ clutter_device_manager_xi2_constructed (GObject *gobject)
                                             &event_mask);
 
   XSync (backend_x11->xdpy, False);
-  update_client_pointer (manager_xi2);
 
   if (G_OBJECT_CLASS (clutter_device_manager_xi2_parent_class)->constructed)
     G_OBJECT_CLASS (clutter_device_manager_xi2_parent_class)->constructed (gobject);

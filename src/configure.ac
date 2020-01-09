@@ -9,7 +9,7 @@
 # - increase clutter_micro_version to the next odd number
 # - increase clutter_interface_version to the next odd number
 m4_define([clutter_major_version], [1])
-m4_define([clutter_minor_version], [20])
+m4_define([clutter_minor_version], [26])
 m4_define([clutter_micro_version], [0])
 
 # • for stable releases: increase the interface age by 1 for each release;
@@ -113,9 +113,6 @@ AM_CONDITIONAL(OS_WIN32, [test "$platform_win32" = "yes"])
 AC_CHECK_HEADER([OpenGL/gl.h], [platform_quartz=yes], [platform_quartz=no])
 AM_CONDITIONAL(OS_QUARTZ, [test "$platform_quartz" = "yes"])
 
-AC_CHECK_HEADER([GL/glx.h], [platform_glx=yes], [platform_glx=no])
-AC_CHECK_LIB([GL], [glXCreateContext], [platform_glx=yes], [platform_glx=no])
-AM_CONDITIONAL(OS_GLX, [test "$platform_glx" = "yes"])
 AM_CONDITIONAL(OS_LINUX, [test "$platform_linux" = "yes"])
 
 AC_SUBST(CLUTTER_LT_LDFLAGS)
@@ -130,23 +127,23 @@ AM_PROG_CC_C_O
 # require libtool >= 2.2
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
+LT_LIB_M
 
 # Checks for header files.
 AC_HEADER_STDC
 
 # required versions for dependencies
-m4_define([glib_req_version],           [2.37.3])
-m4_define([cogl_req_version],           [1.17.5])
+m4_define([glib_req_version],           [2.44.0])
+m4_define([cogl_req_version],           [1.21.2])
 m4_define([json_glib_req_version],      [0.12.0])
 m4_define([atk_req_version],            [2.5.3])
-m4_define([cairo_req_version],          [1.12.0])
+m4_define([cairo_req_version],          [1.14.0])
 m4_define([pango_req_version],          [1.30])
-m4_define([gi_req_version],             [0.9.5])
-m4_define([uprof_req_version],          [0.3])
+m4_define([gi_req_version],             [1.39.0])
 m4_define([gtk_doc_req_version],        [1.20])
 m4_define([xcomposite_req_version],     [0.4])
 m4_define([gdk_req_version],            [3.3.18])
-m4_define([libinput_req_version],       [0.4.0])
+m4_define([libinput_req_version],       [0.19.0])
 m4_define([libudev_req_version],        [136])
 
 AC_SUBST([GLIB_REQ_VERSION],       [glib_req_version])
@@ -156,7 +153,6 @@ AC_SUBST([ATK_REQ_VERSION],        [atk_req_version])
 AC_SUBST([CAIRO_REQ_VERSION],      [cairo_req_version])
 AC_SUBST([PANGO_REQ_VERSION],      [pango_req_version])
 AC_SUBST([GI_REQ_VERSION],         [gi_req_version])
-AC_SUBST([UPROF_REQ_VERSION],      [uprof_req_version])
 AC_SUBST([GTK_DOC_REQ_VERSION],    [gtk_doc_req_version])
 AC_SUBST([XCOMPOSITE_REQ_VERSION], [xcomposite_req_version])
 AC_SUBST([GDK_REQ_VERSION],        [gdk_req_version])
@@ -167,7 +163,7 @@ AC_SUBST([LIBUDEV_REQ_VERSION],    [libudev_req_version])
 AM_PATH_GLIB_2_0([glib_req_version],
                  [],
                  [AC_MSG_ERROR([glib-2.0 is required])],
-                 [gobject gthread gmodule-no-export])
+                 [gobject gio gthread gmodule-no-export])
 
 # Check for -Bsymbolic-functions to avoid intra-library PLT jumps
 AC_ARG_ENABLE([Bsymbolic],
@@ -237,7 +233,7 @@ experimental_backend=no
 experimental_input_backend=no
 
 # base dependencies for core
-CLUTTER_BASE_PC_FILES="cogl-1.0 >= $COGL_REQ_VERSION cogl-path-1.0 cairo-gobject >= $CAIRO_REQ_VERSION atk >= $ATK_REQ_VERSION pangocairo >= $PANGO_REQ_VERSION cogl-pango-1.0 json-glib-1.0 >= $JSON_GLIB_REQ_VERSION"
+CLUTTER_BASE_PC_FILES="cogl-1.0 >= $COGL_REQ_VERSION cogl-path-1.0 cairo-gobject >= $CAIRO_REQ_VERSION gio-2.0 >= glib_req_version atk >= $ATK_REQ_VERSION pangocairo >= $PANGO_REQ_VERSION cogl-pango-1.0 json-glib-1.0 >= $JSON_GLIB_REQ_VERSION"
 
 # private base dependencies
 CLUTTER_BASE_PC_FILES_PRIVATE=""
@@ -267,38 +263,53 @@ AC_ARG_ENABLE([gdk-backend],
               [enable_gdk=$enableval],
               [enable_gdk=check])
 AC_ARG_ENABLE([wayland-backend],
-              [AS_HELP_STRING([--enable-wayland-backend=@<:@yes/no@:>@], [Enable the Wayland client backend (default=no)])],
+              [AS_HELP_STRING([--enable-wayland-backend=@<:@yes/no@:>@], [Enable the Wayland client backend (default=check)])],
               [enable_wayland=$enableval],
-              [enable_wayland=no])
+              [enable_wayland=check])
 AC_ARG_ENABLE([egl-backend],
               [AS_HELP_STRING([--enable-egl-backend=@<:@yes/no@:>@], [Enable the EGL framebuffer backend (default=no)])],
               [enable_egl=$enableval],
-              [enable_egl=no])
+              [enable_egl=check])
+AC_ARG_ENABLE([mir-backend],
+              [AS_HELP_STRING([--enable-mir-backend=@<:@yes/no@:>@], [Enable the Mir client backend (default=no)])],
+              [enable_mir=$enableval],
+              [enable_mir=no])
 AC_ARG_ENABLE([cex100-backend],
               [AS_HELP_STRING([--enable-cex100-backend=@<:@yes/no@:>@], [Enable the CEx100 backend (default=no)])],
               [enable_cex100=$enableval],
               [enable_cex100=no])
 
+dnl Additional input backends
+AC_ARG_ENABLE([tslib-input],
+              [AS_HELP_STRING([--enable-tslib-input=@<:@yes/no@:>@], [Enable TSLib for input events (default=no)])],
+              [enable_tslib=$enableval],
+              [enable_tslib=no])
+AC_ARG_ENABLE([evdev-input],
+              [AS_HELP_STRING([--enable-evdev-input=@<:@yes/no@:>@], [Enable evdev for input events (default=check)])],
+              [enable_evdev=$enableval],
+              [enable_evdev=check])
+
 dnl Define default values
-AS_IF([test "x$enable_x11" = "xcheck"],
-      [
-        AS_IF([test "x$platform_glx" = "xyes"], [enable_x11=yes], [enable_x11=no])
-      ])
+AS_IF([test "x$enable_x11" = xcheck], [
+  PKG_CHECK_EXISTS([x11], [enable_x11=yes], [enable_x11=no])
+])
 
-AS_IF([test "x$enable_win32" = "xcheck"],
-      [
-        AS_IF([test "x$platform_win32" = "xyes"], [enable_win32=yes], [enable_win32=no])
-      ])
+AS_IF([test "x$enable_win32" = xcheck], [
+  AS_IF([test "x$platform_win32" = "xyes"], [enable_win32=yes], [enable_win32=no])
+])
 
-AS_IF([test "x$enable_osx" = "xcheck"],
-      [
-        AS_IF([test "x$platform_quartz" = "xyes"], [enable_osx=yes], [enable_osx=no])
-      ])
+AS_IF([test "x$enable_osx" = xcheck], [
+  AS_IF([test "x$platform_quartz" = "xyes"], [enable_osx=yes], [enable_osx=no])
+])
 
-AS_IF([test "x$enable_gdk" = "xcheck"],
-      [
-        PKG_CHECK_EXISTS([gdk-3.0 >= gdk_req_version], [enable_gdk=yes], [enable_gdk=no])
-      ])
+AS_IF([test "x$enable_gdk" = xcheck], [
+  PKG_CHECK_EXISTS([gdk-3.0 >= gdk_req_version], [enable_gdk=yes], [enable_gdk=no])
+])
+
+AS_IF([test "x$enable_egl" = xcheck], [
+  PKG_CHECK_EXISTS([egl], [enable_egl=yes], [enable_egl=no])
+  PKG_CHECK_EXISTS([libinput], [enable_evdev=yes], [enable_evdev=no])
+])
 
 dnl Per-backend rules
 AS_IF([test "x$enable_x11" = "xyes"],
@@ -319,8 +330,6 @@ AS_IF([test "x$enable_x11" = "xyes"],
                            BACKEND_PC_FILES_PRIVATE="$BACKEND_PC_FILES_PRIVATE pangoft2"
                          ],
                          [])
-
-        AC_DEFINE([HAVE_CLUTTER_GLX], [1], [Have the GLX backend])
       ])
 
 AS_IF([test "x$enable_gdk" = "xyes"],
@@ -334,22 +343,55 @@ AS_IF([test "x$enable_gdk" = "xyes"],
 	BACKEND_PC_FILES="$BACKEND_PC_FILES gdk-3.0"
       ])
 
-AS_IF([test "x$enable_wayland" = "xyes"],
+AS_IF([test "x$enable_wayland" != xno],
       [
-        CLUTTER_BACKENDS="$CLUTTER_BACKENDS wayland"
-        CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS wayland"
+        # We need to manually check for Wayland support in Cogl because
+        # the windowing systems are not exposed in the pkg-config file
+        saved_CFLAGS="${CFLAGS}"
+        CFLAGS="`$PKG_CONFIG --cflags cogl-1.0`"
 
-        SUPPORT_WAYLAND=1
-        SUPPORT_COGL=1
+        AC_MSG_CHECKING([for Wayland Cogl backend])
 
-        PKG_CHECK_EXISTS([wayland-client wayland-cursor xkbcommon gdk-pixbuf-2.0],
-                         [
-                            BACKEND_PC_FILES="$BACKEND_PC_FILES wayland-cursor wayland-client xkbcommon"
-                            BACKEND_PC_FILES_PRIVATE="$BACKEND_PC_FILES_PRIVATE gdk-pixbuf-2.0"
-                         ],
-                         [])
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <cogl/cogl.h>
+]],
+[[
+#ifndef COGL_HAS_EGL_PLATFORM_WAYLAND_SUPPORT
+#error Cogl compiled without Wayland support
+#endif
+]])], [
+          AC_MSG_RESULT(yes)
+          have_cogl_wayland=yes
+        ], [
+          AC_MSG_RESULT(no)
+          have_cogl_wayland=no
+        ])
 
-        AC_DEFINE([HAVE_CLUTTER_WAYLAND], [1], [Have the Wayland client backend])
+        CFLAGS="${saved_CFLAGS}"
+        AS_IF([test "x$have_cogl_wayland" = xyes],
+              [
+                PKG_CHECK_EXISTS([wayland-client wayland-cursor xkbcommon gdk-pixbuf-2.0],
+                                 [
+                                   BACKEND_PC_FILES="$BACKEND_PC_FILES wayland-cursor wayland-client xkbcommon"
+                                   BACKEND_PC_FILES_PRIVATE="$BACKEND_PC_FILES_PRIVATE gdk-pixbuf-2.0"
+
+                                   CLUTTER_BACKENDS="$CLUTTER_BACKENDS wayland"
+                                   CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS wayland"
+
+                                   SUPPORT_WAYLAND=1
+                                   SUPPORT_COGL=1
+                                 ],
+                                 [
+                                   AS_IF([test "x$enable_wayland" = xyes],
+                                         [AC_MSG_ERROR(["*** Missing dependencies for Wayland support ***"])],
+                                         [enable_wayland=no])
+                                 ])
+              ],
+              [
+                AS_IF([test "x$enable_wayland" = xyes],
+                      [AC_MSG_ERROR("*** Cogl is missing Wayland support ***")],
+                      [enable_wayland=no])
+              ])
       ])
 
 dnl Note this is orthogonal to the client side support and you can
@@ -374,18 +416,9 @@ AS_IF([test "x$enable_wayland_compositor" = "xyes"],
 
 	CLUTTER_CONFIG_DEFINES="$CLUTTER_CONFIG_DEFINES
 #define CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT 1"
-        AC_DEFINE([HAVE_CLUTTER_WAYLAND_COMPOSITOR], [1], [Have Wayland compositor support])
       ])
 
 AM_CONDITIONAL(SUPPORT_WAYLAND_COMPOSITOR, [test "x$SUPPORT_WAYLAND_COMPOSITOR" = "x1"])
-
-AS_IF([test "x$enable_wayland_compositor" != "xyes" -a "x$enable_wayland" != "xyes"],
-      [
-        # The wayland headers introduce so much symbol shadowing that build
-        # logs become incomprehensible with -Wshadow so we only use it for
-        # non-wayland builds.
-	MAINTAINER_COMPILER_FLAGS="-Wshadow"
-      ])
 
 AS_IF([test "x$enable_cex100" = "xyes"],
       [
@@ -418,14 +451,11 @@ AS_IF([test "x$enable_cex100" = "xyes"],
 
         AC_DEFINE([CLUTTER_EGL_BACKEND_CEX100], [1], [Use CEX100 EGL backend])
         AC_DEFINE([CLUTTER_EGL_BACKEND_GENERIC], [1], [Use Generic EGL backend])
-        AC_DEFINE([HAVE_CLUTTER_EGL], [1], [Have the EGL backend])
       ])
 
 AS_IF([test "x$enable_egl" = "xyes"],
       [
         CLUTTER_BACKENDS="$CLUTTER_BACKENDS egl"
-
-        experimental_backend="yes"
 
         SUPPORT_EGL=1
         SUPPORT_COGL=1
@@ -434,16 +464,12 @@ AS_IF([test "x$enable_egl" = "xyes"],
         FLAVOUR_CFLAGS="$FLAVOUR_CFLAGS $TSLIB_CFLAGS $EVDEV_CFLAGS"
 
         AC_DEFINE([CLUTTER_EGL_BACKEND_GENERIC], [1], [Use Generic EGL backend])
-
-        AC_DEFINE([HAVE_CLUTTER_EGL], [1], [Have the EGL backend])
       ])
 
 AS_IF([test "x$enable_osx" = "xyes"],
       [
         CLUTTER_BACKENDS="$CLUTTER_BACKENDS osx"
         CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS osx"
-
-        AC_DEFINE([HAVE_CLUTTER_OSX], [1], [Have the OSX backend])
 
         FLAVOUR_LIBS="$FLAVOUR_LIBS -framework Cocoa -framework OpenGL"
 
@@ -455,14 +481,49 @@ AS_IF([test "x$enable_win32" = "xyes"],
         CLUTTER_BACKENDS="$CLUTTER_BACKENDS win32"
         CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS win32"
 
-        AC_DEFINE([HAVE_CLUTTER_WIN32], [1], [Have the Win32 backend])
-
         FLAVOUR_LIBS="$FLAVOUR_LIBS -lopengl32 -lgdi32 -lwinmm"
         FLAVOUR_CFLAGS="$FLAVOUR_CFLAGS -D_WIN32_WINNT=0x0500"
 
         AC_CHECK_TOOL(WINDRES, [windres], [AC_MSG_ERROR([*** windres is required])])
 
         SUPPORT_WIN32=1
+      ])
+
+AS_IF([test "x$enable_mir" = "xyes"],
+      [
+        CLUTTER_BACKENDS="$CLUTTER_BACKENDS mir"
+        CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS mir"
+
+        SUPPORT_MIR=1
+        SUPPORT_COGL=1
+
+        # We need to manually check for Mir support in Cogl because
+        # the windowing systems are not exposed in the pkg-config file
+        saved_CFLAGS="${CFLAGS}"
+        CFLAGS="`$PKG_CONFIG --cflags cogl-1.0`"
+
+        AC_MSG_CHECKING([for Mir Cogl backend])
+
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <cogl/cogl.h>
+]],
+[[
+#ifndef COGL_HAS_EGL_PLATFORM_MIR_SUPPORT
+#error Cogl compiled without Mir support
+#endif
+]])], [
+          AC_MSG_RESULT(yes)
+          have_cogl_mir=yes
+        ], [
+          AC_MSG_RESULT(no)
+          have_cogl_mir=no
+        ])
+
+        AS_IF([test "x$have_cogl_mir" = xno], [AC_MSG_ERROR("*** Cogl is missing Mir support.")])
+
+        PKG_CHECK_EXISTS([mirclient],
+                         [BACKEND_PC_FILES="$BACKEND_PC_FILES mirclient"],
+                         [])
       ])
 
 AS_IF([test "x$CLUTTER_BACKENDS" = "x"],
@@ -475,40 +536,25 @@ AS_IF([test "x$platform_linux" = "xyes"],
         AC_DEFINE([OS_LINUX], [1], [Define to 1 if building for Linux])
       ])
 
-# additional input backends
+AS_IF([test "x$enable_tslib" = xyes], [
+  PKG_CHECK_EXISTS([tslib-1.0], [have_tslib=yes], [have_tslib=no])
+  AS_IF([test "x$have_tslib" = xyes], [
+    CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS tslib"
+    experimental_input_backend="yes"
+    AC_DEFINE([HAVE_TSLIB], [1], [Have tslib for touchscreen handling])
+    SUPPORT_TSLIB=1
+  ])
+])
 
-AC_ARG_ENABLE([tslib-input],
-              [AS_HELP_STRING([--enable-tslib-input=@<:@yes/no@:>@], [Enable TSLib for input events (default=no)])],
-              [enable_tslib=$enableval],
-              [enable_tslib=no])
-AC_ARG_ENABLE([evdev-input],
-              [AS_HELP_STRING([--enable-evdev-input=@<:@yes/no@:>@], [Enable evdev for input events (default=no)])],
-              [enable_evdev=$enableval],
-              [enable_evdev=no])
-
-AS_IF([test "x$enable_tslib" = "xyes"],
-      [
-        PKG_CHECK_MODULES(TSLIB, [tslib-1.0], [have_tslib=yes], [have_tslib=no])
-        AS_IF([test "x$have_tslib" = "xyes"],
-              [
-                CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS tslib"
-                experimental_input_backend="yes"
-                AC_DEFINE([HAVE_TSLIB], [1], [Have tslib for touchscreen handling])
-                SUPPORT_TSLIB=1
-              ])
-      ])
-
-AS_IF([test "x$enable_evdev" = "xyes"],
-      [
-        PKG_CHECK_MODULES(EVDEV, [gudev-1.0 xkbcommon], [have_evdev=yes], [have_evdev=no])
-        AS_IF([test "x$have_evdev" = "xyes"],
-              [
-                CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS evdev"
-                BACKEND_PC_FILES_PRIVATE="$BACKEND_PC_FILES_PRIVATE libudev >= $LIBUDEV_REQ_VERSION libinput >= $LIBINPUT_REQ_VERSION xkbcommon"
-                AC_DEFINE([HAVE_EVDEV], [1], [Have evdev support for input handling])
-                SUPPORT_EVDEV=1
-              ])
-      ])
+AS_IF([test "x$enable_evdev" = xyes], [
+  PKG_CHECK_EXISTS([libinput gudev-1.0 xkbcommon], [have_evdev=yes], [have_evdev=no])
+  AS_IF([test "x$have_evdev" = "xyes"], [
+    CLUTTER_INPUT_BACKENDS="$CLUTTER_INPUT_BACKENDS evdev"
+    BACKEND_PC_FILES_PRIVATE="$BACKEND_PC_FILES_PRIVATE libudev >= $LIBUDEV_REQ_VERSION libinput >= $LIBINPUT_REQ_VERSION xkbcommon"
+    AC_DEFINE([HAVE_EVDEV], [1], [Have evdev support for input handling])
+    SUPPORT_EVDEV=1
+  ])
+])
 
 # conditionals for use in automake files...
 AM_CONDITIONAL(SUPPORT_GLX,     [test "x$SUPPORT_GLX" = "x1"])
@@ -519,6 +565,7 @@ AM_CONDITIONAL(SUPPORT_OSX,     [test "x$SUPPORT_OSX" = "x1"])
 AM_CONDITIONAL(SUPPORT_WIN32,   [test "x$SUPPORT_WIN32" = "x1"])
 AM_CONDITIONAL(SUPPORT_CEX100,  [test "x$SUPPORT_CEX100" = "x1"])
 AM_CONDITIONAL(SUPPORT_WAYLAND, [test "x$SUPPORT_WAYLAND" = "x1"])
+AM_CONDITIONAL(SUPPORT_MIR,     [test "x$SUPPORT_MIR" = "x1"])
 
 AM_CONDITIONAL(USE_COGL,  [test "x$SUPPORT_COGL" = "x1"])
 AM_CONDITIONAL(USE_TSLIB, [test "x$have_tslib" = "xyes"])
@@ -533,6 +580,13 @@ dnl and cogl code we use a define in config.h instead. This helps ensure
 dnl other tools such as glib-mkenums and gir-scanner don't end up
 dnl using the define also.
 AC_DEFINE([COGL_ENABLE_EXPERIMENTAL_2_0_API], [1], [Can use Cogl 2.0 API internally])
+
+AC_ARG_WITH([default-drivers],
+            [AS_HELP_STRING([--with-default-drivers=DRIVER], [Comma-separated list of Cogl drivers to use])],
+            [clutter_drivers=$withval],
+            [clutter_drivers="*"])
+
+AC_DEFINE_UNQUOTED([CLUTTER_DRIVERS], ["$clutter_drivers"], [List of Cogl drivers])
 
 dnl strip leading spaces
 CLUTTER_BACKENDS=${CLUTTER_BACKENDS#* }
@@ -563,6 +617,10 @@ AS_IF([test "x$SUPPORT_EGL" = "x1"],
 AS_IF([test "x$SUPPORT_WAYLAND" = "x1"],
       [CLUTTER_CONFIG_DEFINES="$CLUTTER_CONFIG_DEFINES
 #define CLUTTER_WINDOWING_WAYLAND \"wayland\""])
+AS_IF([test "x$SUPPORT_MIR" = "x1"],
+      [CLUTTER_CONFIG_DEFINES="$CLUTTER_CONFIG_DEFINES
+#define CLUTTER_WINDOWING_MIR \"mir\"
+#define CLUTTER_INPUT_MIR \"mir\""])
 AS_IF([test "x$SUPPORT_OSX" = "x1"],
       [CLUTTER_CONFIG_DEFINES="$CLUTTER_CONFIG_DEFINES
 #define CLUTTER_WINDOWING_OSX \"osx\"
@@ -822,18 +880,6 @@ AS_CASE([$enable_pixbuf],
 
 AM_CONDITIONAL([PIXBUF_TESTS], [test "x$pixbuf_tests" = "xyes"])
 
-# Check for cairo_set_device_scale, as we don't want to depend hard on
-# this until there is a stable release with it
-saved_CFLAGS="$CFLAGS"
-saved_LIBS="$LIBS"
-CAIRO_CFLAGS=`$PKG_CONFIG --cflags cairo`
-CAIRO_LIBS=`$PKG_CONFIG --libs cairo`
-CFLAGS="$CFLAGS $CAIRO_CFLAGS"
-LIBS="$CAIRO_LIBS $LIBS"
-AC_CHECK_FUNCS(cairo_surface_set_device_scale)
-LIBS="$saved_LIBS"
-CFLAGS="$saved_CFLAGS"
-
 dnl === Enable debug level ====================================================
 
 m4_define([debug_default], [m4_if(m4_eval(clutter_minor_version % 2), [1], [yes], [minimum])])
@@ -893,44 +939,6 @@ AS_CASE([$enable_deprecated],
 
 AC_SUBST([CLUTTER_DEPRECATED_CFLAGS])
 
-dnl === Profiling =============================================================
-
-m4_define([profile_default], [no])
-AC_ARG_ENABLE(profile,
-              AS_HELP_STRING([--enable-profile=@<:@no/yes@:>@],
-                             [Turn on profiling support. yes; All profiling probe points are compiled in and may be runtime enabled. no; No profiling support will built into clutter.  @<:@default=no@:>@]),
-              [],
-              [enable_profile=profile_default])
-
-AS_CASE([$enable_profile],
-
-        [yes],
-        [
-          AS_IF([test "x$GCC" = "xyes"],
-                [
-                  PKG_CHECK_MODULES([PROFILE_DEP], [uprof-0.3])
-                  CLUTTER_PROFILE_CFLAGS="-DCLUTTER_ENABLE_PROFILE $PROFILE_DEP_CFLAGS"
-                  CLUTTER_PROFILE_LDFLAGS="$PROFILE_DEP_LIBS"
-
-                  AS_IF([test "x$enable_debug" = "xyes"], [CLUTTER_PROFILE_CFLAGS+=" -DUPROF_DEBUG"])
-                ],
-                [
-                  AC_MSG_ERROR([--enable-profile is currently only supported if using GCC])
-                ])
-        ],
-
-        [no],
-        [
-          CLUTTER_PROFILE_CFLAGS=""
-          CLUTTER_PROFILE_LDFLAGS=""
-        ],
-
-        [*], [AC_MSG_ERROR([Invalid value for --enable-profile])]
-)
-AM_CONDITIONAL(PROFILE, test "x$enable_profile" != "xno")
-AC_SUBST(CLUTTER_PROFILE_CFLAGS)
-AC_SUBST(CLUTTER_PROFILE_LDFLAGS)
-
 dnl === Enable strict compiler flags ==========================================
 
 # use strict compiler flags only when building from git; the rules for
@@ -947,17 +955,27 @@ MAINTAINER_COMPILER_FLAGS="$MAINTAINER_COMPILER_FLAGS
                            -Wcast-align
                            -Wuninitialized
                            -Wno-strict-aliasing
-                           -Werror=logical-op
-                           -Werror=pointer-arith
-                           -Werror=missing-declarations
-                           -Werror=redundant-decls
-                           -Werror=empty-body
-                           -Werror=format
-                           -Werror=format-security
-                           -Werror=format-nonliteral
-                           -Werror=init-self
-                           -Werror=declaration-after-statement
-                           -Werror=vla"
+                           -Wshadow"
+
+AC_ARG_ENABLE([Werror],
+              [AS_HELP_STRING([--disable-Werror], [Removes -Werror from compiler flags])],
+              [],
+              [enable_Werror=yes])
+
+AS_IF([test "x$enable_Werror" = xyes], [
+  MAINTAINER_COMPILER_FLAGS="$MAINTAINER_COMPILER_FLAGS
+                             -Werror=logical-op
+                             -Werror=pointer-arith
+                             -Werror=missing-declarations
+                             -Werror=redundant-decls
+                             -Werror=empty-body
+                             -Werror=format
+                             -Werror=format-security
+                             -Werror=format-nonliteral
+                             -Werror=init-self
+                             -Werror=declaration-after-statement
+                             -Werror=vla"
+])
 
 AS_CASE([$enable_maintainer_flags],
         [yes],
@@ -1006,8 +1024,8 @@ AS_IF([test "x$CLUTTER_BASE_PC_FILES_PRIVATE" = "x" && test "x$BACKEND_PC_FILES_
 AC_SUBST(CLUTTER_REQUIRES)
 AC_SUBST(CLUTTER_REQUIRES_PRIVATE)
 
-CLUTTER_CFLAGS="$FLAVOUR_CFLAGS $CLUTTER_DEPS_CFLAGS $CLUTTER_DEPS_PRIVATE_CFLAGS $CLUTTER_PROFILE_CFLAGS $GLIB_CFLAGS"
-CLUTTER_LIBS="$FLAVOUR_LIBS $CLUTTER_DEPS_LIBS $CLUTTER_DEPS_PRIVATE_LIBS $CLUTTER_PROFILE_LDFLAGS $GLIB_LIBS"
+CLUTTER_CFLAGS="$FLAVOUR_CFLAGS $CLUTTER_DEPS_CFLAGS $CLUTTER_DEPS_PRIVATE_CFLAGS $GLIB_CFLAGS"
+CLUTTER_LIBS="$FLAVOUR_LIBS $CLUTTER_DEPS_LIBS $CLUTTER_DEPS_PRIVATE_LIBS $GLIB_LIBS"
 AC_SUBST(CLUTTER_CFLAGS)
 AC_SUBST(CLUTTER_LIBS)
 
@@ -1204,10 +1222,7 @@ AC_CONFIG_FILES([
 
 	doc/Makefile
 	doc/reference/Makefile
-	doc/reference/clutter/Makefile
-	doc/reference/clutter/clutter-docs.xml
-	doc/reference/cally/Makefile
-	doc/reference/cally/cally-docs.xml
+	doc/reference/clutter-docs.xml
 	doc/common/Makefile
 	doc/cookbook/Makefile
 	doc/cookbook/clutter-cookbook.xml
@@ -1235,7 +1250,6 @@ echo ""
 echo " • Compiler options:"
 echo "        Clutter debug level: ${enable_debug}"
 echo "        Compiler flags: ${CFLAGS} ${MAINTAINER_CFLAGS}"
-echo "        Profiling enabled: ${enable_profile}"
 echo "        Enable coverage tests: ${use_gcov}"
 echo "        Enable deprecated symbols: ${enable_deprecated}"
 
@@ -1273,6 +1287,8 @@ echo "        Input backends: ${CLUTTER_INPUT_BACKENDS}"
 else
 echo "        Input backends: ${CLUTTER_INPUT_BACKENDS} (WARNING: Experimental backends enabled)"
 fi
+
+echo "        Cogl drivers: $clutter_drivers"
 
 if test "x$SUPPORT_X11" = "x1"; then
 echo ""

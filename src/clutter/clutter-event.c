@@ -436,6 +436,16 @@ clutter_event_get_position (const ClutterEvent *event,
     case CLUTTER_SCROLL:
       clutter_point_init (position, event->scroll.x, event->scroll.y);
       break;
+
+    case CLUTTER_TOUCHPAD_PINCH:
+      clutter_point_init (position, event->touchpad_pinch.x,
+                          event->touchpad_pinch.y);
+      break;
+
+    case CLUTTER_TOUCHPAD_SWIPE:
+      clutter_point_init (position, event->touchpad_swipe.x,
+                          event->touchpad_swipe.y);
+      break;
     }
 
 }
@@ -497,6 +507,16 @@ clutter_event_set_coords (ClutterEvent *event,
     case CLUTTER_SCROLL:
       event->scroll.x = x;
       event->scroll.y = y;
+      break;
+
+    case CLUTTER_TOUCHPAD_PINCH:
+      event->touchpad_pinch.x = x;
+      event->touchpad_pinch.y = y;
+      break;
+
+    case CLUTTER_TOUCHPAD_SWIPE:
+      event->touchpad_swipe.x = x;
+      event->touchpad_swipe.y = y;
       break;
     }
 }
@@ -1097,6 +1117,11 @@ clutter_event_set_device (ClutterEvent       *event,
     case CLUTTER_KEY_RELEASE:
       event->key.device = device;
       break;
+
+    case CLUTTER_TOUCHPAD_PINCH:
+    case CLUTTER_TOUCHPAD_SWIPE:
+      /* Rely on priv data for these */
+      break;
     }
 }
 
@@ -1170,6 +1195,11 @@ clutter_event_get_device (const ClutterEvent *event)
     case CLUTTER_KEY_PRESS:
     case CLUTTER_KEY_RELEASE:
       device = event->key.device;
+      break;
+
+    case CLUTTER_TOUCHPAD_PINCH:
+    case CLUTTER_TOUCHPAD_SWIPE:
+      /* Rely on priv data for these */
       break;
     }
 
@@ -1608,6 +1638,10 @@ clutter_event_get_axes (const ClutterEvent *event,
     case CLUTTER_MOTION:
       retval = event->motion.axes;
       break;
+
+    case CLUTTER_TOUCHPAD_PINCH:
+    case CLUTTER_TOUCHPAD_SWIPE:
+      break;
     }
 
   if (retval != NULL)
@@ -1842,4 +1876,168 @@ clutter_event_remove_filter (guint id)
     }
 
   g_warning ("No event filter found for id: %d\n", id);
+}
+
+/**
+ * clutter_event_get_gesture_swipe_finger_count:
+ * @event: a touchpad swipe event
+ *
+ * Returns the number of fingers that is triggering the touchpad gesture.
+ *
+ * Returns: the number of fingers swiping.
+ *
+ * Since: 1.24
+ **/
+guint
+clutter_event_get_gesture_swipe_finger_count (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, 0);
+  g_return_val_if_fail (event->type == CLUTTER_TOUCHPAD_SWIPE, 0);
+
+  return event->touchpad_swipe.n_fingers;
+}
+
+/**
+ * clutter_event_get_gesture_pinch_angle_delta:
+ * @event: a touchpad pinch event
+ *
+ * Returns the angle delta reported by this specific event.
+ *
+ * Returns: The angle delta relative to the previous event.
+ *
+ * Since: 1.24
+ **/
+gdouble
+clutter_event_get_gesture_pinch_angle_delta (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, 0);
+  g_return_val_if_fail (event->type == CLUTTER_TOUCHPAD_PINCH, 0);
+
+  return event->touchpad_pinch.angle_delta;
+}
+
+/**
+ * clutter_event_get_gesture_pinch_scale:
+ * @event: a touchpad pinch event
+ *
+ * Returns the current scale as reported by @event, 1.0 being the original
+ * distance at the time the corresponding event with phase
+ * %CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN is received.
+ * is received.
+ *
+ * Returns: the current pinch gesture scale
+ *
+ * Since: 1.24
+ **/
+gdouble
+clutter_event_get_gesture_pinch_scale (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, 0);
+  g_return_val_if_fail (event->type == CLUTTER_TOUCHPAD_PINCH, 0);
+
+  return event->touchpad_pinch.scale;
+}
+
+/**
+ * clutter_event_get_gesture_phase:
+ * @event: a touchpad gesture event
+ *
+ * Returns the phase of the event, See #ClutterTouchpadGesturePhase.
+ *
+ * Returns: the phase of the gesture event.
+ **/
+ClutterTouchpadGesturePhase
+clutter_event_get_gesture_phase (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, 0);
+  g_return_val_if_fail (event->type == CLUTTER_TOUCHPAD_PINCH ||
+                        event->type == CLUTTER_TOUCHPAD_SWIPE, 0);
+
+  if (event->type == CLUTTER_TOUCHPAD_PINCH)
+    return event->touchpad_pinch.phase;
+  else if (event->type == CLUTTER_TOUCHPAD_SWIPE)
+    return event->touchpad_swipe.phase;
+
+  /* Shouldn't ever happen */
+  return CLUTTER_TOUCHPAD_GESTURE_PHASE_BEGIN;
+};
+
+/**
+ * clutter_event_get_gesture_motion_delta:
+ * @event: A clutter touchpad gesture event
+ * @dx: (out) (allow-none): the displacement relative to the pointer
+ *      position in the X axis, or %NULL
+ * @dy: (out) (allow-none): the displacement relative to the pointer
+ *      position in the Y axis, or %NULL
+ *
+ * Returns the gesture motion deltas relative to the current pointer
+ * position.
+ *
+ * Since: 1.24
+ **/
+void
+clutter_event_get_gesture_motion_delta (const ClutterEvent *event,
+                                        gdouble            *dx,
+                                        gdouble            *dy)
+{
+  g_return_if_fail (event != NULL);
+  g_return_if_fail (event->type == CLUTTER_TOUCHPAD_PINCH ||
+                    event->type == CLUTTER_TOUCHPAD_SWIPE);
+
+  if (event->type == CLUTTER_TOUCHPAD_PINCH)
+    {
+      if (dx)
+        *dx = event->touchpad_pinch.dx;
+      if (dy)
+        *dy = event->touchpad_pinch.dy;
+    }
+  else if (event->type == CLUTTER_TOUCHPAD_SWIPE)
+    {
+      if (dx)
+        *dx = event->touchpad_swipe.dx;
+      if (dy)
+        *dy = event->touchpad_swipe.dy;
+    }
+}
+
+/**
+ * clutter_event_get_scroll_source:
+ * @event: an scroll event
+ *
+ * Returns the #ClutterScrollSource that applies to an scroll event.
+ *
+ * Returns: The source of scroll events
+ *
+ * Since: 1.26
+ **/
+ClutterScrollSource
+clutter_event_get_scroll_source (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, CLUTTER_SCROLL_SOURCE_UNKNOWN);
+  g_return_val_if_fail (event->type == CLUTTER_SCROLL,
+                        CLUTTER_SCROLL_SOURCE_UNKNOWN);
+
+  return event->scroll.scroll_source;
+}
+
+/**
+ * clutter_event_get_scroll_finish_flags:
+ * @event: an scroll event
+ *
+ * Returns the #ClutterScrollFinishFlags of an scroll event. Those
+ * can be used to determine whether post-scroll effects like kinetic
+ * scrolling should be applied.
+ *
+ * Returns: The scroll finish flags
+ *
+ * Since: 1.26
+ **/
+ClutterScrollFinishFlags
+clutter_event_get_scroll_finish_flags (const ClutterEvent *event)
+{
+  g_return_val_if_fail (event != NULL, CLUTTER_SCROLL_SOURCE_UNKNOWN);
+  g_return_val_if_fail (event->type == CLUTTER_SCROLL,
+                        CLUTTER_SCROLL_SOURCE_UNKNOWN);
+
+  return event->scroll.finish_flags;
 }

@@ -22,15 +22,16 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __CLUTTER_ACTOR_H__
+#define __CLUTTER_ACTOR_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
 
-#ifndef __CLUTTER_ACTOR_H__
-#define __CLUTTER_ACTOR_H__
-
 /* clutter-actor.h */
 
+#include <gio/gio.h>
 #include <pango/pango.h>
 #include <atk/atk.h>
 
@@ -54,8 +55,14 @@ G_BEGIN_DECLS
  * @f: the #ClutterActorFlags to set
  *
  * Sets the given flags on a #ClutterActor
+ *
+ * Deprecated: 1.24: Changing flags directly is heavily discouraged in
+ *   newly written code. #ClutterActor will take care of setting the
+ *   internal state.
  */
-#define CLUTTER_ACTOR_SET_FLAGS(a,f)    (((ClutterActor*)(a))->flags |= (f))
+#define CLUTTER_ACTOR_SET_FLAGS(a,f) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24 \
+  (((ClutterActor*)(a))->flags |= (f))
 
 /**
  * CLUTTER_ACTOR_UNSET_FLAGS:
@@ -63,13 +70,30 @@ G_BEGIN_DECLS
  * @f: the #ClutterActorFlags to unset
  *
  * Unsets the given flags on a #ClutterActor
+ *
+ * Deprecated: 1.24: Changing flags directly is heavily discouraged in
+ *   newly written code. #ClutterActor will take care of unsetting the
+ *   internal state.
  */
-#define CLUTTER_ACTOR_UNSET_FLAGS(a,f)  (((ClutterActor*)(a))->flags &= ~(f))
+#define CLUTTER_ACTOR_UNSET_FLAGS(a,f) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24 \
+  (((ClutterActor*)(a))->flags &= ~(f))
 
-#define CLUTTER_ACTOR_IS_MAPPED(a)      ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_MAPPED) != FALSE)
-#define CLUTTER_ACTOR_IS_REALIZED(a)    ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_REALIZED) != FALSE)
-#define CLUTTER_ACTOR_IS_VISIBLE(a)     ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_VISIBLE) != FALSE)
-#define CLUTTER_ACTOR_IS_REACTIVE(a)    ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_REACTIVE) != FALSE)
+#define CLUTTER_ACTOR_IS_MAPPED(a) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24_FOR ("Deprecated macro. Use clutter_actor_is_mapped instead") \
+  ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_MAPPED) != FALSE)
+
+#define CLUTTER_ACTOR_IS_REALIZED(a) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24_FOR ("Deprecated macro. Use clutter_actor_is_realized instead") \
+  ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_REALIZED) != FALSE)
+
+#define CLUTTER_ACTOR_IS_VISIBLE(a) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24_FOR ("Deprecated macro. Use clutter_actor_is_visible instead") \
+  ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_VISIBLE) != FALSE)
+
+#define CLUTTER_ACTOR_IS_REACTIVE(a) \
+  CLUTTER_MACRO_DEPRECATED_IN_1_24_FOR ("Deprecated macro. Use clutter_actor_get_reactive instead") \
+  ((((ClutterActor*)(a))->flags & CLUTTER_ACTOR_REACTIVE) != FALSE)
 
 typedef struct _ClutterActorClass    ClutterActorClass;
 typedef struct _ClutterActorPrivate  ClutterActorPrivate;
@@ -344,6 +368,13 @@ CLUTTER_AVAILABLE_IN_ALL
 const gchar *                   clutter_actor_get_name                          (ClutterActor                *self);
 CLUTTER_AVAILABLE_IN_ALL
 AtkObject *                     clutter_actor_get_accessible                    (ClutterActor                *self);
+
+CLUTTER_AVAILABLE_IN_1_24
+gboolean                        clutter_actor_is_visible                        (ClutterActor                *self);
+CLUTTER_AVAILABLE_IN_1_24
+gboolean                        clutter_actor_is_mapped                         (ClutterActor                *self);
+CLUTTER_AVAILABLE_IN_1_24
+gboolean                        clutter_actor_is_realized                       (ClutterActor                *self);
 
 /* Size negotiation */
 CLUTTER_AVAILABLE_IN_ALL
@@ -829,7 +860,44 @@ void                            clutter_actor_remove_all_transitions            
 #ifdef CLUTTER_ENABLE_EXPERIMENTAL_API
 CLUTTER_AVAILABLE_IN_1_16
 gboolean                        clutter_actor_has_mapped_clones                 (ClutterActor *self);
+CLUTTER_AVAILABLE_IN_1_22
+void                            clutter_actor_set_opacity_override              (ClutterActor               *self,
+                                                                                 gint                        opacity);
+CLUTTER_AVAILABLE_IN_1_22
+gint                            clutter_actor_get_opacity_override              (ClutterActor               *self);
 #endif
+
+/**
+ * ClutterActorCreateChildFunc:
+ * @item: (type GObject): the item in the model
+ * @user_data: Data passed to clutter_actor_bind_model()
+ *
+ * Creates a #ClutterActor using the @item in the model.
+ *
+ * The usual way to implement this function is to create a #ClutterActor
+ * instance and then bind the #GObject properties to the actor properties
+ * of interest, using g_object_bind_property(). This way, when the @item
+ * in the #GListModel changes, the #ClutterActor changes as well.
+ *
+ * Returns: (transfer full): The newly created child #ClutterActor
+ *
+ * Since: 1.24
+ */
+typedef ClutterActor * (* ClutterActorCreateChildFunc) (gpointer item,
+                                                        gpointer user_data);
+
+CLUTTER_AVAILABLE_IN_1_24
+void                            clutter_actor_bind_model                        (ClutterActor               *self,
+                                                                                 GListModel                 *model,
+                                                                                 ClutterActorCreateChildFunc create_child_func,
+                                                                                 gpointer                    user_data,
+                                                                                 GDestroyNotify              notify);
+CLUTTER_AVAILABLE_IN_1_24
+void                            clutter_actor_bind_model_with_properties        (ClutterActor               *self,
+                                                                                 GListModel                 *model,
+                                                                                 GType                       child_type,
+                                                                                 const char                 *first_model_property,
+                                                                                 ...);
 
 G_END_DECLS
 

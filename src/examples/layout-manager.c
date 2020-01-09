@@ -35,6 +35,7 @@ GType multi_layout_get_type (void);
 ClutterLayoutManager *  multi_layout_new                (void);
 void                    multi_layout_set_state          (MultiLayout      *layout,
                                                          MultiLayoutState  state);
+MultiLayoutState        multi_layout_get_state          (MultiLayout      *layout);
 void                    multi_layout_set_spacing        (MultiLayout      *layout,
                                                          float             spacing);
 
@@ -63,7 +64,7 @@ multi_layout_get_preferred_width (ClutterLayoutManager *manager,
     {
       float child_minimum, child_natural;
 
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       clutter_actor_get_preferred_width (child, -1.f,
@@ -119,7 +120,7 @@ multi_layout_get_preferred_height (ClutterLayoutManager *manager,
     {
       float child_minimum, child_natural;
 
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       clutter_actor_get_preferred_height (child, -1.f,
@@ -171,7 +172,7 @@ get_visible_children (ClutterActor *actor)
   clutter_actor_iter_init (&iter, actor);
   while (clutter_actor_iter_next (&iter, &child))
     {
-      if (CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (clutter_actor_is_visible (child))
         n_visible_children += 1;
     }
 
@@ -226,7 +227,7 @@ multi_layout_allocate (ClutterLayoutManager   *manager,
     {
       ClutterActorBox child_allocation = CLUTTER_ACTOR_BOX_INIT_ZERO;
 
-      if (!CLUTTER_ACTOR_IS_VISIBLE (child))
+      if (!clutter_actor_is_visible (child))
         continue;
 
       if (self->state == MULTI_LAYOUT_GRID)
@@ -299,6 +300,12 @@ multi_layout_set_state (MultiLayout *self,
   clutter_layout_manager_layout_changed (CLUTTER_LAYOUT_MANAGER (self));
 }
 
+MultiLayoutState
+multi_layout_get_state (MultiLayout *self)
+{
+  return self->state;
+}
+
 void
 multi_layout_set_spacing (MultiLayout *self,
                           float spacing)
@@ -340,20 +347,23 @@ on_key_press (ClutterActor *stage,
   guint keysym = clutter_event_get_key_symbol (event);
   MultiLayout *layout = (MultiLayout *) clutter_actor_get_layout_manager (box);
 
-  if (keysym == CLUTTER_KEY_q)
-    {
-      clutter_main_quit ();
-      return CLUTTER_EVENT_STOP;
-    }
 
   switch (keysym)
     {
-    case CLUTTER_KEY_g:
-      multi_layout_set_state (layout, MULTI_LAYOUT_GRID);
+    case CLUTTER_KEY_q:
+      clutter_main_quit ();
       break;
 
-    case CLUTTER_KEY_c:
-      multi_layout_set_state (layout, MULTI_LAYOUT_CIRCLE);
+    case CLUTTER_KEY_t:
+      {
+        MultiLayoutState state = multi_layout_get_state (layout);
+
+        if (state == MULTI_LAYOUT_GRID)
+          multi_layout_set_state (layout, MULTI_LAYOUT_CIRCLE);
+
+        if (state == MULTI_LAYOUT_CIRCLE)
+          multi_layout_set_state (layout, MULTI_LAYOUT_GRID);
+      }
       break;
 
     default:
@@ -437,8 +447,7 @@ main (int argc, char *argv[])
 
   label = clutter_text_new ();
   clutter_text_set_text (CLUTTER_TEXT (label),
-                         "Press g\t\342\236\236\tGrid layout\n"
-                         "Press c\t\342\236\236\tCircular layout\n"
+                         "Press t\t\342\236\236\tToggle layout\n"
                          "Press q\t\342\236\236\tQuit");
   clutter_actor_add_constraint (label, clutter_align_constraint_new (stage, CLUTTER_ALIGN_X_AXIS, 0.5));
   clutter_actor_add_constraint (label, clutter_align_constraint_new (stage, CLUTTER_ALIGN_Y_AXIS, 0.95));

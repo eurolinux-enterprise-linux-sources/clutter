@@ -89,7 +89,7 @@ stage_key_release_cb (ClutterActor *actor,
 }
 
 static gboolean
-draw_arc (data)
+draw_arc (gpointer data)
 {
   Pixmap pixmap = GPOINTER_TO_UINT (data);
   Display *dpy = clutter_x11_get_default_display ();
@@ -126,7 +126,7 @@ stage_button_press_cb (ClutterActor    *actor,
 		       ClutterEvent    *event,
 		       gpointer         data)
 {
-  draw_arc (GPOINTER_TO_UINT (data));
+  draw_arc (data);
 
   return CLUTTER_EVENT_STOP;
 }
@@ -210,6 +210,10 @@ test_pixmap_main (int argc, char **argv)
   ClutterBehaviour    *depth_behavior;
   int		       i;
   int                  row_height;
+
+#ifdef CLUTTER_WINDOWING_X11
+  clutter_set_windowing_backend (CLUTTER_WINDOWING_X11);
+#endif
 
   if (clutter_init (&argc, &argv) != CLUTTER_INIT_SUCCESS)
     return 1;

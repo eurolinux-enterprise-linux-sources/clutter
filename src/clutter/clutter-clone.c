@@ -41,6 +41,7 @@
 #include "config.h"
 #endif
 
+#define CLUTTER_ENABLE_EXPERIMENTAL_API
 #include "clutter-actor-private.h"
 #include "clutter-clone.h"
 #include "clutter-debug.h"
@@ -173,25 +174,31 @@ clutter_clone_paint (ClutterActor *actor)
    *   the clone source actor.
    */
   _clutter_actor_set_in_clone_paint (priv->clone_source, TRUE);
-  _clutter_actor_set_opacity_override (priv->clone_source,
+  clutter_actor_set_opacity_override (priv->clone_source,
                                        clutter_actor_get_paint_opacity (actor));
   _clutter_actor_set_enable_model_view_transform (priv->clone_source, FALSE);
 
-  if (!CLUTTER_ACTOR_IS_MAPPED (priv->clone_source))
+  if (!clutter_actor_is_mapped (priv->clone_source))
     {
       _clutter_actor_set_enable_paint_unmapped (priv->clone_source, TRUE);
       was_unmapped = TRUE;
     }
 
-  _clutter_actor_push_clone_paint ();
-  clutter_actor_paint (priv->clone_source);
-  _clutter_actor_pop_clone_paint ();
+  /* If the source isn't ultimately parented to a toplevel, it can't be
+   * realized or painted.
+   */
+  if (clutter_actor_is_realized (priv->clone_source))
+    {
+      _clutter_actor_push_clone_paint ();
+      clutter_actor_paint (priv->clone_source);
+      _clutter_actor_pop_clone_paint ();
+    }
 
   if (was_unmapped)
     _clutter_actor_set_enable_paint_unmapped (priv->clone_source, FALSE);
 
   _clutter_actor_set_enable_model_view_transform (priv->clone_source, TRUE);
-  _clutter_actor_set_opacity_override (priv->clone_source, -1);
+  clutter_actor_set_opacity_override (priv->clone_source, -1);
   _clutter_actor_set_in_clone_paint (priv->clone_source, FALSE);
 }
 

@@ -28,6 +28,13 @@
 #endif
 
 #include <cogl/cogl.h>
+
+#ifdef COGL_HAS_XLIB_SUPPORT
+#include <cogl/cogl-xlib.h>
+#endif
+
+#define GDK_DISABLE_DEPRECATION_WARNINGS
+
 #include <gdk/gdk.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
@@ -67,7 +74,7 @@ G_DEFINE_TYPE_WITH_CODE (ClutterStageGdk,
                          G_IMPLEMENT_INTERFACE (CLUTTER_TYPE_STAGE_WINDOW,
                                                 clutter_stage_window_iface_init));
 
-#ifdef CLUTTER_WINDOWING_X11
+#if defined(GDK_WINDOWING_X11) && defined(COGL_HAS_XLIB_SUPPORT)
 static void
 clutter_stage_gdk_update_foreign_event_mask (CoglOnscreen *onscreen,
 					     guint32 event_mask,
@@ -115,6 +122,8 @@ clutter_stage_gdk_get_geometry (ClutterStageWindow    *stage_window,
 {
   ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
 
+  geometry->x = geometry->y = 0;
+
   if (stage_gdk->window != NULL)
     {
       geometry->width = gdk_window_get_width (stage_gdk->window);
@@ -122,8 +131,8 @@ clutter_stage_gdk_get_geometry (ClutterStageWindow    *stage_window,
     }
   else
     {
-      geometry->width = 640;
-      geometry->height = 480;
+      geometry->width = 800;
+      geometry->height = 600;
     }
 }
 
@@ -146,7 +155,20 @@ clutter_stage_gdk_resize (ClutterStageWindow *stage_window,
 
   CLUTTER_NOTE (BACKEND, "New size received: (%d, %d)", width, height);
 
-  gdk_window_resize (stage_gdk->window, width, height);
+  /* No need to resize foreign windows, it should be handled by the
+   * embedding framework, but on wayland we might need to resize our
+   * own subsurface.
+   */
+  if (!stage_gdk->foreign_window)
+    gdk_window_resize (stage_gdk->window, width, height);
+#if defined(GDK_WINDOWING_WAYLAND) && defined(COGL_HAS_EGL_PLATFORM_WAYLAND_SUPPORT)
+  else if (GDK_IS_WAYLAND_WINDOW (stage_gdk->window))
+    {
+      int scale = gdk_window_get_scale_factor (stage_gdk->window);
+      cogl_wayland_onscreen_resize (CLUTTER_STAGE_COGL (stage_gdk)->onscreen,
+                                    width * scale, height * scale, 0, 0);
+    }
+#endif
 }
 
 static void
@@ -160,14 +182,138 @@ clutter_stage_gdk_unrealize (ClutterStageWindow *stage_window)
 			 "clutter-stage-window", NULL);
 
       if (stage_gdk->foreign_window)
-	g_object_unref (stage_gdk->window);
+        {
+          ClutterStageCogl *stage_cogl = CLUTTER_STAGE_COGL (stage_window);
+
+          g_object_unref (stage_gdk->window);
+
+          /* Clutter still uses part of the deprecated stateful API of
+           * Cogl (in particulart cogl_set_framebuffer). It means Cogl
+           * can keep an internal reference to the onscreen object we
+           * rendered to. In the case of foreign window, we want to
+           * avoid this, as we don't know what's going to happen to
+           * that window.
+           *
+           * The following call sets the current Cogl framebuffer to a
+           * dummy 1x1 one if we're unrealizing the current one, so
+           * Cogl doesn't keep any reference to the foreign window.
+           */
+          if (cogl_get_draw_framebuffer () == COGL_FRAMEBUFFER (stage_cogl->onscreen))
+            _clutter_backend_reset_cogl_framebuffer (stage_cogl->backend);
+        }
       else
 	gdk_window_destroy (stage_gdk->window);
 
       stage_gdk->window = NULL;
     }
 
-  return clutter_stage_window_parent_iface->unrealize (stage_window);
+  clutter_stage_window_parent_iface->unrealize (stage_window);
+
+#if defined(GDK_WINDOWING_WAYLAND)
+  g_clear_pointer (&stage_gdk->subsurface, wl_subsurface_destroy);
+  g_clear_pointer (&stage_gdk->clutter_surface, wl_surface_destroy);
+#endif
+}
+
+#if defined(GDK_WINDOWING_WAYLAND)
+static struct wl_surface *
+clutter_stage_gdk_wayland_surface (ClutterStageGdk *stage_gdk)
+{
+  GdkDisplay *display;
+  struct wl_compositor *compositor;
+  struct wl_surface *parent_surface;
+  struct wl_region *input_region;
+  gint x, y;
+
+  if (!stage_gdk->foreign_window ||
+      gdk_window_get_window_type (stage_gdk->window) != GDK_WINDOW_CHILD)
+    return gdk_wayland_window_get_wl_surface (stage_gdk->window);
+
+  if (stage_gdk->clutter_surface)
+    return stage_gdk->clutter_surface;
+
+  /* On Wayland if we render to a foreign window, we setup our own
+   * surface to not render in the same buffers as the embedding
+   * framework.
+   */
+  display = gdk_display_get_default ();
+  compositor = gdk_wayland_display_get_wl_compositor (display);
+  stage_gdk->clutter_surface = wl_compositor_create_surface (compositor);
+
+  /* Since we run inside GDK, we can let the embedding framework
+   * dispatch the events to Clutter. For that to happen we need to
+   * disable input on our surface. */
+  input_region = wl_compositor_create_region (compositor);
+  wl_region_add (input_region, 0, 0, 0, 0);
+  wl_surface_set_input_region (stage_gdk->clutter_surface, input_region);
+  wl_region_destroy (input_region);
+
+  wl_surface_set_buffer_scale (stage_gdk->clutter_surface,
+                               gdk_window_get_scale_factor (stage_gdk->window));
+
+  parent_surface = gdk_wayland_window_get_wl_surface (gdk_window_get_toplevel (stage_gdk->window));
+  stage_gdk->subsurface = wl_subcompositor_get_subsurface (stage_gdk->subcompositor,
+                                                           stage_gdk->clutter_surface,
+                                                           parent_surface);
+
+  gdk_window_get_origin (stage_gdk->window, &x, &y);
+  wl_subsurface_set_position (stage_gdk->subsurface, x, y);
+  wl_subsurface_set_desync (stage_gdk->subsurface);
+
+  return stage_gdk->clutter_surface;
+}
+#endif
+
+void
+_clutter_stage_gdk_notify_configure (ClutterStageGdk *stage_gdk,
+                                     gint x,
+                                     gint y,
+                                     gint width,
+                                     gint height)
+{
+  if (x < 0 || y < 0 || width < 1 || height < 1)
+    return;
+
+  if (stage_gdk->foreign_window)
+    {
+      ClutterStageCogl *stage_cogl = CLUTTER_STAGE_COGL (stage_gdk);
+      int scale = gdk_window_get_scale_factor (stage_gdk->window);
+
+#if defined(GDK_WINDOWING_WAYLAND) && defined(COGL_HAS_EGL_PLATFORM_WAYLAND_SUPPORT)
+      if (GDK_IS_WAYLAND_WINDOW (stage_gdk->window) &&
+          gdk_window_get_window_type (stage_gdk->window) == GDK_WINDOW_CHILD &&
+          stage_gdk->subsurface)
+        {
+          gint rx, ry;
+          gdk_window_get_origin (stage_gdk->window, &rx, &ry);
+          wl_subsurface_set_position (stage_gdk->subsurface, rx, ry);
+
+          wl_surface_set_buffer_scale (stage_gdk->clutter_surface, scale);
+          cogl_wayland_onscreen_resize (stage_cogl->onscreen,
+                                        width * scale, height * scale, 0, 0);
+        }
+      else
+#endif
+#if defined(GDK_WINDOWING_X11) && defined(COGL_HAS_XLIB_SUPPORT)
+      if (GDK_IS_X11_WINDOW (stage_gdk->window))
+        {
+          ClutterBackend *backend = CLUTTER_BACKEND (stage_cogl->backend);
+          XConfigureEvent xevent = { ConfigureNotify };
+          xevent.window = GDK_WINDOW_XID (stage_gdk->window);
+          xevent.width = width * scale;
+          xevent.height = height * scale;
+
+          /* Ensure cogl knows about the new size immediately, as we will
+           * draw before we get the ConfigureNotify response. */
+          cogl_xlib_renderer_handle_event (backend->cogl_renderer, (XEvent *)&xevent);
+        }
+      else
+#endif
+        {
+          /* Currently we only support X11 and Wayland. */
+          g_assert_not_reached();
+        }
+    }
 }
 
 static gboolean
@@ -180,14 +326,16 @@ clutter_stage_gdk_realize (ClutterStageWindow *stage_window)
   GdkWindowAttr attributes;
   gboolean cursor_visible;
   gboolean use_alpha;
-  gfloat   width, height;
+  gfloat width, height;
+  int scale;
 
-  if (stage_gdk->foreign_window)
+  if (backend->cogl_context == NULL)
     {
-      width = gdk_window_get_width (stage_gdk->window);
-      height = gdk_window_get_height (stage_gdk->window);
+      g_warning ("Missing Cogl context: was Clutter correctly initialized?");
+      return FALSE;
     }
-  else
+
+  if (!stage_gdk->foreign_window)
     {
       if (stage_gdk->window != NULL)
         {
@@ -225,18 +373,39 @@ clutter_stage_gdk_realize (ClutterStageWindow *stage_window)
           if (!cursor_visible)
             {
               if (stage_gdk->blank_cursor == NULL)
-                stage_gdk->blank_cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
+                stage_gdk->blank_cursor = gdk_cursor_new_for_display (backend_gdk->display, GDK_BLANK_CURSOR);
 
               attributes.cursor = stage_gdk->blank_cursor;
             }
 
-          attributes.visual = NULL;
+          /* If the ClutterStage:use-alpha is set, but GDK does not have an
+           * RGBA visual, then we unset the property on the Stage
+           */
           if (use_alpha)
             {
-              attributes.visual = gdk_screen_get_rgba_visual (backend_gdk->screen);
+              if (gdk_screen_get_rgba_visual (backend_gdk->screen) == NULL)
+                {
+                  clutter_stage_set_use_alpha (stage_cogl->wrapper, FALSE);
+                  use_alpha = FALSE;
+                }
+            }
 
-              if (attributes.visual == NULL)
-                clutter_stage_set_use_alpha (stage_cogl->wrapper, FALSE);
+#if defined(GDK_WINDOWING_X11) && defined(COGL_HAS_XLIB_SUPPORT)
+          if (GDK_IS_X11_DISPLAY (backend_gdk->display))
+            {
+              XVisualInfo *xvisinfo = cogl_clutter_winsys_xlib_get_visual_info ();
+              if (xvisinfo != NULL)
+                {
+                  attributes.visual = gdk_x11_screen_lookup_visual (backend_gdk->screen,
+                                                                    xvisinfo->visualid);
+                }
+            }
+          else
+#endif
+            {
+              attributes.visual = use_alpha
+                                ? gdk_screen_get_rgba_visual (backend_gdk->screen)
+                                : gdk_screen_get_system_visual (backend_gdk->screen);
             }
 
           if (attributes.visual == NULL)
@@ -253,15 +422,19 @@ clutter_stage_gdk_realize (ClutterStageWindow *stage_window)
         }
 
       clutter_stage_gdk_set_gdk_geometry (stage_gdk);
+      gdk_window_ensure_native (stage_gdk->window);
+    }
+  else
+    {
+      width = gdk_window_get_width (stage_gdk->window);
+      height = gdk_window_get_height (stage_gdk->window);
     }
 
-  gdk_window_ensure_native (stage_gdk->window);
+  g_object_set_data (G_OBJECT (stage_gdk->window), "clutter-stage-window", stage_gdk);
 
-  g_object_set_data (G_OBJECT (stage_gdk->window),
-                     "clutter-stage-window", stage_gdk);
-
+  scale = gdk_window_get_scale_factor (stage_gdk->window);
   stage_cogl->onscreen = cogl_onscreen_new (backend->cogl_context,
-					    width, height);
+                                            width * scale, height * scale);
 
 #if defined(GDK_WINDOWING_X11) && defined(COGL_HAS_XLIB_SUPPORT)
   if (GDK_IS_X11_WINDOW (stage_gdk->window))
@@ -277,7 +450,7 @@ clutter_stage_gdk_realize (ClutterStageWindow *stage_window)
   if (GDK_IS_WAYLAND_WINDOW (stage_gdk->window))
     {
       cogl_wayland_onscreen_set_foreign_surface (stage_cogl->onscreen,
-                                                 gdk_wayland_window_get_wl_surface (stage_gdk->window));
+                                                 clutter_stage_gdk_wayland_surface (stage_gdk));
     }
   else
 #endif
@@ -312,12 +485,14 @@ clutter_stage_gdk_set_fullscreen (ClutterStageWindow *stage_window,
                                   gboolean            is_fullscreen)
 {
   ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
+  ClutterStageCogl *stage_cogl = CLUTTER_STAGE_COGL (stage_window);
   ClutterStage *stage = CLUTTER_STAGE_COGL (stage_window)->wrapper;
+  gboolean swap_throttle;
 
   if (stage == NULL || CLUTTER_ACTOR_IN_DESTRUCTION (stage))
     return;
 
-  if (stage_gdk->window == NULL)
+  if (stage_gdk->window == NULL || stage_gdk->foreign_window)
     return;
 
   CLUTTER_NOTE (BACKEND, "%ssetting fullscreen", is_fullscreen ? "" : "un");
@@ -326,6 +501,26 @@ clutter_stage_gdk_set_fullscreen (ClutterStageWindow *stage_window,
     gdk_window_fullscreen (stage_gdk->window);
   else
     gdk_window_unfullscreen (stage_gdk->window);
+
+  /* Full-screen stages are usually unredirected to improve performance
+   * by avoiding a copy; when that happens, we need to turn back swap
+   * throttling because we won't be managed by the compositor any more,
+   */
+  swap_throttle = is_fullscreen;
+
+#ifdef GDK_WINDOWING_WAYLAND
+  {
+    /* Except on Wayland, where there's a deadlock due to both Cogl
+     * and GDK attempting to consume the throttling event; see bug
+     * https://bugzilla.gnome.org/show_bug.cgi?id=754671#c1
+     */
+    GdkDisplay *display = clutter_gdk_get_default_display ();
+    if (GDK_IS_WAYLAND_DISPLAY (display))
+      swap_throttle = FALSE;
+  }
+#endif
+
+  cogl_onscreen_set_swap_throttled (stage_cogl->onscreen, swap_throttle);
 }
 
 static void
@@ -344,7 +539,11 @@ clutter_stage_gdk_set_cursor_visible (ClutterStageWindow *stage_window,
   else
     {
       if (stage_gdk->blank_cursor == NULL)
-	stage_gdk->blank_cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
+        {
+          GdkDisplay *display = clutter_gdk_get_default_display ();
+
+	  stage_gdk->blank_cursor = gdk_cursor_new_for_display (display, GDK_BLANK_CURSOR);
+        }
 
       gdk_window_set_cursor (stage_gdk->window, stage_gdk->blank_cursor);
     }
@@ -356,7 +555,7 @@ clutter_stage_gdk_set_title (ClutterStageWindow *stage_window,
 {
   ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
 
-  if (stage_gdk->window == NULL)
+  if (stage_gdk->window == NULL || stage_gdk->foreign_window)
     return;
 
   gdk_window_set_title (stage_gdk->window, title);
@@ -369,7 +568,7 @@ clutter_stage_gdk_set_user_resizable (ClutterStageWindow *stage_window,
   ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
   GdkWMFunction function;
 
-  if (stage_gdk->window == NULL)
+  if (stage_gdk->window == NULL || stage_gdk->foreign_window)
     return;
 
   function = GDK_FUNC_MOVE | GDK_FUNC_MINIMIZE | GDK_FUNC_CLOSE;
@@ -387,7 +586,7 @@ clutter_stage_gdk_set_accept_focus (ClutterStageWindow *stage_window,
 {
   ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
 
-  if (stage_gdk->window == NULL)
+  if (stage_gdk->window == NULL || stage_gdk->foreign_window)
     return;
 
   gdk_window_set_accept_focus (stage_gdk->window, accept_focus);
@@ -403,10 +602,14 @@ clutter_stage_gdk_show (ClutterStageWindow *stage_window,
 
   clutter_actor_map (CLUTTER_ACTOR (CLUTTER_STAGE_COGL (stage_gdk)->wrapper));
 
-  if (do_raise)
-    gdk_window_show (stage_gdk->window);
-  else
-    gdk_window_show_unraised (stage_gdk->window);
+  /* Foreign window should be shown by the embedding framework. */
+  if (!stage_gdk->foreign_window)
+    {
+      if (do_raise)
+        gdk_window_show (stage_gdk->window);
+      else
+        gdk_window_show_unraised (stage_gdk->window);
+    }
 }
 
 static void
@@ -417,13 +620,83 @@ clutter_stage_gdk_hide (ClutterStageWindow *stage_window)
   g_return_if_fail (stage_gdk->window != NULL);
 
   clutter_actor_unmap (CLUTTER_ACTOR (CLUTTER_STAGE_COGL (stage_gdk)->wrapper));
-  gdk_window_hide (stage_gdk->window);
+
+  /* Foreign window should be hidden by the embedding framework. */
+  if (!stage_gdk->foreign_window)
+    gdk_window_hide (stage_gdk->window);
 }
 
 static gboolean
 clutter_stage_gdk_can_clip_redraws (ClutterStageWindow *stage_window)
 {
   return TRUE;
+}
+
+static int
+clutter_stage_gdk_get_scale_factor (ClutterStageWindow *stage_window)
+{
+  ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
+
+  if (stage_gdk->window == NULL)
+    return 1;
+
+  return gdk_window_get_scale_factor (stage_gdk->window);
+}
+
+static void
+clutter_stage_gdk_redraw (ClutterStageWindow *stage_window)
+{
+  ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
+  GdkFrameClock *clock;
+
+  if (stage_gdk->window == NULL ||
+      (clock = gdk_window_get_frame_clock (stage_gdk->window)) == NULL)
+    {
+      clutter_stage_window_parent_iface->redraw (stage_window);
+      return;
+    }
+
+  gdk_frame_clock_begin_updating (clock);
+
+  clutter_stage_window_parent_iface->redraw (stage_window);
+
+  gdk_frame_clock_end_updating (clock);
+}
+
+static void
+clutter_stage_gdk_schedule_update (ClutterStageWindow *stage_window,
+                                    gint                sync_delay)
+{
+  ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
+  GdkFrameClock *clock;
+
+  if (stage_gdk->window == NULL ||
+      (clock = gdk_window_get_frame_clock (stage_gdk->window)) == NULL)
+    {
+      clutter_stage_window_parent_iface->schedule_update (stage_window, sync_delay);
+      return;
+    }
+
+  gdk_frame_clock_request_phase (clock, GDK_FRAME_CLOCK_PHASE_PAINT);
+
+  clutter_stage_window_parent_iface->schedule_update (stage_window, sync_delay);
+}
+
+static gint64
+clutter_stage_gdk_get_update_time (ClutterStageWindow *stage_window)
+{
+  ClutterStageGdk *stage_gdk = CLUTTER_STAGE_GDK (stage_window);
+  GdkFrameClock *frame_clock;
+  GdkFrameTimings *frame_timings;
+
+  if (stage_gdk->window == NULL ||
+      (frame_clock = gdk_window_get_frame_clock (stage_gdk->window)) == NULL ||
+      (frame_timings = gdk_frame_clock_get_current_timings (frame_clock)) == NULL ||
+      !gdk_frame_timings_get_complete (frame_timings))
+    return -1; /* No data, indefinite */
+
+  return (gdk_frame_timings_get_presentation_time (frame_timings) +
+          gdk_frame_timings_get_refresh_interval (frame_timings));
 }
 
 static void
@@ -459,10 +732,57 @@ clutter_stage_gdk_class_init (ClutterStageGdkClass *klass)
   gobject_class->dispose = clutter_stage_gdk_dispose;
 }
 
+#if defined(GDK_WINDOWING_WAYLAND)
+static void
+registry_handle_global (void *data,
+                        struct wl_registry *registry,
+                        uint32_t name,
+                        const char *interface,
+                        uint32_t version)
+{
+  ClutterStageGdk *stage_gdk = data;
+
+  if (strcmp (interface, "wl_subcompositor") == 0)
+    {
+      stage_gdk->subcompositor = wl_registry_bind (registry,
+                                                   name,
+                                                   &wl_subcompositor_interface,
+                                                   1);
+    }
+}
+
+static void
+registry_handle_global_remove (void *data,
+                               struct wl_registry *registry,
+                               uint32_t name)
+{
+}
+
+static const struct wl_registry_listener registry_listener = {
+  registry_handle_global,
+  registry_handle_global_remove
+};
+#endif
+
 static void
 clutter_stage_gdk_init (ClutterStageGdk *stage)
 {
-  /* nothing to do here */
+#if defined(GDK_WINDOWING_WAYLAND)
+  {
+    GdkDisplay *gdk_display = gdk_display_get_default ();
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display))
+      {
+        struct wl_display *display;
+        struct wl_registry *registry;
+
+        display = gdk_wayland_display_get_wl_display (gdk_display);
+        registry = wl_display_get_registry (display);
+        wl_registry_add_listener (registry, &registry_listener, stage);
+
+        wl_display_roundtrip (display);
+      }
+  }
+#endif
 }
 
 static void
@@ -482,6 +802,11 @@ clutter_stage_window_iface_init (ClutterStageWindowIface *iface)
   iface->realize = clutter_stage_gdk_realize;
   iface->unrealize = clutter_stage_gdk_unrealize;
   iface->can_clip_redraws = clutter_stage_gdk_can_clip_redraws;
+  iface->get_scale_factor = clutter_stage_gdk_get_scale_factor;
+
+  iface->redraw = clutter_stage_gdk_redraw;
+  iface->schedule_update = clutter_stage_gdk_schedule_update;
+  iface->get_update_time = clutter_stage_gdk_get_update_time;
 }
 
 /**

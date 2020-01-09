@@ -21,12 +21,12 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __CLUTTER_STAGE_H__
+#define __CLUTTER_STAGE_H__
+
 #if !defined(__CLUTTER_H_INSIDE__) && !defined(CLUTTER_COMPILATION)
 #error "Only <clutter/clutter.h> can be included directly."
 #endif
-
-#ifndef __CLUTTER_STAGE_H__
-#define __CLUTTER_STAGE_H__
 
 #include <clutter/clutter-types.h>
 #include <clutter/clutter-group.h>
@@ -50,7 +50,7 @@ typedef struct _ClutterStagePrivate ClutterStagePrivate;
  * The #ClutterStage structure contains only private data
  * and should be accessed using the provided API
  *
- * Since: 0.1
+ * Since: 0.2
  */
 struct _ClutterStage
 {
@@ -69,7 +69,7 @@ struct _ClutterStage
  *
  * The #ClutterStageClass structure contains only private data
  *
- * Since: 0.1
+ * Since: 0.2
  */
 
 struct _ClutterStageClass

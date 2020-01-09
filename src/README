@@ -1,4 +1,4 @@
-README for Clutter 1.20.0
+README for Clutter 1.26.0
 ===============================================================================
 
 Clutter is an open source software library for creating fast, compelling,
@@ -9,11 +9,11 @@ REQUIREMENTS
 
 Clutter currently requires:
 
-  • GLib ≥ 2.37.3
-  • Cogl ≥ 1.17.5
+  • GLib ≥ 2.44.0
+  • Cogl ≥ 1.21.2
   • JSON-GLib ≥ 0.12.0
   • Atk ≥ 2.5.3
-  • Cairo ≥ 1.12.0
+  • Cairo ≥ 1.14.0
   • PangoCairo ≥ 1.30
 
 When building the X11 backend, Clutter depends on the following extensions:
@@ -41,7 +41,7 @@ When building the evdev input backend, Clutter also depends on:
 
   • xkbcommon
   • libudev ≥ 136
-  • libinput ≥ 0.4.0
+  • libinput ≥ 0.19.0
 
 If you are building the API reference you will also need:
 
@@ -54,19 +54,11 @@ If you are building the additional documentation you will also need:
 
 If you are building the Introspection data you will also need:
 
-  • GObject-Introspection ≥ 0.9.5
+  • GObject-Introspection ≥ 1.39.0
 
 GObject-Introspection is available from:
 
   git://git.gnome.org/gobject-introspection
-
-If you want support for profiling Clutter you will also need:
-
-  • UProf ≥ 0.3
-
-UProf is available from:
-
-  git://github.com/rib/UProf.git
 
 RESOURCES
 -------------------------------------------------------------------------------
@@ -77,31 +69,29 @@ The official Clutter website is:
 
 The API references for the latest stable release are available at:
 
-   http://docs.clutter-project.org/docs/clutter/stable/
-   http://docs.clutter-project.org/docs/cogl/stable/
-   http://docs.clutter-project.org/docs/cally/stable/
+   https://developer.gnome.org/clutter/stable/
+   https://developer.gnome.org/cogl/stable/
 
 The Clutter Cookbook is available at:
 
-   http://docs.clutter-project.org/docs/clutter-cookbook/1.0/
+   https://developer.gnome.org/clutter-cookbook/
 
 New releases of Clutter are available at:
 
-   http://source.clutter-project.org/sources/clutter/
-   http://download.gnome.org/sources/clutter/
+   https://download.gnome.org/sources/clutter/
 
 The Clutter blog is available at:
 
-   http://www.clutter-project.org/blog/
+   http://www.clutter-project.org/
 
-To subscribe to the Clutter mailing lists and read the archives, use the
+To subscribe to the Clutter mailing list and read the archives, use the
 Mailman web interface available at:
 
-   http://lists.clutter-project.org/
+   https://mail.gnome.org/mailman/listinfo/clutter-list
 
 New bug page on Bugzilla:
 
-   http://bugzilla.gnome.org/enter_bug.cgi?product=clutter
+   https://bugzilla.gnome.org/enter_bug.cgi?product=clutter
 
 Clutter is licensed under the terms of the GNU Lesser General Public
 License, version 2.1 or (at your option) later.
@@ -123,7 +113,7 @@ value.
 
 See also the wiki page:
 
-  http://wiki.clutter-project.org/wiki/BuildingClutter
+  https://wiki.gnome.org/Projects/Clutter
 
 Clutter has additional command line options for the configure script:
 
@@ -161,10 +151,6 @@ Clutter has additional command line options for the configure script:
  --enable-gcov=[no/yes]
         Build Clutter with coverage report support, provided by gcov. This
         feature only works with the GNU Compiler Suite and gcov installed.
-
- --enable-profile=[no/yes]
-        Build Clutter with profiling instrumentation. Requires the GNU
-        C Compiler and the UProf library.
 
  --disable-tests
         Disable building the Clutter tests suite.
@@ -302,6 +288,50 @@ RELEASE NOTES
 Relevant information for developers with existing Clutter applications
 wanting to port to newer releases (see NEWS for general information on new
 features).
+
+Release Notes for Clutter 1.26
+-------------------------------------------------------------------------------
+
+• The evdev backend specific ClutterPointerConstrainCallback type was changed
+  to include not only the target position but also the previous position. This
+  is an API change, and will require a version check in any caller code.
+
+Release Notes for Clutter 1.24
+-------------------------------------------------------------------------------
+
+• ClutterModel, ClutterModelIter, and ClutterListStore have been deprecated.
+  You're strongly encouraged to use the GListModel interface, and the
+  GListStore class, as a replacement.
+
+• The macros used to access the state flags in ClutterActor have been
+  deprecated, and replaced by equivalent functions.
+
+• Clutter types now can be used with the `g_autoptr()` and `g_auto()`
+  macros provided by GLib and supported by GCC and Clang.
+
+• The old, non-namespaced CLUTTER_* key symbols now have an associated
+  deprecation warning.
+
+• The private, unused ClutterX11XInputEventTypes enumeration, which was
+  erroneously placed in the clutter-x11.h public header, has been removed.
+
+• The Wayland client backend is now autodetected depending on whether the
+  required dependencies are available.
+
+Release Notes for Clutter 1.22
+-------------------------------------------------------------------------------
+
+• The default backend for Clutter starting from this release is the GDK
+  backend, if Clutter was compiled with it. This allows better integration
+  with the underlying windowing system platform on X11 and Wayland. On
+  Windows and MacOS the native backends are still the preferred ones. If you
+  require a specific backend you should use clutter_set_windowing_backend()
+  with the CLUTTER_WINDOWING_* backend you require, prior to call
+  clutter_init().
+
+• The ClutterRequestMode enumeration has a new value. Code checking for the
+  values of ClutterRequestMode should already be resilient to changes to this
+  enumerations, like for all enumerations in Clutter.
 
 Release Notes for Clutter 1.20
 -------------------------------------------------------------------------------
