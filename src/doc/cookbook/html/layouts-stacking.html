@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>2. Stacking actors on top of each other</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts.html" title="Chapter 7. Layout management"><link rel="next" href="layouts-bind-constraint.html" title="3. Binding the size of one actor to the size of another"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Stacking actors on top of each other</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="layouts-bind-constraint.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-stacking"></a>2. Stacking actors on top of each other</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505547552"></a>2.1. Problem</h3></div></div></div><p>You want to lay out several actors so that they are in
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>2. Stacking actors on top of each other</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts.html" title="Chapter 7. Layout management"><link rel="next" href="layouts-bind-constraint.html" title="3. Binding the size of one actor to the size of another"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Stacking actors on top of each other</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="layouts-bind-constraint.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-stacking"></a>2. Stacking actors on top of each other</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507032704"></a>2.1. Problem</h3></div></div></div><p>You want to lay out several actors so that they are in
       layers on top of each other (e.g. to create a button widget
       composed from a rectangle with text on top of it).</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="layouts-stacking-solution"></a>2.2. Solution</h3></div></div></div><p>The most flexible approach is to use a <span class="type">ClutterBinLayout</span>
       associated with a <span class="type">ClutterActor</span>:</p><div class="informalexample"><pre class="programlisting">/* define some colors */
@@ -60,8 +60,8 @@ clutter_bin_layout_add (CLUTTER_BIN_LAYOUT (layout),
  * (NB this is not strictly necesary here as text is added after
  * background)
  */
-clutter_actor_raise_top (text);</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790507811072"></a>2.3. Discussion</h3></div></div></div><p>This section covers some other aspects of using a
-      <span class="type">ClutterBinLayout</span>.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505539472"></a>2.3.1. Setting and changing alignment</h4></div></div></div><p>Alignment is the only
+clutter_actor_raise_top (text);</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507025808"></a>2.3. Discussion</h3></div></div></div><p>This section covers some other aspects of using a
+      <span class="type">ClutterBinLayout</span>.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507024208"></a>2.3.1. Setting and changing alignment</h4></div></div></div><p>Alignment is the only
         <a class="link" href="layouts.html#layouts-introduction-layout-properties" title="1.3. Layout properties">layout
         property</a> available for <span class="type">ClutterBinLayout</span>. Each
         actor can have a different setting for its alignment in one or both
@@ -97,7 +97,7 @@ clutter_actor_raise_top (text);</pre></div></div><div class="section"><div class
         Notice that the layout is the width of the widest actor
         within it and the height of the tallest.</p><p>You can also manually set a size on the container associated
         with a layout to override the automatically-computed size
-        requisition.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505521696"></a>2.3.3. Depth ordering</h4></div></div></div><p>Another important consideration is the
+        requisition.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507006432"></a>2.3.3. Depth ordering</h4></div></div></div><p>Another important consideration is the
         <span class="emphasis"><em>depth ordering</em></span> of actors inside a
         <span class="type">ClutterBinLayout</span>. By default, the depth ordering
         mirrors the order in which actors are added to the layout: the
@@ -105,7 +105,7 @@ clutter_actor_raise_top (text);</pre></div></div><div class="section"><div class
         is. If this isn't what you want, you can fix the depth ordering using
         <code class="function">clutter_actor_set_child_above_sibling()</code>,
         <code class="function">clutter_actor_set_child_below_sibling()</code> and
-        their relatives.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505517744"></a>2.3.4. Other ways to stack actors</h4></div></div></div><p><span class="type">ClutterBinLayout</span> makes it simple to lay out
+        their relatives.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507002480"></a>2.3.4. Other ways to stack actors</h4></div></div></div><p><span class="type">ClutterBinLayout</span> makes it simple to lay out
         large numbers of actors in a stack and align them to the
         container; see <a class="link" href="layouts-stacking.html#layouts-stacking-example-2" title="Example 7.2. Layering multiple textures on top of each other inside a ClutterBinLayout">the
         example below</a> which shows layering of many actors on
@@ -116,7 +116,7 @@ clutter_actor_raise_top (text);</pre></div></div><div class="section"><div class
         each other and bind their widths and heights together. See
         <a class="link" href="layouts.html#layouts-introduction-not-using-layout-managers" title="1.4. Not using layout managers">this
         section</a> for more details.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>By default, <span class="type">ClutterActor</span> uses a
-        <span class="type">ClutterFixedLayout</span> as its layout manager.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505511392"></a>2.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-stacking-example-1"></a><p class="title"><b>Example 7.1. <span class="type">ClutterBinLayout</span>, with actors in 9
+        <span class="type">ClutterFixedLayout</span> as its layout manager.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200506996128"></a>2.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-stacking-example-1"></a><p class="title"><b>Example 7.1. <span class="type">ClutterBinLayout</span>, with actors in 9
         combinations of start, center and end alignment combinations</b></p><div class="example-contents"><pre class="programlisting">#include &lt;clutter/clutter.h&gt;
 
 static const ClutterColor dark_grey = { 0x66, 0x66, 0x66, 0xff };

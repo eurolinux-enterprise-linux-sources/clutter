@@ -1,8 +1,8 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Rotating an actor</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-fading.html" title="3. Fading an actor out of or into view"><link rel="next" href="animations-complex.html" title="5. Creating complex animations with ClutterAnimator"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Rotating an actor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-fading.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-complex.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-rotating"></a>4. Rotating an actor</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505822800"></a>4.1. Problem</h3></div></div></div><p>You want to animate rotation of an actor. Some example cases
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Rotating an actor</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="animations.html" title="Chapter 5. Animations"><link rel="prev" href="animations-fading.html" title="3. Fading an actor out of or into view"><link rel="next" href="animations-complex.html" title="5. Creating complex animations with ClutterAnimator"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Rotating an actor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="animations-fading.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Animations</th><td width="20%" align="right"> <a accesskey="n" href="animations-complex.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="animations-rotating"></a>4. Rotating an actor</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507837968"></a>4.1. Problem</h3></div></div></div><p>You want to animate rotation of an actor. Some example cases
       where you might want to do this:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>To rotate an image so it's the right way up for
           viewing.</p></li><li class="listitem"><p>To make actors more or less prominent, rotating them
           towards or away from the view point.</p></li><li class="listitem"><p>To turn an actor "around" and display different UI
-          elements "behind" it.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505818224"></a>4.2. Solution</h3></div></div></div><p>Animate one of the <code class="varname">rotation-angle-(x|y|z)</code>
+          elements "behind" it.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507833392"></a>4.2. Solution</h3></div></div></div><p>Animate one of the <code class="varname">rotation-angle-(x|y|z)</code>
       properties of the actor.</p><p>The most "obvious" (and probably most commonly used) rotation is
       in the <span class="emphasis"><em>z axis</em></span> (parallel
       to the 2D surface of the UI). The other rotation axes
@@ -21,7 +21,10 @@
                    CLUTTER_LINEAR,            /* easing mode */
                    1000,                      /* duration in milliseconds */
                    "rotation-angle-z", 90.0,  /* target rotation angle in degrees */
-                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-z-90.ogv"><a href="videos/animations-rotating-z-90.ogv"></a></video></p><p>By default, the center of the rotation is derived from
+                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-z-90.ogv"><a href="videos/animations-rotating-z-90.ogv">
+          <p>Video showing an actor rotating to 90 degrees on the
+          z axis</p>
+        </a></video></p><p>By default, the center of the rotation is derived from
       the anchor point of the actor; unless you've changed the anchor
       point, the default is the top-left corner of the actor. See the
       Discussion section below for more about setting the rotation center.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>An animated rotation moves an actor <span class="emphasis"><em>to</em></span>
@@ -32,25 +35,31 @@
                    CLUTTER_LINEAR,
                    1000,
                    "rotation-angle-x", -45.0,
-                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-x-minus-45.ogv"><a href="videos/animations-rotating-x-minus-45.ogv"></a></video></p><p>Notice how the texture rotates away from the view point,
+                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-x-minus-45.ogv"><a href="videos/animations-rotating-x-minus-45.ogv">
+          <p>Video showing an actor rotating to -45 degrees on the
+          x axis</p>
+        </a></video></p><p>Notice how the texture rotates away from the view point,
       and also how perspective effects are applied (as the actor is rotating
       "into" the depth dimension).</p><p><span class="emphasis"><em>Rotating on the <code class="code">y</code> axis</em></span>
       ("door")</p><div class="informalexample"><pre class="programlisting">clutter_actor_animate (actor,
                    CLUTTER_LINEAR,
                    1000,
                    "rotation-angle-y", 45.0,
-                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-y-45.ogv"><a href="videos/animations-rotating-y-45.ogv"></a></video></p><p>Again, the rotation is into the depth dimension, so
-      you get perspective effects.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505791040"></a>4.3. Discussion</h3></div></div></div><p>It can sometimes be difficult to predict exactly
+                   NULL);</pre></div><p>The above code animating a texture:</p><p><video controls="controls" src="videos/animations-rotating-y-45.ogv"><a href="videos/animations-rotating-y-45.ogv">
+          <p>Video showing an actor rotating to 45 degrees on the
+          y axis</p>
+        </a></video></p><p>Again, the rotation is into the depth dimension, so
+      you get perspective effects.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507806208"></a>4.3. Discussion</h3></div></div></div><p>It can sometimes be difficult to predict exactly
       how a particular rotation animation will appear when applied.
       Often the only way to find out is to experiment. However,
       the sections below outline some of the most common factors which
       affect animated rotations, with the aim of minimising the
-      experimentation you need to do.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505789520"></a>4.3.1. Setting the rotation center for an animation</h4></div></div></div><p>The examples in the previous section used the default
+      experimentation you need to do.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507804688"></a>4.3.1. Setting the rotation center for an animation</h4></div></div></div><p>The examples in the previous section used the default
         center of rotation for each axis. However, it is possible to
         change the rotation center for an axis, in turn changing
         the appearance of the animation.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Rotation center coordinates are relative to the
           actor's coordinates, not to the coordinates of the actor's
-          container or the stage.</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm47790505787136"></a>4.3.1.1. Setting a rotation center inside an actor</h5></div></div></div><p>You can set the center for rotation on the x or y axes
+          container or the stage.</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm140200507802304"></a>4.3.1.1. Setting a rotation center inside an actor</h5></div></div></div><p>You can set the center for rotation on the x or y axes
           like this:</p><div class="informalexample"><pre class="programlisting">/*
 * only required for y axis rotation;
 * here set to the mid point of the actor's y axis
@@ -88,7 +97,16 @@ clutter_actor_set_rotation (actor,
             rotation center if the actor's size changes. For the x and y
             axes, you have to do this computation yourself if you
             want an actor's center of rotation to stay in the same place
-            if it is resized.</p></div><p>Rotation on the x axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-x-centered.ogv"><a href="videos/animations-rotating-x-centered.ogv"></a></video></p><p>Rotation on the y axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-y-centered.ogv"><a href="videos/animations-rotating-y-centered.ogv"></a></video></p><p>Rotation on the z axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-z-centered.ogv"><a href="videos/animations-rotating-z-centered.ogv"></a></video></p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm47790505771424"></a>4.3.1.2. Setting the rotation center outside an actor</h5></div></div></div><p>Rather than rotating the actor around a point inside
+            if it is resized.</p></div><p>Rotation on the x axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-x-centered.ogv"><a href="videos/animations-rotating-x-centered.ogv">
+              <p>Video showing an actor rotating around its center
+              on the x axis</p>
+            </a></video></p><p>Rotation on the y axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-y-centered.ogv"><a href="videos/animations-rotating-y-centered.ogv">
+              <p>Video showing an actor rotating around its center
+              on the y axis</p>
+            </a></video></p><p>Rotation on the z axis around an actor's center:</p><p><video controls="controls" src="videos/animations-rotating-z-centered.ogv"><a href="videos/animations-rotating-z-centered.ogv">
+              <p>Video showing an actor rotating around its center
+              on the z axis</p>
+            </a></video></p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm140200507786592"></a>4.3.1.2. Setting the rotation center outside an actor</h5></div></div></div><p>Rather than rotating the actor around a point inside
           itself, the rotation center can be moved to a position
           outside the actor. (In the case of the z axis,
           any rotation center setting is outside the actor as its depth
@@ -98,13 +116,19 @@ clutter_actor_set_rotation (actor,
           negative numbers (outside the actor). However, you can't use the
           gravity functions if the rotation center falls outside an actor.</p><p>For example, here's a rotation to -180 degrees in the x
           axis, with the y rotation center set to -96 (the same as the height
-          of the actor):</p><p><video controls="controls" src="videos/animations-rotating-x-minus-180-with-y-minus-96.ogv"><a href="videos/animations-rotating-x-minus-180-with-y-minus-96.ogv"></a></video></p><p>Similarly, moving the z rotation center (for a rotation
+          of the actor):</p><p><video controls="controls" src="videos/animations-rotating-x-minus-180-with-y-minus-96.ogv"><a href="videos/animations-rotating-x-minus-180-with-y-minus-96.ogv">
+              <p>Video showing an actor rotating to -180 degrees on
+              the x axis with y rotation center set to -96</p>
+            </a></video></p><p>Similarly, moving the z rotation center (for a rotation
           in the x or y axis) will cause the actor to swing "into" or "out
           of" the UI. Its final apparent size may be different, as it could
           reach a different depth in the UI by the end of the
           animation.</p><p>For example, here's a rotation to -180 in the x axis,
           with the z rotation center set to -96 (the same as the height
-          of the actor):</p><p><video controls="controls" src="videos/animations-rotating-x-minus-180-with-z-minus-96.ogv"><a href="videos/animations-rotating-x-minus-180-with-z-minus-96.ogv"></a></video></p><p>The apparent final size of the actor is reduced, as it
+          of the actor):</p><p><video controls="controls" src="videos/animations-rotating-x-minus-180-with-z-minus-96.ogv"><a href="videos/animations-rotating-x-minus-180-with-z-minus-96.ogv">
+              <p>Video showing an actor rotating to -180 degrees on
+              the x axis with z rotation center set to -96</p>
+            </a></video></p><p>The apparent final size of the actor is reduced, as it
           has rotated away from the view point.</p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="animations-rotating-discussion-direction"></a>4.3.2. Direction of rotation</h4></div></div></div><p>The apparent direction of an animated rotation depends on
         two things:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Whether the angle of rotation is positive or negative.</p></li><li class="listitem"><p>The rotation of the container(s) the actor is inside.</p></li></ol></div><p>In the case of the sign of the rotation, here's what
         happens for each axis and rotation angle sign (positive or
@@ -174,7 +198,10 @@ clutter_actor_set_rotation (actor,
         axis; then the same rotation 90 degree rotation is applied
         to the actor again. Note that the first time the animation
         is applied, the rotation is clockwise; but the second time (as
-        the actor is effectively "reversed"), it is anti-clockwise.</p><p><video controls="controls" src="videos/animations-rotating-container-reverses-direction.ogv"><a href="videos/animations-rotating-container-reverses-direction.ogv"></a></video></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505737008"></a>4.3.3. Apparent vs. actual rotation</h4></div></div></div><p>There is a difference between an actor's <span class="emphasis"><em>apparent</em></span>
+        the actor is effectively "reversed"), it is anti-clockwise.</p><p><video controls="controls" src="videos/animations-rotating-container-reverses-direction.ogv"><a href="videos/animations-rotating-container-reverses-direction.ogv">
+            <p>Video showing how an actor's apparent rotation is
+            affected by the rotation of its parent</p>
+          </a></video></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507752176"></a>4.3.3. Apparent vs. actual rotation</h4></div></div></div><p>There is a difference between an actor's <span class="emphasis"><em>apparent</em></span>
         rotation (how much an actor appears to be rotating, from the
         perspective of someone looking at the UI) and its
         <span class="emphasis"><em>actual</em></span> rotation (how much that actor is
@@ -184,7 +211,7 @@ clutter_actor_set_rotation (actor,
         of the animation. However, calling the
         <code class="function">clutter_actor_get_rotation()</code> function
         for that axis on the actor still returns a rotation of 90
-        degrees.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505733200"></a>4.3.4. Orientation of rotation axes</h4></div></div></div><p>The rotation axes remain fixed in the same place on
+        degrees.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200507748368"></a>4.3.4. Orientation of rotation axes</h4></div></div></div><p>The rotation axes remain fixed in the same place on
         the actor regardless of its rotation, even though from the viewer's
         perspective they may appear to move.</p><p>For example, when rotation in the z axis is 0 degrees,
         the actor's x axis is horizontal (across the UI) from both the
@@ -192,7 +219,7 @@ clutter_actor_set_rotation (actor,
         actor by 90 degrees in the z axis, the x axis is now vertical from
         <span class="emphasis"><em>the viewer's</em></span> perspective, but still horizontal
         across the actor from <span class="emphasis"><em>the actor's</em></span>
-        perspective.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505729936"></a>4.4. Full example</h3></div></div></div><div class="example"><a name="animations-rotating-example"></a><p class="title"><b>Example 5.1. Rotating an actor around x, y, and z axes using
+        perspective.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200507745104"></a>4.4. Full example</h3></div></div></div><div class="example"><a name="animations-rotating-example"></a><p class="title"><b>Example 5.1. Rotating an actor around x, y, and z axes using
         <span class="type">ClutterState</span></b></p><div class="example-contents"><pre class="programlisting">#include &lt;clutter/clutter.h&gt;
 
 #define ROTATION_ANGLE 75.0

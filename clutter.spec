@@ -1,6 +1,8 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
-%if 0%{?fedora}
+%ifarch s390 s390x
+%global with_wayland 0
+%else
 %global with_wayland 1
 %endif
 
@@ -13,11 +15,10 @@
 %global libinput_version 0.19.0
 
 Name:          clutter
-Version:       1.26.0
-Release:       1%{?dist}
+Version:       1.26.2
+Release:       2%{?dist}
 Summary:       Open Source software library for creating rich graphical user interfaces
 
-Group:         Development/Libraries
 License:       LGPLv2+
 URL:           http://www.clutter-project.org/
 Source0:       https://download.gnome.org/sources/%{name}/1.26/%{name}-%{version}.tar.xz
@@ -62,7 +63,6 @@ We hope however it can be used for a lot more.
 
 %package devel
 Summary:       Clutter development environment
-Group:         Development/Libraries
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -71,7 +71,6 @@ clutter
 
 %package       doc
 Summary:       Documentation for %{name}
-Group:         Documentation
 Requires:      %{name} = %{version}-%{release}
 
 %description   doc
@@ -85,7 +84,6 @@ This package contains documentation for clutter.
 %if 0%{?with_tests}
 %package       tests
 Summary:       Tests for the clutter package
-Group:         Development/Libraries
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description   tests
@@ -145,6 +143,13 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Fri Oct 27 2017 Kalev Lember <klember@redhat.com> - 1.26.2-2
+- Enable wayland support
+- Resolves: #1488578
+
+* Fri May 12 2017 Kalev Lember <klember@redhat.com> - 1.26.2-1
+- Update to 1.26.2
+
 * Mon Feb 06 2017 Kalev Lember <klember@redhat.com> - 1.26.0-1
 - Update to 1.26.0
 - Resolves: #1386832

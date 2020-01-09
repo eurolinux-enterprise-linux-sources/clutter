@@ -1,6 +1,6 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Arranging actors in a single row or column</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts-bind-constraint.html" title="3. Binding the size of one actor to the size of another"><link rel="next" href="script.html" title="Chapter 8. Script"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Arranging actors in a single row or column</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts-bind-constraint.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="script.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-box"></a>4. Arranging actors in a single row or column</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505441280"></a>4.1. Problem</h3></div></div></div><p>You want to layout several actors in a single row
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>4. Arranging actors in a single row or column</title><link rel="stylesheet" type="text/css" href="style.css"><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"><link rel="home" href="index.html" title="The Clutter Cookbook"><link rel="up" href="layouts.html" title="Chapter 7. Layout management"><link rel="prev" href="layouts-bind-constraint.html" title="3. Binding the size of one actor to the size of another"><link rel="next" href="script.html" title="Chapter 8. Script"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Arranging actors in a single row or column</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="layouts-bind-constraint.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Layout management</th><td width="20%" align="right"> <a accesskey="n" href="script.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layouts-box"></a>4. Arranging actors in a single row or column</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200506926400"></a>4.1. Problem</h3></div></div></div><p>You want to layout several actors in a single row
       or column.</p><p>Example use cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Creating an application menu.</p></li><li class="listitem"><p>Showing message subject lines as a list in an
-          email client.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505437184"></a>4.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterActor</span> with a
+          email client.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200506922464"></a>4.2. Solution</h3></div></div></div><p>Create a <span class="type">ClutterActor</span> with a
       <span class="type">ClutterBoxLayout</span> as its layout manager.</p><p>A <span class="type">ClutterBoxLayout</span> can hold a single row or
       column of <span class="type">ClutterActors</span>, and has configurable spacing,
       actor alignments, and expand and fill options.</p><p>The code fragment below is excerpted from the
@@ -69,7 +69,7 @@ clutter_layout_manager_child_set (box_layout,
                                   NULL);
 
 /* put the box on the stage */
-clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:</p><div class="screenshot"><div class="mediaobject"><img src="images/layouts-box.png" alt="A simple vertical ClutterBoxLayout"></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505424368"></a>4.3. Discussion</h3></div></div></div><p><span class="type">ClutterBoxLayout</span> is not a reflowing layout:
+clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:</p><div class="screenshot"><div class="mediaobject"><img src="images/layouts-box.png" alt="A simple vertical ClutterBoxLayout"></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200506909648"></a>4.3. Discussion</h3></div></div></div><p><span class="type">ClutterBoxLayout</span> is not a reflowing layout:
       that is, if the layout's container changes size, the actors inside
       aren't automatically repositioned to occupy or find new positions
       in its available area. If you want that behaviour, use
@@ -78,7 +78,7 @@ clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:<
       the container inside a scrollable area. Then the container's actors
       can be scrolled to if they go out of sight.
       <a class="link" href="events-mouse-scroll.html" title="3. Detecting mouse scrolling on an actor">This recipe</a> explains
-      how to make a container scrollable.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm47790505420848"></a>4.3.1. Layout properties</h4></div></div></div><p><span class="type">ClutterBoxLayout</span> is very flexible, with
+      how to make a container scrollable.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="idm140200506906128"></a>4.3.1. Layout properties</h4></div></div></div><p><span class="type">ClutterBoxLayout</span> is very flexible, with
         several properties which influence the appearance of the
         layout and its children. As with other layouts, these properties
         are either applicable to the layout itself, or to individual
@@ -96,7 +96,7 @@ clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:<
           of the layout when those properties are changed. If you want
           to see the effect of setting these to different values for
           <span class="emphasis"><em>each</em></span> child, you will have to experiment
-          yourself.</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm47790505414336"></a>4.3.1.1. <span class="type">ClutterBoxLayout</span> properties</h5></div></div></div><p><span class="type">ClutterBoxLayout</span> has the following properties
+          yourself.</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm140200506899616"></a>4.3.1.1. <span class="type">ClutterBoxLayout</span> properties</h5></div></div></div><p><span class="type">ClutterBoxLayout</span> has the following properties
           which affect the appearance of all children inside the container.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Animation properties are covered separately
             <a class="link" href="layouts-box.html#layouts-box-animating-layout-changes" title="4.3.2. Animating layout changes">later</a>.
             </p></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><b><code class="varname">vertical</code>; set with
@@ -119,7 +119,7 @@ clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:<
                   <code class="constant">FALSE</code>, meaning that actors are
                   appended to the row or column when added.</p><p>Changing this property on a layout which already has
                 actors in it will reverse the order of those actors, as
-                well as changing how new actors are added to the layout.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm47790505393712"></a>4.3.1.2. Child properties</h5></div></div></div><p>These properties apply to individual children within
+                well as changing how new actors are added to the layout.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="idm140200506879232"></a>4.3.1.2. Child properties</h5></div></div></div><p>These properties apply to individual children within
             the layout's container. Each child can have different values
             for each of these properties.</p><p>To set properties, you can use
             <code class="function">clutter_box_layout_pack()</code> or
@@ -178,7 +178,7 @@ clutter_actor_add_child (stage, box);</pre></div><p>The result looks like this:<
         introduction</a> for more about easing and duration
         properties).</p><p>The <a class="link" href="layouts-box.html#layouts-box-example-3" title="Example 7.8. A demonstrator for &quot;toggling and tweaking&quot; a ClutterBoxLayout's properties">"toggle and tweak"
         example</a> uses animation for layout changes, and can give
-        you some idea of what to expect in your own animated layouts.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm47790505364560"></a>4.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-box-example-1"></a><p class="title"><b>Example 7.6. Different approaches to setting child layout properties
+        you some idea of what to expect in your own animated layouts.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="idm140200506850080"></a>4.4. Full examples</h3></div></div></div><div class="example"><a name="layouts-box-example-1"></a><p class="title"><b>Example 7.6. Different approaches to setting child layout properties
         in a <span class="type">ClutterBoxLayout</span></b></p><div class="example-contents"><pre class="programlisting">#include &lt;stdlib.h&gt;
 #include &lt;clutter/clutter.h&gt;
 

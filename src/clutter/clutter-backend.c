@@ -252,9 +252,6 @@ clutter_backend_do_real_create_context (ClutterBackend  *backend,
   CoglSwapChain *swap_chain;
   GError *internal_error;
 
-  if (backend->cogl_context != NULL)
-    return TRUE;
-
   klass = CLUTTER_BACKEND_GET_CLASS (backend);
 
   swap_chain = NULL;
@@ -382,6 +379,9 @@ clutter_backend_real_create_context (ClutterBackend  *backend,
   char **known_drivers;
   gboolean allow_any;
   int i;
+
+  if (backend->cogl_context != NULL)
+    return TRUE;
 
   if (allowed_drivers == NULL)
     allowed_drivers = CLUTTER_DRIVERS;
@@ -545,11 +545,11 @@ static const struct {
 #ifdef CLUTTER_WINDOWING_GDK
   { CLUTTER_WINDOWING_GDK, clutter_backend_gdk_new },
 #endif
-#ifdef CLUTTER_WINDOWING_X11
-  { CLUTTER_WINDOWING_X11, clutter_backend_x11_new },
-#endif
 #ifdef CLUTTER_WINDOWING_WAYLAND
   { CLUTTER_WINDOWING_WAYLAND, clutter_backend_wayland_new },
+#endif
+#ifdef CLUTTER_WINDOWING_X11
+  { CLUTTER_WINDOWING_X11, clutter_backend_x11_new },
 #endif
 #ifdef CLUTTER_WINDOWING_EGL
   { CLUTTER_WINDOWING_EGL, clutter_backend_egl_native_new },
