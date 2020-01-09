@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClutterTapAction</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Clutter Reference Manual">
+<link rel="up" href="ch04.html" title="Actions">
+<link rel="prev" href="ClutterZoomAction.html" title="ClutterZoomAction">
+<link rel="next" href="ch05.html" title="Constraints">
+<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ClutterZoomAction.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Clutter Reference Manual</th>
+<td><a accesskey="n" href="ch05.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ClutterTapAction.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ClutterTapAction.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ClutterTapAction.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ClutterTapAction.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ClutterTapAction"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ClutterTapAction.top_of_page"></a>ClutterTapAction</span></h2>
+<p>ClutterTapAction — Action for tap gestures</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ClutterTapAction.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="ClutterTapAction.html#ClutterTapAction-struct" title="struct ClutterTapAction">ClutterTapAction</a>;
+struct              <a class="link" href="ClutterTapAction.html#ClutterTapActionClass" title="struct ClutterTapActionClass">ClutterTapActionClass</a>;
+<a class="link" href="ClutterAction.html" title="ClutterAction"><span class="returnvalue">ClutterAction</span></a> *     <a class="link" href="ClutterTapAction.html#clutter-tap-action-new" title="clutter_tap_action_new ()">clutter_tap_action_new</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ClutterTapAction.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----<a class="link" href="ClutterActorMeta.html" title="ClutterActorMeta">ClutterActorMeta</a>
+               +----<a class="link" href="ClutterAction.html" title="ClutterAction">ClutterAction</a>
+                     +----<a class="link" href="ClutterGestureAction.html" title="ClutterGestureAction">ClutterGestureAction</a>
+                           +----ClutterTapAction
+</pre>
+</div>
+<div class="refsect1">
+<a name="ClutterTapAction.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ClutterTapAction.html#ClutterTapAction-tap" title='The "tap" signal'>tap</a>"                                            : <code class="literal">Run Last</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="ClutterTapAction.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a> is a sub-class of <a class="link" href="ClutterGestureAction.html" title="ClutterGestureAction"><span class="type">ClutterGestureAction</span></a> that implements
+the logic for recognizing mouse clicks and touch tap gestures.
+</p>
+<p>
+The simplest usage of <a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a> consists in adding it to
+a <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>, setting it as reactive and connecting a
+callback for the <a class="link" href="ClutterTapAction.html#ClutterTapAction-tap" title='The "tap" signal'><span class="type">"tap"</span></a> signal, along the lines of the
+following code:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="ClutterActor.html#clutter-actor-add-action">clutter_actor_add_action</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="ClutterTapAction.html#clutter-tap-action-new">clutter_tap_action_new</a></span><span class="normal"> </span><span class="symbol">());</span>
+<span class="function"><a href="ClutterActor.html#clutter-actor-set-reactive">clutter_actor_set_reactive</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">actor</span><span class="symbol">,</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="function">g_signal_connect</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">action</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"tap"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">G_CALLBACK</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">on_tap_callback</span><span class="symbol">),</span><span class="normal"> NULL</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ClutterTapAction.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ClutterTapAction-struct"></a><h3>struct ClutterTapAction</h3>
+<pre class="programlisting">struct ClutterTapAction;</pre>
+<p>
+The <span class="structname">ClutterTapAction</span> structure contains
+only private data and should be accessed using the provided API
+</p>
+<p class="since">Since 1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ClutterTapActionClass"></a><h3>struct ClutterTapActionClass</h3>
+<pre class="programlisting">struct ClutterTapActionClass {
+  gboolean (* tap)               (ClutterTapAction    *action,
+                                  ClutterActor        *actor);
+};
+</pre>
+<p>
+The <span class="structname">ClutterTapActionClass</span> structure contains
+only private data.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="structfield"><code><a name="ClutterTapActionClass.tap"></a>tap</code></em> ()</span></p></td>
+<td>class handler for the <a class="link" href="ClutterTapAction.html#ClutterTapAction-tap" title='The "tap" signal'><span class="type">"tap"</span></a> signal</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="clutter-tap-action-new"></a><h3>clutter_tap_action_new ()</h3>
+<pre class="programlisting"><a class="link" href="ClutterAction.html" title="ClutterAction"><span class="returnvalue">ClutterAction</span></a> *     clutter_tap_action_new              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a> instance
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the newly created <a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.14</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ClutterTapAction.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="ClutterTapAction-tap"></a><h3>The <code class="literal">"tap"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a> *action,
+                                                        <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a>     *actor,
+                                                        <span class="type">gpointer</span>          user_data)      : <code class="literal">Run Last</code></pre>
+<p>
+The ::tap signal is emitted when the tap gesture is complete.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>action</code></em> :</span></p></td>
+<td>the <a class="link" href="ClutterTapAction.html" title="ClutterTapAction"><span class="type">ClutterTapAction</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td>the <a class="link" href="ClutterActor.html" title="ClutterActor"><span class="type">ClutterActor</span></a> attached to the <em class="parameter"><code>action</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.14</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18.1</div>
+</body>
+</html>

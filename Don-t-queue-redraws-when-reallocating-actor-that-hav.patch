@@ -1,0 +1,59 @@
+From 2e85269368a815435f107f1b7dfbc15c7e806fa6 Mon Sep 17 00:00:00 2001
+From: "Owen W. Taylor" <otaylor@fishsoup.net>
+Date: Tue, 26 Nov 2013 11:04:27 -0500
+Subject: [PATCH] Don't queue redraws when reallocating actor that haven't
+ moved
+
+When support for implicit animation of actor position was added,
+the optimization for not queueing when allocating an actor back
+to the same location was lost. This optimization is important
+since when we are hierarchically allocating down from the top of
+the stage we constantly reallocate the actors at the top of the
+hierarchy back to the same place.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=719368
+---
+ clutter/clutter-actor.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/clutter/clutter-actor.c b/clutter/clutter-actor.c
+index 4504ac6..b371183 100644
+--- a/clutter/clutter-actor.c
++++ b/clutter/clutter-actor.c
+@@ -9738,7 +9738,9 @@ clutter_actor_allocate_internal (ClutterActor           *self,
+ 
+   CLUTTER_UNSET_PRIVATE_FLAGS (self, CLUTTER_IN_RELAYOUT);
+ 
+-  clutter_actor_queue_redraw (self);
++  /* Caller should call clutter_actor_queue_redraw() if needed
++   * for that particular case.
++   */
+ }
+ 
+ /**
+@@ -9847,6 +9849,14 @@ clutter_actor_allocate (ClutterActor           *self,
+       return;
+     }
+ 
++  if (!stage_allocation_changed)
++    {
++      /* If the actor didn't move but needs_allocation is set, we just
++       * need to allocate the children */
++      clutter_actor_allocate_internal (self, &real_allocation, flags);
++      return;
++    }
++
+   /* When ABSOLUTE_ORIGIN_CHANGED is passed in to
+    * clutter_actor_allocate(), it indicates whether the parent has its
+    * absolute origin moved; when passed in to ClutterActor::allocate()
+@@ -14718,6 +14728,7 @@ clutter_actor_set_animatable_property (ClutterActor *actor,
+       clutter_actor_allocate_internal (actor,
+                                        g_value_get_boxed (value),
+                                        actor->priv->allocation_flags);
++      clutter_actor_queue_redraw (actor);
+       break;
+ 
+     case PROP_DEPTH:
+-- 
+1.8.5.3
+

@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<book xmlns="http://www.devhelp.net/book" title="The Clutter Cookbook" link="index.html" author="Emmanuele BassiElliot Smith" name="clutter-cookbook">
+  <chapters>
+    <sub name="Preface" link="introduction.html">
+      <sub name="About Clutter" link="introduction.html#idm239788885488"/>
+      <sub name="About this document" link="ch01s02.html">
+        <sub name="Compiling the examples" link="ch01s02.html#idm239790955136"/>
+      </sub>
+      <sub name="Acknowledgments" link="ch01s03.html">
+        <sub name="Acknowledgments from Emmanuele" link="ch01s03.html#idm239790947680"/>
+        <sub name="Acknowledgements from Elliot" link="ch01s03.html#idm239790945936"/>
+      </sub>
+      <sub name="Where to get Clutter" link="ch01s04.html"/>
+    </sub>
+    <sub name="Actors" link="actors.html">
+      <sub name="Introduction" link="actors.html#actors-introduction"/>
+      <sub name="Implementing a simple custom actor" link="actors-composite.html">
+        <sub name="Problem" link="actors-composite.html#actors-composite-problem"/>
+        <sub name="Solution" link="actors-composite.html#actors-composite-solution"/>
+        <sub name="Discussion" link="actors-composite.html#actors-composite-discussion">
+          <sub name="Implementing ClutterActor virtual functions" link="actors-composite.html#actors-composite-discussion-clutter-virtual-functions"/>
+        </sub>
+      </sub>
+      <sub name="Knowing when an actor's position or size changes" link="actors-allocation-notify.html">
+        <sub name="Problem" link="actors-allocation-notify.html#idm239790216896"/>
+        <sub name="Solution" link="actors-allocation-notify.html#idm239790215408"/>
+        <sub name="Discussion" link="actors-allocation-notify.html#idm239790206160"/>
+      </sub>
+      <sub name="Overriding the paint sequence" link="actors-paint-wrappers.html">
+        <sub name="Problem" link="actors-paint-wrappers.html#idm239790193520"/>
+        <sub name="Solution" link="actors-paint-wrappers.html#idm239790192208"/>
+        <sub name="Discussion" link="actors-paint-wrappers.html#idm239790184544"/>
+      </sub>
+      <sub name="Making an actor transparent by changing its opacity" link="actors-opacity.html">
+        <sub name="Problem" link="actors-opacity.html#idm239790176304"/>
+        <sub name="Solution" link="actors-opacity.html#idm239790174992"/>
+        <sub name="Discussion" link="actors-opacity.html#idm239790171136">
+          <sub name="Container and color opacity" link="actors-opacity.html#idm239790157392"/>
+          <sub name="Depth and depth order" link="actors-opacity.html#idm239790139360"/>
+        </sub>
+      </sub>
+      <sub name="Creating an actor with a non-rectangular shape" link="actors-non-rectangular.html">
+        <sub name="Problem" link="actors-non-rectangular.html#idm239790123904"/>
+        <sub name="Solution" link="actors-non-rectangular.html#idm239790122032"/>
+        <sub name="Discussion" link="actors-non-rectangular.html#idm239790113216">
+          <sub name="Cogl path coordinates" link="actors-non-rectangular.html#idm239790109872"/>
+          <sub name="Other Cogl primitives" link="actors-non-rectangular.html#idm239790096928"/>
+          <sub name="Using ClutterPath to store the path" link="actors-non-rectangular.html#idm239790083488"/>
+        </sub>
+      </sub>
+    </sub>
+    <sub name="Events" link="events.html">
+      <sub name="Introduction" link="events.html#events-introduction"/>
+      <sub name="Handling key events" link="events-handling-key-events.html">
+        <sub name="Problem" link="events-handling-key-events.html#idm239787210272"/>
+        <sub name="Solutions" link="events-handling-key-events.html#idm239787208960">
+          <sub name="Solution 1" link="events-handling-key-events.html#idm239788392752"/>
+          <sub name="Solution 2" link="events-handling-key-events.html#idm239789079664"/>
+        </sub>
+        <sub name="Discussion" link="events-handling-key-events.html#events-handling-key-events-discussion">
+          <sub name="Pros and cons of Solution 1 and Solution 2" link="events-handling-key-events.html#idm239789491232"/>
+          <sub name="Other useful things to know about key press events" link="events-handling-key-events.html#idm239787177008"/>
+        </sub>
+      </sub>
+      <sub name="Detecting mouse scrolling on an actor" link="events-mouse-scroll.html">
+        <sub name="Problem" link="events-mouse-scroll.html#idm239787167184"/>
+        <sub name="Solution" link="events-mouse-scroll.html#idm239787165712"/>
+        <sub name="Discussion" link="events-mouse-scroll.html#idm239787157840">
+          <sub name="Creating a scrolling viewport for an actor" link="events-mouse-scroll.html#idm239787156448"/>
+        </sub>
+        <sub name="Full example" link="events-mouse-scroll.html#idm239787117376"/>
+      </sub>
+      <sub name="Detecting pointer movements on an actor" link="events-pointer-motion.html">
+        <sub name="Problem" link="events-pointer-motion.html#events-pointer-motion-problem"/>
+        <sub name="Solution" link="events-pointer-motion.html#events-pointer-motion-solution">
+          <sub name="Responding to crossing events" link="events-pointer-motion.html#idm239787102128"/>
+          <sub name="Responding to motion events" link="events-pointer-motion.html#idm239787090768"/>
+        </sub>
+        <sub name="Discussion" link="events-pointer-motion.html#events-pointer-motion-discussion">
+          <sub name="Pointer events on actors at different depths" link="events-pointer-motion.html#idm239787071568"/>
+        </sub>
+        <sub name="Full examples" link="events-pointer-motion.html#idm239787056944"/>
+      </sub>
+      <sub name="Making an actor respond to button events" link="events-buttons.html">
+        <sub name="Problem" link="events-buttons.html#idm239787028672"/>
+        <sub name="Solution" link="events-buttons.html#idm239787023392"/>
+        <sub name="Discussion" link="events-buttons.html#idm239787006400">
+          <sub name="Click count" link="events-buttons.html#idm239787000736"/>
+          <sub name="Button numbering" link="events-buttons.html#idm239786989696"/>
+          <sub name="ClutterClickAction" link="events-buttons.html#events-buttons-clutterclickaction"/>
+        </sub>
+        <sub name="Full examples" link="events-buttons.html#idm239785566592"/>
+      </sub>
+    </sub>
+    <sub name="Textures" link="textures.html">
+      <sub name="Introduction" link="textures.html#textures-introduction"/>
+      <sub name="Drawing 2D graphics onto a texture" link="textures-drawing-with-cairo.html">
+        <sub name="Problem" link="textures-drawing-with-cairo.html#idm239786187904"/>
+        <sub name="Solution" link="textures-drawing-with-cairo.html#idm239789316368"/>
+        <sub name="Discussion" link="textures-drawing-with-cairo.html#idm239786160288">
+          <sub name="Drawing pages from a PDF onto a ClutterCairoContext" link="textures-drawing-with-cairo.html#idm239787889088"/>
+        </sub>
+      </sub>
+      <sub name="Maintaining the aspect ratio when loading an&#10;    image into a texture" link="textures-aspect-ratio.html">
+        <sub name="Problem" link="textures-aspect-ratio.html#idm239785610416"/>
+        <sub name="Solution" link="textures-aspect-ratio.html#idm239785608976"/>
+        <sub name="Discussion" link="textures-aspect-ratio.html#idm239785604656"/>
+      </sub>
+      <sub name="Loading image data into a texture" link="textures-image-loading.html">
+        <sub name="Problem" link="textures-image-loading.html#idm239790555808"/>
+        <sub name="Solution" link="textures-image-loading.html#idm239790554496"/>
+        <sub name="Discussion" link="textures-image-loading.html#idm239785520816">
+          <sub name="Synchronous vs. asynchronous image loading" link="textures-image-loading.html#idm239785514800"/>
+          <sub name="Other ways to load image data into a texture" link="textures-image-loading.html#idm239785505328"/>
+        </sub>
+      </sub>
+      <sub name="Creating sub-textures from an existing texture" link="textures-sub-textures.html">
+        <sub name="Problem" link="textures-sub-textures.html#idm239785496608"/>
+        <sub name="Solution" link="textures-sub-textures.html#idm239785494832"/>
+        <sub name="Discussion" link="textures-sub-textures.html#idm239785485984"/>
+        <sub name="Full example" link="textures-sub-textures.html#idm239785479888"/>
+        <sub name="Going further" link="textures-sub-textures.html#idm239785473936"/>
+      </sub>
+      <sub name="Creating a reflection of a texture" link="textures-reflection.html">
+        <sub name="Problem" link="textures-reflection.html#idm239785458896"/>
+        <sub name="Solution" link="textures-reflection.html#idm239785456992"/>
+        <sub name="Discussion" link="textures-reflection.html#idm239785449024"/>
+        <sub name="Full example" link="textures-reflection.html#idm239785433872"/>
+      </sub>
+      <sub name="Cross-fading between two images" link="textures-crossfade.html">
+        <sub name="Problem" link="textures-crossfade.html#idm239785425056"/>
+        <sub name="Solutions" link="textures-crossfade.html#idm239785423040">
+          <sub name="Solution 1: two textures" link="textures-crossfade.html#idm239785418144"/>
+          <sub name="Solution 2: one texture with two layers" link="textures-crossfade.html#idm239785385120">
+            <sub name="Cross-fading using a texture combiner with interpolation" link="textures-crossfade.html#idm239785379776"/>
+          </sub>
+        </sub>
+        <sub name="Discussion" link="textures-crossfade.html#textures-crossfade-discussion">
+          <sub name="Cross-fades between images of different sizes" link="textures-crossfade.html#idm239785366272"/>
+          <sub name="Slideshows" link="textures-crossfade.html#textures-crossfade-discussion-slideshows"/>
+        </sub>
+        <sub name="Full examples" link="textures-crossfade.html#idm239785330752"/>
+      </sub>
+    </sub>
+    <sub name="Animations" link="animations.html">
+      <sub name="Introduction" link="animations.html#animations-introduction">
+        <sub name="High level overview" link="animations.html#idm239790440448"/>
+        <sub name="Alphas" link="animations.html#animations-introduction-alphas"/>
+        <sub name="Clutter's animation API" link="animations.html#animations-introduction-api"/>
+      </sub>
+      <sub name="Inverting Animations" link="animations-inversion.html">
+        <sub name="Problem" link="animations-inversion.html#idm239787677984"/>
+        <sub name="Solution" link="animations-inversion.html#idm239787676672"/>
+        <sub name="Discussion" link="animations-inversion.html#idm239785215840"/>
+      </sub>
+      <sub name="Fading an actor out of or into view" link="animations-fading.html">
+        <sub name="Problem" link="animations-fading.html#idm239785207184"/>
+        <sub name="Solution" link="animations-fading.html#idm239785205872"/>
+        <sub name="Discussion" link="animations-fading.html#idm239785188688"/>
+      </sub>
+      <sub name="Rotating an actor" link="animations-rotating.html">
+        <sub name="Problem" link="animations-rotating.html#idm239785185232"/>
+        <sub name="Solution" link="animations-rotating.html#idm239785180656"/>
+        <sub name="Discussion" link="animations-rotating.html#idm239785153472">
+          <sub name="Setting the rotation center for an animation" link="animations-rotating.html#idm239785151952">
+            <sub name="Setting a rotation center inside an actor" link="animations-rotating.html#idm239785149568"/>
+            <sub name="Setting the rotation center outside an actor" link="animations-rotating.html#idm239785133856"/>
+          </sub>
+          <sub name="Direction of rotation" link="animations-rotating.html#animations-rotating-discussion-direction"/>
+          <sub name="Apparent vs. actual rotation" link="animations-rotating.html#idm239785099440"/>
+          <sub name="Orientation of rotation axes" link="animations-rotating.html#idm239785095632"/>
+        </sub>
+        <sub name="Full example" link="animations-rotating.html#idm239785092368"/>
+      </sub>
+      <sub name="Creating complex animations with&#10;    ClutterAnimator" link="animations-complex.html">
+        <sub name="Problem" link="animations-complex.html#idm239785081920"/>
+        <sub name="Solution" link="animations-complex.html#idm239785079792"/>
+        <sub name="Discussion" link="animations-complex.html#animations-complex-discussion">
+          <sub name="Understanding keys and key frames" link="animations-complex.html#animations-complex-discussion-keys"/>
+          <sub name="Why ClutterAnimator?" link="animations-complex.html#animations-complex-why-clutteranimator"/>
+        </sub>
+        <sub name="Full example" link="animations-complex.html#idm239784539744"/>
+      </sub>
+      <sub name="Reusing a complex animation on different actors" link="animations-reuse.html">
+        <sub name="Problem" link="animations-reuse.html#animations-reuse-problem"/>
+        <sub name="Solution" link="animations-reuse.html#animations-reuse-solution"/>
+        <sub name="Discussion" link="animations-reuse.html#animations-reuse-discussion">
+          <sub name="One animation vs. many" link="animations-reuse.html#animations-reuse-discussion-one-or-many"/>
+          <sub name="Caveats about animating a rig instead of an actor" link="animations-reuse.html#animations-reuse-discussion-rig-not-actor"/>
+        </sub>
+        <sub name="Full example" link="animations-reuse.html#animations-reuse-examples"/>
+      </sub>
+      <sub name="Moving actors" link="animations-moving.html">
+        <sub name="Problem" link="animations-moving.html#idm239784455744"/>
+        <sub name="Solutions" link="animations-moving.html#idm239784451376">
+          <sub name="Solution 1: Implicit animations" link="animations-moving.html#idm239784448320"/>
+          <sub name="Solution 2: ClutterState" link="animations-moving.html#idm239784443184"/>
+          <sub name="Solution 3: ClutterAnimator" link="animations-moving.html#idm239784437312"/>
+        </sub>
+        <sub name="Discussion" link="animations-moving.html#idm239784429712">
+          <sub name="Movement can take an actor &quot;outside&quot; its container" link="animations-moving.html#idm239784429072"/>
+          <sub name="Anchor points can affect movement" link="animations-moving.html#idm239784426128"/>
+          <sub name="Actors can move in the z axis" link="animations-moving.html#idm239784404608"/>
+          <sub name="Movement is affected by constraints" link="animations-moving.html#idm239784393808"/>
+        </sub>
+        <sub name="Full examples" link="animations-moving.html#animations-moving-examples"/>
+      </sub>
+      <sub name="Looping an animation" link="animations-looping.html">
+        <sub name="Problem" link="animations-looping.html#idm239784349488"/>
+        <sub name="Solutions" link="animations-looping.html#idm239784348256">
+          <sub name="Solution 1: looping an implicit animation" link="animations-looping.html#animations-looping-solutions-implicit"/>
+          <sub name="Solution 2: looping with ClutterAnimator" link="animations-looping.html#idm239784333120"/>
+          <sub name="Solution 3: looping with ClutterState" link="animations-looping.html#idm239784321168"/>
+        </sub>
+        <sub name="Discussion" link="animations-looping.html#idm239784302784">
+          <sub name="Looping a fixed number of times" link="animations-looping.html#idm239784296720"/>
+          <sub name="Creating a &quot;closed loop&quot; with an implicit animation" link="animations-looping.html#animations-looping-discussion-closed-loop"/>
+        </sub>
+        <sub name="Full examples" link="animations-looping.html#animations-looping-examples"/>
+      </sub>
+      <sub name="Animated scaling" link="animations-scaling.html">
+        <sub name="Problem" link="animations-scaling.html#idm239784260896"/>
+        <sub name="Solution" link="animations-scaling.html#idm239784257488"/>
+        <sub name="Discussion" link="animations-scaling.html#idm239784250704">
+          <sub name="Scaling vs. resizing" link="animations-scaling.html#idm239784240256"/>
+          <sub name="Scaling, layouts and containers" link="animations-scaling.html#idm239784230512"/>
+          <sub name="Setting the scale center" link="animations-scaling.html#idm239784227152"/>
+        </sub>
+        <sub name="Full examples" link="animations-scaling.html#animations-scaling-examples"/>
+      </sub>
+      <sub name="Animating an actor along a curved path" link="animations-path.html">
+        <sub name="Problem" link="animations-path.html#idm239784190064"/>
+        <sub name="Solution" link="animations-path.html#idm239784188784"/>
+        <sub name="Discussion" link="animations-path.html#idm239784173616">
+          <sub name="Other ways to animate along a path" link="animations-path.html#idm239784159344"/>
+        </sub>
+        <sub name="Full examples" link="animations-path.html#animations-path-examples"/>
+      </sub>
+    </sub>
+    <sub name="Text" link="text.html">
+      <sub name="Introduction" link="text.html#text-introduction"/>
+      <sub name="Drawing a shadow under the text" link="text-shadow.html">
+        <sub name="Problem" link="text-shadow.html#idm239790961840"/>
+        <sub name="Solution" link="text-shadow.html#idm239785654528"/>
+        <sub name="Discussion" link="text-shadow.html#idm239787287952"/>
+        <sub name="Full example" link="text-shadow.html#idm239788403792"/>
+      </sub>
+    </sub>
+    <sub name="Layout management" link="layouts.html">
+      <sub name="Introduction" link="layouts.html#layouts-introduction">
+        <sub name="Using layouts" link="layouts.html#idm239789009264"/>
+        <sub name="Types of layout manager" link="layouts.html#layouts-introduction-manager-types"/>
+        <sub name="Layout properties" link="layouts.html#layouts-introduction-layout-properties">
+          <sub name="Setting layout properties" link="layouts.html#idm239789783728"/>
+        </sub>
+        <sub name="Not using layout managers" link="layouts.html#layouts-introduction-not-using-layout-managers">
+          <sub name="Manual positioning and alignment" link="layouts.html#idm239785268224"/>
+          <sub name="Using ClutterConstraint" link="layouts.html#idm239785265104"/>
+        </sub>
+      </sub>
+      <sub name="Stacking actors on top of each other" link="layouts-stacking.html">
+        <sub name="Problem" link="layouts-stacking.html#idm239785256256"/>
+        <sub name="Solution" link="layouts-stacking.html#layouts-stacking-solution"/>
+        <sub name="Discussion" link="layouts-stacking.html#idm239785249168">
+          <sub name="Setting and changing alignment" link="layouts-stacking.html#idm239785247568"/>
+          <sub name="Size requisitioning" link="layouts-stacking.html#layouts-stacking-size-requisitioning"/>
+          <sub name="Depth ordering" link="layouts-stacking.html#idm239785229792"/>
+          <sub name="Other ways to stack actors" link="layouts-stacking.html#idm239785225840"/>
+        </sub>
+        <sub name="Full examples" link="layouts-stacking.html#idm239789176992"/>
+      </sub>
+      <sub name="Binding the size of one actor to the size of another" link="layouts-bind-constraint.html">
+        <sub name="Problem" link="layouts-bind-constraint.html#idm239789163152"/>
+        <sub name="Solution" link="layouts-bind-constraint.html#idm239789158912"/>
+        <sub name="Discussion" link="layouts-bind-constraint.html#idm239789141504">
+          <sub name="Another way to bind actors' sizes together" link="layouts-bind-constraint.html#idm239789129104"/>
+        </sub>
+        <sub name="Full examples" link="layouts-bind-constraint.html#idm239789122336"/>
+      </sub>
+      <sub name="Arranging actors in a single row or column" link="layouts-box.html">
+        <sub name="Problem" link="layouts-box.html#idm239789106656"/>
+        <sub name="Solution" link="layouts-box.html#idm239789102720"/>
+        <sub name="Discussion" link="layouts-box.html#idm239789089904">
+          <sub name="Layout properties" link="layouts-box.html#idm239789086384">
+            <sub name="ClutterBoxLayout properties" link="layouts-box.html#idm239784893424"/>
+            <sub name="Child properties" link="layouts-box.html#idm239784873136"/>
+          </sub>
+          <sub name="Animating layout changes" link="layouts-box.html#layouts-box-animating-layout-changes"/>
+        </sub>
+        <sub name="Full examples" link="layouts-box.html#idm239784844144"/>
+      </sub>
+    </sub>
+    <sub name="Script" link="script.html">
+      <sub name="Introduction" link="script.html#script-introduction">
+        <sub name="Basic principles of ClutterScript" link="script.html#idm239790706016"/>
+        <sub name="Data types" link="script.html#script-introduction-data-types"/>
+      </sub>
+      <sub name="Defining a user interface with JSON" link="script-ui.html">
+        <sub name="Problem" link="script-ui.html#idm239784111600"/>
+        <sub name="Solution" link="script-ui.html#idm239784107872"/>
+        <sub name="Discussion" link="script-ui.html#idm239784090720"/>
+      </sub>
+      <sub name="Connecting to signals in ClutterScript" link="script-signals.html">
+        <sub name="Problem" link="script-signals.html#idm239784087312"/>
+        <sub name="Solution" link="script-signals.html#idm239784086048"/>
+        <sub name="Discussion" link="script-signals.html#script-signals-discussion">
+          <sub name="Options for connecting signals to handlers" link="script-signals.html#idm239784070608"/>
+          <sub name="Writing handler functions" link="script-signals.html#script-signals-discussion-writing-handlers"/>
+          <sub name="Passing objects to handler functions" link="script-signals.html#idm239784055472"/>
+        </sub>
+        <sub name="Full examples" link="script-signals.html#idm239784046912"/>
+      </sub>
+      <sub name="Connecting ClutterState states in ClutterScript" link="script-state.html">
+        <sub name="Problem" link="script-state.html#idm239784035264"/>
+        <sub name="Solution" link="script-state.html#idm239784033632"/>
+        <sub name="Discussion" link="script-state.html#idm239784026208"/>
+        <sub name="Full examples" link="script-state.html#idm239784012368"/>
+      </sub>
+    </sub>
+    <sub name="Effects" link="effects.html">
+      <sub name="Introduction" link="effects.html#effects-introduction">
+        <sub name="Creating effects using the abstract effect classes" link="effects.html#idm239789376816"/>
+        <sub name="Using the built-in effects" link="effects.html#effects-introduction-using-the-built-in-effects"/>
+      </sub>
+      <sub name="Changing an actor's paint sequence using&#10;    ClutterEffect" link="effects-basic.html">
+        <sub name="Problem" link="effects-basic.html#idm239784665760"/>
+        <sub name="Solution" link="effects-basic.html#idm239783781328"/>
+        <sub name="Discussion" link="effects-basic.html#idm239783748416">
+          <sub name="Effect properties" link="effects-basic.html#effects-basic-discussion-properties"/>
+        </sub>
+        <sub name="Full example" link="effects-basic.html#effects-basic-example">
+          <sub name="CbBackgroundEffect" link="effects-basic.html#effects-basic-example-cbbackgroundeffect"/>
+          <sub name="CbBorderEffect" link="effects-basic.html#effects-basic-example-cbbordereffect"/>
+          <sub name="Application" link="effects-basic.html#effects-basic-example-application"/>
+        </sub>
+      </sub>
+      <sub name="Creating and animating a custom ClutterDeformEffect" link="effects-custom-deform.html">
+        <sub name="Problem" link="effects-custom-deform.html#idm239783675184"/>
+        <sub name="Solution" link="effects-custom-deform.html#effects-custom-deform-solution"/>
+        <sub name="Discussion" link="effects-custom-deform.html#effects-custom-deform-discussion">
+          <sub name="Customising the back material" link="effects-custom-deform.html#idm239783632528"/>
+          <sub name="Animating a custom deform effect" link="effects-custom-deform.html#effects-custom-deform-discussion-animating"/>
+          <sub name="Tiles" link="effects-custom-deform.html#effects-custom-deform-discussion-tiles"/>
+        </sub>
+        <sub name="Full example" link="effects-custom-deform.html#idm239783597968"/>
+      </sub>
+    </sub>
+    <sub name="Contributing to this document" link="contributing.html"/>
+  </chapters>
+  <functions/>
+</book>

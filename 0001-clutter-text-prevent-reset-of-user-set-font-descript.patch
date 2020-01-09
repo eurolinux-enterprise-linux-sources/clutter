@@ -1,0 +1,66 @@
+From fa933b5ec52d5ade2ca8eddefbd2de35d941c385 Mon Sep 17 00:00:00 2001
+From: Lionel Landwerlin <llandwerlin@gmail.com>
+Date: Tue, 11 Jun 2013 14:01:30 +0100
+Subject: [PATCH] clutter-text: prevent reset of user set font descriptions on
+ dpi changes
+
+When setting the font using clutter_text_set_font_description(), the
+font settings on a ClutterText actor can be reset when there is a dpi
+changes signaled by the backend.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=702016
+---
+ clutter/clutter-text.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/clutter/clutter-text.c b/clutter/clutter-text.c
+index e0901cd..7b83ad6 100644
+--- a/clutter/clutter-text.c
++++ b/clutter/clutter-text.c
+@@ -568,10 +568,13 @@ clutter_text_dirty_cache (ClutterText *text)
+  */
+ static inline void
+ clutter_text_set_font_description_internal (ClutterText          *self,
+-                                            PangoFontDescription *desc)
++                                            PangoFontDescription *desc,
++                                            gboolean              is_default_font)
+ {
+   ClutterTextPrivate *priv = self->priv;
+ 
++  priv->is_default_font = is_default_font;
++
+   if (priv->font_desc == desc ||
+       pango_font_description_equal (priv->font_desc, desc))
+     return;
+@@ -619,7 +622,7 @@ clutter_text_settings_changed_cb (ClutterText *text)
+                     font_name);
+ 
+       font_desc = pango_font_description_from_string (font_name);
+-      clutter_text_set_font_description_internal (text, font_desc);
++      clutter_text_set_font_description_internal (text, font_desc, TRUE);
+ 
+       pango_font_description_free (font_desc);
+       g_free (font_name);
+@@ -4945,7 +4948,8 @@ clutter_text_set_font_description (ClutterText          *self,
+ {
+   g_return_if_fail (CLUTTER_IS_TEXT (self));
+ 
+-  clutter_text_set_font_description_internal (self, font_desc);
++  clutter_text_set_font_description_internal (self, font_desc,
++                                              font_desc == NULL);
+ }
+ 
+ /**
+@@ -5052,8 +5056,7 @@ clutter_text_set_font_name (ClutterText *self,
+     }
+ 
+   /* this will set the font_name field as well */
+-  clutter_text_set_font_description_internal (self, desc);
+-  priv->is_default_font = is_default_font;
++  clutter_text_set_font_description_internal (self, desc, is_default_font);
+ 
+   g_object_notify_by_pspec (G_OBJECT (self), obj_props[PROP_FONT_NAME]);
+ 
+-- 
+1.8.3.1
+

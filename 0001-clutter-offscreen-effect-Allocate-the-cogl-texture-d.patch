@@ -1,0 +1,45 @@
+From b416224d30ea5ace492f1497101a172a6fb32997 Mon Sep 17 00:00:00 2001
+From: Adel Gadllah <adel.gadllah@gmail.com>
+Date: Tue, 25 Jun 2013 15:04:19 +0200
+Subject: [PATCH] clutter-offscreen-effect: Allocate the cogl texture directly
+
+Cogl now lazy loads the textures so we cannot rely on getting NULL
+from cogl_texture_new_with_size so we have to allocate it by ourselves.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=975171
+---
+ clutter/clutter-offscreen-effect.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/clutter/clutter-offscreen-effect.c b/clutter/clutter-offscreen-effect.c
+index b655b5d..d3ffaea 100644
+--- a/clutter/clutter-offscreen-effect.c
++++ b/clutter/clutter-offscreen-effect.c
+@@ -139,9 +139,21 @@ clutter_offscreen_effect_real_create_texture (ClutterOffscreenEffect *effect,
+                                               gfloat                  width,
+                                               gfloat                  height)
+ {
+-  return cogl_texture_new_with_size (MAX (width, 1), MAX (height, 1),
+-                                     COGL_TEXTURE_NO_SLICING,
+-                                     COGL_PIXEL_FORMAT_RGBA_8888_PRE);
++  CoglError *error = NULL;
++  CoglHandle texture = cogl_texture_new_with_size (MAX (width, 1), MAX (height, 1),
++                                                   COGL_TEXTURE_NO_SLICING,
++                                                   COGL_PIXEL_FORMAT_RGBA_8888_PRE);
++
++  if (!cogl_texture_allocate (texture, &error))
++    {
++#if CLUTTER_ENABLE_DEBUG
++      g_warning ("Unable to allocate texture for offscreen effect: %s", error->message);
++#endif /* CLUTTER_ENABLE_DEBUG */
++      cogl_error_free (error);
++      return NULL;
++    }
++
++  return texture;
+ }
+ 
+ static gboolean
+-- 
+2.1.0
+
